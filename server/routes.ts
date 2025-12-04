@@ -12,6 +12,57 @@ import {
   checkWordPressConnection
 } from "./wordpress";
 
+// Get WordPress base URL (without /graphql path)
+function getWordPressBaseUrl(): string {
+  const wpApiUrl = process.env.WP_API_URL || '';
+  // Remove /graphql suffix to get base URL
+  return wpApiUrl.replace(/\/graphql\/?$/, '');
+}
+
+// Get frontend URL - from env var or auto-detect from request
+function getFrontendUrl(req: Request): string {
+  // Use explicit FRONTEND_URL if set
+  if (process.env.FRONTEND_URL) {
+    return process.env.FRONTEND_URL.replace(/\/$/, '');
+  }
+  
+  // Auto-detect from request
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || '';
+  return `${protocol}://${host}`;
+}
+
+// Fetch and transform XML/text from WordPress, replacing WP URLs with frontend URLs
+async function proxyWordPressFile(wpPath: string, frontendUrl: string): Promise<{ content: string; contentType: string } | null> {
+  const wpBaseUrl = getWordPressBaseUrl();
+  if (!wpBaseUrl) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${wpBaseUrl}${wpPath}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    let content = await response.text();
+    const contentType = response.headers.get('content-type') || 'text/plain';
+
+    // Replace WordPress URLs with frontend URLs
+    const wpDomain = new URL(wpBaseUrl).origin;
+    content = content.replace(new RegExp(escapeRegExp(wpDomain), 'g'), frontendUrl);
+
+    return { content, contentType };
+  } catch (error) {
+    console.error(`Error fetching ${wpPath} from WordPress:`, error);
+    return null;
+  }
+}
+
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Redirect middleware
 async function redirectMiddleware(req: Request, res: Response, next: NextFunction) {
   // Skip API routes
@@ -416,6 +467,172 @@ export async function registerRoutes(
         message: 'Failed to fetch global setting',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
+    }
+  });
+
+  // ============================================
+  // SEO File Proxies (sitemap, robots, llms.txt)
+  // ============================================
+
+  // Sitemap proxy - catches all sitemap XML files from Yoast
+  app.get('/sitemap*.xml', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    const result = await proxyWordPressFile(req.path, frontendUrl);
+    
+    if (!result) {
+      return res.status(404).type('text/plain').send('Sitemap not found');
+    }
+    
+    res.type('application/xml').send(result.content);
+  });
+
+  // Also handle sitemap_index.xml specifically (Yoast default)
+  app.get('/sitemap_index.xml', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    
+    // Try Yoast sitemap first, then WordPress native sitemap
+    let result = await proxyWordPressFile('/sitemap_index.xml', frontendUrl);
+    if (!result) {
+      result = await proxyWordPressFile('/wp-sitemap.xml', frontendUrl);
+    }
+    
+    if (!result) {
+      return res.status(404).type('text/plain').send('Sitemap index not found');
+    }
+    
+    res.type('application/xml').send(result.content);
+  });
+
+  // Handle WordPress native sitemap
+  app.get('/wp-sitemap.xml', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    const result = await proxyWordPressFile('/wp-sitemap.xml', frontendUrl);
+    
+    if (!result) {
+      return res.status(404).type('text/plain').send('WordPress sitemap not found');
+    }
+    
+    res.type('application/xml').send(result.content);
+  });
+
+  // Handle WordPress native sitemap sub-pages
+  app.get('/wp-sitemap-*.xml', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    const result = await proxyWordPressFile(req.path, frontendUrl);
+    
+    if (!result) {
+      return res.status(404).type('text/plain').send('Sitemap not found');
+    }
+    
+    res.type('application/xml').send(result.content);
+  });
+
+  // Robots.txt proxy from WordPress/Yoast
+  app.get('/robots.txt', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    const result = await proxyWordPressFile('/robots.txt', frontendUrl);
+    
+    if (!result) {
+      // Fallback: generate a basic robots.txt
+      const fallbackRobots = `User-agent: *
+Allow: /
+
+Sitemap: ${frontendUrl}/sitemap_index.xml
+`;
+      return res.type('text/plain').send(fallbackRobots);
+    }
+    
+    res.type('text/plain').send(result.content);
+  });
+
+  // llms.txt - AI crawler guidance file
+  // First tries to fetch from WordPress, then generates from synced content
+  app.get('/llms.txt', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    
+    // Try to fetch from WordPress first (if plugin generates it)
+    const wpResult = await proxyWordPressFile('/llms.txt', frontendUrl);
+    if (wpResult) {
+      return res.type('text/plain').send(wpResult.content);
+    }
+    
+    // Generate from synced content
+    try {
+      const posts = await storage.getAllPosts();
+      const pages = await storage.getAllPages();
+      
+      let content = `# ${frontendUrl.replace(/https?:\/\//, '')}
+
+> This site is powered by headless WordPress with a React frontend.
+
+## Pages
+
+`;
+      
+      for (const page of pages) {
+        const pageDesc = page.seoMetadata?.metaDesc || page.content?.replace(/<[^>]*>/g, '').slice(0, 150) || 'Page content';
+        content += `- [${page.title}](${frontendUrl}/${page.slug}): ${pageDesc}\n`;
+      }
+      
+      content += `
+## Blog Posts
+
+`;
+      
+      for (const post of posts) {
+        content += `- [${post.title}](${frontendUrl}/blog/${post.slug}): ${post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 150) || 'Blog post'}\n`;
+      }
+      
+      content += `
+## Optional
+
+- [Sitemap](${frontendUrl}/sitemap_index.xml)
+`;
+      
+      res.type('text/plain').send(content);
+    } catch (error) {
+      console.error('Error generating llms.txt:', error);
+      res.status(500).type('text/plain').send('Error generating llms.txt');
+    }
+  });
+
+  // llms-full.txt - Extended version with more content for AI training
+  app.get('/llms-full.txt', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    
+    try {
+      const posts = await storage.getAllPosts();
+      const pages = await storage.getAllPages();
+      
+      let content = `# ${frontendUrl.replace(/https?:\/\//, '')} - Full Content
+
+> Complete content index for AI systems.
+
+`;
+      
+      // Add pages with full content
+      content += `## Pages\n\n`;
+      for (const page of pages) {
+        const plainContent = page.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() || '';
+        content += `### ${page.title}\n`;
+        content += `URL: ${frontendUrl}/${page.slug}\n`;
+        content += `${plainContent.slice(0, 1000)}${plainContent.length > 1000 ? '...' : ''}\n\n`;
+      }
+      
+      // Add posts with full content
+      content += `## Blog Posts\n\n`;
+      for (const post of posts) {
+        const plainContent = post.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() || '';
+        content += `### ${post.title}\n`;
+        content += `URL: ${frontendUrl}/blog/${post.slug}\n`;
+        content += `Published: ${post.publishedAt || 'N/A'}\n`;
+        content += `${plainContent.slice(0, 1000)}${plainContent.length > 1000 ? '...' : ''}\n\n`;
+      }
+      
+      res.type('text/plain').send(content);
+    } catch (error) {
+      console.error('Error generating llms-full.txt:', error);
+      res.status(500).type('text/plain').send('Error generating llms-full.txt');
     }
   });
 
