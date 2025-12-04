@@ -210,6 +210,16 @@ The boilerplate includes a contact form that connects to Gravity Forms REST API 
 4. Create your form in **Forms > New Form**
 5. Note the **Form ID** (visible in the form editor URL or Forms list)
 
+### Important: REST API v2 Limitations
+
+**Email Confirmation:** If your email field has "Enable Email Confirmation" checked, you must **disable it** for REST API v2 compatibility. The confirmation feature has known issues with API submissions.
+
+**Complex Fields:** For fields with multiple inputs (like Name with First/Last), use underscores to separate the field ID from input ID:
+- Name field 1 with First (input 1.3) → `input_1_3`
+- Name field 1 with Last (input 1.6) → `input_1_6`
+- Simple email field 2 → `input_2`
+- Textarea field 3 → `input_3`
+
 ### Frontend Configuration
 
 The contact form is located at `/contact`. To configure:
@@ -222,17 +232,20 @@ The contact form is located at `/contact`. To configure:
 <ContactForm 
   formId={1}  // Your Gravity Forms ID
   fieldMapping={{
-    name: 'input_1',    // Field ID for Name
-    email: 'input_2',   // Field ID for Email  
-    subject: 'input_3', // Field ID for Subject (optional)
-    message: 'input_4', // Field ID for Message
+    firstName: 'input_1_3',   // Name field (First input)
+    lastName: 'input_1_6',    // Name field (Last input)
+    email: 'input_2',         // Email field (no confirmation)
+    message: 'input_3',       // Message/Comments textarea
   }}
 />
 ```
 
 ### Finding Field IDs
 
-In Gravity Forms editor, click on each field and look at the **Field ID** in the right panel. The input name format is `input_X` where X is the field ID.
+1. In Gravity Forms editor, click on each field
+2. Look at the **Field ID** in the right panel
+3. For complex fields (Name, Address), expand to see sub-input IDs
+4. The input name format is `input_X_Y` where X is field ID and Y is sub-input ID
 
 ### API Endpoints
 
@@ -243,9 +256,10 @@ In Gravity Forms editor, click on each field and look at the **Field ID** in the
 
 If form submissions fail:
 1. Verify the REST API is enabled in Gravity Forms settings
-2. Check the Form ID matches your form
-3. Verify field IDs match the Gravity Forms field structure
-4. Check server logs for detailed error messages
+2. **Disable email confirmation** on email fields (common cause of validation errors)
+3. Check the Form ID matches your form
+4. Verify field IDs use underscore format (`input_1_3`, not `input_1.3`)
+5. Check server logs for detailed error messages
 
 ## Frontend Routes
 - `/` - Home page with featured posts

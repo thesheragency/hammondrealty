@@ -19,6 +19,14 @@ interface GravityFormProps {
   onError?: (error: Error) => void;
 }
 
+interface GravityFormInput {
+  id: string;
+  label: string;
+  name?: string;
+  isHidden?: boolean;
+  placeholder?: string;
+}
+
 interface GravityFormField {
   id: string | number;
   type: string;
@@ -26,12 +34,13 @@ interface GravityFormField {
   isRequired: boolean;
   placeholder?: string;
   choices?: Array<{ text: string; value: string; isSelected?: boolean }>;
-  inputs?: Array<{ id: string; label: string; name?: string }>;
+  inputs?: GravityFormInput[];
   description?: string;
   maxLength?: number;
   defaultValue?: string;
   cssClass?: string;
   visibility?: string;
+  emailConfirmEnabled?: boolean;
 }
 
 interface GravityFormData {
@@ -160,7 +169,6 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
 
     switch (field.type) {
       case 'text':
-      case 'email':
       case 'phone':
       case 'website':
       case 'number':
@@ -172,11 +180,65 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             </Label>
             <Input
               id={inputKey}
-              type={field.type === 'email' ? 'email' : field.type === 'phone' ? 'tel' : field.type === 'website' ? 'url' : field.type === 'number' ? 'number' : 'text'}
+              type={field.type === 'phone' ? 'tel' : field.type === 'website' ? 'url' : field.type === 'number' ? 'number' : 'text'}
               placeholder={field.placeholder || ''}
               {...register(inputKey, { required: field.isRequired })}
               className={fieldError ? 'border-destructive' : ''}
               data-testid={`input-${field.type}-${field.id}`}
+            />
+            {field.description && (
+              <p className="text-sm text-muted-foreground">{field.description}</p>
+            )}
+            {fieldError && (
+              <p className="text-sm text-destructive">{fieldError}</p>
+            )}
+          </div>
+        );
+
+      case 'email':
+        if (field.emailConfirmEnabled && field.inputs && field.inputs.length >= 2) {
+          return (
+            <div key={field.id} className="space-y-4">
+              <Label>
+                {field.label}
+                {field.isRequired && <span className="text-destructive ml-1">*</span>}
+              </Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {field.inputs.map((input) => (
+                  <div key={input.id} className="space-y-1">
+                    <Input
+                      id={`input_${input.id}`}
+                      type="email"
+                      placeholder={input.placeholder || input.label}
+                      {...register(`input_${input.id}`, { required: field.isRequired })}
+                      data-testid={`input-email-${input.id}`}
+                    />
+                    <p className="text-xs text-muted-foreground">{input.label}</p>
+                  </div>
+                ))}
+              </div>
+              {field.description && (
+                <p className="text-sm text-muted-foreground">{field.description}</p>
+              )}
+              {fieldError && (
+                <p className="text-sm text-destructive">{fieldError}</p>
+              )}
+            </div>
+          );
+        }
+        return (
+          <div key={field.id} className="space-y-2">
+            <Label htmlFor={inputKey}>
+              {field.label}
+              {field.isRequired && <span className="text-destructive ml-1">*</span>}
+            </Label>
+            <Input
+              id={inputKey}
+              type="email"
+              placeholder={field.placeholder || ''}
+              {...register(inputKey, { required: field.isRequired })}
+              className={fieldError ? 'border-destructive' : ''}
+              data-testid={`input-email-${field.id}`}
             />
             {field.description && (
               <p className="text-sm text-muted-foreground">{field.description}</p>
@@ -334,6 +396,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
 
       case 'name':
         if (field.inputs && field.inputs.length > 0) {
+          const visibleInputs = field.inputs.filter(input => !input.isHidden);
           return (
             <div key={field.id} className="space-y-2">
               <Label>
@@ -341,11 +404,11 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
                 {field.isRequired && <span className="text-destructive ml-1">*</span>}
               </Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {field.inputs.map((input) => (
+                {visibleInputs.map((input) => (
                   <div key={input.id} className="space-y-1">
                     <Input
                       id={`input_${input.id}`}
-                      placeholder={input.label}
+                      placeholder={input.placeholder || input.label}
                       {...register(`input_${input.id}`, { required: field.isRequired })}
                       data-testid={`input-name-${input.id}`}
                     />

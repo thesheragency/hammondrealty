@@ -740,14 +740,24 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
     }
 
     const submissionUrl = `${wpBaseUrl}/wp-json/gf/v2/forms/${formId}/submissions`;
-    console.log('Gravity Forms submission URL:', submissionUrl);
 
     try {
+      // Build headers - include auth if site is password protected
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+      
+      // Add Basic Auth if credentials are available (for password-protected sites)
+      if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+        const credentials = Buffer.from(
+          `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
+        ).toString('base64');
+        headers['Authorization'] = `Basic ${credentials}`;
+      }
+
       const response = await fetch(submissionUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify(req.body),
       });
 

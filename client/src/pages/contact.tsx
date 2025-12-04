@@ -37,6 +37,12 @@ export default function Contact() {
             formId={CONTACT_FORM_ID}
             title="Get in Touch"
             description="Have a question or want to work together? Fill out the form below and we'll get back to you as soon as possible."
+            fieldMapping={{
+              firstName: 'input_1_3',
+              lastName: 'input_1_6',
+              email: 'input_2',
+              message: 'input_3',
+            }}
             onSuccess={handleSuccess}
             onError={handleError}
           />

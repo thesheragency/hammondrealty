@@ -12,9 +12,9 @@ import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 
 const contactFormSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(100),
+  firstName: z.string().min(1, 'First name is required').max(100),
+  lastName: z.string().min(1, 'Last name is required').max(100),
   email: z.string().min(1, 'Email is required').email('Please enter a valid email'),
-  subject: z.string().optional(),
   message: z.string().min(1, 'Message is required').max(5000),
 });
 
@@ -26,7 +26,9 @@ interface ContactFormProps {
   description?: string;
   className?: string;
   fieldMapping?: {
-    name: string;
+    firstName?: string;
+    lastName?: string;
+    name?: string;
     email: string;
     subject?: string;
     message: string;
@@ -41,10 +43,10 @@ export function ContactForm({
   description = 'Fill out the form below and we\'ll get back to you as soon as possible.',
   className,
   fieldMapping = {
-    name: 'input_1',
+    firstName: 'input_1_3',
+    lastName: 'input_1_6',
     email: 'input_2',
-    subject: 'input_3',
-    message: 'input_4',
+    message: 'input_3',
   },
   onSuccess,
   onError,
@@ -55,24 +57,28 @@ export function ContactForm({
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      subject: '',
       message: '',
     },
   });
 
   const submitMutation = useMutation({
     mutationFn: async (values: ContactFormValues) => {
-      const formData: Record<string, string> = {
-        [fieldMapping.name]: values.name,
-        [fieldMapping.email]: values.email,
-        [fieldMapping.message]: values.message,
-      };
+      const formData: Record<string, string> = {};
       
-      if (fieldMapping.subject && values.subject) {
-        formData[fieldMapping.subject] = values.subject;
+      if (fieldMapping.firstName) {
+        formData[fieldMapping.firstName] = values.firstName;
       }
+      if (fieldMapping.lastName) {
+        formData[fieldMapping.lastName] = values.lastName;
+      }
+      if (fieldMapping.name) {
+        formData[fieldMapping.name] = `${values.firstName} ${values.lastName}`;
+      }
+      formData[fieldMapping.email] = values.email;
+      formData[fieldMapping.message] = values.message;
 
       const response = await apiRequest('POST', `/api/gravity-forms/${formId}/submit`, formData);
       return response.json();
@@ -135,23 +141,43 @@ export function ContactForm({
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name <span className="text-destructive">*</span></FormLabel>
-                  <FormControl>
-                    <Input 
-                      placeholder="Your name" 
-                      {...field} 
-                      data-testid="input-name"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>First Name <span className="text-destructive">*</span></FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="First" 
+                        {...field} 
+                        data-testid="input-first-name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last Name <span className="text-destructive">*</span></FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Last" 
+                        {...field} 
+                        data-testid="input-last-name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             
             <FormField
               control={form.control}
@@ -174,31 +200,13 @@ export function ContactForm({
             
             <FormField
               control={form.control}
-              name="subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Subject</FormLabel>
-                  <FormControl>
-                    <Input 
-                      placeholder="What's this about?" 
-                      {...field} 
-                      data-testid="input-subject"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Message <span className="text-destructive">*</span></FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Your message..." 
+                      placeholder="Please let us know what's on your mind..." 
                       rows={5}
                       {...field} 
                       data-testid="textarea-message"
