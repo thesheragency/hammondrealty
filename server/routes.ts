@@ -19,6 +19,30 @@ function getWordPressBaseUrl(): string {
   return wpApiUrl.replace(/\/graphql\/?$/, '');
 }
 
+// Check if WordPress Basic Auth should be used
+// Use WP_BASIC_AUTH_ENABLED=false on production sites without nginx basic auth
+function shouldUseBasicAuth(): boolean {
+  const enabled = process.env.WP_BASIC_AUTH_ENABLED;
+  // Default to true if not set (backwards compatible), false if explicitly set to 'false'
+  if (enabled === 'false' || enabled === '0') {
+    return false;
+  }
+  // Only use auth if credentials are available
+  return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
+}
+
+// Build WordPress auth headers if Basic Auth is enabled
+function getWordPressAuthHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {};
+  if (shouldUseBasicAuth()) {
+    const credentials = Buffer.from(
+      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
+    ).toString('base64');
+    headers['Authorization'] = `Basic ${credentials}`;
+  }
+  return headers;
+}
+
 // Get frontend URL - from env var or auto-detect from request
 function getFrontendUrl(req: Request): string {
   // Use explicit FRONTEND_URL if set
@@ -40,14 +64,8 @@ async function proxyWordPressFile(wpPath: string, frontendUrl: string): Promise<
   }
 
   try {
-    // Build request headers with authentication if available
-    const headers: Record<string, string> = {};
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-      const credentials = Buffer.from(
-        `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-      ).toString('base64');
-      headers['Authorization'] = `Basic ${credentials}`;
-    }
+    // Build request headers with authentication if enabled
+    const headers = getWordPressAuthHeaders();
 
     const response = await fetch(`${wpBaseUrl}${wpPath}`, { headers });
     if (!response.ok) {
@@ -693,17 +711,11 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
     }
 
     try {
-      // Build request headers with authentication
+      // Build request headers with authentication if enabled
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
+        ...getWordPressAuthHeaders(),
       };
-      
-      if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const credentials = Buffer.from(
-          `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-        ).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-      }
 
       const response = await fetch(`${wpBaseUrl}/wp-json/gf/v2/forms/${formId}`, { headers });
       
@@ -742,18 +754,11 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
     const submissionUrl = `${wpBaseUrl}/wp-json/gf/v2/forms/${formId}/submissions`;
 
     try {
-      // Build headers - include auth if site is password protected
+      // Build headers - include auth if site is password protected and auth is enabled
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
+        ...getWordPressAuthHeaders(),
       };
-      
-      // Add Basic Auth if credentials are available (for password-protected sites)
-      if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const credentials = Buffer.from(
-          `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-        ).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-      }
 
       const response = await fetch(submissionUrl, {
         method: 'POST',
@@ -813,14 +818,8 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
     try {
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
+        ...getWordPressAuthHeaders(),
       };
-      
-      if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const credentials = Buffer.from(
-          `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-        ).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-      }
 
       const response = await fetch(`${wpBaseUrl}/wp-json/gf/v2/forms`, { headers });
       

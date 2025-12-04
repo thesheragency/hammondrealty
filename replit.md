@@ -112,6 +112,20 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 - `FRONTEND_URL` - Production frontend URL for sitemap/SEO files (auto-detected in dev)
 - `WP_AUTH_USER` - WordPress username for authenticated requests
 - `WP_AUTH_PASSWORD` - WordPress application password
+- `WP_BASIC_AUTH_ENABLED` - Set to `false` on production sites that don't have nginx basic auth
+
+## Environment Configuration by Deployment Stage
+
+| Variable | Development | Staging | Production |
+|----------|-------------|---------|------------|
+| `DATABASE_URL` | Auto-provided | Set to staging DB | Set to production DB |
+| `WP_API_URL` | Your WP GraphQL URL | Staging WP URL | Production WP URL |
+| `FRONTEND_URL` | Auto-detected | Staging domain | Production domain |
+| `WP_AUTH_USER` | Set if WP has basic auth | Set if WP has basic auth | Usually not needed |
+| `WP_AUTH_PASSWORD` | Set if WP has basic auth | Set if WP has basic auth | Usually not needed |
+| `WP_BASIC_AUTH_ENABLED` | `true` (default) | `true` (if needed) | `false` (recommended) |
+
+**Note:** Set `WP_BASIC_AUTH_ENABLED=false` on production sites where your WordPress doesn't have nginx-level HTTP Basic Auth protection. This prevents sending unnecessary auth headers.
 
 ## WordPress Requirements
 
