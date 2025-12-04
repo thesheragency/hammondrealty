@@ -60,6 +60,11 @@ A modern headless WordPress implementation with React frontend, Express backend,
 - `GET /llms.txt` - AI crawler guidance (generated from content)
 - `GET /llms-full.txt` - Extended AI crawler file with full content
 
+### Gravity Forms
+- `GET /api/gravity-forms` - List all forms (requires authentication)
+- `GET /api/gravity-forms/:formId` - Get form structure (requires authentication)
+- `POST /api/gravity-forms/:formId/submit` - Submit form entry (no auth required)
+
 ### Other
 - `GET /api/redirects` - List all Yoast redirects
 - `GET /api/pages` - List all pages
@@ -114,6 +119,7 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 2. **WPGraphQL Yoast SEO** - For SEO metadata
 3. **WPGraphQL for ACF** - For ACF Global Scripts support (optional)
 4. **Redirection** - For 301 redirect management (free plugin with built-in REST API)
+5. **Gravity Forms** - For contact forms (optional, requires REST API v2 enabled)
 
 ## ACF Global Scripts Setup
 
@@ -192,10 +198,60 @@ Preview draft content from WordPress by passing `preview=true&id=xxx&token=xxx` 
 ### Redirect Handling
 Yoast redirects are synced and applied via Express middleware.
 
+## Gravity Forms Setup
+
+The boilerplate includes a contact form that connects to Gravity Forms REST API v2.
+
+### WordPress Setup
+
+1. Install **Gravity Forms** plugin (paid license required)
+2. Go to **Forms > Settings > REST API**
+3. Check **"Enable access to the API"**
+4. Create your form in **Forms > New Form**
+5. Note the **Form ID** (visible in the form editor URL or Forms list)
+
+### Frontend Configuration
+
+The contact form is located at `/contact`. To configure:
+
+1. Open `client/src/pages/contact.tsx`
+2. Update `CONTACT_FORM_ID` to match your Gravity Forms form ID
+3. Update the `fieldMapping` in ContactForm component to match your form fields:
+
+```typescript
+<ContactForm 
+  formId={1}  // Your Gravity Forms ID
+  fieldMapping={{
+    name: 'input_1',    // Field ID for Name
+    email: 'input_2',   // Field ID for Email  
+    subject: 'input_3', // Field ID for Subject (optional)
+    message: 'input_4', // Field ID for Message
+  }}
+/>
+```
+
+### Finding Field IDs
+
+In Gravity Forms editor, click on each field and look at the **Field ID** in the right panel. The input name format is `input_X` where X is the field ID.
+
+### API Endpoints
+
+- Submissions don't require authentication (public submissions)
+- Reading form structures requires WP_AUTH_USER/WP_AUTH_PASSWORD with Gravity Forms permissions
+
+### Troubleshooting
+
+If form submissions fail:
+1. Verify the REST API is enabled in Gravity Forms settings
+2. Check the Form ID matches your form
+3. Verify field IDs match the Gravity Forms field structure
+4. Check server logs for detailed error messages
+
 ## Frontend Routes
 - `/` - Home page with featured posts
 - `/blog` - Blog listing page
 - `/blog/:slug` - Individual post detail page
+- `/contact` - Contact form page
 
 ## Development
 
@@ -241,6 +297,8 @@ FRONTEND_URL=https://www.yoursite.com
 In development, the URL auto-detects from the request, so no configuration needed.
 
 ## Recent Changes
+- Added Gravity Forms integration with REST API v2 for contact forms
+- Added /contact route with configurable form component
 - Added SEO file proxies (sitemap, robots.txt, llms.txt)
 - Added FRONTEND_URL support with auto-detection fallback
 - Added ACF Global Scripts support (head/body script injection)
@@ -250,3 +308,4 @@ In development, the URL auto-detects from the request, so no configuration neede
 - Added author and publication date display
 - Updated preview endpoints for posts
 - Modular component architecture for easy restyling
+- Performance: Reduced font loading (Inter + Fira Code only), lazy loading for routes and images
