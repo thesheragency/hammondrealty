@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import { ProjectCard } from './ProjectCard';
+import { PostCard } from './PostCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AlertCircle } from 'lucide-react';
-import type { Project } from '@shared/schema';
+import type { Post } from '@shared/schema';
 
-interface ProjectListProps {
+interface PostListProps {
   featured?: boolean;
 }
 
-export function ProjectList({ featured = false }: ProjectListProps) {
-  const endpoint = featured ? '/api/projects/featured' : '/api/projects';
+export function PostList({ featured = false }: PostListProps) {
+  const endpoint = featured ? '/api/posts/featured' : '/api/posts';
   
-  const { data: projects, isLoading, error } = useQuery<Project[]>({
+  const { data: posts, isLoading, error } = useQuery<Post[]>({
     queryKey: [endpoint],
   });
 
@@ -19,7 +19,7 @@ export function ProjectList({ featured = false }: ProjectListProps) {
     return (
       <div 
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        data-testid="project-list-loading"
+        data-testid="post-list-loading"
       >
         {Array.from({ length: 6 }).map((_, index) => (
           <div key={index} className="space-y-4">
@@ -37,31 +37,31 @@ export function ProjectList({ featured = false }: ProjectListProps) {
     return (
       <div 
         className="flex flex-col items-center justify-center py-12 text-center"
-        data-testid="project-list-error"
+        data-testid="post-list-error"
       >
         <AlertCircle className="h-12 w-12 text-destructive mb-4" />
-        <h3 className="text-lg font-semibold mb-2">Failed to load projects</h3>
+        <h3 className="text-lg font-semibold mb-2">Failed to load posts</h3>
         <p className="text-sm text-muted-foreground max-w-md">
-          {error instanceof Error ? error.message : 'An error occurred while fetching projects.'}
+          {error instanceof Error ? error.message : 'An error occurred while fetching posts.'}
         </p>
       </div>
     );
   }
 
-  if (!projects || projects.length === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <div 
         className="flex flex-col items-center justify-center py-12 text-center"
-        data-testid="project-list-empty"
+        data-testid="post-list-empty"
       >
         <div className="bg-muted rounded-full p-4 mb-4">
           <AlertCircle className="h-8 w-8 text-muted-foreground" />
         </div>
-        <h3 className="text-lg font-semibold mb-2">No projects found</h3>
+        <h3 className="text-lg font-semibold mb-2">No posts found</h3>
         <p className="text-sm text-muted-foreground max-w-md">
           {featured 
-            ? 'No featured projects yet. Mark some projects as featured in WordPress.'
-            : 'No projects have been synced yet. Click the Sync button to fetch content from WordPress.'
+            ? 'No featured posts yet. Mark some posts as featured in WordPress.'
+            : 'No posts have been synced yet. Click the Sync button to fetch content from WordPress.'
           }
         </p>
       </div>
@@ -71,10 +71,10 @@ export function ProjectList({ featured = false }: ProjectListProps) {
   return (
     <div 
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      data-testid={featured ? 'project-list-featured' : 'project-list'}
+      data-testid={featured ? 'post-list-featured' : 'post-list'}
     >
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} />
       ))}
     </div>
   );
