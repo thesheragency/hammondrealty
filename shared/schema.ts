@@ -22,22 +22,19 @@ export const seoMetadataSchema = z.object({
 
 export type SeoMetadata = z.infer<typeof seoMetadataSchema>;
 
-// ACF fields type for custom fields
-export const acfFieldsSchema = z.object({
-  featuredImage: z.object({
-    sourceUrl: z.string().optional(),
-    altText: z.string().optional(),
-    mediaDetails: z.object({
-      width: z.number().optional(),
-      height: z.number().optional(),
-    }).optional(),
-  }).optional(),
-}).passthrough();
+// Taxonomy term type for categories and tags
+export const taxonomyTermSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string().optional(),
+  count: z.number().optional(),
+});
 
-export type AcfFields = z.infer<typeof acfFieldsSchema>;
+export type TaxonomyTerm = z.infer<typeof taxonomyTermSchema>;
 
-// Projects table - cached WordPress custom post type
-export const projects = pgTable("projects", {
+// Posts table - cached WordPress posts
+export const posts = pgTable("posts", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   wpId: integer("wp_id").notNull().unique(),
   slug: text("slug").notNull().unique(),
@@ -47,20 +44,23 @@ export const projects = pgTable("projects", {
   status: text("status").notNull().default("publish"),
   featuredImage: text("featured_image"),
   featuredImageAlt: text("featured_image_alt"),
-  acfFields: jsonb("acf_fields").$type<AcfFields>(),
+  author: text("author"),
+  publishedAt: timestamp("published_at"),
+  categories: jsonb("categories").$type<TaxonomyTerm[]>(),
+  tags: jsonb("tags").$type<TaxonomyTerm[]>(),
   seoMetadata: jsonb("seo_metadata").$type<SeoMetadata>(),
   isFeatured: boolean("is_featured").default(false),
   wpModified: timestamp("wp_modified"),
   syncedAt: timestamp("synced_at").defaultNow(),
 });
 
-export const insertProjectSchema = createInsertSchema(projects).omit({
+export const insertPostSchema = createInsertSchema(posts).omit({
   id: true,
   syncedAt: true,
 });
 
-export type InsertProject = z.infer<typeof insertProjectSchema>;
-export type Project = typeof projects.$inferSelect;
+export type InsertPost = z.infer<typeof insertPostSchema>;
+export type Post = typeof posts.$inferSelect;
 
 // Redirects table - Yoast SEO Premium redirects
 export const redirects = pgTable("redirects", {
