@@ -4,6 +4,7 @@ import {
   redirects, type Redirect, type InsertRedirect,
   syncStatus, type SyncStatus, type InsertSyncStatus,
   pages, type Page,
+  globalSettings, type GlobalSetting, type InsertGlobalSetting,
   type SeoMetadata, type TaxonomyTerm,
 } from "@shared/schema";
 import { db } from "./db";
@@ -61,6 +62,10 @@ export interface IStorage {
   
   getSyncStatus(entityType: string): Promise<SyncStatus | undefined>;
   upsertSyncStatus(status: InsertSyncStatus): Promise<SyncStatus>;
+  
+  getGlobalSetting(key: string): Promise<GlobalSetting | undefined>;
+  getAllGlobalSettings(): Promise<GlobalSetting[]>;
+  upsertGlobalSetting(setting: InsertGlobalSetting): Promise<GlobalSetting>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -266,6 +271,37 @@ export class DatabaseStorage implements IStorage {
       itemsCount: status.itemsCount,
       status: status.status ?? "success",
       errorMessage: status.errorMessage,
+    }).returning();
+    return created;
+  }
+
+  async getGlobalSetting(key: string): Promise<GlobalSetting | undefined> {
+    const [setting] = await db.select().from(globalSettings).where(eq(globalSettings.key, key));
+    return setting || undefined;
+  }
+
+  async getAllGlobalSettings(): Promise<GlobalSetting[]> {
+    return db.select().from(globalSettings);
+  }
+
+  async upsertGlobalSetting(setting: InsertGlobalSetting): Promise<GlobalSetting> {
+    const existing = await this.getGlobalSetting(setting.key);
+    
+    if (existing) {
+      const [updated] = await db
+        .update(globalSettings)
+        .set({
+          value: setting.value,
+          syncedAt: new Date(),
+        })
+        .where(eq(globalSettings.key, setting.key))
+        .returning();
+      return updated;
+    }
+    
+    const [created] = await db.insert(globalSettings).values({
+      key: setting.key,
+      value: setting.value,
     }).returning();
     return created;
   }

@@ -48,6 +48,10 @@ A modern headless WordPress implementation with React frontend, Express backend,
 - `POST /api/wordpress/sync` - Sync content from WordPress
 - `GET /api/sync/status` - Get sync status
 
+### Global Settings
+- `GET /api/global-settings` - Get all global settings (ACF scripts)
+- `GET /api/global-settings/:key` - Get specific global setting
+
 ### Other
 - `GET /api/redirects` - List all Yoast redirects
 - `GET /api/pages` - List all pages
@@ -99,6 +103,33 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 
 1. **WPGraphQL Plugin** - Required for GraphQL API
 2. **WPGraphQL Yoast SEO** - For SEO metadata
+3. **WPGraphQL for ACF** - For ACF Global Scripts support (optional)
+4. **Yoast SEO Premium** - For 301 redirect support (optional)
+
+## ACF Global Scripts Setup
+
+To use ACF Global Scripts for injecting head/body scripts:
+
+1. Install **ACF Pro** and **WPGraphQL for ACF** plugins
+2. Create an ACF Options Page named "Global Scripts" 
+3. Add two fields to the options page:
+   - Field Name: `global_head_scripts` (Textarea)
+   - Field Name: `global_body_scripts` (Textarea)
+4. In WPGraphQL for ACF settings, enable "Show in GraphQL" for these fields
+
+The boilerplate expects the following GraphQL structure:
+```graphql
+query GetAcfOptions {
+  acfOptionsGlobalScripts {
+    globalScripts {
+      globalHeadScripts
+      globalBodyScripts
+    }
+  }
+}
+```
+
+**Note**: If your ACF Options page has a different name, update the query in `server/wordpress.ts`.
 
 ## Key Features
 
@@ -137,6 +168,7 @@ npm run db:push    # Push schema to database
 ```
 
 ## Recent Changes
+- Added ACF Global Scripts support (head/body script injection)
 - Refactored from custom "Projects" to WordPress default "Posts" content type
 - Added full taxonomy support (categories and tags)
 - Updated routing: /projects → /blog

@@ -118,6 +118,22 @@ export const insertPageSchema = createInsertSchema(pages).omit({
 export type InsertPage = z.infer<typeof insertPageSchema>;
 export type Page = typeof pages.$inferSelect;
 
+// Global settings table - ACF options page data
+export const globalSettings = pgTable("global_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  key: text("key").notNull().unique(),
+  value: text("value"),
+  syncedAt: timestamp("synced_at").defaultNow(),
+});
+
+export const insertGlobalSettingSchema = createInsertSchema(globalSettings).omit({
+  id: true,
+  syncedAt: true,
+});
+
+export type InsertGlobalSetting = z.infer<typeof insertGlobalSettingSchema>;
+export type GlobalSetting = typeof globalSettings.$inferSelect;
+
 // Keep users table for compatibility
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),

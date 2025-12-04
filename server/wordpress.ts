@@ -30,6 +30,7 @@ const getWpClient = (authToken?: string) => {
 };
 
 // GraphQL fragments for reusable queries
+// Note: twitterCardType may not be available in all versions of WPGraphQL Yoast SEO
 const SEO_FRAGMENT = gql`
   fragment SeoFields on PostTypeSEO {
     title
@@ -48,7 +49,6 @@ const SEO_FRAGMENT = gql`
     twitterImage {
       sourceUrl
     }
-    twitterCardType
   }
 `;
 
@@ -257,6 +257,21 @@ const GET_REDIRECTS_QUERY = gql`
   }
 `;
 
+// Query for ACF Global Scripts (requires WPGraphQL for ACF plugin)
+// These fields should be registered in ACF Options page with field names:
+// - global_head_scripts
+// - global_body_scripts
+const GET_ACF_OPTIONS_QUERY = gql`
+  query GetAcfOptions {
+    acfOptionsGlobalScripts {
+      globalScripts {
+        globalHeadScripts
+        globalBodyScripts
+      }
+    }
+  }
+`;
+
 // Type definitions for WordPress GraphQL responses
 interface WpFeaturedImage {
   node: {
@@ -282,7 +297,6 @@ interface WpSeo {
   twitterTitle: string;
   twitterDescription: string;
   twitterImage: { sourceUrl: string } | null;
-  twitterCardType: string;
 }
 
 interface WpTaxonomyTerm {
@@ -334,6 +348,20 @@ interface WpRedirect {
   format: string;
 }
 
+interface WpAcfOptions {
+  acfOptionsGlobalScripts: {
+    globalScripts: {
+      globalHeadScripts: string | null;
+      globalBodyScripts: string | null;
+    } | null;
+  } | null;
+}
+
+export interface GlobalScripts {
+  headScripts: string | null;
+  bodyScripts: string | null;
+}
+
 // Transform WordPress SEO data to our schema format
 const transformSeoData = (seo: WpSeo | null): SeoMetadata | undefined => {
   if (!seo) return undefined;
@@ -351,7 +379,6 @@ const transformSeoData = (seo: WpSeo | null): SeoMetadata | undefined => {
     twitterTitle: seo.twitterTitle,
     twitterDescription: seo.twitterDescription,
     twitterImage: seo.twitterImage?.sourceUrl,
-    twitterCard: seo.twitterCardType,
   };
 };
 
@@ -524,6 +551,29 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
     // Yoast Premium may not be installed, return empty array
     console.warn('Could not fetch redirects (Yoast Premium may not be installed):', error);
     return [];
+  }
+}
+
+// Fetch ACF Global Scripts from Options page
+export async function fetchAcfGlobalScripts(): Promise<GlobalScripts> {
+  const client = getWpClient();
+
+  try {
+    const response = await client.request<WpAcfOptions>(GET_ACF_OPTIONS_QUERY);
+
+    const globalScripts = response.acfOptionsGlobalScripts?.globalScripts;
+    
+    return {
+      headScripts: globalScripts?.globalHeadScripts || null,
+      bodyScripts: globalScripts?.globalBodyScripts || null,
+    };
+  } catch (error) {
+    // ACF Options may not be configured, return empty
+    console.warn('Could not fetch ACF global scripts (ACF Options may not be configured):', error);
+    return {
+      headScripts: null,
+      bodyScripts: null,
+    };
   }
 }
 

@@ -8,6 +8,7 @@ import {
   fetchPages,
   fetchPagePreview,
   fetchRedirects,
+  fetchAcfGlobalScripts,
   checkWordPressConnection
 } from "./wordpress";
 
@@ -176,11 +177,13 @@ export async function registerRoutes(
       const postsStatus = await storage.getSyncStatus('posts');
       const pagesStatus = await storage.getSyncStatus('pages');
       const redirectsStatus = await storage.getSyncStatus('redirects');
+      const globalScriptsStatus = await storage.getSyncStatus('globalScripts');
       
       res.json({
         posts: postsStatus || null,
         pages: pagesStatus || null,
         redirects: redirectsStatus || null,
+        globalScripts: globalScriptsStatus || null,
       });
     } catch (error) {
       console.error('Error fetching sync status:', error);
@@ -197,6 +200,7 @@ export async function registerRoutes(
       posts: { success: false, count: 0, error: null as string | null },
       pages: { success: false, count: 0, error: null as string | null },
       redirects: { success: false, count: 0, error: null as string | null },
+      globalScripts: { success: false, count: 0, error: null as string | null },
     };
 
     // Sync posts
@@ -291,7 +295,48 @@ export async function registerRoutes(
       });
     }
 
-    const allSuccessful = results.posts.success && results.pages.success && results.redirects.success;
+    // Sync ACF global scripts
+    try {
+      const globalScripts = await fetchAcfGlobalScripts();
+      let count = 0;
+      
+      if (globalScripts.headScripts) {
+        await storage.upsertGlobalSetting({
+          key: 'global_head_scripts',
+          value: globalScripts.headScripts,
+        });
+        count++;
+      }
+      
+      if (globalScripts.bodyScripts) {
+        await storage.upsertGlobalSetting({
+          key: 'global_body_scripts',
+          value: globalScripts.bodyScripts,
+        });
+        count++;
+      }
+      
+      results.globalScripts.success = true;
+      results.globalScripts.count = count;
+      
+      await storage.upsertSyncStatus({
+        entityType: 'globalScripts',
+        itemsCount: count,
+        status: 'success',
+        errorMessage: null,
+      });
+    } catch (error) {
+      results.globalScripts.error = error instanceof Error ? error.message : 'Unknown error';
+      
+      await storage.upsertSyncStatus({
+        entityType: 'globalScripts',
+        itemsCount: 0,
+        status: 'error',
+        errorMessage: results.globalScripts.error,
+      });
+    }
+
+    const allSuccessful = results.posts.success && results.pages.success && results.redirects.success && results.globalScripts.success;
     
     res.status(allSuccessful ? 200 : 207).json({
       message: allSuccessful ? 'Sync completed successfully' : 'Sync completed with some errors',
@@ -329,6 +374,46 @@ export async function registerRoutes(
       console.error('Error fetching page:', error);
       res.status(500).json({ 
         message: 'Failed to fetch page',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get global settings (ACF scripts)
+  app.get('/api/global-settings', async (_req: Request, res: Response) => {
+    try {
+      const settings = await storage.getAllGlobalSettings();
+      const result: Record<string, string | null> = {};
+      
+      for (const setting of settings) {
+        result[setting.key] = setting.value;
+      }
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error fetching global settings:', error);
+      res.status(500).json({ 
+        message: 'Failed to fetch global settings',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get specific global setting by key
+  app.get('/api/global-settings/:key', async (req: Request, res: Response) => {
+    try {
+      const { key } = req.params;
+      const setting = await storage.getGlobalSetting(key);
+      
+      if (!setting) {
+        return res.status(404).json({ message: 'Setting not found' });
+      }
+      
+      res.json(setting);
+    } catch (error) {
+      console.error('Error fetching global setting:', error);
+      res.status(500).json({ 
+        message: 'Failed to fetch global setting',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
