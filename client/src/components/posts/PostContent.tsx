@@ -34,6 +34,9 @@ export function PostContent({ post }: PostContentProps) {
             src={post.featuredImage}
             alt={post.featuredImageAlt || post.title}
             className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             data-testid="img-post-hero"
           />
         </div>

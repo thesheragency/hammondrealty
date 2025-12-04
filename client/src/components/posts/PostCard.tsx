@@ -26,6 +26,8 @@ export function PostCard({ post }: PostCardProps) {
               src={post.featuredImage}
               alt={post.featuredImageAlt || post.title}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
               data-testid={`img-post-${post.slug}`}
             />
           ) : (
