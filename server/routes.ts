@@ -676,5 +676,47 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
     }
   });
 
+  // Frontend route validation middleware
+  // Returns proper 404 status for invalid frontend routes
+  const STATIC_FRONTEND_ROUTES = ['/', '/blog'];
+  
+  app.use(async (req: Request, res: Response, next: NextFunction) => {
+    const pathname = req.path;
+    
+    // Skip API routes and static assets
+    if (pathname.startsWith('/api') || 
+        pathname.startsWith('/assets') || 
+        pathname.startsWith('/src') ||
+        pathname.startsWith('/node_modules') ||
+        pathname.startsWith('/@') ||
+        pathname.startsWith('/vite') ||
+        pathname.includes('.')) {
+      return next();
+    }
+    
+    // Check static routes - pass through to Vite
+    if (STATIC_FRONTEND_ROUTES.includes(pathname)) {
+      return next();
+    }
+    
+    // Check blog post routes
+    const blogMatch = pathname.match(/^\/blog\/([^/]+)$/);
+    if (blogMatch) {
+      const slug = blogMatch[1];
+      const post = await storage.getPostBySlug(slug);
+      if (post) {
+        return next();
+      }
+    }
+    
+    // Unknown route or post not found - override res.status to ensure 404
+    const originalStatus = res.status.bind(res);
+    res.status = function(code: number) {
+      // Force 404 for invalid routes, ignore Vite's 200
+      return originalStatus(404);
+    };
+    next();
+  });
+
   return httpServer;
 }
