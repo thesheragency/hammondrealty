@@ -538,7 +538,7 @@ export async function fetchPagePreview(
 }
 
 // Fetch redirects from Redirection plugin (by John Godley)
-// Uses built-in REST API at /wp-json/redirection/v1/redirect
+// Uses custom mu-plugin endpoint for headless access (built-in REST API requires session auth)
 export async function fetchRedirects(): Promise<WpRedirect[]> {
   const wpApiUrl = process.env.WP_API_URL;
   if (!wpApiUrl) {
@@ -548,7 +548,7 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
 
   // Get WordPress base URL (without /graphql)
   const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
-  const redirectsEndpoint = `${wpBaseUrl}/wp-json/redirection/v1/redirect?per_page=200`;
+  const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
 
   try {
     // Build request headers with authentication
@@ -565,7 +565,7 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
     const response = await fetch(redirectsEndpoint, { headers });
     
     if (!response.ok) {
-      console.warn(`Redirection plugin API returned ${response.status} - plugin may not be installed or configured`);
+      console.warn(`Redirects API returned ${response.status} - mu-plugin may not be installed (see wordpress-plugins/headless-redirects-api.php)`);
       return [];
     }
 

@@ -142,13 +142,18 @@ query GetAcfOptions {
 
 ## 301 Redirects Setup
 
-For 301 redirect management, this boilerplate uses the free [Redirection](https://wordpress.org/plugins/redirection/) plugin by John Godley (5M+ installs). It has a built-in REST API - no additional setup required.
+For 301 redirect management, this boilerplate uses the free [Redirection](https://wordpress.org/plugins/redirection/) plugin by John Godley (5M+ installs).
 
 ### Installation Steps
 
 1. Install **Redirection** plugin from WordPress Plugin Directory
-2. Go to WordPress Admin → Tools → Redirection to configure
-3. Run sync in the boilerplate to fetch redirects
+2. Copy `wordpress-plugins/headless-redirects-api.php` to your WordPress `wp-content/mu-plugins/` folder
+   - Create the `mu-plugins` folder if it doesn't exist
+   - The mu-plugin auto-activates once uploaded
+3. Test the endpoint: `GET https://yoursite.com/wp-json/headless/v1/redirects`
+4. Run sync in the boilerplate to fetch redirects
+
+**Note**: The mu-plugin is required because Redirection's built-in REST API uses WordPress session authentication, which doesn't work for headless external access. The mu-plugin provides a Basic Auth compatible endpoint.
 
 ### Creating Redirects
 
@@ -159,7 +164,6 @@ For 301 redirect management, this boilerplate uses the free [Redirection](https:
 
 ### Features
 
-- Built-in REST API (no mu-plugin needed)
 - 404 error monitoring
 - Regex pattern matching
 - Import/export support (CSV, JSON, Apache, Nginx)
