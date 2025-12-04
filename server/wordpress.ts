@@ -537,19 +537,49 @@ export async function fetchPagePreview(
   }
 }
 
-// Fetch Yoast redirects
+// Fetch redirects from EPS 301 Redirects plugin via custom REST API
+// Requires mu-plugin installed on WordPress (see DEVELOPER_SOP.md)
 export async function fetchRedirects(): Promise<WpRedirect[]> {
-  const client = getWpClient();
+  const wpApiUrl = process.env.WP_API_URL;
+  if (!wpApiUrl) {
+    console.warn('WP_API_URL not set, cannot fetch redirects');
+    return [];
+  }
+
+  // Get WordPress base URL (without /graphql)
+  const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
+  const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
 
   try {
-    const response = await client.request<{
-      seo: { redirects: WpRedirect[] };
-    }>(GET_REDIRECTS_QUERY);
+    // Build request headers with authentication if available
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+      const credentials = Buffer.from(
+        `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
+      ).toString('base64');
+      headers['Authorization'] = `Basic ${credentials}`;
+    }
 
-    return response.seo?.redirects || [];
+    const response = await fetch(redirectsEndpoint, { headers });
+    
+    if (!response.ok) {
+      console.warn(`Redirects endpoint returned ${response.status} - mu-plugin may not be installed`);
+      return [];
+    }
+
+    const data = await response.json();
+    
+    // Transform EPS 301 format to our format
+    return (data || []).map((r: { url_from: string; url_to: string; type: string; status: string }) => ({
+      origin: r.url_from.startsWith('/') ? r.url_from : `/${r.url_from}`,
+      target: r.url_to,
+      type: parseInt(r.type) || 301,
+      format: 'plain',
+    }));
   } catch (error) {
-    // Yoast Premium may not be installed, return empty array
-    console.warn('Could not fetch redirects (Yoast Premium may not be installed):', error);
+    console.warn('Could not fetch redirects from EPS 301 Redirects plugin:', error);
     return [];
   }
 }
