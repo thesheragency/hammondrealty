@@ -1,13 +1,13 @@
 import { Layout } from '@/components/layout/Layout';
 import { SeoHead } from '@/components/seo/SeoHead';
-import { ProjectList } from '@/components/projects/ProjectList';
+import { PostList } from '@/components/posts/PostList';
 
-export default function Projects() {
+export default function Blog() {
   return (
     <Layout>
       <SeoHead
-        title="Projects | WordPress Headless CMS"
-        description="Browse all projects synced from WordPress."
+        title="Blog | WordPress Headless CMS"
+        description="Browse all blog posts synced from WordPress."
       />
 
       <section className="py-12 md:py-16">
@@ -17,17 +17,17 @@ export default function Projects() {
               className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
               data-testid="text-page-title"
             >
-              Projects
+              Blog
             </h1>
             <p 
               className="text-lg text-muted-foreground max-w-2xl"
               data-testid="text-page-description"
             >
-              Browse all projects synced from WordPress. Click the Sync button to fetch the latest content.
+              Browse all blog posts synced from WordPress. Click the Sync button to fetch the latest content.
             </p>
           </div>
 
-          <ProjectList />
+          <PostList />
         </div>
       </section>
     </Layout>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { SeoHead } from '@/components/seo/SeoHead';
-import { ProjectList } from '@/components/projects/ProjectList';
+import { PostList } from '@/components/posts/PostList';
 
 const features = [
   {
@@ -37,7 +37,6 @@ export default function Home() {
         description="A modern headless WordPress implementation with React, Express, and PostgreSQL caching."
       />
 
-      {/* Hero Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -56,9 +55,9 @@ export default function Home() {
               and PostgreSQL caching. Built for performance and developer experience.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/projects">
-                <Button size="lg" className="gap-2" data-testid="button-view-projects">
-                  View Projects
+              <Link href="/blog">
+                <Button size="lg" className="gap-2" data-testid="button-view-blog">
+                  View Blog
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -75,7 +74,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section id="features" className="py-16 md:py-24">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
@@ -112,7 +110,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Projects Section */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
@@ -121,25 +118,24 @@ export default function Home() {
                 className="text-3xl font-semibold mb-2"
                 data-testid="text-featured-title"
               >
-                Featured Projects
+                Latest Posts
               </h2>
               <p className="text-muted-foreground">
-                Highlighted work synced from WordPress
+                Recent content synced from WordPress
               </p>
             </div>
-            <Link href="/projects">
-              <Button variant="outline" className="gap-2" data-testid="button-all-projects">
+            <Link href="/blog">
+              <Button variant="outline" className="gap-2" data-testid="button-all-posts">
                 View All
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
 
-          <ProjectList featured />
+          <PostList featured />
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-16 md:py-24">
         <div className="container max-w-7xl mx-auto px-4">
           <Card className="bg-primary text-primary-foreground">

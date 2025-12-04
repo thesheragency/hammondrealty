@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { Menu, X, RefreshCw, ExternalLink } from 'lucide-react';
+import { Menu, X, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
 ];
 
 export function Header() {
@@ -22,15 +22,15 @@ export function Header() {
       return response.json();
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/projects/featured'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/featured'] });
       queryClient.invalidateQueries({ queryKey: ['/api/pages'] });
       queryClient.invalidateQueries({ queryKey: ['/api/redirects'] });
       queryClient.invalidateQueries({ queryKey: ['/api/sync/status'] });
       
       toast({
         title: 'Sync Complete',
-        description: `Synced ${data.results.projects.count} projects, ${data.results.pages.count} pages, ${data.results.redirects.count} redirects`,
+        description: `Synced ${data.results.posts.count} posts, ${data.results.pages.count} pages, ${data.results.redirects.count} redirects`,
       });
     },
     onError: (error) => {
@@ -52,7 +52,6 @@ export function Header() {
           <span className="font-semibold text-lg tracking-tight">WP Headless</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6" data-testid="nav-desktop">
           {navLinks.map((link) => (
             <Link
@@ -82,7 +81,6 @@ export function Header() {
             {syncMutation.isPending ? 'Syncing...' : 'Sync'}
           </Button>
 
-          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -95,7 +93,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t bg-background" data-testid="nav-mobile">
           <nav className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
