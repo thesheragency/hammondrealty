@@ -483,7 +483,8 @@ export async function registerRoutes(
       return res.status(404).type('text/plain').send('Sitemap not found');
     }
     
-    res.type('application/xml').send(result.content);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.type(result.contentType || 'application/xml').send(result.content);
   });
 
   // Also handle sitemap_index.xml specifically (Yoast default)
@@ -500,7 +501,8 @@ export async function registerRoutes(
       return res.status(404).type('text/plain').send('Sitemap index not found');
     }
     
-    res.type('application/xml').send(result.content);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.type(result.contentType || 'application/xml').send(result.content);
   });
 
   // Handle WordPress native sitemap
@@ -512,7 +514,8 @@ export async function registerRoutes(
       return res.status(404).type('text/plain').send('WordPress sitemap not found');
     }
     
-    res.type('application/xml').send(result.content);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.type(result.contentType || 'application/xml').send(result.content);
   });
 
   // Handle WordPress native sitemap sub-pages
@@ -524,13 +527,16 @@ export async function registerRoutes(
       return res.status(404).type('text/plain').send('Sitemap not found');
     }
     
-    res.type('application/xml').send(result.content);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.type(result.contentType || 'application/xml').send(result.content);
   });
 
   // Robots.txt proxy from WordPress/Yoast
   app.get('/robots.txt', async (req: Request, res: Response) => {
     const frontendUrl = getFrontendUrl(req);
     const result = await proxyWordPressFile('/robots.txt', frontendUrl);
+    
+    res.set('Cache-Control', 'public, max-age=3600');
     
     if (!result) {
       // Fallback: generate a basic robots.txt
@@ -549,6 +555,8 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
   // First tries to fetch from WordPress, then generates from synced content
   app.get('/llms.txt', async (req: Request, res: Response) => {
     const frontendUrl = getFrontendUrl(req);
+    
+    res.set('Cache-Control', 'public, max-age=3600');
     
     // Try to fetch from WordPress first (if plugin generates it)
     const wpResult = await proxyWordPressFile('/llms.txt', frontendUrl);
@@ -580,7 +588,8 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
 `;
       
       for (const post of posts) {
-        content += `- [${post.title}](${frontendUrl}/blog/${post.slug}): ${post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 150) || 'Blog post'}\n`;
+        const postDesc = post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 150) || post.seoMetadata?.metaDesc || 'Blog post';
+        content += `- [${post.title}](${frontendUrl}/blog/${post.slug}): ${postDesc}\n`;
       }
       
       content += `
@@ -599,6 +608,8 @@ Sitemap: ${frontendUrl}/sitemap_index.xml
   // llms-full.txt - Extended version with more content for AI training
   app.get('/llms-full.txt', async (req: Request, res: Response) => {
     const frontendUrl = getFrontendUrl(req);
+    
+    res.set('Cache-Control', 'public, max-age=3600');
     
     try {
       const posts = await storage.getAllPosts();

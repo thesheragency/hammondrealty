@@ -52,6 +52,14 @@ A modern headless WordPress implementation with React frontend, Express backend,
 - `GET /api/global-settings` - Get all global settings (ACF scripts)
 - `GET /api/global-settings/:key` - Get specific global setting
 
+### SEO Files (Auto-proxied)
+- `GET /sitemap.xml` - Proxied from WordPress/Yoast
+- `GET /sitemap_index.xml` - Yoast sitemap index (or WP native fallback)
+- `GET /wp-sitemap.xml` - WordPress native sitemap
+- `GET /robots.txt` - Proxied from WordPress (with fallback)
+- `GET /llms.txt` - AI crawler guidance (generated from content)
+- `GET /llms-full.txt` - Extended AI crawler file with full content
+
 ### Other
 - `GET /api/redirects` - List all Yoast redirects
 - `GET /api/pages` - List all pages
@@ -92,10 +100,11 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 ## Environment Variables
 
 ### Required
-- `DATABASE_URL` - PostgreSQL connection string
+- `DATABASE_URL` - PostgreSQL connection string (auto-provided by Replit)
 - `WP_API_URL` - WordPress GraphQL endpoint (e.g., https://yoursite.com/graphql)
 
 ### Optional
+- `FRONTEND_URL` - Production frontend URL for sitemap/SEO files (auto-detected in dev)
 - `WP_AUTH_USER` - WordPress username for authenticated requests
 - `WP_AUTH_PASSWORD` - WordPress application password
 
@@ -167,7 +176,43 @@ npm run dev        # Start development server
 npm run db:push    # Push schema to database
 ```
 
+## SEO Files Proxy
+
+The boilerplate automatically proxies SEO-critical files from WordPress to your frontend domain:
+
+### Sitemaps
+- Fetches from WordPress/Yoast (`/sitemap_index.xml`) or native WP (`/wp-sitemap.xml`)
+- Automatically replaces WordPress URLs with your frontend URL
+- Works on dev, staging, and production (uses `FRONTEND_URL` or auto-detects)
+
+### robots.txt
+- Proxied from WordPress (Yoast can customize this in WP admin)
+- Falls back to a basic robots.txt if WordPress doesn't provide one
+- Automatically includes sitemap reference
+
+### llms.txt (AI Crawler Guidance)
+- Follows the [llms.txt standard](https://llmstxt.org/) for AI crawlers
+- First tries to fetch from WordPress (if a plugin generates it)
+- Falls back to auto-generation from your synced posts and pages
+- Also provides `/llms-full.txt` with extended content
+
+### How It Works
+1. Request comes to your frontend (e.g., `/sitemap_index.xml`)
+2. Express fetches the file from WordPress
+3. WordPress domain URLs are replaced with your `FRONTEND_URL`
+4. Modified file is served with correct content-type headers
+
+### Production Setup
+Set `FRONTEND_URL` to your production domain:
+```
+FRONTEND_URL=https://www.yoursite.com
+```
+
+In development, the URL auto-detects from the request, so no configuration needed.
+
 ## Recent Changes
+- Added SEO file proxies (sitemap, robots.txt, llms.txt)
+- Added FRONTEND_URL support with auto-detection fallback
 - Added ACF Global Scripts support (head/body script injection)
 - Refactored from custom "Projects" to WordPress default "Posts" content type
 - Added full taxonomy support (categories and tags)
