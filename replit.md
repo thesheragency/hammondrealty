@@ -183,6 +183,7 @@ The boilerplate automatically proxies SEO-critical files from WordPress to your 
 ### Sitemaps
 - Fetches from WordPress/Yoast (`/sitemap_index.xml`) or native WP (`/wp-sitemap.xml`)
 - Automatically replaces WordPress URLs with your frontend URL
+- Proxies Yoast XSL stylesheets for proper browser rendering
 - Works on dev, staging, and production (uses `FRONTEND_URL` or auto-detects)
 
 ### robots.txt

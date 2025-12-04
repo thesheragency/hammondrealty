@@ -58,8 +58,15 @@ async function proxyWordPressFile(wpPath: string, frontendUrl: string): Promise<
     const contentType = response.headers.get('content-type') || 'text/plain';
 
     // Replace WordPress URLs with frontend URLs
-    const wpDomain = new URL(wpBaseUrl).origin;
+    const wpUrl = new URL(wpBaseUrl);
+    const wpDomain = wpUrl.origin;
+    const wpHost = wpUrl.host;
+    
+    // Replace full URLs (https://domain.com)
     content = content.replace(new RegExp(escapeRegExp(wpDomain), 'g'), frontendUrl);
+    
+    // Replace protocol-relative URLs (//domain.com) - used in XSL stylesheets
+    content = content.replace(new RegExp(`//${escapeRegExp(wpHost)}`, 'g'), frontendUrl);
 
     return { content, contentType };
   } catch (error) {
@@ -482,6 +489,19 @@ export async function registerRoutes(
   // ============================================
   // SEO File Proxies (sitemap, robots, llms.txt)
   // ============================================
+
+  // Proxy Yoast SEO XSL stylesheets (needed for sitemap rendering in browser)
+  app.get('/wp-content/plugins/wordpress-seo/*', async (req: Request, res: Response) => {
+    const frontendUrl = getFrontendUrl(req);
+    const result = await proxyWordPressFile(req.path, frontendUrl);
+    
+    if (!result) {
+      return res.status(404).send('File not found');
+    }
+    
+    res.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+    res.type(result.contentType).send(result.content);
+  });
 
   // Sitemap proxy - catches all sitemap XML files from Yoast
   app.get('/sitemap*.xml', async (req: Request, res: Response) => {
