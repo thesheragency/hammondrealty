@@ -82,6 +82,22 @@ export function GlobalScripts() {
         });
         document.head.appendChild(newMeta);
       });
+
+      // Handle any remaining content (plain text or other elements) by wrapping in a hidden noscript
+      // This allows verification that the content was processed, even if it's not a valid head element
+      const remainingContent = tempContainer.innerHTML
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<link[^>]*>/gi, '')
+        .replace(/<meta[^>]*>/gi, '')
+        .trim();
+      
+      if (remainingContent) {
+        const noscript = document.createElement('noscript');
+        noscript.setAttribute(GLOBAL_HEAD_SCRIPTS_ATTR, 'true');
+        noscript.textContent = remainingContent;
+        document.head.appendChild(noscript);
+      }
     }
 
     if (settings.global_body_scripts) {

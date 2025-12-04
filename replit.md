@@ -134,16 +134,28 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 To use ACF Global Scripts for injecting head/body scripts:
 
 1. Install **ACF Pro** and **WPGraphQL for ACF** plugins
-2. Create an ACF Options Page named "Global Scripts" 
-3. Add two fields to the options page:
-   - Field Name: `global_head_scripts` (Textarea)
-   - Field Name: `global_body_scripts` (Textarea)
-4. In WPGraphQL for ACF settings, enable "Show in GraphQL" for these fields
+2. Create an ACF Options Page (e.g., "SherOptions" or "Global Scripts")
+3. Create a Field Group with GraphQL Type Name: `globalScripts`
+4. Add two fields to the field group:
+   - Field Name: `global_head_scripts` (Textarea) - for `<script>`, `<style>`, `<link>`, `<meta>` tags
+   - Field Name: `global_body_scripts` (Textarea) - for `<script>` tags or any HTML content
+5. Set the Field Group location to your Options Page
+6. Enable "Show in GraphQL" and check your Options Page under "GraphQL Types to Show"
 
-The boilerplate expects the following GraphQL structure:
+### Configuring the Query
+
+The GraphQL query in `server/wordpress.ts` must match your Options Page name. The query field name is the camelCase version of your Options Page name:
+
+| Options Page Name | GraphQL Query Field |
+|-------------------|---------------------|
+| SherOptions | `sherOptions` |
+| Global Scripts | `globalScripts` |
+| Site Settings | `siteSettings` |
+
+**Current configuration** (update in `server/wordpress.ts` if your Options Page has a different name):
 ```graphql
 query GetAcfOptions {
-  acfOptionsGlobalScripts {
+  sherOptions {
     globalScripts {
       globalHeadScripts
       globalBodyScripts
@@ -152,7 +164,11 @@ query GetAcfOptions {
 }
 ```
 
-**Note**: If your ACF Options page has a different name, update the query in `server/wordpress.ts`.
+### Script Injection Behavior
+
+- **Head Scripts**: Injects `<script>`, `<style>`, `<link>`, and `<meta>` tags into `<head>`
+- **Body Scripts**: Injects `<script>` tags and any other HTML content at end of `<body>`
+- Plain text content is preserved (wrapped appropriately) for verification
 
 ## 301 Redirects Setup
 
