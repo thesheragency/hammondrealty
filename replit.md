@@ -113,7 +113,7 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 1. **WPGraphQL Plugin** - Required for GraphQL API
 2. **WPGraphQL Yoast SEO** - For SEO metadata
 3. **WPGraphQL for ACF** - For ACF Global Scripts support (optional)
-4. **EPS 301 Redirects** - For 301 redirect management (free plugin)
+4. **301 Redirects by WebFactory Ltd** - For 301 redirect management (free plugin)
 5. **Headless Redirects API** - mu-plugin to expose redirects (see below)
 
 ## ACF Global Scripts Setup
@@ -141,13 +141,13 @@ query GetAcfOptions {
 
 **Note**: If your ACF Options page has a different name, update the query in `server/wordpress.ts`.
 
-## EPS 301 Redirects Setup
+## 301 Redirects Setup
 
-For 301 redirect management, this boilerplate uses the free [EPS 301 Redirects](https://wordpress.org/plugins/eps-301-redirects/) plugin.
+For 301 redirect management, this boilerplate uses the free [301 Redirects by WebFactory Ltd](https://wordpress.org/plugins/301-redirects/) plugin.
 
 ### Installation Steps
 
-1. Install **EPS 301 Redirects** plugin from WordPress Plugin Directory
+1. Install **301 Redirects** plugin from WordPress Plugin Directory
 2. Copy `wordpress-plugins/headless-redirects-api.php` to your WordPress `wp-content/mu-plugins/` folder
    - Create the `mu-plugins` folder if it doesn't exist
    - The mu-plugin auto-activates once uploaded

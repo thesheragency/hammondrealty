@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Headless Redirects API
- * Description: Exposes EPS 301 Redirects via REST API for headless WordPress setups
+ * Description: Exposes 301 Redirects (by WebFactory Ltd) via REST API for headless WordPress setups
  * Version: 1.0.0
  * Author: Headless WordPress Boilerplate
  * 
@@ -12,7 +12,7 @@
  * 
  * USAGE:
  * GET /wp-json/headless/v1/redirects
- * Returns all active redirects from EPS 301 Redirects plugin
+ * Returns all active redirects from 301 Redirects plugin by WebFactory Ltd
  */
 
 if (!defined('ABSPATH')) {
@@ -22,31 +22,31 @@ if (!defined('ABSPATH')) {
 add_action('rest_api_init', function () {
     register_rest_route('headless/v1', '/redirects', [
         'methods' => 'GET',
-        'callback' => 'headless_get_eps_redirects',
+        'callback' => 'headless_get_redirects',
         'permission_callback' => '__return_true', // Public endpoint
     ]);
 });
 
 /**
- * Get all active redirects from EPS 301 Redirects plugin
+ * Get all active redirects from 301 Redirects plugin by WebFactory Ltd
  */
-function headless_get_eps_redirects() {
+function headless_get_redirects() {
     global $wpdb;
     
-    // EPS 301 Redirects table name
-    $table_name = $wpdb->prefix . 'eps_redirects';
+    // 301 Redirects by WebFactory Ltd uses wp_ts_redirects table
+    $table_name = $wpdb->prefix . 'ts_redirects';
     
     // Check if table exists
     if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") !== $table_name) {
         return new WP_REST_Response([
-            'error' => 'EPS 301 Redirects plugin table not found',
-            'message' => 'Please install and activate the EPS 301 Redirects plugin'
+            'error' => '301 Redirects plugin table not found',
+            'message' => 'Please install and activate the 301 Redirects plugin by WebFactory Ltd'
         ], 404);
     }
     
-    // Get all active redirects
+    // Get all redirects (WebFactory plugin uses 'status' column: 1=active, 0=inactive)
     $redirects = $wpdb->get_results(
-        "SELECT id, url_from, url_to, type, status FROM {$table_name} WHERE status = 'active'",
+        "SELECT id, url_from, url_to, type, status FROM {$table_name} WHERE status = 1",
         ARRAY_A
     );
     

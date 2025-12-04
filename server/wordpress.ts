@@ -571,15 +571,15 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
 
     const data = await response.json();
     
-    // Transform EPS 301 format to our format
-    return (data || []).map((r: { url_from: string; url_to: string; type: string; status: string }) => ({
+    // Transform WebFactory 301 Redirects format to our format
+    return (data || []).map((r: { url_from: string; url_to: string; type: string | number; status: string | number }) => ({
       origin: r.url_from.startsWith('/') ? r.url_from : `/${r.url_from}`,
       target: r.url_to,
-      type: parseInt(r.type) || 301,
+      type: typeof r.type === 'string' ? parseInt(r.type) : r.type || 301,
       format: 'plain',
     }));
   } catch (error) {
-    console.warn('Could not fetch redirects from EPS 301 Redirects plugin:', error);
+    console.warn('Could not fetch redirects from 301 Redirects plugin:', error);
     return [];
   }
 }
