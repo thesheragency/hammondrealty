@@ -1,10 +1,10 @@
 import type { Express, Request, Response, NextFunction } from "express";
-import { createServer, type Server } from "http";
+import type { Server } from "http";
 import { storage } from "./storage";
 import { 
-  fetchProjects, 
-  fetchProjectBySlug, 
-  fetchProjectPreview,
+  fetchPosts, 
+  fetchPostBySlug, 
+  fetchPostPreview,
   fetchPages,
   fetchPagePreview,
   fetchRedirects,
@@ -56,56 +56,56 @@ export async function registerRoutes(
     }
   });
 
-  // Get all projects (from local cache)
-  app.get('/api/projects', async (_req: Request, res: Response) => {
+  // Get all posts (from local cache)
+  app.get('/api/posts', async (_req: Request, res: Response) => {
     try {
-      const projects = await storage.getAllProjects();
-      res.json(projects);
+      const posts = await storage.getAllPosts();
+      res.json(posts);
     } catch (error) {
-      console.error('Error fetching projects:', error);
+      console.error('Error fetching posts:', error);
       res.status(500).json({ 
-        message: 'Failed to fetch projects',
+        message: 'Failed to fetch posts',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   });
 
-  // Get featured projects
-  app.get('/api/projects/featured', async (_req: Request, res: Response) => {
+  // Get featured posts
+  app.get('/api/posts/featured', async (_req: Request, res: Response) => {
     try {
-      const projects = await storage.getFeaturedProjects();
-      res.json(projects);
+      const posts = await storage.getFeaturedPosts();
+      res.json(posts);
     } catch (error) {
-      console.error('Error fetching featured projects:', error);
+      console.error('Error fetching featured posts:', error);
       res.status(500).json({ 
-        message: 'Failed to fetch featured projects',
+        message: 'Failed to fetch featured posts',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   });
 
-  // Get single project by slug
-  app.get('/api/projects/:slug', async (req: Request, res: Response) => {
+  // Get single post by slug
+  app.get('/api/posts/:slug', async (req: Request, res: Response) => {
     try {
       const { slug } = req.params;
-      const project = await storage.getProjectBySlug(slug);
+      const post = await storage.getPostBySlug(slug);
       
-      if (!project) {
-        return res.status(404).json({ message: 'Project not found' });
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
       }
       
-      res.json(project);
+      res.json(post);
     } catch (error) {
-      console.error('Error fetching project:', error);
+      console.error('Error fetching post:', error);
       res.status(500).json({ 
-        message: 'Failed to fetch project',
+        message: 'Failed to fetch post',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   });
 
-  // Preview endpoint for projects
-  app.get('/api/preview/project/:id', async (req: Request, res: Response) => {
+  // Preview endpoint for posts
+  app.get('/api/preview/post/:id', async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const token = req.query.token as string || req.headers.authorization?.replace('Bearer ', '');
@@ -114,17 +114,17 @@ export async function registerRoutes(
         return res.status(401).json({ message: 'Preview token required' });
       }
       
-      const project = await fetchProjectPreview(parseInt(id), token);
+      const post = await fetchPostPreview(parseInt(id), token);
       
-      if (!project) {
-        return res.status(404).json({ message: 'Project not found or not accessible' });
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found or not accessible' });
       }
       
-      res.json(project);
+      res.json(post);
     } catch (error) {
-      console.error('Error fetching project preview:', error);
+      console.error('Error fetching post preview:', error);
       res.status(500).json({ 
-        message: 'Failed to fetch project preview',
+        message: 'Failed to fetch post preview',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
@@ -173,12 +173,12 @@ export async function registerRoutes(
   // Get sync status
   app.get('/api/sync/status', async (_req: Request, res: Response) => {
     try {
-      const projectsStatus = await storage.getSyncStatus('projects');
+      const postsStatus = await storage.getSyncStatus('posts');
       const pagesStatus = await storage.getSyncStatus('pages');
       const redirectsStatus = await storage.getSyncStatus('redirects');
       
       res.json({
-        projects: projectsStatus || null,
+        posts: postsStatus || null,
         pages: pagesStatus || null,
         redirects: redirectsStatus || null,
       });
@@ -194,36 +194,36 @@ export async function registerRoutes(
   // Sync WordPress content
   app.post('/api/wordpress/sync', async (req: Request, res: Response) => {
     const results = {
-      projects: { success: false, count: 0, error: null as string | null },
+      posts: { success: false, count: 0, error: null as string | null },
       pages: { success: false, count: 0, error: null as string | null },
       redirects: { success: false, count: 0, error: null as string | null },
     };
 
-    // Sync projects
+    // Sync posts
     try {
-      const wpProjects = await fetchProjects();
+      const wpPosts = await fetchPosts();
       
-      for (const project of wpProjects) {
-        await storage.upsertProject(project);
+      for (const post of wpPosts) {
+        await storage.upsertPost(post);
       }
       
-      results.projects.success = true;
-      results.projects.count = wpProjects.length;
+      results.posts.success = true;
+      results.posts.count = wpPosts.length;
       
       await storage.upsertSyncStatus({
-        entityType: 'projects',
-        itemsCount: wpProjects.length,
+        entityType: 'posts',
+        itemsCount: wpPosts.length,
         status: 'success',
         errorMessage: null,
       });
     } catch (error) {
-      results.projects.error = error instanceof Error ? error.message : 'Unknown error';
+      results.posts.error = error instanceof Error ? error.message : 'Unknown error';
       
       await storage.upsertSyncStatus({
-        entityType: 'projects',
+        entityType: 'posts',
         itemsCount: 0,
         status: 'error',
-        errorMessage: results.projects.error,
+        errorMessage: results.posts.error,
       });
     }
 
@@ -291,7 +291,7 @@ export async function registerRoutes(
       });
     }
 
-    const allSuccessful = results.projects.success && results.pages.success && results.redirects.success;
+    const allSuccessful = results.posts.success && results.pages.success && results.redirects.success;
     
     res.status(allSuccessful ? 200 : 207).json({
       message: allSuccessful ? 'Sync completed successfully' : 'Sync completed with some errors',
