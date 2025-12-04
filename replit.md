@@ -192,9 +192,10 @@ The boilerplate automatically proxies SEO-critical files from WordPress to your 
 
 ### llms.txt (AI Crawler Guidance)
 - Follows the [llms.txt standard](https://llmstxt.org/) for AI crawlers
-- First tries to fetch from WordPress (if a plugin generates it)
-- Falls back to auto-generation from your synced posts and pages
-- Also provides `/llms-full.txt` with extended content
+- **Yoast SEO 26.5+** natively generates llms.txt - enable it in Yoast → Settings → Site Features → llms.txt
+- Proxied from WordPress with URL replacement (requires WP_AUTH_USER/WP_AUTH_PASSWORD if site is protected)
+- Falls back to auto-generation from synced posts/pages if Yoast doesn't provide it
+- Also provides `/llms-full.txt` with extended content from your cached data
 
 ### How It Works
 1. Request comes to your frontend (e.g., `/sitemap_index.xml`)

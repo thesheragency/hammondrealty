@@ -40,7 +40,16 @@ async function proxyWordPressFile(wpPath: string, frontendUrl: string): Promise<
   }
 
   try {
-    const response = await fetch(`${wpBaseUrl}${wpPath}`);
+    // Build request headers with authentication if available
+    const headers: Record<string, string> = {};
+    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+      const credentials = Buffer.from(
+        `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
+      ).toString('base64');
+      headers['Authorization'] = `Basic ${credentials}`;
+    }
+
+    const response = await fetch(`${wpBaseUrl}${wpPath}`, { headers });
     if (!response.ok) {
       return null;
     }
