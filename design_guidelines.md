@@ -98,7 +98,6 @@ Use the shadcn `<Button>` component. Available variants:
 | `outline` | Tertiary actions | Transparent with border |
 | `ghost` | Subtle actions | Transparent, hover reveals |
 | `destructive` | Dangerous actions | Red background |
-| `link` | Inline links | Underlined, no background |
 
 ### Sizes
 

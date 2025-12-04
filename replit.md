@@ -226,6 +226,7 @@ Yoast redirects are synced and applied via Express middleware.
 - `/` - Home page with featured posts
 - `/blog` - Blog listing page
 - `/blog/:slug` - Individual post detail page
+- `/style-guide` - Live visual reference for all design tokens
 
 ## Development
 
@@ -270,7 +271,36 @@ FRONTEND_URL=https://www.yoursite.com
 
 In development, the URL auto-detects from the request, so no configuration needed.
 
+## Design System
+
+The boilerplate includes a comprehensive design system for consistent styling:
+
+### Design Tokens (CSS Variables)
+Located in `client/src/index.css` under the "DESIGN TOKENS" section:
+- **Brand colors**: `--color-brand`, `--color-accent` (light + dark mode)
+- **Typography**: Font families, heading sizes (H1-H6), body text variants
+- **Spacing & radius**: Standard Tailwind scale
+
+### Typography Classes
+Pre-built CSS classes for consistent text styling:
+- Headings: `.text-h1` through `.text-h6` (responsive desktop/mobile sizes)
+- Body: `.text-body`, `.text-body-lg`, `.text-small`, `.text-subheading`
+
+### Style Guide Page
+Visit `/style-guide` to see all design tokens rendered live. Use this to:
+- Preview colors, typography, buttons, cards, links
+- Verify customizations before deploying
+- Share with designers for approval
+
+### Customization Workflow
+1. Edit CSS variables in `client/src/index.css`
+2. Preview changes at `/style-guide`
+3. See `design_guidelines.md` for full documentation
+
 ## Recent Changes
+- Added design system with CSS variable infrastructure for easy brand customization
+- Added `/style-guide` page for live visual design token preview
+- Added typography utility classes (text-h1 through text-h6, text-body, etc.)
 - Added SEO file proxies (sitemap, robots.txt, llms.txt)
 - Added FRONTEND_URL support with auto-detection fallback
 - Added WP_BASIC_AUTH_ENABLED for controlling Basic Auth across environments

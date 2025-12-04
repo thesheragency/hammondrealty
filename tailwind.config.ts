@@ -11,6 +11,15 @@ export default {
         sm: ".1875rem", /* 3px */
       },
       colors: {
+        // Brand colors (customize per project in index.css)
+        brand: {
+          DEFAULT: "hsl(var(--color-brand) / <alpha-value>)",
+          foreground: "hsl(var(--color-brand-foreground) / <alpha-value>)",
+        },
+        "brand-accent": {
+          DEFAULT: "hsl(var(--color-accent) / <alpha-value>)",
+          foreground: "hsl(var(--color-accent-foreground) / <alpha-value>)",
+        },
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
@@ -86,6 +95,8 @@ export default {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
+        heading: ["var(--font-heading)"],
+        body: ["var(--font-body)"],
       },
       keyframes: {
         "accordion-down": {
