@@ -1,7 +1,7 @@
 # Headless WordPress Boilerplate
 
 ## Overview
-A modern headless WordPress implementation with React frontend, Express backend, and PostgreSQL caching. This boilerplate provides a complete solution for building decoupled WordPress sites with WPGraphQL integration.
+A modern headless WordPress implementation with React frontend, Express backend, and PostgreSQL caching. This boilerplate provides a complete solution for building decoupled WordPress sites with WPGraphQL integration, using WordPress's default "Posts" content type with full taxonomy support (categories and tags).
 
 ## Tech Stack
 - **Frontend**: React with TypeScript, TanStack Query, wouter routing
@@ -18,10 +18,10 @@ A modern headless WordPress implementation with React frontend, Express backend,
 │   │   ├── components/    # Reusable UI components
 │   │   │   ├── layout/    # Header, Footer, Layout
 │   │   │   ├── preview/   # Preview mode banner
-│   │   │   ├── projects/  # Project cards, list, content
+│   │   │   ├── posts/     # Post cards, list, content
 │   │   │   ├── seo/       # SEO head component
 │   │   │   └── ui/        # Shadcn UI components
-│   │   ├── pages/         # Route pages (home, projects, 404)
+│   │   ├── pages/         # Route pages (home, blog, 404)
 │   │   ├── hooks/         # Custom React hooks
 │   │   └── lib/           # Utilities and query client
 ├── server/                 # Express backend
@@ -35,13 +35,13 @@ A modern headless WordPress implementation with React frontend, Express backend,
 
 ## API Endpoints
 
-### Projects
-- `GET /api/projects` - List all projects
-- `GET /api/projects/featured` - List featured projects
-- `GET /api/projects/:slug` - Get single project by slug
+### Posts
+- `GET /api/posts` - List all posts with categories and tags
+- `GET /api/posts/featured` - List featured/sticky posts
+- `GET /api/posts/:slug` - Get single post by slug
 
 ### Preview
-- `GET /api/preview/project/:id?token=xxx` - Preview draft project
+- `GET /api/preview/post/:id?token=xxx` - Preview draft post
 - `GET /api/preview/page/:id?token=xxx` - Preview draft page
 
 ### Sync
@@ -53,6 +53,37 @@ A modern headless WordPress implementation with React frontend, Express backend,
 - `GET /api/pages` - List all pages
 - `GET /api/pages/:slug` - Get single page
 - `GET /api/health` - Health check
+
+## Database Schema
+
+### Posts Table
+- `id` - UUID primary key
+- `wpId` - WordPress post ID
+- `title` - Post title
+- `slug` - URL slug
+- `content` - Full HTML content
+- `excerpt` - Post excerpt
+- `author` - Author display name
+- `featuredImage` - Featured image URL
+- `featuredImageAlt` - Image alt text
+- `publishedAt` - Publication date
+- `wpModified` - Last modified date
+- `status` - Post status (publish, draft, etc.)
+- `seoMetadata` - Yoast SEO data (JSON)
+- `categories` - Embedded array of category objects (JSON)
+- `tags` - Embedded array of tag objects (JSON)
+- `isFeatured` - Featured/sticky post flag
+- `syncedAt` - Last sync timestamp
+
+### Taxonomy Storage
+Categories and tags are stored as embedded JSON arrays within each post (not in separate tables). Each taxonomy term object contains:
+- `id` - WordPress term ID
+- `name` - Display name
+- `slug` - URL slug
+- `description` - Term description
+- `count` - Number of associated posts
+
+This embedded approach simplifies the schema and is ideal for caching WordPress content.
 
 ## Environment Variables
 
@@ -68,12 +99,17 @@ A modern headless WordPress implementation with React frontend, Express backend,
 
 1. **WPGraphQL Plugin** - Required for GraphQL API
 2. **WPGraphQL Yoast SEO** - For SEO metadata
-3. **ACF Pro** - For custom fields (featuredImage)
 
 ## Key Features
 
 ### Content Caching
 WordPress content is synced to PostgreSQL for fast access. Use the Sync button or POST to `/api/wordpress/sync`.
+
+### Taxonomy Support
+Full support for WordPress taxonomies:
+- Categories displayed on post cards and detail pages
+- Tags shown in post footer
+- Both taxonomies are synced and cached locally
 
 ### SEO Integration
 - Page titles and meta descriptions
@@ -88,6 +124,11 @@ Preview draft content from WordPress by passing `preview=true&id=xxx&token=xxx` 
 ### Redirect Handling
 Yoast redirects are synced and applied via Express middleware.
 
+## Frontend Routes
+- `/` - Home page with featured posts
+- `/blog` - Blog listing page
+- `/blog/:slug` - Individual post detail page
+
 ## Development
 
 ```bash
@@ -96,9 +137,9 @@ npm run db:push    # Push schema to database
 ```
 
 ## Recent Changes
-- Initial headless WordPress boilerplate setup
-- Projects custom post type with ACF support
-- Yoast SEO integration with OpenGraph/Twitter tags
-- PostgreSQL caching layer
-- Preview mode for draft content
-- 301 redirect handling
+- Refactored from custom "Projects" to WordPress default "Posts" content type
+- Added full taxonomy support (categories and tags)
+- Updated routing: /projects → /blog
+- Added author and publication date display
+- Updated preview endpoints for posts
+- Modular component architecture for easy restyling
