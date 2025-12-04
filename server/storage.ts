@@ -1,46 +1,66 @@
 import { 
   users, type User, type InsertUser,
-  projects, type Project, type InsertProject,
+  projects, type Project,
   redirects, type Redirect, type InsertRedirect,
   syncStatus, type SyncStatus, type InsertSyncStatus,
-  pages, type Page, type InsertPage,
+  pages, type Page,
+  type SeoMetadata, type AcfFields,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
+export interface ProjectInput {
+  wpId: number;
+  slug: string;
+  title: string;
+  content?: string | null;
+  excerpt?: string | null;
+  status?: string;
+  featuredImage?: string | null;
+  featuredImageAlt?: string | null;
+  acfFields?: AcfFields | null;
+  seoMetadata?: SeoMetadata | null;
+  isFeatured?: boolean;
+  wpModified?: Date | null;
+}
+
+export interface PageInput {
+  wpId: number;
+  slug: string;
+  title: string;
+  content?: string | null;
+  status?: string;
+  seoMetadata?: SeoMetadata | null;
+  wpModified?: Date | null;
+}
+
 export interface IStorage {
-  // Users
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   
-  // Projects
   getAllProjects(): Promise<Project[]>;
   getFeaturedProjects(): Promise<Project[]>;
   getProjectBySlug(slug: string): Promise<Project | undefined>;
   getProjectByWpId(wpId: number): Promise<Project | undefined>;
-  upsertProject(project: InsertProject): Promise<Project>;
+  upsertProject(project: ProjectInput): Promise<Project>;
   deleteProject(id: string): Promise<void>;
   
-  // Pages
   getAllPages(): Promise<Page[]>;
   getPageBySlug(slug: string): Promise<Page | undefined>;
   getPageByWpId(wpId: number): Promise<Page | undefined>;
-  upsertPage(page: InsertPage): Promise<Page>;
+  upsertPage(page: PageInput): Promise<Page>;
   
-  // Redirects
   getAllRedirects(): Promise<Redirect[]>;
   getRedirectByOrigin(origin: string): Promise<Redirect | undefined>;
   upsertRedirect(redirect: InsertRedirect): Promise<Redirect>;
   clearRedirects(): Promise<void>;
   
-  // Sync Status
   getSyncStatus(entityType: string): Promise<SyncStatus | undefined>;
   upsertSyncStatus(status: InsertSyncStatus): Promise<SyncStatus>;
 }
 
 export class DatabaseStorage implements IStorage {
-  // Users
   async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user || undefined;
@@ -56,7 +76,6 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  // Projects
   async getAllProjects(): Promise<Project[]> {
     return db.select().from(projects).orderBy(desc(projects.syncedAt));
   }
@@ -75,19 +94,45 @@ export class DatabaseStorage implements IStorage {
     return project || undefined;
   }
 
-  async upsertProject(project: InsertProject): Promise<Project> {
+  async upsertProject(project: ProjectInput): Promise<Project> {
     const existing = await this.getProjectByWpId(project.wpId);
     
     if (existing) {
       const [updated] = await db
         .update(projects)
-        .set({ ...project, syncedAt: new Date() })
+        .set({
+          slug: project.slug,
+          title: project.title,
+          content: project.content,
+          excerpt: project.excerpt,
+          status: project.status,
+          featuredImage: project.featuredImage,
+          featuredImageAlt: project.featuredImageAlt,
+          acfFields: project.acfFields as AcfFields,
+          seoMetadata: project.seoMetadata as SeoMetadata,
+          isFeatured: project.isFeatured,
+          wpModified: project.wpModified,
+          syncedAt: new Date(),
+        })
         .where(eq(projects.wpId, project.wpId))
         .returning();
       return updated;
     }
     
-    const [created] = await db.insert(projects).values(project).returning();
+    const [created] = await db.insert(projects).values({
+      wpId: project.wpId,
+      slug: project.slug,
+      title: project.title,
+      content: project.content,
+      excerpt: project.excerpt,
+      status: project.status ?? "publish",
+      featuredImage: project.featuredImage,
+      featuredImageAlt: project.featuredImageAlt,
+      acfFields: project.acfFields as AcfFields,
+      seoMetadata: project.seoMetadata as SeoMetadata,
+      isFeatured: project.isFeatured ?? false,
+      wpModified: project.wpModified,
+    }).returning();
     return created;
   }
 
@@ -95,7 +140,6 @@ export class DatabaseStorage implements IStorage {
     await db.delete(projects).where(eq(projects.id, id));
   }
 
-  // Pages
   async getAllPages(): Promise<Page[]> {
     return db.select().from(pages).orderBy(desc(pages.syncedAt));
   }
@@ -110,23 +154,38 @@ export class DatabaseStorage implements IStorage {
     return page || undefined;
   }
 
-  async upsertPage(page: InsertPage): Promise<Page> {
+  async upsertPage(page: PageInput): Promise<Page> {
     const existing = await this.getPageByWpId(page.wpId);
     
     if (existing) {
       const [updated] = await db
         .update(pages)
-        .set({ ...page, syncedAt: new Date() })
+        .set({
+          slug: page.slug,
+          title: page.title,
+          content: page.content,
+          status: page.status,
+          seoMetadata: page.seoMetadata as SeoMetadata,
+          wpModified: page.wpModified,
+          syncedAt: new Date(),
+        })
         .where(eq(pages.wpId, page.wpId))
         .returning();
       return updated;
     }
     
-    const [created] = await db.insert(pages).values(page).returning();
+    const [created] = await db.insert(pages).values({
+      wpId: page.wpId,
+      slug: page.slug,
+      title: page.title,
+      content: page.content,
+      status: page.status ?? "publish",
+      seoMetadata: page.seoMetadata as SeoMetadata,
+      wpModified: page.wpModified,
+    }).returning();
     return created;
   }
 
-  // Redirects
   async getAllRedirects(): Promise<Redirect[]> {
     return db.select().from(redirects);
   }
@@ -142,13 +201,23 @@ export class DatabaseStorage implements IStorage {
     if (existing) {
       const [updated] = await db
         .update(redirects)
-        .set({ ...redirect, syncedAt: new Date() })
+        .set({
+          target: redirect.target,
+          type: redirect.type,
+          format: redirect.format,
+          syncedAt: new Date(),
+        })
         .where(eq(redirects.origin, redirect.origin))
         .returning();
       return updated;
     }
     
-    const [created] = await db.insert(redirects).values(redirect).returning();
+    const [created] = await db.insert(redirects).values({
+      origin: redirect.origin,
+      target: redirect.target,
+      type: redirect.type ?? 301,
+      format: redirect.format,
+    }).returning();
     return created;
   }
 
@@ -156,7 +225,6 @@ export class DatabaseStorage implements IStorage {
     await db.delete(redirects);
   }
 
-  // Sync Status
   async getSyncStatus(entityType: string): Promise<SyncStatus | undefined> {
     const [status] = await db
       .select()
@@ -173,13 +241,23 @@ export class DatabaseStorage implements IStorage {
     if (existing) {
       const [updated] = await db
         .update(syncStatus)
-        .set({ ...status, lastSyncAt: new Date() })
+        .set({
+          itemsCount: status.itemsCount,
+          status: status.status,
+          errorMessage: status.errorMessage,
+          lastSyncAt: new Date(),
+        })
         .where(eq(syncStatus.entityType, status.entityType))
         .returning();
       return updated;
     }
     
-    const [created] = await db.insert(syncStatus).values(status).returning();
+    const [created] = await db.insert(syncStatus).values({
+      entityType: status.entityType,
+      itemsCount: status.itemsCount,
+      status: status.status ?? "success",
+      errorMessage: status.errorMessage,
+    }).returning();
     return created;
   }
 }

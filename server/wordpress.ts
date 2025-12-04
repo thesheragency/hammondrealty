@@ -328,7 +328,13 @@ export const transformPage = (page: WpPage) => {
   };
 };
 
-// Fetch all projects from WordPress
+interface ProjectsResponse {
+  projects: {
+    pageInfo: { hasNextPage: boolean; endCursor: string };
+    nodes: WpProject[];
+  };
+}
+
 export async function fetchProjects(): Promise<ReturnType<typeof transformProject>[]> {
   const client = getWpClient();
   const allProjects: WpProject[] = [];
@@ -337,12 +343,7 @@ export async function fetchProjects(): Promise<ReturnType<typeof transformProjec
 
   while (hasNextPage) {
     try {
-      const response = await client.request<{
-        projects: {
-          pageInfo: { hasNextPage: boolean; endCursor: string };
-          nodes: WpProject[];
-        };
-      }>(GET_PROJECTS_QUERY, { first: 100, after });
+      const response: ProjectsResponse = await client.request(GET_PROJECTS_QUERY, { first: 100, after });
 
       allProjects.push(...response.projects.nodes);
       hasNextPage = response.projects.pageInfo.hasNextPage;
