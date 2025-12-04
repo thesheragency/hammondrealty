@@ -537,8 +537,8 @@ export async function fetchPagePreview(
   }
 }
 
-// Fetch redirects from EPS 301 Redirects plugin via custom REST API
-// Requires mu-plugin installed on WordPress (see DEVELOPER_SOP.md)
+// Fetch redirects from Redirection plugin (by John Godley)
+// Uses built-in REST API at /wp-json/redirection/v1/redirect
 export async function fetchRedirects(): Promise<WpRedirect[]> {
   const wpApiUrl = process.env.WP_API_URL;
   if (!wpApiUrl) {
@@ -548,10 +548,10 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
 
   // Get WordPress base URL (without /graphql)
   const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
-  const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
+  const redirectsEndpoint = `${wpBaseUrl}/wp-json/redirection/v1/redirect?per_page=200`;
 
   try {
-    // Build request headers with authentication if available
+    // Build request headers with authentication
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
@@ -565,21 +565,26 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
     const response = await fetch(redirectsEndpoint, { headers });
     
     if (!response.ok) {
-      console.warn(`Redirects endpoint returned ${response.status} - mu-plugin may not be installed`);
+      console.warn(`Redirection plugin API returned ${response.status} - plugin may not be installed or configured`);
       return [];
     }
 
     const data = await response.json();
     
-    // Transform WebFactory 301 Redirects format to our format
-    return (data || []).map((r: { url_from: string; url_to: string; type: string | number; status: string | number }) => ({
-      origin: r.url_from.startsWith('/') ? r.url_from : `/${r.url_from}`,
-      target: r.url_to,
-      type: typeof r.type === 'string' ? parseInt(r.type) : r.type || 301,
-      format: 'plain',
-    }));
+    // Redirection plugin returns { items: [...] } with each item having:
+    // url: source URL, action_data: { url: target }, action_code: redirect type (301, 302, etc.)
+    const items = data.items || [];
+    
+    return items
+      .filter((r: { enabled: boolean }) => r.enabled)
+      .map((r: { url: string; action_data: { url?: string }; action_code: number }) => ({
+        origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
+        target: r.action_data?.url || '/',
+        type: r.action_code || 301,
+        format: 'plain',
+      }));
   } catch (error) {
-    console.warn('Could not fetch redirects from 301 Redirects plugin:', error);
+    console.warn('Could not fetch redirects from Redirection plugin:', error);
     return [];
   }
 }
