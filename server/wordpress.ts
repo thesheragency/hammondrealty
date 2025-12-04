@@ -1,5 +1,5 @@
 import { GraphQLClient, gql } from 'graphql-request';
-import type { SeoMetadata, AcfFields } from '@shared/schema';
+import type { SeoMetadata, TaxonomyTerm } from '@shared/schema';
 
 // WordPress GraphQL client configuration
 const getWpClient = (authToken?: string) => {
@@ -63,12 +63,23 @@ const FEATURED_IMAGE_FRAGMENT = gql`
   }
 `;
 
-// Query for fetching all projects (custom post type)
-const GET_PROJECTS_QUERY = gql`
+const TAXONOMY_FRAGMENT = gql`
+  fragment TaxonomyFields on TermNode {
+    databaseId
+    name
+    slug
+    description
+    count
+  }
+`;
+
+// Query for fetching all posts (WordPress default post type)
+const GET_POSTS_QUERY = gql`
   ${SEO_FRAGMENT}
   ${FEATURED_IMAGE_FRAGMENT}
-  query GetProjects($first: Int = 100, $after: String) {
-    projects(first: $first, after: $after, where: { status: PUBLISH }) {
+  ${TAXONOMY_FRAGMENT}
+  query GetPosts($first: Int = 100, $after: String) {
+    posts(first: $first, after: $after, where: { status: PUBLISH }) {
       pageInfo {
         hasNextPage
         endCursor
@@ -80,74 +91,115 @@ const GET_PROJECTS_QUERY = gql`
         content
         excerpt
         status
+        date
         modified
+        author {
+          node {
+            name
+          }
+        }
         featuredImage {
           node {
             ...FeaturedImageFields
           }
         }
+        categories {
+          nodes {
+            ...TaxonomyFields
+          }
+        }
+        tags {
+          nodes {
+            ...TaxonomyFields
+          }
+        }
         seo {
           ...SeoFields
-        }
-        projectFields {
-          isFeatured
         }
       }
     }
   }
 `;
 
-// Query for fetching a single project by slug
-const GET_PROJECT_BY_SLUG_QUERY = gql`
+// Query for fetching a single post by slug
+const GET_POST_BY_SLUG_QUERY = gql`
   ${SEO_FRAGMENT}
   ${FEATURED_IMAGE_FRAGMENT}
-  query GetProjectBySlug($slug: ID!) {
-    project(id: $slug, idType: SLUG) {
+  ${TAXONOMY_FRAGMENT}
+  query GetPostBySlug($slug: ID!) {
+    post(id: $slug, idType: SLUG) {
       databaseId
       slug
       title
       content
       excerpt
       status
+      date
       modified
+      author {
+        node {
+          name
+        }
+      }
       featuredImage {
         node {
           ...FeaturedImageFields
         }
       }
+      categories {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
+      tags {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
       seo {
         ...SeoFields
-      }
-      projectFields {
-        isFeatured
       }
     }
   }
 `;
 
 // Query for preview (draft) content
-const GET_PROJECT_PREVIEW_QUERY = gql`
+const GET_POST_PREVIEW_QUERY = gql`
   ${SEO_FRAGMENT}
   ${FEATURED_IMAGE_FRAGMENT}
-  query GetProjectPreview($id: ID!) {
-    project(id: $id, idType: DATABASE_ID, asPreview: true) {
+  ${TAXONOMY_FRAGMENT}
+  query GetPostPreview($id: ID!) {
+    post(id: $id, idType: DATABASE_ID, asPreview: true) {
       databaseId
       slug
       title
       content
       excerpt
       status
+      date
       modified
+      author {
+        node {
+          name
+        }
+      }
       featuredImage {
         node {
           ...FeaturedImageFields
         }
       }
+      categories {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
+      tags {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
       seo {
         ...SeoFields
-      }
-      projectFields {
-        isFeatured
       }
     }
   }
@@ -233,19 +285,36 @@ interface WpSeo {
   twitterCardType: string;
 }
 
-interface WpProject {
+interface WpTaxonomyTerm {
+  databaseId: number;
+  name: string;
+  slug: string;
+  description: string;
+  count: number;
+}
+
+interface WpPost {
   databaseId: number;
   slug: string;
   title: string;
   content: string;
   excerpt: string;
   status: string;
+  date: string;
   modified: string;
-  featuredImage: WpFeaturedImage | null;
-  seo: WpSeo | null;
-  projectFields: {
-    isFeatured: boolean;
+  author: {
+    node: {
+      name: string;
+    };
   } | null;
+  featuredImage: WpFeaturedImage | null;
+  categories: {
+    nodes: WpTaxonomyTerm[];
+  } | null;
+  tags: {
+    nodes: WpTaxonomyTerm[];
+  } | null;
+  seo: WpSeo | null;
 }
 
 interface WpPage {
@@ -286,32 +355,39 @@ const transformSeoData = (seo: WpSeo | null): SeoMetadata | undefined => {
   };
 };
 
-// Transform WordPress project to our schema format
-export const transformProject = (project: WpProject) => {
-  const featuredImage = project.featuredImage?.node;
+// Transform taxonomy terms to our schema format
+const transformTaxonomyTerms = (terms: WpTaxonomyTerm[] | undefined): TaxonomyTerm[] | null => {
+  if (!terms || terms.length === 0) return null;
+  
+  return terms.map(term => ({
+    id: term.databaseId,
+    name: term.name,
+    slug: term.slug,
+    description: term.description,
+    count: term.count,
+  }));
+};
+
+// Transform WordPress post to our schema format
+export const transformPost = (post: WpPost) => {
+  const featuredImage = post.featuredImage?.node;
   
   return {
-    wpId: project.databaseId,
-    slug: project.slug,
-    title: project.title,
-    content: project.content,
-    excerpt: project.excerpt,
-    status: project.status.toLowerCase(),
+    wpId: post.databaseId,
+    slug: post.slug,
+    title: post.title,
+    content: post.content,
+    excerpt: post.excerpt,
+    status: post.status.toLowerCase(),
+    author: post.author?.node?.name || null,
+    publishedAt: post.date ? new Date(post.date) : null,
     featuredImage: featuredImage?.sourceUrl || null,
     featuredImageAlt: featuredImage?.altText || null,
-    acfFields: featuredImage ? {
-      featuredImage: {
-        sourceUrl: featuredImage.sourceUrl,
-        altText: featuredImage.altText,
-        mediaDetails: {
-          width: featuredImage.mediaDetails?.width,
-          height: featuredImage.mediaDetails?.height,
-        },
-      },
-    } as AcfFields : null,
-    seoMetadata: transformSeoData(project.seo),
-    isFeatured: project.projectFields?.isFeatured || false,
-    wpModified: project.modified ? new Date(project.modified) : null,
+    categories: transformTaxonomyTerms(post.categories?.nodes),
+    tags: transformTaxonomyTerms(post.tags?.nodes),
+    seoMetadata: transformSeoData(post.seo),
+    isFeatured: false, // Can be determined by category or tag
+    wpModified: post.modified ? new Date(post.modified) : null,
   };
 };
 
@@ -328,70 +404,71 @@ export const transformPage = (page: WpPage) => {
   };
 };
 
-interface ProjectsResponse {
-  projects: {
+interface PostsResponse {
+  posts: {
     pageInfo: { hasNextPage: boolean; endCursor: string };
-    nodes: WpProject[];
+    nodes: WpPost[];
   };
 }
 
-export async function fetchProjects(): Promise<ReturnType<typeof transformProject>[]> {
+// Fetch all posts from WordPress
+export async function fetchPosts(): Promise<ReturnType<typeof transformPost>[]> {
   const client = getWpClient();
-  const allProjects: WpProject[] = [];
+  const allPosts: WpPost[] = [];
   let hasNextPage = true;
   let after: string | null = null;
 
   while (hasNextPage) {
     try {
-      const response: ProjectsResponse = await client.request(GET_PROJECTS_QUERY, { first: 100, after });
+      const response: PostsResponse = await client.request(GET_POSTS_QUERY, { first: 100, after });
 
-      allProjects.push(...response.projects.nodes);
-      hasNextPage = response.projects.pageInfo.hasNextPage;
-      after = response.projects.pageInfo.endCursor;
+      allPosts.push(...response.posts.nodes);
+      hasNextPage = response.posts.pageInfo.hasNextPage;
+      after = response.posts.pageInfo.endCursor;
     } catch (error) {
-      console.error('Error fetching projects from WordPress:', error);
+      console.error('Error fetching posts from WordPress:', error);
       throw error;
     }
   }
 
-  return allProjects.map(transformProject);
+  return allPosts.map(transformPost);
 }
 
-// Fetch a single project by slug
-export async function fetchProjectBySlug(slug: string): Promise<ReturnType<typeof transformProject> | null> {
+// Fetch a single post by slug
+export async function fetchPostBySlug(slug: string): Promise<ReturnType<typeof transformPost> | null> {
   const client = getWpClient();
 
   try {
-    const response = await client.request<{ project: WpProject | null }>(
-      GET_PROJECT_BY_SLUG_QUERY,
+    const response = await client.request<{ post: WpPost | null }>(
+      GET_POST_BY_SLUG_QUERY,
       { slug }
     );
 
-    if (!response.project) return null;
-    return transformProject(response.project);
+    if (!response.post) return null;
+    return transformPost(response.post);
   } catch (error) {
-    console.error('Error fetching project by slug:', error);
+    console.error('Error fetching post by slug:', error);
     throw error;
   }
 }
 
-// Fetch project preview by ID with auth token
-export async function fetchProjectPreview(
+// Fetch post preview by ID with auth token
+export async function fetchPostPreview(
   id: number,
   authToken: string
-): Promise<ReturnType<typeof transformProject> | null> {
+): Promise<ReturnType<typeof transformPost> | null> {
   const client = getWpClient(authToken);
 
   try {
-    const response = await client.request<{ project: WpProject | null }>(
-      GET_PROJECT_PREVIEW_QUERY,
+    const response = await client.request<{ post: WpPost | null }>(
+      GET_POST_PREVIEW_QUERY,
       { id: id.toString() }
     );
 
-    if (!response.project) return null;
-    return transformProject(response.project);
+    if (!response.post) return null;
+    return transformPost(response.post);
   } catch (error) {
-    console.error('Error fetching project preview:', error);
+    console.error('Error fetching post preview:', error);
     throw error;
   }
 }
