@@ -1,15 +1,15 @@
 import { 
   users, type User, type InsertUser,
-  projects, type Project,
+  posts, type Post,
   redirects, type Redirect, type InsertRedirect,
   syncStatus, type SyncStatus, type InsertSyncStatus,
   pages, type Page,
-  type SeoMetadata, type AcfFields,
+  type SeoMetadata, type TaxonomyTerm,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
-export interface ProjectInput {
+export interface PostInput {
   wpId: number;
   slug: string;
   title: string;
@@ -18,7 +18,10 @@ export interface ProjectInput {
   status?: string;
   featuredImage?: string | null;
   featuredImageAlt?: string | null;
-  acfFields?: AcfFields | null;
+  author?: string | null;
+  publishedAt?: Date | null;
+  categories?: TaxonomyTerm[] | null;
+  tags?: TaxonomyTerm[] | null;
   seoMetadata?: SeoMetadata | null;
   isFeatured?: boolean;
   wpModified?: Date | null;
@@ -39,12 +42,12 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   
-  getAllProjects(): Promise<Project[]>;
-  getFeaturedProjects(): Promise<Project[]>;
-  getProjectBySlug(slug: string): Promise<Project | undefined>;
-  getProjectByWpId(wpId: number): Promise<Project | undefined>;
-  upsertProject(project: ProjectInput): Promise<Project>;
-  deleteProject(id: string): Promise<void>;
+  getAllPosts(): Promise<Post[]>;
+  getFeaturedPosts(): Promise<Post[]>;
+  getPostBySlug(slug: string): Promise<Post | undefined>;
+  getPostByWpId(wpId: number): Promise<Post | undefined>;
+  upsertPost(post: PostInput): Promise<Post>;
+  deletePost(id: string): Promise<void>;
   
   getAllPages(): Promise<Page[]>;
   getPageBySlug(slug: string): Promise<Page | undefined>;
@@ -76,68 +79,74 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  async getAllProjects(): Promise<Project[]> {
-    return db.select().from(projects).orderBy(desc(projects.syncedAt));
+  async getAllPosts(): Promise<Post[]> {
+    return db.select().from(posts).orderBy(desc(posts.publishedAt));
   }
 
-  async getFeaturedProjects(): Promise<Project[]> {
-    return db.select().from(projects).where(eq(projects.isFeatured, true)).orderBy(desc(projects.syncedAt));
+  async getFeaturedPosts(): Promise<Post[]> {
+    return db.select().from(posts).where(eq(posts.isFeatured, true)).orderBy(desc(posts.publishedAt));
   }
 
-  async getProjectBySlug(slug: string): Promise<Project | undefined> {
-    const [project] = await db.select().from(projects).where(eq(projects.slug, slug));
-    return project || undefined;
+  async getPostBySlug(slug: string): Promise<Post | undefined> {
+    const [post] = await db.select().from(posts).where(eq(posts.slug, slug));
+    return post || undefined;
   }
 
-  async getProjectByWpId(wpId: number): Promise<Project | undefined> {
-    const [project] = await db.select().from(projects).where(eq(projects.wpId, wpId));
-    return project || undefined;
+  async getPostByWpId(wpId: number): Promise<Post | undefined> {
+    const [post] = await db.select().from(posts).where(eq(posts.wpId, wpId));
+    return post || undefined;
   }
 
-  async upsertProject(project: ProjectInput): Promise<Project> {
-    const existing = await this.getProjectByWpId(project.wpId);
+  async upsertPost(post: PostInput): Promise<Post> {
+    const existing = await this.getPostByWpId(post.wpId);
     
     if (existing) {
       const [updated] = await db
-        .update(projects)
+        .update(posts)
         .set({
-          slug: project.slug,
-          title: project.title,
-          content: project.content,
-          excerpt: project.excerpt,
-          status: project.status,
-          featuredImage: project.featuredImage,
-          featuredImageAlt: project.featuredImageAlt,
-          acfFields: project.acfFields as AcfFields,
-          seoMetadata: project.seoMetadata as SeoMetadata,
-          isFeatured: project.isFeatured,
-          wpModified: project.wpModified,
+          slug: post.slug,
+          title: post.title,
+          content: post.content,
+          excerpt: post.excerpt,
+          status: post.status,
+          featuredImage: post.featuredImage,
+          featuredImageAlt: post.featuredImageAlt,
+          author: post.author,
+          publishedAt: post.publishedAt,
+          categories: post.categories as TaxonomyTerm[],
+          tags: post.tags as TaxonomyTerm[],
+          seoMetadata: post.seoMetadata as SeoMetadata,
+          isFeatured: post.isFeatured,
+          wpModified: post.wpModified,
           syncedAt: new Date(),
         })
-        .where(eq(projects.wpId, project.wpId))
+        .where(eq(posts.wpId, post.wpId))
         .returning();
       return updated;
     }
     
-    const [created] = await db.insert(projects).values({
-      wpId: project.wpId,
-      slug: project.slug,
-      title: project.title,
-      content: project.content,
-      excerpt: project.excerpt,
-      status: project.status ?? "publish",
-      featuredImage: project.featuredImage,
-      featuredImageAlt: project.featuredImageAlt,
-      acfFields: project.acfFields as AcfFields,
-      seoMetadata: project.seoMetadata as SeoMetadata,
-      isFeatured: project.isFeatured ?? false,
-      wpModified: project.wpModified,
+    const [created] = await db.insert(posts).values({
+      wpId: post.wpId,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      excerpt: post.excerpt,
+      status: post.status ?? "publish",
+      featuredImage: post.featuredImage,
+      featuredImageAlt: post.featuredImageAlt,
+      author: post.author,
+      publishedAt: post.publishedAt,
+      categories: post.categories as TaxonomyTerm[],
+      tags: post.tags as TaxonomyTerm[],
+      seoMetadata: post.seoMetadata as SeoMetadata,
+      isFeatured: post.isFeatured ?? false,
+      wpModified: post.wpModified,
     }).returning();
     return created;
   }
 
-  async deleteProject(id: string): Promise<void> {
-    await db.delete(projects).where(eq(projects.id, id));
+  async deletePost(id: string): Promise<void> {
+    await db.delete(posts).where(eq(posts.id, id));
   }
 
   async getAllPages(): Promise<Page[]> {
