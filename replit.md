@@ -60,11 +60,6 @@ A modern headless WordPress implementation with React frontend, Express backend,
 - `GET /llms.txt` - AI crawler guidance (generated from content)
 - `GET /llms-full.txt` - Extended AI crawler file with full content
 
-### Gravity Forms
-- `GET /api/gravity-forms` - List all forms (requires authentication)
-- `GET /api/gravity-forms/:formId` - Get form structure (requires authentication)
-- `POST /api/gravity-forms/:formId/submit` - Submit form entry (no auth required)
-
 ### Other
 - `GET /api/redirects` - List all Yoast redirects
 - `GET /api/pages` - List all pages
@@ -133,7 +128,6 @@ This embedded approach simplifies the schema and is ideal for caching WordPress 
 2. **WPGraphQL Yoast SEO** - For SEO metadata
 3. **WPGraphQL for ACF** - For ACF Global Scripts support (optional)
 4. **Redirection** - For 301 redirect management (free plugin with built-in REST API)
-5. **Gravity Forms** - For contact forms (optional, requires REST API v2 enabled)
 
 ## ACF Global Scripts Setup
 
@@ -212,74 +206,10 @@ Preview draft content from WordPress by passing `preview=true&id=xxx&token=xxx` 
 ### Redirect Handling
 Yoast redirects are synced and applied via Express middleware.
 
-## Gravity Forms Setup
-
-The boilerplate includes a contact form that connects to Gravity Forms REST API v2.
-
-### WordPress Setup
-
-1. Install **Gravity Forms** plugin (paid license required)
-2. Go to **Forms > Settings > REST API**
-3. Check **"Enable access to the API"**
-4. Create your form in **Forms > New Form**
-5. Note the **Form ID** (visible in the form editor URL or Forms list)
-
-### Important: REST API v2 Limitations
-
-**Email Confirmation:** If your email field has "Enable Email Confirmation" checked, you must **disable it** for REST API v2 compatibility. The confirmation feature has known issues with API submissions.
-
-**Complex Fields:** For fields with multiple inputs (like Name with First/Last), use underscores to separate the field ID from input ID:
-- Name field 1 with First (input 1.3) → `input_1_3`
-- Name field 1 with Last (input 1.6) → `input_1_6`
-- Simple email field 2 → `input_2`
-- Textarea field 3 → `input_3`
-
-### Frontend Configuration
-
-The contact form is located at `/contact`. To configure:
-
-1. Open `client/src/pages/contact.tsx`
-2. Update `CONTACT_FORM_ID` to match your Gravity Forms form ID
-3. Update the `fieldMapping` in ContactForm component to match your form fields:
-
-```typescript
-<ContactForm 
-  formId={1}  // Your Gravity Forms ID
-  fieldMapping={{
-    firstName: 'input_1_3',   // Name field (First input)
-    lastName: 'input_1_6',    // Name field (Last input)
-    email: 'input_2',         // Email field (no confirmation)
-    message: 'input_3',       // Message/Comments textarea
-  }}
-/>
-```
-
-### Finding Field IDs
-
-1. In Gravity Forms editor, click on each field
-2. Look at the **Field ID** in the right panel
-3. For complex fields (Name, Address), expand to see sub-input IDs
-4. The input name format is `input_X_Y` where X is field ID and Y is sub-input ID
-
-### API Endpoints
-
-- Submissions don't require authentication (public submissions)
-- Reading form structures requires WP_AUTH_USER/WP_AUTH_PASSWORD with Gravity Forms permissions
-
-### Troubleshooting
-
-If form submissions fail:
-1. Verify the REST API is enabled in Gravity Forms settings
-2. **Disable email confirmation** on email fields (common cause of validation errors)
-3. Check the Form ID matches your form
-4. Verify field IDs use underscore format (`input_1_3`, not `input_1.3`)
-5. Check server logs for detailed error messages
-
 ## Frontend Routes
 - `/` - Home page with featured posts
 - `/blog` - Blog listing page
 - `/blog/:slug` - Individual post detail page
-- `/contact` - Contact form page
 
 ## Development
 
@@ -325,10 +255,9 @@ FRONTEND_URL=https://www.yoursite.com
 In development, the URL auto-detects from the request, so no configuration needed.
 
 ## Recent Changes
-- Added Gravity Forms integration with REST API v2 for contact forms
-- Added /contact route with configurable form component
 - Added SEO file proxies (sitemap, robots.txt, llms.txt)
 - Added FRONTEND_URL support with auto-detection fallback
+- Added WP_BASIC_AUTH_ENABLED for controlling Basic Auth across environments
 - Added ACF Global Scripts support (head/body script injection)
 - Refactored from custom "Projects" to WordPress default "Posts" content type
 - Added full taxonomy support (categories and tags)
