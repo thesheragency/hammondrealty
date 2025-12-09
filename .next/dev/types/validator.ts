@@ -110,6 +110,69 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/llms-full.txt/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/llms-full.txt">> = Specific
+  const handler = {} as typeof import("../../../app/llms-full.txt/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/llms.txt/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/llms.txt">> = Specific
+  const handler = {} as typeof import("../../../app/llms.txt/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/robots.txt/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/robots.txt">> = Specific
+  const handler = {} as typeof import("../../../app/robots.txt/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/sitemap.xml/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/sitemap.xml">> = Specific
+  const handler = {} as typeof import("../../../app/sitemap.xml/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/sitemap_index.xml/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/sitemap_index.xml">> = Specific
+  const handler = {} as typeof import("../../../app/sitemap_index.xml/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/wp-content/plugins/wordpress-seo/css/[...path]">> = Specific
+  const handler = {} as typeof import("../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/wp-sitemap.xml/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/wp-sitemap.xml">> = Specific
+  const handler = {} as typeof import("../../../app/wp-sitemap.xml/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 
 
 

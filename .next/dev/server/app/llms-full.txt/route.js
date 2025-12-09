@@ -1,0 +1,11 @@
+var R=require("../../chunks/[turbopack]_runtime.js")("server/app/llms-full.txt/route.js")
+R.c("server/chunks/node_modules_next_ad723147._.js")
+R.c("server/chunks/node_modules_drizzle-orm_8fd440cd._.js")
+R.c("server/chunks/node_modules_zod_lib_index_mjs_db18e9a4._.js")
+R.c("server/chunks/node_modules_@neondatabase_serverless_index_mjs_2c73916b._.js")
+R.c("server/chunks/node_modules_ws_cb567abb._.js")
+R.c("server/chunks/node_modules_b54bdf0c._.js")
+R.c("server/chunks/[root-of-the-server]__39e82f20._.js")
+R.c("server/chunks/_next-internal_server_app_llms-full_txt_route_actions_f19e783e.js")
+R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/app/llms-full.txt/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/app/llms-full.txt/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports
