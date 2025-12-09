@@ -45,8 +45,9 @@ export function GlobalScripts() {
     cleanupInjectedElements();
 
     if (settings.global_head_scripts) {
-      const tempContainer = document.createElement('div');
-      tempContainer.innerHTML = settings.global_head_scripts;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(settings.global_head_scripts, 'text/html');
+      const tempContainer = doc.body;
       
       tempContainer.querySelectorAll('script').forEach((script) => {
         const newScript = document.createElement('script');
@@ -101,8 +102,9 @@ export function GlobalScripts() {
     }
 
     if (settings.global_body_scripts) {
-      const tempContainer = document.createElement('div');
-      tempContainer.innerHTML = settings.global_body_scripts;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(settings.global_body_scripts, 'text/html');
+      const tempContainer = doc.body;
       
       tempContainer.querySelectorAll('script').forEach((script) => {
         const newScript = document.createElement('script');
@@ -114,11 +116,19 @@ export function GlobalScripts() {
         document.body.appendChild(newScript);
       });
 
-      const nonScriptContent = tempContainer.innerHTML.replace(/<script[\s\S]*?<\/script>/gi, '').trim();
-      if (nonScriptContent) {
-        const container = document.createElement('div');
-        container.setAttribute(GLOBAL_BODY_SCRIPTS_ATTR, 'true');
-        container.innerHTML = nonScriptContent;
+      // Clone non-script elements safely
+      const container = document.createElement('div');
+      container.setAttribute(GLOBAL_BODY_SCRIPTS_ATTR, 'true');
+      let hasNonScriptContent = false;
+      
+      Array.from(tempContainer.childNodes).forEach((node) => {
+        if (node.nodeName.toLowerCase() !== 'script') {
+          container.appendChild(node.cloneNode(true));
+          hasNonScriptContent = true;
+        }
+      });
+      
+      if (hasNonScriptContent) {
         document.body.appendChild(container);
       }
     }
