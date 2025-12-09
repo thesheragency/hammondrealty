@@ -1,0 +1,408 @@
+9. Navbar (client/src/components/layout/navbar.tsx)
+The sticky navigation bar with mobile menu.
+
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { TumenLogo } from "@/components/ui/logo";
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const navLinks = [
+    { name: "What We Do", href: "/services" },
+    { name: "Our Process", href: "/process" },
+    { name: "Featured Projects", href: "/projects" },
+    { name: "About Us", href: "/about" },
+  ];
+  return (
+    <nav className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b border-border/60">
+      <div className="container mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/">
+          <a className="flex items-center gap-2 group">
+            <TumenLogo className="h-6 md:h-8 w-auto text-primary group-hover:text-accent transition-colors duration-300" />
+          </a>
+        </Link>
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-8 lg:gap-12">
+          {navLinks.map((item) => (
+            <Link key={item.name} href={item.href}>
+              <a className="text-xs font-medium uppercase tracking-[0.15em] text-foreground/80 hover:text-accent transition-colors relative group py-2">
+                {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+              </a>
+            </Link>
+          ))}
+        </div>
+        {/* CTA & Mobile Toggle */}
+        <div className="flex items-center gap-4">
+          <Button className="hidden md:flex bg-primary text-primary-foreground hover:bg-accent transition-colors px-6 text-xs uppercase tracking-widest font-medium">
+            Start a Project
+          </Button>
+          <button 
+            className="md:hidden p-2 text-primary"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </div>
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden border-t border-border bg-background absolute w-full h-screen">
+          <div className="flex flex-col p-8 space-y-6">
+            {navLinks.map((item) => (
+              <Link key={item.name} href={item.href}>
+                <a className="text-2xl font-serif text-primary" onClick={() => setIsOpen(false)}>
+                  {item.name}
+                </a>
+              </Link>
+            ))}
+            <div className="pt-8 border-t border-border/40">
+              <Button className="w-full rounded-none h-12 bg-primary text-primary-foreground">
+                Start a Project
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+}
+
+10. Logo Ticker (client/src/components/sections/logo-ticker.tsx)
+The infinite scrolling client logo bar.
+
+import { useRef, useEffect } from "react";
+const logos = [
+  "Gensler", "Rockwell Group", "Yabu Pushelberg", "AvroKO", "Roman and Williams", "Champalimaud", "Meyer Davis"
+];
+export function LogoTicker() {
+  return (
+    <section className="border-y border-border/60 bg-secondary/10 overflow-hidden py-12">
+      <div className="container mx-auto px-4 md:px-8 mb-8 text-center">
+         <span className="text-xs font-sans text-muted-foreground uppercase tracking-widest">
+            Collaborating with New York's Finest
+         </span>
+      </div>
+      
+      <div className="relative flex overflow-x-hidden group">
+        <div className="animate-marquee whitespace-nowrap flex gap-16 items-center">
+          {/* Duplicated list for infinite scroll */}
+          {[...logos, ...logos, ...logos, ...logos].map((logo, i) => (
+            <span 
+              key={i} 
+              className="text-2xl md:text-3xl font-serif text-primary/40 mx-8 uppercase tracking-widest hover:text-accent transition-colors cursor-default"
+            >
+              {logo}
+            </span>
+          ))}
+        </div>
+        <div className="absolute top-0 animate-marquee2 whitespace-nowrap flex gap-16 items-center">
+           {[...logos, ...logos, ...logos, ...logos].map((logo, i) => (
+            <span 
+              key={i} 
+              className="text-2xl md:text-3xl font-serif text-primary/40 mx-8 uppercase tracking-widest hover:text-accent transition-colors cursor-default"
+            >
+              {logo}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+11. Featured Testimonial (client/src/components/sections/featured-testimonial.tsx)
+The large centered quote section.
+
+import { Quote } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+export function FeaturedTestimonial() {
+  const container = useRef<HTMLElement | null>(null);
+  useScrollReveal(container, ".reveal-item");
+  return (
+    <section ref={container} className="py-24 bg-secondary/20 border-b border-border/60">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="max-w-4xl mx-auto text-center space-y-12">
+          <div className="reveal-item opacity-0">
+            <Quote className="w-12 h-12 text-accent mx-auto opacity-50" />
+          </div>
+          
+          <blockquote className="reveal-item opacity-0 text-3xl md:text-4xl lg:text-5xl font-serif text-primary leading-tight">
+            "Tumen is detail-obsessed, transparent, and easy to collaborate with — a rare find in this industry."
+          </blockquote>
+          
+          <div className="reveal-item opacity-0 flex flex-col items-center space-y-4">
+            <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center text-xl font-serif text-primary">
+              SJ
+            </div>
+            <div className="text-center">
+              <div className="text-lg font-medium text-primary">Sarah Jenkins</div>
+              <div className="text-sm font-sans text-muted-foreground uppercase tracking-widest">Principal, SJ Interiors NY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+12. Social Grid (client/src/components/sections/social-grid.tsx)
+The "From the Site" Instagram-style grid.
+
+import social1 from "@assets/generated_images/detail_of_brass_hardware.png";
+import social2 from "@assets/generated_images/detail_of_marble_veining.png";
+import social3 from "@assets/generated_images/detail_of_wood_joinery.png";
+import social4 from "@assets/generated_images/architectural_blueprint_detail.png";
+import { Instagram } from "lucide-react";
+const posts = [social1, social2, social3, social4];
+export function SocialGrid() {
+  return (
+    <section className="py-24 bg-background border-b border-border/60">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="flex justify-between items-end mb-12">
+           <div className="space-y-2">
+             <span className="text-xs font-sans text-accent uppercase tracking-widest">@TumenInc</span>
+             <h2 className="text-3xl font-serif text-primary">From the Site</h2>
+           </div>
+           <a href="#" className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+             <Instagram className="w-4 h-4" /> Follow Us
+           </a>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {posts.map((img, i) => (
+            <div key={i} className="group relative aspect-square overflow-hidden bg-secondary/20 cursor-pointer">
+              <img 
+                src={img} 
+                alt="Detail shot" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Instagram className="w-8 h-8 text-white" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+13. Team Section (client/src/components/sections/team.tsx)
+The "Meet the Builders" grid.
+
+import team1 from "@assets/generated_images/black_and_white_portrait_of_master_builder.png";
+import team2 from "@assets/generated_images/black_and_white_portrait_of_project_manager.png";
+import team3 from "@assets/generated_images/black_and_white_portrait_of_site_supervisor.png";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+const team = [
+  { name: "Marcus Tumen", role: "Principal", image: team1 },
+  { name: "Elena Rodriguez", role: "Senior Project Manager", image: team2 },
+  { name: "James O'Connell", role: "Site Supervisor", image: team3 }
+];
+export function Team() {
+  const container = useRef<HTMLElement | null>(null);
+  useScrollReveal(container, ".reveal-item");
+  return (
+    <section ref={container} className="py-24 bg-secondary/20 border-b border-border/60">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4 reveal-item opacity-0">
+          <span className="text-xs font-sans text-accent uppercase tracking-widest">Leadership</span>
+          <h2 className="text-4xl font-serif text-primary">Meet the Builders</h2>
+          <p className="text-muted-foreground font-light">
+            Hands-on leadership on every project. We don't just manage; we build.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          {team.map((member, index) => (
+            <div key={index} className="reveal-item opacity-0 group text-center space-y-6">
+              <div className="relative aspect-square overflow-hidden border border-border/60 grayscale hover:grayscale-0 transition-all duration-700">
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+                />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-xl font-serif text-primary">{member.name}</h3>
+                <p className="text-xs font-sans text-muted-foreground uppercase tracking-widest">{member.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+14. FAQ Section (client/src/components/sections/faq.tsx)
+The accordion style FAQ.
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+const faqs = [
+  {
+    q: "Do you work with homeowners directly?",
+    a: "Yes, absolutely. While many of our projects come through architects, we frequently partner directly with homeowners who have a vision. We can also recommend design partners if you're just starting."
+  },
+  {
+    q: "What is your typical project size?",
+    a: "We specialize in full-gut renovations and new construction. Our typical projects range from $500k to $5M+, encompassing brownstones, luxury apartments, and commercial build-outs."
+  },
+  {
+    q: "How do you handle change orders?",
+    a: "We believe in transparency. Change orders are only issued for scope changes requested by the client or unforeseen site conditions. We present costs clearly for approval before proceeding."
+  },
+  {
+    q: "Are you licensed and insured?",
+    a: "Yes, Tumen Inc. is fully licensed in NYC and carries comprehensive general liability and workers' compensation insurance exceeding standard requirements."
+  }
+];
+export function FAQ() {
+  const container = useRef<HTMLElement | null>(null);
+  useScrollReveal(container, ".reveal-item");
+  return (
+    <section ref={container} className="py-24 bg-background border-b border-border/60">
+      <div className="container mx-auto px-4 md:px-8 max-w-3xl">
+        <div className="text-center mb-16 reveal-item opacity-0">
+          <span className="text-xs font-sans text-accent uppercase tracking-widest">Common Questions</span>
+          <h2 className="text-3xl md:text-4xl font-serif text-primary mt-4">Everything you need to know</h2>
+        </div>
+        <Accordion type="single" collapsible className="space-y-4">
+          {faqs.map((faq, i) => (
+            <AccordionItem key={i} value={`item-${i}`} className="reveal-item opacity-0 border border-border/60 px-6 rounded-none hover:border-primary/40 transition-colors">
+              <AccordionTrigger className="text-lg font-serif text-primary py-6 hover:no-underline text-left">
+                {faq.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  );
+}
+
+15. CTA Banner (client/src/components/sections/cta-banner.tsx)
+The large "Ready to build?" banner at the bottom.
+
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+export function CTABanner() {
+  const container = useRef(null);
+  useGSAP(() => {
+    gsap.fromTo(".cta-reveal",
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 80%",
+        }
+      }
+    );
+  }, { scope: container });
+  return (
+    <section ref={container} className="py-32 bg-background border-y border-border/60 overflow-hidden relative">
+      {/* Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} />
+      
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto text-center space-y-12">
+          
+          <div className="space-y-6">
+            <h2 className="cta-reveal text-5xl md:text-6xl lg:text-7xl font-serif text-primary leading-[0.95] tracking-tight">
+              Ready to build your <br />
+              <span className="italic text-accent">legacy?</span>
+            </h2>
+            
+            <p className="cta-reveal text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
+              From initial feasibility studies to the final walkthrough, we bring clarity, precision, and calm to the construction process.
+            </p>
+          </div>
+          <div className="cta-reveal flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <Button className="bg-primary text-primary-foreground hover:bg-accent hover:text-white transition-all duration-300 h-16 px-12 uppercase tracking-widest text-xs font-semibold min-w-[200px]">
+              Start a Conversation
+            </Button>
+            <a href="/contact" className="group flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-primary hover:text-accent transition-colors">
+              Contact Us <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+16. Tumen Logo Component (client/src/components/ui/logo.tsx)
+A wrapper for the logo image with adaptive filtering.
+
+import logoUrl from "@assets/Tumen-YDIWBI_1764886446733.png";
+import { cn } from "@/lib/utils";
+export function TumenLogo({ className }: { className?: string }) {
+  const isLight = className?.includes("text-white") || className?.includes("text-primary-foreground");
+  return (
+    <img
+      src={logoUrl}
+      alt="Tumen Inc."
+      className={cn(
+        "object-contain",
+        isLight && "brightness-0 invert",
+        className
+      )}
+    />
+  );
+}
+
+17. Scroll Reveal Hook (client/src/hooks/use-scroll-reveal.ts)
+The GSAP hook that powers the animations.
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+export function useScrollReveal(ref: React.RefObject<HTMLElement | null>, selector = ".reveal-item", delay = 0) {
+  useGSAP(() => {
+    const items = ref.current?.querySelectorAll(selector);
+    if (items && items.length > 0) {
+      gsap.fromTo(items,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.15,
+          delay: delay,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+  }, { scope: ref });
+}
+
