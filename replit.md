@@ -1,34 +1,48 @@
 # Headless WordPress Boilerplate
 
 ## Overview
-A modern headless WordPress implementation with React frontend, Express backend, and PostgreSQL caching. This boilerplate provides a complete solution for building decoupled WordPress sites with WPGraphQL integration, using WordPress's default "Posts" content type with full taxonomy support (categories and tags).
+A modern headless WordPress implementation with Next.js App Router and PostgreSQL caching. This boilerplate provides a complete solution for building decoupled WordPress sites with WPGraphQL integration, using WordPress's default "Posts" content type with full taxonomy support (categories and tags).
 
 ## Tech Stack
-- **Frontend**: React with TypeScript, TanStack Query, wouter routing
-- **Backend**: Express.js with TypeScript
+- **Frontend**: Next.js 16 App Router with TypeScript
+- **Backend**: Next.js API Routes
 - **Database**: PostgreSQL with Drizzle ORM
 - **WordPress Integration**: WPGraphQL client (graphql-request)
-- **SEO**: react-helmet-async for meta tags, Yoast SEO integration
+- **SEO**: Next.js Metadata API with Yoast SEO integration
+
+## Recent Changes (December 2024)
+- Migrated from Express + Vite + React to Next.js App Router
+- Server-side rendering for all pages (better SEO)
+- Moved from wouter to Next.js routing
+- API routes now in app/api/ directory
 
 ## Project Structure
 
 ```
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/    # Reusable UI components
-│   │   │   ├── layout/    # Header, Footer, Layout
-│   │   │   ├── preview/   # Preview mode banner
-│   │   │   ├── posts/     # Post cards, list, content
-│   │   │   ├── seo/       # SEO head component
-│   │   │   └── ui/        # Shadcn UI components
-│   │   ├── pages/         # Route pages (home, blog, 404)
-│   │   ├── hooks/         # Custom React hooks
-│   │   └── lib/           # Utilities and query client
-├── server/                 # Express backend
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Homepage
+│   ├── layout.tsx         # Root layout
+│   ├── globals.css        # Global styles
+│   ├── blog/              # Blog pages
+│   │   ├── page.tsx       # Blog listing
+│   │   └── [slug]/        # Dynamic blog post
+│   │       └── page.tsx
+│   └── api/               # API routes
+│       ├── posts/         # Posts endpoints
+│       ├── wordpress/     # WordPress sync
+│       └── global-settings/
+├── components/             # React components
+│   ├── layout/            # Header, Footer, Layout
+│   ├── preview/           # Preview mode banner
+│   ├── posts/             # Post cards, list, content
+│   ├── scripts/           # Global scripts injection
+│   └── ui/                # Shadcn UI components
+├── lib/                    # Utilities and data layer
 │   ├── db.ts              # Database connection
-│   ├── routes.ts          # API endpoints
 │   ├── storage.ts         # Data access layer
-│   └── wordpress.ts       # WPGraphQL client
+│   ├── wordpress.ts       # WPGraphQL client
+│   └── utils.ts           # Utility functions
+├── hooks/                  # Custom React hooks
 └── shared/                 # Shared types and schemas
     └── schema.ts          # Drizzle schema definitions
 ```
