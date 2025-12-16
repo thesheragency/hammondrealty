@@ -155,10 +155,20 @@ export async function POST(request: NextRequest) {
       entry: submitGfForm.entry,
       errors: null,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error submitting Gravity Form:', error);
+    
+    // Extract GraphQL error messages if available
+    let errorMessage = 'Failed to submit form';
+    if (error && typeof error === 'object' && 'response' in error) {
+      const gqlError = error as { response?: { errors?: Array<{ message: string }> } };
+      if (gqlError.response?.errors?.length) {
+        errorMessage = gqlError.response.errors.map(e => e.message).join(', ');
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to submit form' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

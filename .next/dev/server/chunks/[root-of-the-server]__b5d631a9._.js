@@ -395,8 +395,16 @@ async function POST(request) {
         });
     } catch (error) {
         console.error('Error submitting Gravity Form:', error);
+        // Extract GraphQL error messages if available
+        let errorMessage = 'Failed to submit form';
+        if (error && typeof error === 'object' && 'response' in error) {
+            const gqlError = error;
+            if (gqlError.response?.errors?.length) {
+                errorMessage = gqlError.response.errors.map((e)=>e.message).join(', ');
+            }
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Failed to submit form'
+            error: errorMessage
         }, {
             status: 500
         });

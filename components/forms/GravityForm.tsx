@@ -210,16 +210,53 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           }
 
           if (field.type === 'NAME' && typeof value === 'object' && !Array.isArray(value)) {
+            // Map input IDs to nameValues keys (GF uses .2=prefix, .3=first, .4=middle, .6=last, .8=suffix)
+            const nameMap: Record<string, string> = {};
+            for (const [inputId, val] of Object.entries(value)) {
+              if (!val) continue;
+              const suffix = inputId.split('.')[1];
+              switch (suffix) {
+                case '2': nameMap.prefix = val; break;
+                case '3': nameMap.first = val; break;
+                case '4': nameMap.middle = val; break;
+                case '6': nameMap.last = val; break;
+                case '8': nameMap.suffix = val; break;
+                default:
+                  // Fallback for keys already named properly (first, last, etc)
+                  if (['prefix', 'first', 'middle', 'last', 'suffix'].includes(inputId)) {
+                    nameMap[inputId] = val;
+                  }
+              }
+            }
             return {
               id: parseInt(id),
-              nameValues: value as Record<string, string>,
+              nameValues: nameMap,
             };
           }
 
           if (field.type === 'ADDRESS' && typeof value === 'object' && !Array.isArray(value)) {
+            // Map input IDs to addressValues keys (GF uses .1=street, .2=line2, .3=city, .4=state, .5=zip, .6=country)
+            const addrMap: Record<string, string> = {};
+            for (const [inputId, val] of Object.entries(value)) {
+              if (!val) continue;
+              const suffix = inputId.split('.')[1];
+              switch (suffix) {
+                case '1': addrMap.street = val; break;
+                case '2': addrMap.lineTwo = val; break;
+                case '3': addrMap.city = val; break;
+                case '4': addrMap.state = val; break;
+                case '5': addrMap.zip = val; break;
+                case '6': addrMap.country = val; break;
+                default:
+                  // Fallback for keys already named properly
+                  if (['street', 'lineTwo', 'city', 'state', 'zip', 'country'].includes(inputId)) {
+                    addrMap[inputId] = val;
+                  }
+              }
+            }
             return {
               id: parseInt(id),
-              addressValues: value as Record<string, string>,
+              addressValues: addrMap,
             };
           }
 
