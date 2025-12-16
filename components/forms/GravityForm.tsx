@@ -769,8 +769,21 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             />
           </div>
 
-          <div className="space-y-4">
-            {getFieldsForPage(currentPage).map(renderField)}
+          <div className="gf-fields-grid grid grid-cols-12 gap-4">
+            {getFieldsForPage(currentPage).map((field) => {
+              const colSpan = field.layoutGridColumnSpan || 12;
+              return (
+                <div
+                  key={field.id}
+                  className="gf-field-column"
+                  style={{
+                    gridColumn: `span ${colSpan} / span ${colSpan}`,
+                  }}
+                >
+                  {renderField(field)}
+                </div>
+              );
+            })}
           </div>
 
           {error && (

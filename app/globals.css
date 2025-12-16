@@ -175,6 +175,20 @@
   .gf-field-html {
     padding: 0.5rem 0;
   }
+
+  /* Multicolumn grid layout - responsive */
+  .gf-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  /* Stack columns on mobile */
+  @media (max-width: 640px) {
+    .gf-fields-grid > .gf-field-column {
+      grid-column: span 12 / span 12 !important;
+    }
+  }
 }
 
 @layer utilities {

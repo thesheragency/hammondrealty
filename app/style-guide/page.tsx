@@ -515,6 +515,83 @@ export default function StyleGuide() {
           </div>
 
           <div className="mt-8">
+            <h3 className="text-h6 mb-4">Multi-Column Layout (12-column grid)</h3>
+            <p className="text-body text-muted-foreground mb-4">
+              Gravity Forms 2.5+ uses a 12-column grid system. Fields use <code className="text-sm bg-muted px-1 py-0.5 rounded">layoutGridColumnSpan</code> to set their width.
+              Columns stack vertically on mobile (below 640px).
+            </p>
+            <Card className="gf-form" data-testid="card-multicolumn-demo">
+              <CardHeader>
+                <CardTitle>Multi-Column Form</CardTitle>
+                <CardDescription>Demonstrating various column span configurations</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="gf-fields-grid">
+                  <div className="gf-field-column" style={{ gridColumn: 'span 6 / span 6' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-first" className="gf-label">First Name <span className="text-destructive">*</span></Label>
+                      <Input id="mc-first" placeholder="First" className="gf-input" data-testid="input-mc-first" />
+                      <span className="text-xs text-muted-foreground">span 6</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 6 / span 6' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-last" className="gf-label">Last Name <span className="text-destructive">*</span></Label>
+                      <Input id="mc-last" placeholder="Last" className="gf-input" data-testid="input-mc-last" />
+                      <span className="text-xs text-muted-foreground">span 6</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 12 / span 12' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-email" className="gf-label">Email <span className="text-destructive">*</span></Label>
+                      <Input id="mc-email" type="email" placeholder="you@example.com" className="gf-input" data-testid="input-mc-email" />
+                      <span className="text-xs text-muted-foreground">span 12 (full width)</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 4 / span 4' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-city" className="gf-label">City</Label>
+                      <Input id="mc-city" placeholder="City" className="gf-input" data-testid="input-mc-city" />
+                      <span className="text-xs text-muted-foreground">span 4</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 4 / span 4' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-state" className="gf-label">State</Label>
+                      <Input id="mc-state" placeholder="State" className="gf-input" data-testid="input-mc-state" />
+                      <span className="text-xs text-muted-foreground">span 4</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 4 / span 4' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-zip" className="gf-label">ZIP</Label>
+                      <Input id="mc-zip" placeholder="ZIP" className="gf-input" data-testid="input-mc-zip" />
+                      <span className="text-xs text-muted-foreground">span 4</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 8 / span 8' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-phone" className="gf-label">Phone</Label>
+                      <Input id="mc-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-mc-phone" />
+                      <span className="text-xs text-muted-foreground">span 8</span>
+                    </div>
+                  </div>
+                  <div className="gf-field-column" style={{ gridColumn: 'span 4 / span 4' }}>
+                    <div className="gf-field">
+                      <Label htmlFor="mc-ext" className="gf-label">Ext</Label>
+                      <Input id="mc-ext" placeholder="Ext" className="gf-input" data-testid="input-mc-ext" />
+                      <span className="text-xs text-muted-foreground">span 4</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Button className="w-full" data-testid="button-mc-submit">Submit</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8">
             <h3 className="text-h6 mb-4">Multi-Page Form Navigation</h3>
             <Card className="max-w-lg" data-testid="card-multipage-demo">
               <CardHeader>
