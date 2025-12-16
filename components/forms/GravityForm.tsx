@@ -518,13 +518,150 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         );
 
       case 'NAME':
-      case 'ADDRESS':
+        const nameValue = (value as Record<string, string>) || {};
+        const nameInputs = field.inputs?.filter(input => !input.isHidden) || [];
         return wrapField(
           <>
             {renderLabel()}
-            <div className="p-3 border border-dashed rounded-md bg-muted/50 text-muted-foreground text-sm">
-              <AlertCircle className="inline h-4 w-4 mr-1" />
-              Field type &quot;{field.type}&quot; is not fully supported in this form renderer.
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {nameInputs.length > 0 ? (
+                nameInputs.map((input, idx) => (
+                  <div key={input.id || idx}>
+                    <Label htmlFor={`${id}_${input.id}`} className="text-sm text-muted-foreground mb-1 block">
+                      {input.label}
+                    </Label>
+                    <Input
+                      id={`${id}_${input.id}`}
+                      name={`input_${id}_${input.id}`}
+                      placeholder={input.placeholder || ''}
+                      value={nameValue[input.id] || ''}
+                      onChange={(e) => {
+                        updateFieldValue(id, { ...nameValue, [input.id]: e.target.value });
+                      }}
+                      className="gf-input"
+                      data-testid={`input-gf-name-${id}-${input.id}`}
+                    />
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div>
+                    <Label htmlFor={`${id}_first`} className="text-sm text-muted-foreground mb-1 block">First</Label>
+                    <Input
+                      id={`${id}_first`}
+                      placeholder="First name"
+                      value={nameValue['first'] || ''}
+                      onChange={(e) => updateFieldValue(id, { ...nameValue, first: e.target.value })}
+                      className="gf-input"
+                      data-testid={`input-gf-name-${id}-first`}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`${id}_last`} className="text-sm text-muted-foreground mb-1 block">Last</Label>
+                    <Input
+                      id={`${id}_last`}
+                      placeholder="Last name"
+                      value={nameValue['last'] || ''}
+                      onChange={(e) => updateFieldValue(id, { ...nameValue, last: e.target.value })}
+                      className="gf-input"
+                      data-testid={`input-gf-name-${id}-last`}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        );
+
+      case 'ADDRESS':
+        const addrValue = (value as Record<string, string>) || {};
+        const addrInputs = field.inputs?.filter(input => !input.isHidden) || [];
+        return wrapField(
+          <>
+            {renderLabel()}
+            <div className="space-y-3">
+              {addrInputs.length > 0 ? (
+                addrInputs.map((input, idx) => (
+                  <div key={input.id || idx}>
+                    <Label htmlFor={`${id}_${input.id}`} className="text-sm text-muted-foreground mb-1 block">
+                      {input.label}
+                    </Label>
+                    <Input
+                      id={`${id}_${input.id}`}
+                      name={`input_${id}_${input.id}`}
+                      placeholder={input.placeholder || ''}
+                      value={addrValue[input.id] || ''}
+                      onChange={(e) => {
+                        updateFieldValue(id, { ...addrValue, [input.id]: e.target.value });
+                      }}
+                      className="gf-input"
+                      data-testid={`input-gf-address-${id}-${input.id}`}
+                    />
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div>
+                    <Label htmlFor={`${id}_street`} className="text-sm text-muted-foreground mb-1 block">Street Address</Label>
+                    <Input
+                      id={`${id}_street`}
+                      placeholder="Street address"
+                      value={addrValue['street'] || ''}
+                      onChange={(e) => updateFieldValue(id, { ...addrValue, street: e.target.value })}
+                      className="gf-input"
+                      data-testid={`input-gf-address-${id}-street`}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label htmlFor={`${id}_city`} className="text-sm text-muted-foreground mb-1 block">City</Label>
+                      <Input
+                        id={`${id}_city`}
+                        placeholder="City"
+                        value={addrValue['city'] || ''}
+                        onChange={(e) => updateFieldValue(id, { ...addrValue, city: e.target.value })}
+                        className="gf-input"
+                        data-testid={`input-gf-address-${id}-city`}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`${id}_state`} className="text-sm text-muted-foreground mb-1 block">State</Label>
+                      <Input
+                        id={`${id}_state`}
+                        placeholder="State"
+                        value={addrValue['state'] || ''}
+                        onChange={(e) => updateFieldValue(id, { ...addrValue, state: e.target.value })}
+                        className="gf-input"
+                        data-testid={`input-gf-address-${id}-state`}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label htmlFor={`${id}_zip`} className="text-sm text-muted-foreground mb-1 block">ZIP</Label>
+                      <Input
+                        id={`${id}_zip`}
+                        placeholder="ZIP code"
+                        value={addrValue['zip'] || ''}
+                        onChange={(e) => updateFieldValue(id, { ...addrValue, zip: e.target.value })}
+                        className="gf-input"
+                        data-testid={`input-gf-address-${id}-zip`}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`${id}_country`} className="text-sm text-muted-foreground mb-1 block">Country</Label>
+                      <Input
+                        id={`${id}_country`}
+                        placeholder="Country"
+                        value={addrValue['country'] || ''}
+                        onChange={(e) => updateFieldValue(id, { ...addrValue, country: e.target.value })}
+                        className="gf-input"
+                        data-testid={`input-gf-address-${id}-country`}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </>
         );
