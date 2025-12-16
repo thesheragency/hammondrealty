@@ -16,7 +16,10 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
 - **Preview Mode:** Allows previewing draft content directly from WordPress using query parameters.
 - **301 Redirects:** Integrates with the WordPress Redirection plugin to sync and apply 301 redirects, ensuring proper URL management.
 - **ACF Global Scripts:** Supports injecting custom `<head>` and `<body>` scripts configured via Advanced Custom Fields (ACF) in WordPress.
-- **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, validation, spam protection, multicolumn layouts (12-column grid), and file uploads. Uses a hybrid approach: WPGraphQL for fetching form schemas and Gravity Forms REST API v2 for form submissions (enabling native file upload support without additional plugins).
+- **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, client-side validation, spam protection, multicolumn layouts (12-column grid), and file uploads. Uses a hybrid approach: WPGraphQL for fetching form schemas and Gravity Forms REST API v2 for form submissions (enabling native file upload support without additional plugins).
+  - **Client-Side Validation:** Comprehensive validation utility (`lib/gf/validation.ts`) with support for required fields, email format, phone format (7-15 digits), number ranges, URL format, date validation, time validation (12/24-hour), and file upload validation (type and size). Validation runs on blur for real-time feedback and blocks page navigation/submission until resolved.
+  - **TIME Field Support:** Full support for Gravity Forms TIME field type with hour/minute inputs and AM/PM selector (for 12-hour format). Serializes as "HH:MM AM/PM" or "HH:MM" depending on format configuration.
+  - **DATE Field UX:** Calendar icon positioned on left with entire input clickable to open date picker for improved usability.
 - **Design System:** Features a comprehensive design system with CSS variables for brand colors, typography, spacing, and radius, located in `app/globals.css`. A `/style-guide` page provides a live visual reference for all design tokens and components.
 - **Modular Component Architecture:** Emphasizes modular React components for easy restyling and maintenance.
 
