@@ -298,6 +298,11 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
       case 'TEXT':
       case 'WEBSITE':
       case 'PHONE':
+      case 'POST_TITLE':
+      case 'POST_EXCERPT':
+      case 'POST_TAGS':
+      case 'POST_CATEGORY':
+      case 'POST_CUSTOM_FIELD':
         return wrapField(
           <>
             {renderLabel()}

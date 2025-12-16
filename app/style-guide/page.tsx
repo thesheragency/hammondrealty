@@ -336,6 +336,8 @@ export default function StyleGuide() {
               <Badge variant="outline">SECTION</Badge>
               <Badge variant="outline">HIDDEN</Badge>
               <Badge variant="outline">PAGE</Badge>
+              <Badge variant="outline">POST_TITLE</Badge>
+              <Badge variant="outline">POST_EXCERPT</Badge>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
