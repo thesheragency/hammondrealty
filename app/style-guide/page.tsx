@@ -329,6 +329,7 @@ export default function StyleGuide() {
               <Badge variant="outline">SELECT</Badge>
               <Badge variant="outline">RADIO</Badge>
               <Badge variant="outline">CHECKBOX</Badge>
+              <Badge variant="outline">MULTISELECT</Badge>
               <Badge variant="outline">DATE</Badge>
               <Badge variant="outline">FILEUPLOAD</Badge>
               <Badge variant="outline">HTML</Badge>

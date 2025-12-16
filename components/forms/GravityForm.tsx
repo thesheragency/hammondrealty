@@ -20,6 +20,20 @@ import { Loader2, ChevronLeft, ChevronRight, AlertCircle, Upload } from 'lucide-
 import type { GfForm, GfFormField, GfChoice } from '@/lib/gf/queries';
 import { evaluateConditionalLogic, type FormValues } from '@/lib/gf/conditionalLogic';
 
+function decodeHtmlEntities(text: string): string {
+  const entities: Record<string, string> = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#039;': "'",
+    '&#39;': "'",
+    '&apos;': "'",
+    '&nbsp;': ' ',
+  };
+  return text.replace(/&[#\w]+;/g, (match) => entities[match] || match);
+}
+
 interface GravityFormProps {
   formId: number;
   className?: string;
@@ -67,7 +81,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     const values: Record<string, FieldValue> = {};
     formData.formFields.nodes.forEach((field) => {
       const id = field.databaseId.toString();
-      if (field.type === 'CHECKBOX') {
+      if (field.type === 'CHECKBOX' || field.type === 'MULTISELECT' || field.type === 'MULTI_CHOICE') {
         values[id] = [];
       } else if (field.type === 'NAME' || field.type === 'ADDRESS') {
         values[id] = {};
@@ -261,7 +275,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
 
     const renderDescription = () =>
       field.description && (
-        <p className="text-sm text-muted-foreground mt-1">{field.description}</p>
+        <p className="text-sm text-muted-foreground mt-1">{decodeHtmlEntities(field.description)}</p>
       );
 
     const renderError = () =>
@@ -394,6 +408,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         );
 
       case 'CHECKBOX':
+      case 'MULTISELECT':
+      case 'MULTI_CHOICE':
         return wrapField(
           <>
             {renderLabel()}
@@ -455,7 +471,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           <div key={id} className={`gf-field gf-field-section ${field.cssClass || ''}`}>
             {field.label && <h3 className="text-lg font-semibold">{field.label}</h3>}
             {field.description && (
-              <p className="text-muted-foreground">{field.description}</p>
+              <p className="text-muted-foreground">{decodeHtmlEntities(field.description)}</p>
             )}
           </div>
         );
@@ -579,7 +595,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     <Card className={`gf-form ${className || ''}`} data-testid={`form-gravity-${formId}`}>
       <CardHeader>
         <CardTitle>{form.title}</CardTitle>
-        {form.description && <CardDescription>{form.description}</CardDescription>}
+        {form.description && <CardDescription>{decodeHtmlEntities(form.description)}</CardDescription>}
         {isMultiPage && (
           <div className="mt-4">
             <div className="flex justify-between text-sm text-muted-foreground mb-2">
