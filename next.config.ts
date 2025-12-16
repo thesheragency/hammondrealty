@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: [
     "*.replit.dev",
     "*.replit.app",
+    "*.sisko.replit.dev",
     "127.0.0.1",
     "localhost",
   ],

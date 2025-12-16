@@ -43,20 +43,13 @@ interface GravityFormProps {
 
 type FieldValue = string | string[] | Record<string, string>;
 
-interface FileData {
-  name: string;
-  type: string;
-  size: number;
-  base64: string;
-}
-
 export function GravityForm({ formId, className, onSuccess, onError }: GravityFormProps) {
   const [form, setForm] = useState<GfForm | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<Record<string, FieldValue>>({});
-  const [fileData, setFileData] = useState<Record<string, FileData>>({});
+  const [files, setFiles] = useState<Record<string, File>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
@@ -190,112 +183,61 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     setError(null);
 
     try {
-      const fieldValues = Object.entries(formValues)
-        .filter(([id, value]) => {
-          // Skip empty values
-          if (Array.isArray(value)) return value.length > 0;
-          if (typeof value === 'object') return Object.values(value).some((v) => v);
-          if (value === '') return false;
-          
-          // Skip file upload fields - older WPGraphQL GF plugin versions don't support fileUploadValues
-          // For file upload support, upgrade to WPGraphQL for Gravity Forms v0.13+ 
-          // or implement a separate file upload endpoint
-          const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
-          if (field?.type === 'FILEUPLOAD') return false;
-          
-          return true;
-        })
-        .map(([id, value]) => {
-          const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
-          if (!field) return { id: parseInt(id), value: String(value) };
+      // Use REST API with FormData for native file upload support
+      const submitData = new FormData();
+      submitData.append('formId', String(formId));
+      submitData.append('gf_hp', honeypot);
 
-          if (field.type === 'CHECKBOX' && Array.isArray(value)) {
-            return {
-              id: parseInt(id),
-              checkboxValues: value.map((v, idx) => ({
-                inputId: parseFloat(`${id}.${idx + 1}`),
-                value: v,
-              })),
-            };
-          }
+      // Process all form values into input_{id} format for REST API
+      Object.entries(formValues).forEach(([id, value]) => {
+        const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
+        
+        // Skip file upload fields - they're handled separately
+        if (field?.type === 'FILEUPLOAD') return;
 
-          if (field.type === 'EMAIL' && typeof value === 'string') {
-            return {
-              id: parseInt(id),
-              emailValues: { value },
-            };
-          }
-
-          if (field.type === 'NAME' && typeof value === 'object' && !Array.isArray(value)) {
-            // Map input IDs to nameValues keys (GF uses .2=prefix, .3=first, .4=middle, .6=last, .8=suffix)
-            const nameMap: Record<string, string> = {};
-            for (const [inputId, val] of Object.entries(value)) {
-              if (!val) continue;
-              const suffix = inputId.split('.')[1];
-              switch (suffix) {
-                case '2': nameMap.prefix = val; break;
-                case '3': nameMap.first = val; break;
-                case '4': nameMap.middle = val; break;
-                case '6': nameMap.last = val; break;
-                case '8': nameMap.suffix = val; break;
-                default:
-                  // Fallback for keys already named properly (first, last, etc)
-                  if (['prefix', 'first', 'middle', 'last', 'suffix'].includes(inputId)) {
-                    nameMap[inputId] = val;
-                  }
-              }
+        if (Array.isArray(value)) {
+          // Checkbox/multiselect: input_{id}.{index} format
+          value.forEach((v, idx) => {
+            submitData.append(`input_${id}.${idx + 1}`, v);
+          });
+        } else if (typeof value === 'object' && value !== null) {
+          // NAME and ADDRESS fields use sub-input IDs
+          Object.entries(value).forEach(([subId, subVal]) => {
+            if (subVal) {
+              // subId is like "1.3" (fieldId.inputIndex) - extract the suffix
+              const suffix = subId.includes('.') ? subId.split('.')[1] : subId;
+              submitData.append(`input_${id}.${suffix}`, subVal);
             }
-            return {
-              id: parseInt(id),
-              nameValues: nameMap,
-            };
-          }
+          });
+        } else if (value !== '' && value !== undefined && value !== null) {
+          submitData.append(`input_${id}`, String(value));
+        }
+      });
 
-          if (field.type === 'ADDRESS' && typeof value === 'object' && !Array.isArray(value)) {
-            // Map input IDs to addressValues keys (GF uses .1=street, .2=line2, .3=city, .4=state, .5=zip, .6=country)
-            const addrMap: Record<string, string> = {};
-            for (const [inputId, val] of Object.entries(value)) {
-              if (!val) continue;
-              const suffix = inputId.split('.')[1];
-              switch (suffix) {
-                case '1': addrMap.street = val; break;
-                case '2': addrMap.lineTwo = val; break;
-                case '3': addrMap.city = val; break;
-                case '4': addrMap.state = val; break;
-                case '5': addrMap.zip = val; break;
-                case '6': addrMap.country = val; break;
-                default:
-                  // Fallback for keys already named properly
-                  if (['street', 'lineTwo', 'city', 'state', 'zip', 'country'].includes(inputId)) {
-                    addrMap[inputId] = val;
-                  }
-              }
-            }
-            return {
-              id: parseInt(id),
-              addressValues: addrMap,
-            };
-          }
+      // Add file uploads
+      Object.entries(files).forEach(([id, file]) => {
+        submitData.append(`input_${id}`, file);
+      });
 
-          return { id: parseInt(id), value: String(value) };
-        });
-
-      const res = await fetch('/api/forms/submit', {
+      const res = await fetch('/api/forms/submit-rest', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formId, fieldValues, gf_hp: honeypot }),
+        body: submitData,
       });
 
       const data = await res.json();
 
-      if (!res.ok || data.errors?.length > 0) {
-        const errorMessages = data.errors?.map((e: { message: string }) => e.message).join(', ');
-        throw new Error(errorMessages || data.error || 'Submission failed');
+      if (!res.ok || !data.is_valid) {
+        // Handle validation errors from REST API
+        if (data.validation_messages) {
+          const messages = Object.values(data.validation_messages).join(', ');
+          throw new Error(messages || 'Validation failed');
+        }
+        throw new Error(data.error || 'Submission failed');
       }
 
       setSubmitted(true);
-      setConfirmationMessage(data.confirmation?.message || 'Thank you for your submission.');
-      onSuccess?.(data.confirmation);
+      setConfirmationMessage(data.confirmation_message || 'Thank you for your submission.');
+      onSuccess?.({ message: data.confirmation_message });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Submission failed';
       setError(message);
@@ -557,25 +499,11 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
                 type="file"
                 accept={field.allowedExtensions?.map(ext => `.${ext}`).join(',')}
                 className="sr-only"
-                onChange={(e) => {
+onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) {
                     updateFieldValue(id, file.name);
-                    // Read file as base64 for submission
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      const base64 = (reader.result as string).split(',')[1];
-                      setFileData(prev => ({
-                        ...prev,
-                        [id]: {
-                          name: file.name,
-                          type: file.type,
-                          size: file.size,
-                          base64,
-                        }
-                      }));
-                    };
-                    reader.readAsDataURL(file);
+                    setFiles(prev => ({ ...prev, [id]: file }));
                   }
                 }}
               />
