@@ -43,12 +43,20 @@ interface GravityFormProps {
 
 type FieldValue = string | string[] | Record<string, string>;
 
+interface FileData {
+  name: string;
+  type: string;
+  size: number;
+  base64: string;
+}
+
 export function GravityForm({ formId, className, onSuccess, onError }: GravityFormProps) {
   const [form, setForm] = useState<GfForm | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formValues, setFormValues] = useState<Record<string, FieldValue>>({});
+  const [fileData, setFileData] = useState<Record<string, FileData>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
@@ -189,9 +197,9 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           if (typeof value === 'object') return Object.values(value).some((v) => v);
           if (value === '') return false;
           
-          // Skip file upload fields (they require special handling via separate upload)
+          // Skip file upload fields without file data (empty uploads)
           const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
-          if (field?.type === 'FILEUPLOAD') return false;
+          if (field?.type === 'FILEUPLOAD' && !fileData[id]) return false;
           
           return true;
         })
@@ -264,6 +272,19 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             return {
               id: parseInt(id),
               addressValues: addrMap,
+            };
+          }
+
+          if (field.type === 'FILEUPLOAD' && fileData[id]) {
+            const file = fileData[id];
+            return {
+              id: parseInt(id),
+              fileUploadValues: [{
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                basePath: file.base64,
+              }],
             };
           }
 
@@ -551,6 +572,21 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
                   const file = e.target.files?.[0];
                   if (file) {
                     updateFieldValue(id, file.name);
+                    // Read file as base64 for submission
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      const base64 = (reader.result as string).split(',')[1];
+                      setFileData(prev => ({
+                        ...prev,
+                        [id]: {
+                          name: file.name,
+                          type: file.type,
+                          size: file.size,
+                          base64,
+                        }
+                      }));
+                    };
+                    reader.readAsDataURL(file);
                   }
                 }}
               />

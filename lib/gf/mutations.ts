@@ -56,6 +56,12 @@ export interface FieldValueInput {
     inputId: number;
     value: string;
   }>;
+  fileUploadValues?: Array<{
+    name: string;
+    type: string;
+    size: number;
+    basePath: string;
+  }>;
 }
 
 export interface SubmitGfFormInput {
