@@ -13,7 +13,7 @@ const getWpClient = (authToken?: string) => {
     'Content-Type': 'application/json',
   };
 
-  // Add Basic Auth if credentials are provided
+  // Add Basic Auth if credentials are provided (for staging gate)
   if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
     const credentials = Buffer.from(
       `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
@@ -24,6 +24,36 @@ const getWpClient = (authToken?: string) => {
   // Override with preview token if provided
   if (authToken) {
     headers['Authorization'] = `Bearer ${authToken}`;
+  }
+
+  return new GraphQLClient(wpApiUrl, { headers });
+};
+
+// WordPress GraphQL client for preview/draft requests with WordPress user authentication
+const getPreviewClient = () => {
+  const wpApiUrl = process.env.WP_API_URL;
+  
+  if (!wpApiUrl) {
+    throw new Error('WP_API_URL environment variable is not set');
+  }
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  // Use preview user credentials for WordPress authentication (Application Password)
+  const previewUser = process.env.PREVIEW_USER_UN;
+  const previewPass = process.env.PREVIEW_USER_APP_PASS;
+  
+  if (previewUser && previewPass) {
+    const credentials = Buffer.from(`${previewUser}:${previewPass}`).toString('base64');
+    headers['Authorization'] = `Basic ${credentials}`;
+  } else if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+    // Fallback to staging auth if no preview credentials
+    const credentials = Buffer.from(
+      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
+    ).toString('base64');
+    headers['Authorization'] = `Basic ${credentials}`;
   }
 
   return new GraphQLClient(wpApiUrl, { headers });
@@ -549,7 +579,7 @@ export async function fetchPostPreview(
 export async function fetchPostPreviewBySlug(
   slug: string
 ): Promise<ReturnType<typeof transformPost> | null> {
-  const client = getWpClient(); // Uses Basic Auth from env vars
+  const client = getPreviewClient(); // Uses preview user credentials for WordPress auth
 
   try {
     const response = await client.request<{ post: WpPost | null }>(

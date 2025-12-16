@@ -606,7 +606,7 @@ const getWpClient = (authToken)=>{
     const headers = {
         'Content-Type': 'application/json'
     };
-    // Add Basic Auth if credentials are provided
+    // Add Basic Auth if credentials are provided (for staging gate)
     if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
         const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
         headers['Authorization'] = `Basic ${credentials}`;
@@ -614,6 +614,30 @@ const getWpClient = (authToken)=>{
     // Override with preview token if provided
     if (authToken) {
         headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
+        headers
+    });
+};
+// WordPress GraphQL client for preview/draft requests with WordPress user authentication
+const getPreviewClient = ()=>{
+    const wpApiUrl = process.env.WP_API_URL;
+    if (!wpApiUrl) {
+        throw new Error('WP_API_URL environment variable is not set');
+    }
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    // Use preview user credentials for WordPress authentication (Application Password)
+    const previewUser = process.env.PREVIEW_USER_UN;
+    const previewPass = process.env.PREVIEW_USER_APP_PASS;
+    if (previewUser && previewPass) {
+        const credentials = Buffer.from(`${previewUser}:${previewPass}`).toString('base64');
+        headers['Authorization'] = `Basic ${credentials}`;
+    } else if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+        // Fallback to staging auth if no preview credentials
+        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
+        headers['Authorization'] = `Basic ${credentials}`;
     }
     return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
         headers
@@ -1003,7 +1027,7 @@ async function fetchPostPreview(id, authToken) {
     }
 }
 async function fetchPostPreviewBySlug(slug) {
-    const client = getWpClient(); // Uses Basic Auth from env vars
+    const client = getPreviewClient(); // Uses preview user credentials for WordPress auth
     try {
         const response = await client.request(GET_POST_PREVIEW_BY_SLUG_QUERY, {
             slug
