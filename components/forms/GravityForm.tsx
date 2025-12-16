@@ -197,9 +197,11 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           if (typeof value === 'object') return Object.values(value).some((v) => v);
           if (value === '') return false;
           
-          // Skip file upload fields without file data (empty uploads)
+          // Skip file upload fields - older WPGraphQL GF plugin versions don't support fileUploadValues
+          // For file upload support, upgrade to WPGraphQL for Gravity Forms v0.13+ 
+          // or implement a separate file upload endpoint
           const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
-          if (field?.type === 'FILEUPLOAD' && !fileData[id]) return false;
+          if (field?.type === 'FILEUPLOAD') return false;
           
           return true;
         })
@@ -272,19 +274,6 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             return {
               id: parseInt(id),
               addressValues: addrMap,
-            };
-          }
-
-          if (field.type === 'FILEUPLOAD' && fileData[id]) {
-            const file = fileData[id];
-            return {
-              id: parseInt(id),
-              fileUploadValues: [{
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                basePath: file.base64,
-              }],
             };
           }
 

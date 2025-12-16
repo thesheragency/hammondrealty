@@ -1132,9 +1132,11 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                 if (Array.isArray(value)) return value.length > 0;
                 if (typeof value === 'object') return Object.values(value).some((v)=>v);
                 if (value === '') return false;
-                // Skip file upload fields without file data (empty uploads)
+                // Skip file upload fields - older WPGraphQL GF plugin versions don't support fileUploadValues
+                // For file upload support, upgrade to WPGraphQL for Gravity Forms v0.13+ 
+                // or implement a separate file upload endpoint
                 const field = form?.formFields.nodes.find((f)=>f.databaseId.toString() === id);
-                if (field?.type === 'FILEUPLOAD' && !fileData[id]) return false;
+                if (field?.type === 'FILEUPLOAD') return false;
                 return true;
             }).map(([id, value])=>{
                 const field = form?.formFields.nodes.find((f)=>f.databaseId.toString() === id);
@@ -1243,20 +1245,6 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                         addressValues: addrMap
                     };
                 }
-                if (field.type === 'FILEUPLOAD' && fileData[id]) {
-                    const file = fileData[id];
-                    return {
-                        id: parseInt(id),
-                        fileUploadValues: [
-                            {
-                                name: file.name,
-                                type: file.type,
-                                size: file.size,
-                                basePath: file.base64
-                            }
-                        ]
-                    };
-                }
                 return {
                     id: parseInt(id),
                     value: String(value)
@@ -1317,13 +1305,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                         children: "*"
                     }, void 0, false, {
                         fileName: "[project]/components/forms/GravityForm.tsx",
-                        lineNumber: 337,
+                        lineNumber: 326,
                         columnNumber: 30
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 335,
+                lineNumber: 324,
                 columnNumber: 7
             }, this);
         const renderDescription = ()=>field.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1331,7 +1319,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                 children: decodeHtmlEntities(field.description)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 343,
+                lineNumber: 332,
                 columnNumber: 9
             }, this);
         const renderError = ()=>error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1342,14 +1330,14 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                         className: "h-3 w-3"
                     }, void 0, false, {
                         fileName: "[project]/components/forms/GravityForm.tsx",
-                        lineNumber: 349,
+                        lineNumber: 338,
                         columnNumber: 11
                     }, this),
                     error
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 348,
+                lineNumber: 337,
                 columnNumber: 9
             }, this);
         const wrapField = (content)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1361,7 +1349,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                 ]
             }, id, true, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 355,
+                lineNumber: 344,
                 columnNumber: 7
             }, this);
         switch(field.type){
@@ -1386,7 +1374,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "gf-input"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 374,
+                            lineNumber: 363,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1404,7 +1392,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "gf-textarea"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 390,
+                            lineNumber: 379,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1422,7 +1410,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "gf-input"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 405,
+                            lineNumber: 394,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1442,7 +1430,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "gf-input"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 420,
+                            lineNumber: 409,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1462,12 +1450,12 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                         placeholder: field.placeholder || 'Select an option'
                                     }, void 0, false, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 442,
+                                        lineNumber: 431,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 441,
+                                    lineNumber: 430,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1476,18 +1464,18 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             children: choice.text
                                         }, idx, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 446,
+                                            lineNumber: 435,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 444,
+                                    lineNumber: 433,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 437,
+                            lineNumber: 426,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1509,7 +1497,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             "data-testid": `radio-gf-field-${id}-${idx}`
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 466,
+                                            lineNumber: 455,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Label"], {
@@ -1518,18 +1506,18 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             children: choice.text
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 471,
+                                            lineNumber: 460,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, idx, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 465,
+                                    lineNumber: 454,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 459,
+                            lineNumber: 448,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1561,7 +1549,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             "data-testid": `checkbox-gf-field-${id}-${idx}`
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 491,
+                                            lineNumber: 480,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Label"], {
@@ -1570,19 +1558,19 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             children: choice.text
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 506,
+                                            lineNumber: 495,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, idx, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 490,
+                                    lineNumber: 479,
                                     columnNumber: 19
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 486,
+                            lineNumber: 475,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1599,7 +1587,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "gf-input"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 520,
+                            lineNumber: 509,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1612,7 +1600,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                     }
                 }, id, false, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 532,
+                    lineNumber: 521,
                     columnNumber: 11
                 }, this);
             case 'SECTION':
@@ -1624,7 +1612,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             children: field.label
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 542,
+                            lineNumber: 531,
                             columnNumber: 29
                         }, this),
                         field.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1632,13 +1620,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             children: decodeHtmlEntities(field.description)
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 544,
+                            lineNumber: 533,
                             columnNumber: 15
                         }, this)
                     ]
                 }, id, true, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 541,
+                    lineNumber: 530,
                     columnNumber: 11
                 }, this);
             case 'FILEUPLOAD':
@@ -1658,14 +1646,14 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             className: "h-4 w-4 mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 560,
+                                            lineNumber: 549,
                                             columnNumber: 17
                                         }, this),
                                         "Choose File"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 559,
+                                    lineNumber: 548,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1673,7 +1661,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                     children: value || 'No file chosen'
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 563,
+                                    lineNumber: 552,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1704,13 +1692,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 566,
+                                    lineNumber: 555,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 555,
+                            lineNumber: 544,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1724,7 +1712,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 594,
+                            lineNumber: 583,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1745,7 +1733,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             children: input.label
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 610,
+                                            lineNumber: 599,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1763,13 +1751,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             "data-testid": `input-gf-name-${id}-${input.id}`
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 613,
+                                            lineNumber: 602,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, input.id || idx, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 609,
+                                    lineNumber: 598,
                                     columnNumber: 19
                                 }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -1781,7 +1769,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 children: "First"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 629,
+                                                lineNumber: 618,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1796,13 +1784,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 "data-testid": `input-gf-name-${id}-first`
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 630,
+                                                lineNumber: 619,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 628,
+                                        lineNumber: 617,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1813,7 +1801,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 children: "Last"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 640,
+                                                lineNumber: 629,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1828,20 +1816,20 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 "data-testid": `input-gf-name-${id}-last`
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 641,
+                                                lineNumber: 630,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 639,
+                                        lineNumber: 628,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 606,
+                            lineNumber: 595,
                             columnNumber: 13
                         }, this)
                     ]
@@ -1862,7 +1850,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             children: input.label
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 666,
+                                            lineNumber: 655,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1880,13 +1868,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             "data-testid": `input-gf-address-${id}-${input.id}`
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 669,
+                                            lineNumber: 658,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, input.id || idx, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 665,
+                                    lineNumber: 654,
                                     columnNumber: 19
                                 }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -1898,7 +1886,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 children: "Street Address"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 685,
+                                                lineNumber: 674,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1913,13 +1901,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                 "data-testid": `input-gf-address-${id}-street`
                                             }, void 0, false, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 686,
+                                                lineNumber: 675,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 684,
+                                        lineNumber: 673,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1933,7 +1921,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         children: "City"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 697,
+                                                        lineNumber: 686,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1948,13 +1936,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         "data-testid": `input-gf-address-${id}-city`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 698,
+                                                        lineNumber: 687,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 696,
+                                                lineNumber: 685,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1965,7 +1953,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         children: "State"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 708,
+                                                        lineNumber: 697,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1980,19 +1968,19 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         "data-testid": `input-gf-address-${id}-state`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 709,
+                                                        lineNumber: 698,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 707,
+                                                lineNumber: 696,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 695,
+                                        lineNumber: 684,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2006,7 +1994,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         children: "ZIP"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 721,
+                                                        lineNumber: 710,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2021,13 +2009,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         "data-testid": `input-gf-address-${id}-zip`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 722,
+                                                        lineNumber: 711,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 720,
+                                                lineNumber: 709,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2038,7 +2026,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         children: "Country"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 732,
+                                                        lineNumber: 721,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2053,26 +2041,26 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                                         "data-testid": `input-gf-address-${id}-country`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                                        lineNumber: 733,
+                                                        lineNumber: 722,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                                lineNumber: 731,
+                                                lineNumber: 720,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 719,
+                                        lineNumber: 708,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 662,
+                            lineNumber: 651,
                             columnNumber: 13
                         }, this)
                     ]
@@ -2084,7 +2072,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                     value: value || field.defaultValue || ''
                 }, id, false, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 751,
+                    lineNumber: 740,
                     columnNumber: 11
                 }, this);
             default:
@@ -2099,7 +2087,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                     className: "inline h-4 w-4 mr-1"
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 765,
+                                    lineNumber: 754,
                                     columnNumber: 15
                                 }, this),
                                 "Unsupported field type: ",
@@ -2107,7 +2095,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 764,
+                            lineNumber: 753,
                             columnNumber: 13
                         }, this)
                     ]
@@ -2123,17 +2111,17 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                     className: "h-8 w-8 animate-spin text-muted-foreground"
                 }, void 0, false, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 777,
+                    lineNumber: 766,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 776,
+                lineNumber: 765,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/forms/GravityForm.tsx",
-            lineNumber: 775,
+            lineNumber: 764,
             columnNumber: 7
         }, this);
     }
@@ -2149,30 +2137,30 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                             className: "h-8 w-8 mx-auto mb-2"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 788,
+                            lineNumber: 777,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 789,
+                            lineNumber: 778,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 787,
+                    lineNumber: 776,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 786,
+                lineNumber: 775,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/forms/GravityForm.tsx",
-            lineNumber: 785,
+            lineNumber: 774,
             columnNumber: 7
         }, this);
     }
@@ -2188,17 +2176,17 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 800,
+                    lineNumber: 789,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 799,
+                lineNumber: 788,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/forms/GravityForm.tsx",
-            lineNumber: 798,
+            lineNumber: 787,
             columnNumber: 7
         }, this);
     }
@@ -2217,14 +2205,14 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                         children: form.title
                     }, void 0, false, {
                         fileName: "[project]/components/forms/GravityForm.tsx",
-                        lineNumber: 819,
+                        lineNumber: 808,
                         columnNumber: 9
                     }, this),
                     form.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardDescription"], {
                         children: decodeHtmlEntities(form.description)
                     }, void 0, false, {
                         fileName: "[project]/components/forms/GravityForm.tsx",
-                        lineNumber: 820,
+                        lineNumber: 809,
                         columnNumber: 30
                     }, this),
                     isMultiPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2237,7 +2225,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                         children: form.pagination?.pageNames?.[currentPage - 1] || `Page ${currentPage}`
                                     }, void 0, false, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 824,
+                                        lineNumber: 813,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2248,13 +2236,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/forms/GravityForm.tsx",
-                                        lineNumber: 827,
+                                        lineNumber: 816,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                lineNumber: 823,
+                                lineNumber: 812,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$progress$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Progress"], {
@@ -2262,19 +2250,19 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                 className: "h-2"
                             }, void 0, false, {
                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                lineNumber: 831,
+                                lineNumber: 820,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/forms/GravityForm.tsx",
-                        lineNumber: 822,
+                        lineNumber: 811,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 818,
+                lineNumber: 807,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -2298,12 +2286,12 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                 autoComplete: "off"
                             }, void 0, false, {
                                 fileName: "[project]/components/forms/GravityForm.tsx",
-                                lineNumber: 842,
+                                lineNumber: 831,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 837,
+                            lineNumber: 826,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2318,13 +2306,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                     children: renderField(field)
                                 }, field.id, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 856,
+                                    lineNumber: 845,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 852,
+                            lineNumber: 841,
                             columnNumber: 11
                         }, this),
                         error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2334,14 +2322,14 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 871,
+                                    lineNumber: 860,
                                     columnNumber: 15
                                 }, this),
                                 error
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 870,
+                            lineNumber: 859,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2357,18 +2345,18 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             className: "h-4 w-4 mr-1"
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 884,
+                                            lineNumber: 873,
                                             columnNumber: 17
                                         }, this),
                                         "Previous"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 878,
+                                    lineNumber: 867,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {}, void 0, false, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 888,
+                                    lineNumber: 877,
                                     columnNumber: 15
                                 }, this),
                                 isMultiPage && !isLastPage ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2381,13 +2369,13 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             className: "h-4 w-4 ml-1"
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 894,
+                                            lineNumber: 883,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 892,
+                                    lineNumber: 881,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                     type: "submit",
@@ -2398,37 +2386,37 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             className: "h-4 w-4 mr-2 animate-spin"
                                         }, void 0, false, {
                                             fileName: "[project]/components/forms/GravityForm.tsx",
-                                            lineNumber: 898,
+                                            lineNumber: 887,
                                             columnNumber: 32
                                         }, this),
                                         form.submitButton?.text || 'Submit'
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",
-                                    lineNumber: 897,
+                                    lineNumber: 886,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/forms/GravityForm.tsx",
-                            lineNumber: 876,
+                            lineNumber: 865,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/forms/GravityForm.tsx",
-                    lineNumber: 836,
+                    lineNumber: 825,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GravityForm.tsx",
-                lineNumber: 835,
+                lineNumber: 824,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/forms/GravityForm.tsx",
-        lineNumber: 817,
+        lineNumber: 806,
         columnNumber: 5
     }, this);
 }

@@ -16,7 +16,7 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
 - **Preview Mode:** Allows previewing draft content directly from WordPress using query parameters.
 - **301 Redirects:** Integrates with the WordPress Redirection plugin to sync and apply 301 redirects, ensuring proper URL management.
 - **ACF Global Scripts:** Supports injecting custom `<head>` and `<body>` scripts configured via Advanced Custom Fields (ACF) in WordPress.
-- **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, validation, and spam protection.
+- **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, validation, spam protection, and multicolumn layouts (12-column grid). Note: File uploads are currently not supported with older WPGraphQL for Gravity Forms plugin versions (< v0.13). For file upload support, upgrade the plugin or implement a custom upload endpoint.
 - **Design System:** Features a comprehensive design system with CSS variables for brand colors, typography, spacing, and radius, located in `app/globals.css`. A `/style-guide` page provides a live visual reference for all design tokens and components.
 - **Modular Component Architecture:** Emphasizes modular React components for easy restyling and maintenance.
 
