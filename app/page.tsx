@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { PostListServer } from '@/components/posts/PostListServer';
+import { GravityForm } from '@/components/forms/GravityForm';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -165,6 +166,14 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <GravityForm formId={1} />
+          </div>
         </div>
       </section>
     </Layout>
