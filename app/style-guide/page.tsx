@@ -313,11 +313,30 @@ export default function StyleGuide() {
           </div>
         </Section>
 
-        <Section title="Forms">
-          <p className="text-body text-muted-foreground mb-8">
-            Form elements use global CSS variables for consistent styling across all forms including Gravity Forms.
-            Customize in <code className="px-2 py-1 bg-background rounded text-sm font-mono">app/globals.css</code>.
+        <Section title="Forms (AxeWP/Gravity Forms)">
+          <p className="text-body text-muted-foreground mb-4">
+            Form elements match the AxeWP Gravity Forms schema. All fields use <code className="px-1.5 py-0.5 bg-muted rounded text-xs font-mono">gf-*</code> CSS classes for consistent styling.
           </p>
+          <div className="mb-8 p-4 bg-muted rounded-lg">
+            <h4 className="text-sm font-semibold mb-2">Supported AxeWP Field Types</h4>
+            <div className="flex flex-wrap gap-2 text-xs font-mono">
+              <Badge variant="outline">TEXT</Badge>
+              <Badge variant="outline">TEXTAREA</Badge>
+              <Badge variant="outline">EMAIL</Badge>
+              <Badge variant="outline">NUMBER</Badge>
+              <Badge variant="outline">PHONE</Badge>
+              <Badge variant="outline">WEBSITE</Badge>
+              <Badge variant="outline">SELECT</Badge>
+              <Badge variant="outline">RADIO</Badge>
+              <Badge variant="outline">CHECKBOX</Badge>
+              <Badge variant="outline">DATE</Badge>
+              <Badge variant="outline">FILEUPLOAD</Badge>
+              <Badge variant="outline">HTML</Badge>
+              <Badge variant="outline">SECTION</Badge>
+              <Badge variant="outline">HIDDEN</Badge>
+              <Badge variant="outline">PAGE</Badge>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
@@ -425,6 +444,39 @@ export default function StyleGuide() {
                   <Input id="demo-number" type="number" placeholder="0" min={0} max={100} className="gf-input" data-testid="input-demo-number" />
                 </div>
               </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Phone Input</h3>
+                <div className="gf-field gf-field-phone">
+                  <Label htmlFor="demo-phone" className="gf-label">Phone Number</Label>
+                  <Input id="demo-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-demo-phone" />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Website Input</h3>
+                <div className="gf-field gf-field-website">
+                  <Label htmlFor="demo-website" className="gf-label">Website URL</Label>
+                  <Input id="demo-website" type="url" placeholder="https://example.com" className="gf-input" data-testid="input-demo-website" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">Section Field (SECTION type)</h3>
+            <div className="gf-field gf-field-section border-b pb-4">
+              <h3 className="text-lg font-semibold">Section Title</h3>
+              <p className="text-muted-foreground">Section description text that provides context for the fields below.</p>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">HTML Field (HTML type)</h3>
+            <div className="gf-field gf-field-html p-4 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-md">
+              <p className="text-blue-800 dark:text-blue-200">
+                This is an HTML field. It displays custom HTML content and is read-only.
+              </p>
             </div>
           </div>
 

@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Loader2, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
+import { Loader2, ChevronLeft, ChevronRight, AlertCircle, Upload } from 'lucide-react';
 import type { GfForm, GfFormField, GfChoice } from '@/lib/gf/queries';
 import { evaluateConditionalLogic, type FormValues } from '@/lib/gf/conditionalLogic';
 
@@ -460,9 +460,44 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           </div>
         );
 
+      case 'FILEUPLOAD':
+        const allowedExts = field.allowedExtensions?.join(', ') || 'All files';
+        const maxSize = field.maxFileSize ? `${field.maxFileSize}MB` : 'No limit';
+        return wrapField(
+          <>
+            {renderLabel()}
+            <label
+              htmlFor={`field_${id}`}
+              className="flex items-center gap-3 p-3 border rounded-md bg-background cursor-pointer hover:bg-accent/30 transition-colors"
+            >
+              <span className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium">
+                <Upload className="h-4 w-4 mr-2" />
+                Choose File
+              </span>
+              <span className="text-muted-foreground text-sm flex-1 truncate">
+                {(value as string) || 'No file chosen'}
+              </span>
+              <input
+                {...commonProps}
+                type="file"
+                accept={field.allowedExtensions?.map(ext => `.${ext}`).join(',')}
+                className="sr-only"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    updateFieldValue(id, file.name);
+                  }
+                }}
+              />
+            </label>
+            <p className="text-sm text-muted-foreground mt-1">
+              Allowed: {allowedExts} (max {maxSize})
+            </p>
+          </>
+        );
+
       case 'NAME':
       case 'ADDRESS':
-      case 'FILEUPLOAD':
         return wrapField(
           <>
             {renderLabel()}
