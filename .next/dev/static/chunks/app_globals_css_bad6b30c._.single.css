@@ -1344,6 +1344,10 @@ body {
   margin-top: 1rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -2160,6 +2164,10 @@ body {
   border-color: hsl(var(--input) / var(--tw-border-opacity, 1));
 }
 
+.border-muted-foreground\/25 {
+  border-color: hsl(var(--muted-foreground) / .25);
+}
+
 .border-primary {
   --tw-border-opacity: 1;
   border-color: hsl(var(--primary) / var(--tw-border-opacity, 1));
@@ -2419,6 +2427,10 @@ body {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .p-\[1px\] {
@@ -2998,6 +3010,10 @@ body {
   transition-duration: 1s;
 }
 
+.duration-150 {
+  transition-duration: .15s;
+}
+
 .duration-200 {
   transition-duration: .2s;
 }
@@ -3052,6 +3068,10 @@ body {
 
 .duration-1000 {
   animation-duration: 1s;
+}
+
+.duration-150 {
+  animation-duration: .15s;
 }
 
 .duration-200 {
@@ -3216,12 +3236,39 @@ body {
   --tw-prose-td-borders: var(--tw-prose-invert-td-borders);
 }
 
+.file\:mr-4::file-selector-button {
+  margin-right: 1rem;
+}
+
+.file\:cursor-pointer::file-selector-button {
+  cursor: pointer;
+}
+
+.file\:rounded-md::file-selector-button {
+  border-radius: .375rem;
+}
+
 .file\:border-0::file-selector-button {
   border-width: 0;
 }
 
+.file\:bg-primary::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--primary) / var(--tw-bg-opacity, 1));
+}
+
 .file\:bg-transparent::file-selector-button {
   background-color: #0000;
+}
+
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.file\:py-2::file-selector-button {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .file\:text-sm::file-selector-button {
@@ -3236,6 +3283,11 @@ body {
 .file\:text-foreground::file-selector-button {
   --tw-text-opacity: 1;
   color: hsl(var(--foreground) / var(--tw-text-opacity, 1));
+}
+
+.file\:text-primary-foreground::file-selector-button {
+  --tw-text-opacity: 1;
+  color: hsl(var(--primary-foreground) / var(--tw-text-opacity, 1));
 }
 
 .placeholder\:text-muted-foreground::placeholder {
@@ -3337,9 +3389,17 @@ body {
   z-index: 20;
 }
 
+.hover\:border-primary\/50:hover {
+  border-color: hsl(var(--primary) / .5);
+}
+
 .hover\:bg-accent:hover {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--accent) / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-accent\/50:hover {
+  background-color: hsl(var(--accent) / .5);
 }
 
 .hover\:bg-amber-400:hover {
@@ -3349,6 +3409,10 @@ body {
 
 .hover\:bg-brand-accent\/90:hover {
   background-color: hsl(var(--color-accent) / .9);
+}
+
+.hover\:bg-destructive\/90:hover {
+  background-color: hsl(var(--destructive) / .9);
 }
 
 .hover\:bg-muted:hover {
@@ -3365,9 +3429,17 @@ body {
   background-color: hsl(var(--primary) / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-primary\/90:hover {
+  background-color: hsl(var(--primary) / .9);
+}
+
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--secondary) / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-secondary\/80:hover {
+  background-color: hsl(var(--secondary) / .8);
 }
 
 .hover\:bg-sidebar-accent:hover {
@@ -3426,6 +3498,10 @@ body {
   --tw-shadow: 0 0 0 1px hsl(var(--sidebar-accent));
   --tw-shadow-colored: 0 0 0 1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:file\:bg-primary\/90::file-selector-button:hover {
+  background-color: hsl(var(--primary) / .9);
 }
 
 .hover\:after\:bg-sidebar-border:hover:after {
@@ -3510,6 +3586,22 @@ body {
 
 .focus-visible\:ring-offset-background:focus-visible {
   --tw-ring-offset-color: hsl(var(--background) / 1);
+}
+
+.active\:bg-accent\/70:active {
+  background-color: hsl(var(--accent) / .7);
+}
+
+.active\:bg-destructive\/80:active {
+  background-color: hsl(var(--destructive) / .8);
+}
+
+.active\:bg-primary\/80:active {
+  background-color: hsl(var(--primary) / .8);
+}
+
+.active\:bg-secondary\/70:active {
+  background-color: hsl(var(--secondary) / .7);
 }
 
 .active\:bg-sidebar-accent:active {

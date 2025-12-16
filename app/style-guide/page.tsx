@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowRight, Check, X, AlertCircle, Info } from "lucide-react";
+import { ArrowRight, Check, X, AlertCircle, Info, ChevronLeft, ChevronRight, Upload, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 function ColorSwatch({ name, variable, className }: { name: string; variable: string; className: string }) {
@@ -457,6 +457,85 @@ export default function StyleGuide() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">Multi-Page Form Navigation</h3>
+            <Card className="max-w-lg" data-testid="card-multipage-demo">
+              <CardHeader>
+                <CardTitle>Step 2 of 3</CardTitle>
+                <CardDescription>Contact Information</CardDescription>
+                <div className="flex items-center gap-2 mt-4">
+                  <div className="h-2 flex-1 rounded-full bg-primary" />
+                  <div className="h-2 flex-1 rounded-full bg-primary" />
+                  <div className="h-2 flex-1 rounded-full bg-muted" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="gf-field">
+                    <Label htmlFor="multipage-email" className="gf-label">Email</Label>
+                    <Input id="multipage-email" type="email" placeholder="you@example.com" className="gf-input" data-testid="input-multipage-email" />
+                  </div>
+                  <div className="gf-field">
+                    <Label htmlFor="multipage-phone" className="gf-label">Phone</Label>
+                    <Input id="multipage-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-multipage-phone" />
+                  </div>
+                </div>
+                <div className="flex justify-between gap-4 mt-6">
+                  <Button variant="outline" data-testid="button-prev-page">
+                    <ChevronLeft className="h-4 w-4 mr-1" />
+                    Previous
+                  </Button>
+                  <Button data-testid="button-next-page">
+                    Next
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">Submit Button States</h3>
+            <div className="flex flex-wrap items-center gap-4">
+              <Button data-testid="button-submit-default">Submit</Button>
+              <Button disabled data-testid="button-submit-disabled">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Submitting...
+              </Button>
+              <Button disabled data-testid="button-submit-disabled-plain">Submit (Disabled)</Button>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">File Upload</h3>
+            <div className="max-w-md space-y-4">
+              <div className="gf-field">
+                <Label htmlFor="demo-file" className="gf-label">Upload Document</Label>
+                <div className="relative">
+                  <Input
+                    id="demo-file"
+                    type="file"
+                    className="gf-input file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 file:cursor-pointer"
+                    data-testid="input-file-upload"
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground mt-1">Accepted formats: PDF, DOC, DOCX (max 10MB)</p>
+              </div>
+
+              <div className="gf-field">
+                <Label className="gf-label">Drag and Drop Upload</Label>
+                <div
+                  className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
+                  data-testid="dropzone-file-upload"
+                >
+                  <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                  <p className="text-body text-muted-foreground">Drag files here or click to browse</p>
+                  <p className="text-small text-muted-foreground mt-1">PDF, DOC up to 10MB</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-8 p-4 bg-muted rounded-lg">
