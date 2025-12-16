@@ -580,6 +580,9 @@ export async function fetchPostPreviewBySlug(
   slug: string
 ): Promise<ReturnType<typeof transformPost> | null> {
   const client = getPreviewClient(); // Uses preview user credentials for WordPress auth
+  
+  console.log('[Preview] Fetching post preview by slug:', slug);
+  console.log('[Preview] Using credentials:', process.env.PREVIEW_USER_UN ? 'PREVIEW_USER set' : 'PREVIEW_USER not set');
 
   try {
     const response = await client.request<{ post: WpPost | null }>(
@@ -587,10 +590,12 @@ export async function fetchPostPreviewBySlug(
       { slug }
     );
 
+    console.log('[Preview] Response:', response.post ? 'Post found' : 'Post NOT found');
+    
     if (!response.post) return null;
     return transformPost(response.post);
   } catch (error) {
-    console.error('Error fetching post preview by slug:', error);
+    console.error('[Preview] Error fetching post preview by slug:', error);
     throw error;
   }
 }
