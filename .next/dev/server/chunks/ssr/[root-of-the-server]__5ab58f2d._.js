@@ -628,14 +628,17 @@ const getPreviewClient = ()=>{
     const headers = {
         'Content-Type': 'application/json'
     };
-    // Use preview user credentials for WordPress authentication (Application Password)
-    const previewUser = process.env.preview_user_un;
-    const previewPass = process.env.preview_user_app_pass;
+    // Use WP_AUTH_USER (staging user) with Application Password for authenticated preview requests
+    // This works because:
+    // 1. WP_AUTH_USER passes the staging nginx/apache Basic Auth gate
+    // 2. Application Password authenticates to WordPress for draft content access
+    const previewUser = process.env.WP_AUTH_USER;
+    const previewPass = process.env.preview_user_app_pass; // Application Password for WP_AUTH_USER
     if (previewUser && previewPass) {
         const credentials = Buffer.from(`${previewUser}:${previewPass}`).toString('base64');
         headers['Authorization'] = `Basic ${credentials}`;
     } else if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        // Fallback to staging auth if no preview credentials
+        // Fallback to regular staging auth if no Application Password
         const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
         headers['Authorization'] = `Basic ${credentials}`;
     }
