@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
+import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { storage } from '@/lib/storage';
+import { fetchPostPreviewBySlug, fetchPostPreview } from '@/lib/wordpress';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -11,7 +13,14 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await storage.getPostBySlug(slug);
+  const draft = await draftMode();
+  
+  let post;
+  if (draft.isEnabled) {
+    post = await fetchPostPreviewBySlug(slug);
+  } else {
+    post = await storage.getPostBySlug(slug);
+  }
   
   if (!post) {
     return {
@@ -42,12 +51,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function BlogPost({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const { preview, token, id } = await searchParams;
-  const isPreview = preview === 'true';
+  const draft = await draftMode();
+  
+  const isPreview = draft.isEnabled || preview === 'true';
   
   let post;
   
-  if (isPreview && token && id) {
-    const { fetchPostPreview } = await import('@/lib/wordpress');
+  if (draft.isEnabled) {
+    post = await fetchPostPreviewBySlug(slug);
+  } else if (preview === 'true' && token && id) {
     post = await fetchPostPreview(parseInt(id), token);
   } else {
     post = await storage.getPostBySlug(slug);

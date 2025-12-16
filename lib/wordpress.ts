@@ -163,13 +163,55 @@ const GET_POST_BY_SLUG_QUERY = gql`
   }
 `;
 
-// Query for preview (draft) content
+// Query for preview (draft) content by DATABASE_ID
 const GET_POST_PREVIEW_QUERY = gql`
   ${SEO_FRAGMENT}
   ${FEATURED_IMAGE_FRAGMENT}
   ${TAXONOMY_FRAGMENT}
   query GetPostPreview($id: ID!) {
     post(id: $id, idType: DATABASE_ID, asPreview: true) {
+      databaseId
+      slug
+      title
+      content
+      excerpt
+      status
+      date
+      modified
+      author {
+        node {
+          name
+        }
+      }
+      featuredImage {
+        node {
+          ...FeaturedImageFields
+        }
+      }
+      categories {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
+      tags {
+        nodes {
+          ...TaxonomyFields
+        }
+      }
+      seo {
+        ...SeoFields
+      }
+    }
+  }
+`;
+
+// Query for preview (draft) content by SLUG - used when Draft Mode is enabled
+const GET_POST_PREVIEW_BY_SLUG_QUERY = gql`
+  ${SEO_FRAGMENT}
+  ${FEATURED_IMAGE_FRAGMENT}
+  ${TAXONOMY_FRAGMENT}
+  query GetPostPreviewBySlug($slug: ID!) {
+    post(id: $slug, idType: SLUG, asPreview: true) {
       databaseId
       slug
       title
@@ -498,6 +540,27 @@ export async function fetchPostPreview(
     return transformPost(response.post);
   } catch (error) {
     console.error('Error fetching post preview:', error);
+    throw error;
+  }
+}
+
+// Fetch post preview by slug using Basic Auth (for Draft Mode)
+// This fetches draft/revision content directly from WordPress
+export async function fetchPostPreviewBySlug(
+  slug: string
+): Promise<ReturnType<typeof transformPost> | null> {
+  const client = getWpClient(); // Uses Basic Auth from env vars
+
+  try {
+    const response = await client.request<{ post: WpPost | null }>(
+      GET_POST_PREVIEW_BY_SLUG_QUERY,
+      { slug }
+    );
+
+    if (!response.post) return null;
+    return transformPost(response.post);
+  } catch (error) {
+    console.error('Error fetching post preview by slug:', error);
     throw error;
   }
 }

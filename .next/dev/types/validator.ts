@@ -83,6 +83,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/exit-preview/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/exit-preview">> = Specific
+  const handler = {} as typeof import("../../../app/api/exit-preview/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/forms/submit-rest/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/forms/submit-rest">> = Specific
@@ -123,6 +132,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/posts">> = Specific
   const handler = {} as typeof import("../../../app/api/posts/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/api/preview/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/preview">> = Specific
+  const handler = {} as typeof import("../../../app/api/preview/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
