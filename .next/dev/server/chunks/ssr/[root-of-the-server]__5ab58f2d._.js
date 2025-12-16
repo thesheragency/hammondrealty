@@ -629,8 +629,8 @@ const getPreviewClient = ()=>{
         'Content-Type': 'application/json'
     };
     // Use preview user credentials for WordPress authentication (Application Password)
-    const previewUser = process.env.PREVIEW_USER_UN;
-    const previewPass = process.env.PREVIEW_USER_APP_PASS;
+    const previewUser = process.env.preview_user_un;
+    const previewPass = process.env.preview_user_app_pass;
     if (previewUser && previewPass) {
         const credentials = Buffer.from(`${previewUser}:${previewPass}`).toString('base64');
         headers['Authorization'] = `Basic ${credentials}`;
@@ -1029,7 +1029,7 @@ async function fetchPostPreview(id, authToken) {
 async function fetchPostPreviewBySlug(slug) {
     const client = getPreviewClient(); // Uses preview user credentials for WordPress auth
     console.log('[Preview] Fetching post preview by slug:', slug);
-    console.log('[Preview] Using credentials:', process.env.PREVIEW_USER_UN ? 'PREVIEW_USER set' : 'PREVIEW_USER not set');
+    console.log('[Preview] Using credentials:', process.env.preview_user_un ? 'PREVIEW_USER set' : 'PREVIEW_USER not set');
     try {
         const response = await client.request(GET_POST_PREVIEW_BY_SLUG_QUERY, {
             slug
