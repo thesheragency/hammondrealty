@@ -104,6 +104,14 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
           dateType
           calendarIconType
         }
+        ... on TimeField {
+          timeFormat
+          inputs {
+            id
+            label
+            placeholder
+          }
+        }
         ... on FileUploadField {
           allowedExtensions
           maxFileSize
@@ -207,6 +215,7 @@ export interface GfFormField {
   dateFormat?: string;
   dateType?: string;
   calendarIconType?: string;
+  timeFormat?: string;
   allowedExtensions?: string[];
   maxFileSize?: number;
   maxFiles?: number;

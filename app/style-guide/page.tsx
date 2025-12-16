@@ -331,6 +331,7 @@ export default function StyleGuide() {
               <Badge variant="outline">CHECKBOX</Badge>
               <Badge variant="outline">MULTISELECT</Badge>
               <Badge variant="outline">DATE</Badge>
+              <Badge variant="outline">TIME</Badge>
               <Badge variant="outline">FILEUPLOAD</Badge>
               <Badge variant="outline">HTML</Badge>
               <Badge variant="outline">SECTION</Badge>
@@ -433,10 +434,56 @@ export default function StyleGuide() {
               </div>
 
               <div>
-                <h3 className="text-h6 mb-4">Date Input</h3>
+                <h3 className="text-h6 mb-4">Date Input (Calendar Picker)</h3>
                 <div className="gf-field">
                   <Label htmlFor="demo-date" className="gf-label">Select a date</Label>
-                  <Input id="demo-date" type="date" className="gf-input" data-testid="input-demo-date" />
+                  <p className="text-sm text-muted-foreground mb-2">Click anywhere on the field to open the calendar picker</p>
+                  <button
+                    type="button"
+                    className="gf-input flex items-center gap-2 w-full text-left border rounded-md px-3 py-2 bg-background hover:bg-accent/30 transition-colors"
+                    data-testid="input-demo-date-picker"
+                  >
+                    <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0 -rotate-45" />
+                    <span className="text-muted-foreground">Select a date</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Time Input</h3>
+                <div className="gf-field">
+                  <Label className="gf-label">Select a time</Label>
+                  <div className="flex items-center gap-2">
+                    <Info className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <div className="flex items-center gap-1">
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="HH"
+                        className="gf-input w-14 text-center"
+                        maxLength={2}
+                        data-testid="input-demo-time-hour"
+                      />
+                      <span className="text-lg font-medium">:</span>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="MM"
+                        className="gf-input w-14 text-center"
+                        maxLength={2}
+                        data-testid="input-demo-time-minute"
+                      />
+                      <Select defaultValue="AM">
+                        <SelectTrigger className="w-20" data-testid="select-demo-time-ampm">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="AM">AM</SelectItem>
+                          <SelectItem value="PM">PM</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -673,6 +720,136 @@ export default function StyleGuide() {
                   <p className="text-body text-muted-foreground">Drag files here or click to browse</p>
                   <p className="text-small text-muted-foreground mt-1">PDF, DOC up to 10MB</p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">Field Validation States</h3>
+            <p className="text-body text-muted-foreground mb-4">
+              Fields validate on blur (when you leave the field) and on form submission. Validation uses Gravity Forms schema rules for each field type.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="gf-field">
+                  <Label htmlFor="val-email" className="gf-label">
+                    Email (Invalid) <span className="text-destructive">*</span>
+                  </Label>
+                  <Input 
+                    id="val-email" 
+                    type="email" 
+                    value="not-an-email" 
+                    className="gf-input border-destructive" 
+                    readOnly
+                    aria-invalid="true"
+                    data-testid="input-validation-email-invalid" 
+                  />
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    Please enter a valid email address
+                  </p>
+                </div>
+                <div className="gf-field">
+                  <Label htmlFor="val-phone" className="gf-label">
+                    Phone (Invalid) <span className="text-destructive">*</span>
+                  </Label>
+                  <Input 
+                    id="val-phone" 
+                    type="tel" 
+                    value="abc123" 
+                    className="gf-input border-destructive" 
+                    readOnly
+                    aria-invalid="true"
+                    data-testid="input-validation-phone-invalid" 
+                  />
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    Phone number can only contain digits, spaces, dashes, parentheses, and +
+                  </p>
+                </div>
+                <div className="gf-field">
+                  <Label htmlFor="val-number" className="gf-label">
+                    Number (Out of Range)
+                  </Label>
+                  <Input 
+                    id="val-number" 
+                    type="number" 
+                    value="150" 
+                    className="gf-input border-destructive" 
+                    readOnly
+                    aria-invalid="true"
+                    data-testid="input-validation-number-invalid" 
+                  />
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    Value must be no more than 100
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="gf-field">
+                  <Label htmlFor="val-required" className="gf-label">
+                    Required Field (Empty) <span className="text-destructive">*</span>
+                  </Label>
+                  <Input 
+                    id="val-required" 
+                    placeholder="This field is required" 
+                    className="gf-input border-destructive" 
+                    aria-invalid="true"
+                    data-testid="input-validation-required" 
+                  />
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    This field is required
+                  </p>
+                </div>
+                <div className="gf-field">
+                  <Label htmlFor="val-url" className="gf-label">
+                    Website URL (Invalid)
+                  </Label>
+                  <Input 
+                    id="val-url" 
+                    type="url" 
+                    value="not a url" 
+                    className="gf-input border-destructive" 
+                    readOnly
+                    aria-invalid="true"
+                    data-testid="input-validation-url-invalid" 
+                  />
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    Please enter a valid URL (e.g., https://example.com)
+                  </p>
+                </div>
+                <div className="gf-field">
+                  <Label htmlFor="val-file" className="gf-label">
+                    File Upload (Invalid Type)
+                  </Label>
+                  <div className="flex items-center gap-3 p-3 border border-destructive rounded-md bg-background">
+                    <span className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-muted text-muted-foreground text-sm font-medium">
+                      Choose File
+                    </span>
+                    <span className="text-sm truncate">document.exe</span>
+                  </div>
+                  <p className="text-sm text-destructive mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    File type not allowed. Allowed types: pdf, doc, docx
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 p-4 bg-muted rounded-lg">
+              <h4 className="text-sm font-semibold mb-2">Supported Validation Rules</h4>
+              <div className="flex flex-wrap gap-2 text-xs">
+                <Badge variant="outline">Required fields</Badge>
+                <Badge variant="outline">Email format</Badge>
+                <Badge variant="outline">Phone format (US/International)</Badge>
+                <Badge variant="outline">URL format</Badge>
+                <Badge variant="outline">Number range (min/max)</Badge>
+                <Badge variant="outline">File type restrictions</Badge>
+                <Badge variant="outline">File size limits</Badge>
+                <Badge variant="outline">Date validation</Badge>
+                <Badge variant="outline">Time validation</Badge>
               </div>
             </div>
           </div>

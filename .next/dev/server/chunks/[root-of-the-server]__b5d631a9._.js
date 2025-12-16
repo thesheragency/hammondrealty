@@ -156,6 +156,14 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
           dateType
           calendarIconType
         }
+        ... on TimeField {
+          timeFormat
+          inputs {
+            id
+            label
+            placeholder
+          }
+        }
         ... on FileUploadField {
           allowedExtensions
           maxFileSize

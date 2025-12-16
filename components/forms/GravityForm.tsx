@@ -16,9 +16,13 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Loader2, ChevronLeft, ChevronRight, AlertCircle, Upload } from 'lucide-react';
+import { Loader2, ChevronLeft, ChevronRight, AlertCircle, Upload, Calendar, Clock } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { format, parse } from 'date-fns';
 import type { GfForm, GfFormField, GfChoice } from '@/lib/gf/queries';
 import { evaluateConditionalLogic, type FormValues } from '@/lib/gf/conditionalLogic';
+import { validateField, validateAllFields } from '@/lib/gf/validation';
 
 function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
@@ -86,6 +90,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         values[id] = [];
       } else if (field.type === 'NAME' || field.type === 'ADDRESS') {
         values[id] = {};
+      } else if (field.type === 'TIME') {
+        values[id] = { hour: '', minute: '', ampm: 'AM' };
       } else if (field.defaultValue) {
         values[id] = field.defaultValue;
       } else if (field.choices) {
@@ -106,6 +112,22 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
       return next;
     });
   }, []);
+
+  const validateFieldOnBlur = useCallback((field: GfFormField) => {
+    const fieldId = field.databaseId.toString();
+    const value = formValues[fieldId];
+    const result = validateField(field, value, files);
+    
+    if (!result.isValid && result.message) {
+      setFieldErrors((prev) => ({ ...prev, [fieldId]: result.message! }));
+    } else {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[fieldId];
+        return next;
+      });
+    }
+  }, [formValues, files]);
 
   const getTotalPages = useCallback(() => {
     if (!form) return 1;
@@ -132,32 +154,19 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
   );
 
   const validateCurrentPage = useCallback(() => {
-    const errors: Record<string, string> = {};
     const fields = getFieldsForPage(currentPage);
-
-    fields.forEach((field) => {
-      if (!isFieldVisible(field)) return;
-      if (!field.isRequired) return;
-
-      const value = formValues[field.databaseId.toString()];
-      let isEmpty = false;
-
-      if (Array.isArray(value)) {
-        isEmpty = value.length === 0;
-      } else if (typeof value === 'object') {
-        isEmpty = Object.values(value).every((v) => !v);
-      } else {
-        isEmpty = !value || value.trim() === '';
-      }
-
-      if (isEmpty) {
-        errors[field.databaseId.toString()] = `${field.label || 'This field'} is required`;
+    const results = validateAllFields(fields, formValues, files, isFieldVisible);
+    
+    const errors: Record<string, string> = {};
+    Object.entries(results).forEach(([fieldId, result]) => {
+      if (!result.isValid && result.message) {
+        errors[fieldId] = result.message;
       }
     });
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
-  }, [currentPage, formValues, getFieldsForPage, isFieldVisible]);
+  }, [currentPage, formValues, files, getFieldsForPage, isFieldVisible]);
 
   const handleNextPage = () => {
     if (validateCurrentPage()) {
@@ -200,6 +209,16 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
           value.forEach((v, idx) => {
             submitData.append(`input_${id}.${idx + 1}`, v);
           });
+        } else if (field?.type === 'TIME' && typeof value === 'object' && value !== null) {
+          // TIME fields: format as HH:MM AM/PM or HH:MM for 24-hour
+          const timeVal = value as Record<string, string>;
+          if (timeVal.hour && timeVal.minute) {
+            const is12Hour = field.timeFormat !== '24';
+            const timeString = is12Hour
+              ? `${timeVal.hour}:${timeVal.minute} ${timeVal.ampm || 'AM'}`
+              : `${timeVal.hour}:${timeVal.minute}`;
+            submitData.append(`input_${id}`, timeString);
+          }
         } else if (typeof value === 'object' && value !== null) {
           // NAME and ADDRESS fields use sub-input IDs
           Object.entries(value).forEach(([subId, subVal]) => {
@@ -308,6 +327,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
               placeholder={field.placeholder}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
+              onBlur={() => validateFieldOnBlur(field)}
               maxLength={field.maxLength}
               className="gf-input"
             />
@@ -323,6 +343,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
               placeholder={field.placeholder}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
+              onBlur={() => validateFieldOnBlur(field)}
               maxLength={field.maxLength}
               className="gf-textarea"
             />
@@ -339,6 +360,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
               placeholder={field.placeholder}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
+              onBlur={() => validateFieldOnBlur(field)}
               className="gf-input"
             />
           </>
@@ -354,6 +376,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
               placeholder={field.placeholder}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
+              onBlur={() => validateFieldOnBlur(field)}
               min={field.rangeMin}
               max={field.rangeMax}
               className="gf-input"
@@ -445,16 +468,97 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         );
 
       case 'DATE':
+        const dateValue = (value as string) || '';
+        const parsedDate = dateValue ? parse(dateValue, 'yyyy-MM-dd', new Date()) : undefined;
+        const isValidDate = parsedDate && !isNaN(parsedDate.getTime());
         return wrapField(
           <>
             {renderLabel()}
-            <Input
-              {...commonProps}
-              type="date"
-              value={(value as string) || ''}
-              onChange={(e) => updateFieldValue(id, e.target.value)}
-              className="gf-input"
-            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className="gf-input flex items-center gap-2 w-full text-left border rounded-md px-3 py-2 bg-background hover:bg-accent/30 transition-colors"
+                  data-testid={`input-gf-date-${id}`}
+                >
+                  <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <span className={isValidDate ? 'text-foreground' : 'text-muted-foreground'}>
+                    {isValidDate ? format(parsedDate, 'MMMM d, yyyy') : 'Select a date'}
+                  </span>
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CalendarComponent
+                  mode="single"
+                  selected={isValidDate ? parsedDate : undefined}
+                  onSelect={(date) => {
+                    if (date) {
+                      updateFieldValue(id, format(date, 'yyyy-MM-dd'));
+                    }
+                  }}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </>
+        );
+
+      case 'TIME':
+        const timeValue = (value as Record<string, string>) || {};
+        const is12Hour = field.timeFormat !== '24';
+        return wrapField(
+          <>
+            {renderLabel()}
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+              <div className="flex items-center gap-1">
+                <Input
+                  id={`${id}_hour`}
+                  type="text"
+                  inputMode="numeric"
+                  placeholder={is12Hour ? 'HH' : 'HH'}
+                  value={timeValue.hour || ''}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 2);
+                    updateFieldValue(id, { ...timeValue, hour: val });
+                  }}
+                  onBlur={() => validateFieldOnBlur(field)}
+                  className="gf-input w-14 text-center"
+                  maxLength={2}
+                  data-testid={`input-gf-time-${id}-hour`}
+                />
+                <span className="text-lg font-medium">:</span>
+                <Input
+                  id={`${id}_minute`}
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="MM"
+                  value={timeValue.minute || ''}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 2);
+                    updateFieldValue(id, { ...timeValue, minute: val });
+                  }}
+                  onBlur={() => validateFieldOnBlur(field)}
+                  className="gf-input w-14 text-center"
+                  maxLength={2}
+                  data-testid={`input-gf-time-${id}-minute`}
+                />
+                {is12Hour && (
+                  <Select
+                    value={timeValue.ampm || 'AM'}
+                    onValueChange={(v) => updateFieldValue(id, { ...timeValue, ampm: v })}
+                  >
+                    <SelectTrigger className="w-20" data-testid={`select-gf-time-${id}-ampm`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="AM">AM</SelectItem>
+                      <SelectItem value="PM">PM</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
+            </div>
           </>
         );
 
