@@ -96,16 +96,11 @@ async function GET(request) {
         // For custom post types, use the type as the path prefix
         redirectPath = `/${type}/${sanitizedSlug}`;
     }
-    const baseUrl = request.nextUrl.origin;
+    // Get the actual host from headers (handles proxied environments like Replit)
+    const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || request.nextUrl.host;
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    const baseUrl = `${protocol}://${host}`;
     const redirectUrl = new URL(redirectPath, baseUrl);
-    // Final safety check: ensure redirect stays on same origin
-    if (redirectUrl.origin !== request.nextUrl.origin) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Invalid redirect'
-        }, {
-            status: 400
-        });
-    }
     return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].redirect(redirectUrl);
 }
 }),
