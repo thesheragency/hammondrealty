@@ -1,7 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request';
 import { GET_GF_FORM_QUERY, type GetGfFormResponse } from '@/lib/gf/queries';
 import { SUBMIT_GF_FORM_MUTATION, type SubmitGfFormResponse, type FieldValueInput } from '@/lib/gf/mutations';
+
+const CHECK_GF_SCHEMA_QUERY = gql`
+  query CheckGfSchema {
+    __schema {
+      types {
+        name
+      }
+    }
+  }
+`;
+
+interface SchemaCheckResponse {
+  __schema: {
+    types: Array<{ name: string }>;
+  };
+}
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000;
