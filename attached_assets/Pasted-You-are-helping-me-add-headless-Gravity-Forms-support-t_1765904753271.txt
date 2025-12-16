@@ -1,0 +1,46 @@
+You are helping me add headless Gravity Forms support to an existing Next.js (App Router) + WordPress WPGraphQL project.
+
+Current setup
+	•	We already fetch content from WordPress via GraphQL.
+	•	WordPress will have these plugins installed: Gravity Forms, WPGraphQL, and WPGraphQL for Gravity Forms (AxeWP).
+	•	I want clients to fully manage forms in Gravity Forms (all fields, conditional logic, multi-page).
+
+Goal
+
+Implement a minimal, non-bloated forms module with:
+	1.	A React component: components/forms/GravityForm.tsx
+	2.	A server endpoint: app/api/forms/submit/route.ts
+	3.	GraphQL operations: lib/gf/queries.ts and lib/gf/mutations.ts
+	4.	A small conditional-logic evaluator + multi-page state (keep it simple and readable)
+	5.	Basic spam protection: honeypot + simple rate limit in the API route (in-memory is fine)
+
+Constraints
+	•	Do NOT add Apollo if we already use fetch to call GraphQL. Use a thin lib/graphqlFetch.ts helper (reuse existing if present).
+	•	Form submission must go browser → Next API route → WP GraphQL mutation (no direct browser-to-WP).
+	•	Render the form dynamically from the Gravity Forms schema returned via GraphQL.
+	•	Support:
+	•	required fields
+	•	multi-page (page breaks)
+	•	conditional logic show/hide
+	•	standard field types first: text, textarea, email, phone, number, select, radio, checkbox, date, file upload (stub if too hard), name/address (support basic sub-inputs if available)
+	•	If an unsupported field type is encountered, show a clear message in the UI and log it.
+
+Environment variables
+
+Use:
+	•	WP_GRAPHQL_URL
+	•	Optional: WP_GRAPHQL_AUTH_TOKEN (only used server-side in the submit route if needed)
+
+Output
+	1.	Create the exact files with code:
+	•	lib/graphqlFetch.ts
+	•	lib/gf/queries.ts
+	•	lib/gf/mutations.ts
+	•	components/forms/GravityForm.tsx
+	•	app/api/forms/submit/route.ts
+	2.	Include a small example of how to render a form on a page:
+	•	<GravityForm formId={123} />
+	3.	Keep the code tight: no extra libraries unless absolutely necessary.
+	4.	Add comments only where it prevents confusion.
+
+If you need to assume the GraphQL schema names for AxeWP, write the queries/mutations in a way that’s easy to adjust (centralize names), and explain what I should change if the schema differs.
