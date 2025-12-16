@@ -20,9 +20,10 @@ export const SUBMIT_GF_FORM_MUTATION = gql`
       }
       entry {
         id
-        databaseId
-        createdById
-        dateCreated
+        ... on GfSubmittedEntry {
+          databaseId
+          dateCreated
+        }
       }
     }
   }
@@ -76,9 +77,8 @@ export interface GfSubmissionConfirmation {
 
 export interface GfSubmissionEntry {
   id: string;
-  databaseId: number;
-  createdById?: number;
-  dateCreated: string;
+  databaseId?: number;
+  dateCreated?: string;
 }
 
 export interface SubmitGfFormResponse {

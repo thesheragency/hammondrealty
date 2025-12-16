@@ -229,9 +229,10 @@ const SUBMIT_GF_FORM_MUTATION = __TURBOPACK__imported__module__$5b$project$5d2f$
       }
       entry {
         id
-        databaseId
-        createdById
-        dateCreated
+        ... on GfSubmittedEntry {
+          databaseId
+          dateCreated
+        }
       }
     }
   }
