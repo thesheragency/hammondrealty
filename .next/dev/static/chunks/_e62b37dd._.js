@@ -2152,7 +2152,7 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "DATE"
+                                                children: "MULTISELECT"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 332,
@@ -2160,7 +2160,7 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "FILEUPLOAD"
+                                                children: "DATE"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 333,
@@ -2168,7 +2168,7 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "HTML"
+                                                children: "FILEUPLOAD"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 334,
@@ -2176,7 +2176,7 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "SECTION"
+                                                children: "HTML"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 335,
@@ -2184,7 +2184,7 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "HIDDEN"
+                                                children: "SECTION"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 336,
@@ -2192,10 +2192,34 @@ function StyleGuide() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                 variant: "outline",
-                                                children: "PAGE"
+                                                children: "HIDDEN"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
                                                 lineNumber: 337,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                variant: "outline",
+                                                children: "PAGE"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 338,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                variant: "outline",
+                                                children: "POST_TITLE"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 339,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                variant: "outline",
+                                                children: "POST_EXCERPT"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 340,
                                                 columnNumber: 15
                                             }, this)
                                         ]
@@ -2223,7 +2247,7 @@ function StyleGuide() {
                                                         children: "Text Inputs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 346,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2238,7 +2262,7 @@ function StyleGuide() {
                                                                         children: "Text Input"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 346,
+                                                                        lineNumber: 349,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2248,13 +2272,13 @@ function StyleGuide() {
                                                                         "data-testid": "input-demo-text"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 347,
+                                                                        lineNumber: 350,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 348,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2270,13 +2294,13 @@ function StyleGuide() {
                                                                                 children: "*"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 351,
+                                                                                lineNumber: 354,
                                                                                 columnNumber: 35
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 350,
+                                                                        lineNumber: 353,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2287,7 +2311,7 @@ function StyleGuide() {
                                                                         "data-testid": "input-demo-email"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 353,
+                                                                        lineNumber: 356,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2295,13 +2319,13 @@ function StyleGuide() {
                                                                         children: "Helper text appears below the input"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 354,
+                                                                        lineNumber: 357,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 349,
+                                                                lineNumber: 352,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2313,7 +2337,7 @@ function StyleGuide() {
                                                                         children: "Disabled Input"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 357,
+                                                                        lineNumber: 360,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2324,25 +2348,25 @@ function StyleGuide() {
                                                                         "data-testid": "input-demo-disabled"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 358,
+                                                                        lineNumber: 361,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 356,
+                                                                lineNumber: 359,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 344,
+                                                        lineNumber: 347,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 342,
+                                                lineNumber: 345,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2352,7 +2376,7 @@ function StyleGuide() {
                                                         children: "Textarea"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 364,
+                                                        lineNumber: 367,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2364,7 +2388,7 @@ function StyleGuide() {
                                                                 children: "Message"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 366,
+                                                                lineNumber: 369,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -2374,19 +2398,19 @@ function StyleGuide() {
                                                                 "data-testid": "input-demo-textarea"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 367,
+                                                                lineNumber: 370,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 365,
+                                                        lineNumber: 368,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 363,
+                                                lineNumber: 366,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2396,7 +2420,7 @@ function StyleGuide() {
                                                         children: "Select Dropdown"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 372,
+                                                        lineNumber: 375,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2407,7 +2431,7 @@ function StyleGuide() {
                                                                 children: "Choose an option"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 374,
+                                                                lineNumber: 377,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -2419,12 +2443,12 @@ function StyleGuide() {
                                                                             placeholder: "Select an option"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                                            lineNumber: 377,
+                                                                            lineNumber: 380,
                                                                             columnNumber: 23
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 376,
+                                                                        lineNumber: 379,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -2434,7 +2458,7 @@ function StyleGuide() {
                                                                                 children: "Option One"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 380,
+                                                                                lineNumber: 383,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2442,7 +2466,7 @@ function StyleGuide() {
                                                                                 children: "Option Two"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 381,
+                                                                                lineNumber: 384,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2450,37 +2474,37 @@ function StyleGuide() {
                                                                                 children: "Option Three"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 382,
+                                                                                lineNumber: 385,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 379,
+                                                                        lineNumber: 382,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 375,
+                                                                lineNumber: 378,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 373,
+                                                        lineNumber: 376,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 374,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 341,
+                                        lineNumber: 344,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2493,7 +2517,7 @@ function StyleGuide() {
                                                         children: "Radio Buttons"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 391,
+                                                        lineNumber: 394,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2504,7 +2528,7 @@ function StyleGuide() {
                                                                 children: "Select one option"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 393,
+                                                                lineNumber: 396,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$radio$2d$group$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["RadioGroup"], {
@@ -2520,7 +2544,7 @@ function StyleGuide() {
                                                                                 "data-testid": "radio-demo-1"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 396,
+                                                                                lineNumber: 399,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2529,13 +2553,13 @@ function StyleGuide() {
                                                                                 children: "Radio Option One"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 397,
+                                                                                lineNumber: 400,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 395,
+                                                                        lineNumber: 398,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2547,7 +2571,7 @@ function StyleGuide() {
                                                                                 "data-testid": "radio-demo-2"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 400,
+                                                                                lineNumber: 403,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2556,13 +2580,13 @@ function StyleGuide() {
                                                                                 children: "Radio Option Two"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 401,
+                                                                                lineNumber: 404,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 399,
+                                                                        lineNumber: 402,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2574,7 +2598,7 @@ function StyleGuide() {
                                                                                 "data-testid": "radio-demo-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 404,
+                                                                                lineNumber: 407,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2583,31 +2607,31 @@ function StyleGuide() {
                                                                                 children: "Radio Option Three"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 405,
+                                                                                lineNumber: 408,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 403,
+                                                                        lineNumber: 406,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 394,
+                                                                lineNumber: 397,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 395,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 390,
+                                                lineNumber: 393,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2617,7 +2641,7 @@ function StyleGuide() {
                                                         children: "Checkboxes"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 412,
+                                                        lineNumber: 415,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2628,7 +2652,7 @@ function StyleGuide() {
                                                                 children: "Select multiple options"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 414,
+                                                                lineNumber: 417,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2642,7 +2666,7 @@ function StyleGuide() {
                                                                                 "data-testid": "checkbox-demo-1"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 417,
+                                                                                lineNumber: 420,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2651,13 +2675,13 @@ function StyleGuide() {
                                                                                 children: "Checkbox Option One"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 418,
+                                                                                lineNumber: 421,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 416,
+                                                                        lineNumber: 419,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2669,7 +2693,7 @@ function StyleGuide() {
                                                                                 "data-testid": "checkbox-demo-2"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 421,
+                                                                                lineNumber: 424,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2678,13 +2702,13 @@ function StyleGuide() {
                                                                                 children: "Checkbox Option Two (checked)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 422,
+                                                                                lineNumber: 425,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 420,
+                                                                        lineNumber: 423,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2695,7 +2719,7 @@ function StyleGuide() {
                                                                                 "data-testid": "checkbox-demo-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 425,
+                                                                                lineNumber: 428,
                                                                                 columnNumber: 23
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -2704,31 +2728,31 @@ function StyleGuide() {
                                                                                 children: "Checkbox Option Three"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                                lineNumber: 426,
+                                                                                lineNumber: 429,
                                                                                 columnNumber: 23
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 424,
+                                                                        lineNumber: 427,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 415,
+                                                                lineNumber: 418,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 413,
+                                                        lineNumber: 416,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 411,
+                                                lineNumber: 414,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2738,7 +2762,7 @@ function StyleGuide() {
                                                         children: "Date Input"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 433,
+                                                        lineNumber: 436,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2750,7 +2774,7 @@ function StyleGuide() {
                                                                 children: "Select a date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 435,
+                                                                lineNumber: 438,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2760,19 +2784,19 @@ function StyleGuide() {
                                                                 "data-testid": "input-demo-date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 436,
+                                                                lineNumber: 439,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 434,
+                                                        lineNumber: 437,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 432,
+                                                lineNumber: 435,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2782,7 +2806,7 @@ function StyleGuide() {
                                                         children: "Number Input"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 441,
+                                                        lineNumber: 444,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2794,7 +2818,7 @@ function StyleGuide() {
                                                                 children: "Quantity"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 443,
+                                                                lineNumber: 446,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2807,19 +2831,19 @@ function StyleGuide() {
                                                                 "data-testid": "input-demo-number"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 444,
+                                                                lineNumber: 447,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 442,
+                                                        lineNumber: 445,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 443,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2829,7 +2853,7 @@ function StyleGuide() {
                                                         children: "Phone Input"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 449,
+                                                        lineNumber: 452,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2841,7 +2865,7 @@ function StyleGuide() {
                                                                 children: "Phone Number"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 451,
+                                                                lineNumber: 454,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2852,19 +2876,19 @@ function StyleGuide() {
                                                                 "data-testid": "input-demo-phone"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 452,
+                                                                lineNumber: 455,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 450,
+                                                        lineNumber: 453,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 448,
+                                                lineNumber: 451,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2874,7 +2898,7 @@ function StyleGuide() {
                                                         children: "Website Input"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 457,
+                                                        lineNumber: 460,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2886,7 +2910,7 @@ function StyleGuide() {
                                                                 children: "Website URL"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 459,
+                                                                lineNumber: 462,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2897,31 +2921,31 @@ function StyleGuide() {
                                                                 "data-testid": "input-demo-website"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 460,
+                                                                lineNumber: 463,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 458,
+                                                        lineNumber: 461,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 456,
+                                                lineNumber: 459,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 389,
+                                        lineNumber: 392,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 340,
+                                lineNumber: 343,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2932,7 +2956,7 @@ function StyleGuide() {
                                         children: "Section Field (SECTION type)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 470,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2943,7 +2967,7 @@ function StyleGuide() {
                                                 children: "Section Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 469,
+                                                lineNumber: 472,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2951,19 +2975,19 @@ function StyleGuide() {
                                                 children: "Section description text that provides context for the fields below."
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 470,
+                                                lineNumber: 473,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 468,
+                                        lineNumber: 471,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 466,
+                                lineNumber: 469,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2974,7 +2998,7 @@ function StyleGuide() {
                                         children: "HTML Field (HTML type)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 475,
+                                        lineNumber: 478,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2984,18 +3008,18 @@ function StyleGuide() {
                                             children: "This is an HTML field. It displays custom HTML content and is read-only."
                                         }, void 0, false, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 477,
+                                            lineNumber: 480,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 476,
+                                        lineNumber: 479,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 474,
+                                lineNumber: 477,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3006,7 +3030,7 @@ function StyleGuide() {
                                         children: "Form in Card (Gravity Forms style)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 484,
+                                        lineNumber: 487,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -3019,20 +3043,20 @@ function StyleGuide() {
                                                         children: "Contact Us"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 487,
+                                                        lineNumber: 490,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
                                                         children: "Fill out the form below and we will get back to you."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 488,
+                                                        lineNumber: 491,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 486,
+                                                lineNumber: 489,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -3052,13 +3076,13 @@ function StyleGuide() {
                                                                             children: "*"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                                            lineNumber: 494,
+                                                                            lineNumber: 497,
                                                                             columnNumber: 28
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 493,
+                                                                    lineNumber: 496,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3068,13 +3092,13 @@ function StyleGuide() {
                                                                     "data-testid": "input-card-name"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 496,
+                                                                    lineNumber: 499,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                            lineNumber: 492,
+                                                            lineNumber: 495,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3090,13 +3114,13 @@ function StyleGuide() {
                                                                             children: "*"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                                            lineNumber: 500,
+                                                                            lineNumber: 503,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 499,
+                                                                    lineNumber: 502,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3107,13 +3131,13 @@ function StyleGuide() {
                                                                     "data-testid": "input-card-email"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 502,
+                                                                    lineNumber: 505,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                            lineNumber: 498,
+                                                            lineNumber: 501,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3125,7 +3149,7 @@ function StyleGuide() {
                                                                     children: "Message"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 505,
+                                                                    lineNumber: 508,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -3135,13 +3159,13 @@ function StyleGuide() {
                                                                     "data-testid": "input-card-message"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                                    lineNumber: 506,
+                                                                    lineNumber: 509,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                            lineNumber: 504,
+                                                            lineNumber: 507,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3150,30 +3174,531 @@ function StyleGuide() {
                                                             children: "Submit"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/style-guide/page.tsx",
-                                                            lineNumber: 508,
+                                                            lineNumber: 511,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 491,
+                                                    lineNumber: 494,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 490,
+                                                lineNumber: 493,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 485,
+                                        lineNumber: 488,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 483,
+                                lineNumber: 486,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mt-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-h6 mb-4",
+                                        children: "Multi-Column Layout (12-column grid)"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/style-guide/page.tsx",
+                                        lineNumber: 518,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-body text-muted-foreground mb-4",
+                                        children: [
+                                            "Gravity Forms 2.5+ uses a 12-column grid system. Fields use ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
+                                                className: "text-sm bg-muted px-1 py-0.5 rounded",
+                                                children: "layoutGridColumnSpan"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 520,
+                                                columnNumber: 75
+                                            }, this),
+                                            " to set their width. Columns stack vertically on mobile (below 640px)."
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/style-guide/page.tsx",
+                                        lineNumber: 519,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                        className: "gf-form",
+                                        "data-testid": "card-multicolumn-demo",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
+                                                        children: "Multi-Column Form"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/style-guide/page.tsx",
+                                                        lineNumber: 525,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
+                                                        children: "Demonstrating various column span configurations"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/style-guide/page.tsx",
+                                                        lineNumber: 526,
+                                                        columnNumber: 17
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 524,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "gf-fields-grid",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 6 / span 6'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-first",
+                                                                            className: "gf-label",
+                                                                            children: [
+                                                                                "First Name ",
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-destructive",
+                                                                                    children: "*"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                                    lineNumber: 532,
+                                                                                    columnNumber: 81
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 532,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-first",
+                                                                            placeholder: "First",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-first"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 533,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 6"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 534,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 531,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 530,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 6 / span 6'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-last",
+                                                                            className: "gf-label",
+                                                                            children: [
+                                                                                "Last Name ",
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-destructive",
+                                                                                    children: "*"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                                    lineNumber: 539,
+                                                                                    columnNumber: 79
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 539,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-last",
+                                                                            placeholder: "Last",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-last"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 540,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 6"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 541,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 538,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 537,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 12 / span 12'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-email",
+                                                                            className: "gf-label",
+                                                                            children: [
+                                                                                "Email ",
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-destructive",
+                                                                                    children: "*"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                                    lineNumber: 546,
+                                                                                    columnNumber: 76
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 546,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-email",
+                                                                            type: "email",
+                                                                            placeholder: "you@example.com",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-email"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 547,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 12 (full width)"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 548,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 545,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 544,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 4 / span 4'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-city",
+                                                                            className: "gf-label",
+                                                                            children: "City"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 553,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-city",
+                                                                            placeholder: "City",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-city"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 554,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 4"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 555,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 552,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 551,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 4 / span 4'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-state",
+                                                                            className: "gf-label",
+                                                                            children: "State"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 560,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-state",
+                                                                            placeholder: "State",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-state"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 561,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 4"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 562,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 559,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 558,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 4 / span 4'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-zip",
+                                                                            className: "gf-label",
+                                                                            children: "ZIP"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 567,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-zip",
+                                                                            placeholder: "ZIP",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-zip"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 568,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 4"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 569,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 566,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 565,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 8 / span 8'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-phone",
+                                                                            className: "gf-label",
+                                                                            children: "Phone"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 574,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-phone",
+                                                                            type: "tel",
+                                                                            placeholder: "(555) 123-4567",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-phone"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 575,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 8"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 576,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 573,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 572,
+                                                                columnNumber: 19
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "gf-field-column",
+                                                                style: {
+                                                                    gridColumn: 'span 4 / span 4'
+                                                                },
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "gf-field",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
+                                                                            htmlFor: "mc-ext",
+                                                                            className: "gf-label",
+                                                                            children: "Ext"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 581,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                                            id: "mc-ext",
+                                                                            placeholder: "Ext",
+                                                                            className: "gf-input",
+                                                                            "data-testid": "input-mc-ext"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 582,
+                                                                            columnNumber: 23
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-xs text-muted-foreground",
+                                                                            children: "span 4"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                                            lineNumber: 583,
+                                                                            columnNumber: 23
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/style-guide/page.tsx",
+                                                                    lineNumber: 580,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                                lineNumber: 579,
+                                                                columnNumber: 19
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/style-guide/page.tsx",
+                                                        lineNumber: 529,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "mt-4",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                            className: "w-full",
+                                                            "data-testid": "button-mc-submit",
+                                                            children: "Submit"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/style-guide/page.tsx",
+                                                            lineNumber: 588,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/style-guide/page.tsx",
+                                                        lineNumber: 587,
+                                                        columnNumber: 17
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/style-guide/page.tsx",
+                                                lineNumber: 528,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/style-guide/page.tsx",
+                                        lineNumber: 523,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/style-guide/page.tsx",
+                                lineNumber: 517,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3184,7 +3709,7 @@ function StyleGuide() {
                                         children: "Multi-Page Form Navigation"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 515,
+                                        lineNumber: 595,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -3197,14 +3722,14 @@ function StyleGuide() {
                                                         children: "Step 2 of 3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 518,
+                                                        lineNumber: 598,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
                                                         children: "Contact Information"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 519,
+                                                        lineNumber: 599,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3214,33 +3739,33 @@ function StyleGuide() {
                                                                 className: "h-2 flex-1 rounded-full bg-primary"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 521,
+                                                                lineNumber: 601,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "h-2 flex-1 rounded-full bg-primary"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 522,
+                                                                lineNumber: 602,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "h-2 flex-1 rounded-full bg-muted"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 523,
+                                                                lineNumber: 603,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 520,
+                                                        lineNumber: 600,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 517,
+                                                lineNumber: 597,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -3257,7 +3782,7 @@ function StyleGuide() {
                                                                         children: "Email"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 529,
+                                                                        lineNumber: 609,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3268,13 +3793,13 @@ function StyleGuide() {
                                                                         "data-testid": "input-multipage-email"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 530,
+                                                                        lineNumber: 610,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 528,
+                                                                lineNumber: 608,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3286,7 +3811,7 @@ function StyleGuide() {
                                                                         children: "Phone"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 533,
+                                                                        lineNumber: 613,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3297,19 +3822,19 @@ function StyleGuide() {
                                                                         "data-testid": "input-multipage-phone"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 534,
+                                                                        lineNumber: 614,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 532,
+                                                                lineNumber: 612,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 527,
+                                                        lineNumber: 607,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3323,14 +3848,14 @@ function StyleGuide() {
                                                                         className: "h-4 w-4 mr-1"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 539,
+                                                                        lineNumber: 619,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     "Previous"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 538,
+                                                                lineNumber: 618,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3341,37 +3866,37 @@ function StyleGuide() {
                                                                         className: "h-4 w-4 ml-1"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                                        lineNumber: 544,
+                                                                        lineNumber: 624,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 542,
+                                                                lineNumber: 622,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 617,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 526,
+                                                lineNumber: 606,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 516,
+                                        lineNumber: 596,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 514,
+                                lineNumber: 594,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3382,7 +3907,7 @@ function StyleGuide() {
                                         children: "Submit Button States"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 552,
+                                        lineNumber: 632,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3393,7 +3918,7 @@ function StyleGuide() {
                                                 children: "Submit"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 554,
+                                                lineNumber: 634,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3404,14 +3929,14 @@ function StyleGuide() {
                                                         className: "h-4 w-4 animate-spin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 556,
+                                                        lineNumber: 636,
                                                         columnNumber: 17
                                                     }, this),
                                                     "Submitting..."
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 555,
+                                                lineNumber: 635,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3420,19 +3945,19 @@ function StyleGuide() {
                                                 children: "Submit (Disabled)"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 559,
+                                                lineNumber: 639,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 553,
+                                        lineNumber: 633,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 551,
+                                lineNumber: 631,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3443,7 +3968,7 @@ function StyleGuide() {
                                         children: "File Upload"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 564,
+                                        lineNumber: 644,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3458,7 +3983,7 @@ function StyleGuide() {
                                                         children: "Upload Document"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 567,
+                                                        lineNumber: 647,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -3470,7 +3995,7 @@ function StyleGuide() {
                                                                 children: "Choose File"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 572,
+                                                                lineNumber: 652,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3478,7 +4003,7 @@ function StyleGuide() {
                                                                 children: "No file chosen"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 655,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3488,13 +4013,13 @@ function StyleGuide() {
                                                                 "data-testid": "input-file-upload"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 576,
+                                                                lineNumber: 656,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 568,
+                                                        lineNumber: 648,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3502,13 +4027,13 @@ function StyleGuide() {
                                                         children: "Accepted formats: PDF, DOC, DOCX (max 10MB)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 583,
+                                                        lineNumber: 663,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 566,
+                                                lineNumber: 646,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3519,7 +4044,7 @@ function StyleGuide() {
                                                         children: "Drag and Drop Upload"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 587,
+                                                        lineNumber: 667,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3530,7 +4055,7 @@ function StyleGuide() {
                                                                 className: "h-8 w-8 mx-auto text-muted-foreground mb-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 592,
+                                                                lineNumber: 672,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3538,7 +4063,7 @@ function StyleGuide() {
                                                                 children: "Drag files here or click to browse"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 593,
+                                                                lineNumber: 673,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3546,31 +4071,31 @@ function StyleGuide() {
                                                                 children: "PDF, DOC up to 10MB"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                                lineNumber: 594,
+                                                                lineNumber: 674,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/style-guide/page.tsx",
-                                                        lineNumber: 588,
+                                                        lineNumber: 668,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 586,
+                                                lineNumber: 666,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 565,
+                                        lineNumber: 645,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 563,
+                                lineNumber: 643,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3581,7 +4106,7 @@ function StyleGuide() {
                                         children: "CSS Variables"
                                     }, void 0, false, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 601,
+                                        lineNumber: 681,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3591,75 +4116,75 @@ function StyleGuide() {
                                                 children: "--form-field-spacing"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 603,
+                                                lineNumber: 683,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-label-weight"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 604,
+                                                lineNumber: 684,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-label-size"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 605,
+                                                lineNumber: 685,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-input-bg"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 606,
+                                                lineNumber: 686,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-input-border"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 607,
+                                                lineNumber: 687,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-input-focus-ring"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 608,
+                                                lineNumber: 688,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-placeholder"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 609,
+                                                lineNumber: 689,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-radio-checked"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 610,
+                                                lineNumber: 690,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                 children: "--form-checkbox-checked"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/style-guide/page.tsx",
-                                                lineNumber: 611,
+                                                lineNumber: 691,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/style-guide/page.tsx",
-                                        lineNumber: 602,
+                                        lineNumber: 682,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/style-guide/page.tsx",
-                                lineNumber: 600,
+                                lineNumber: 680,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -3678,7 +4203,7 @@ function StyleGuide() {
                                     children: "Use Tailwind spacing units consistently. Below are the recommended spacing values."
                                 }, void 0, false, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 618,
+                                    lineNumber: 698,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3703,7 +4228,7 @@ function StyleGuide() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 624,
+                                                    lineNumber: 704,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3711,29 +4236,29 @@ function StyleGuide() {
                                                     children: size
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 628,
+                                                    lineNumber: 708,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, size, true, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 623,
+                                            lineNumber: 703,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 621,
+                                    lineNumber: 701,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/style-guide/page.tsx",
-                            lineNumber: 617,
+                            lineNumber: 697,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/style-guide/page.tsx",
-                        lineNumber: 616,
+                        lineNumber: 696,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Section, {
@@ -3749,7 +4274,7 @@ function StyleGuide() {
                                             className: "h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5"
                                         }, void 0, false, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 638,
+                                            lineNumber: 718,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3759,7 +4284,7 @@ function StyleGuide() {
                                                     children: "Information"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 640,
+                                                    lineNumber: 720,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3767,19 +4292,19 @@ function StyleGuide() {
                                                     children: "This is an informational message."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 641,
+                                                    lineNumber: 721,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 639,
+                                            lineNumber: 719,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 637,
+                                    lineNumber: 717,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3790,7 +4315,7 @@ function StyleGuide() {
                                             className: "h-5 w-5 text-green-600 dark:text-green-400 mt-0.5"
                                         }, void 0, false, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 645,
+                                            lineNumber: 725,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3800,7 +4325,7 @@ function StyleGuide() {
                                                     children: "Success"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 647,
+                                                    lineNumber: 727,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3808,19 +4333,19 @@ function StyleGuide() {
                                                     children: "Operation completed successfully."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 648,
+                                                    lineNumber: 728,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 646,
+                                            lineNumber: 726,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 644,
+                                    lineNumber: 724,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3831,7 +4356,7 @@ function StyleGuide() {
                                             className: "h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5"
                                         }, void 0, false, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 652,
+                                            lineNumber: 732,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3841,7 +4366,7 @@ function StyleGuide() {
                                                     children: "Warning"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 654,
+                                                    lineNumber: 734,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3849,19 +4374,19 @@ function StyleGuide() {
                                                     children: "Please review before proceeding."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 655,
+                                                    lineNumber: 735,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 653,
+                                            lineNumber: 733,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 651,
+                                    lineNumber: 731,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3872,7 +4397,7 @@ function StyleGuide() {
                                             className: "h-5 w-5 text-red-600 dark:text-red-400 mt-0.5"
                                         }, void 0, false, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 659,
+                                            lineNumber: 739,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3882,7 +4407,7 @@ function StyleGuide() {
                                                     children: "Error"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 661,
+                                                    lineNumber: 741,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3890,30 +4415,30 @@ function StyleGuide() {
                                                     children: "Something went wrong. Please try again."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/style-guide/page.tsx",
-                                                    lineNumber: 662,
+                                                    lineNumber: 742,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/style-guide/page.tsx",
-                                            lineNumber: 660,
+                                            lineNumber: 740,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/style-guide/page.tsx",
-                                    lineNumber: 658,
+                                    lineNumber: 738,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/style-guide/page.tsx",
-                            lineNumber: 636,
+                            lineNumber: 716,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/style-guide/page.tsx",
-                        lineNumber: 635,
+                        lineNumber: 715,
                         columnNumber: 9
                     }, this)
                 ]
