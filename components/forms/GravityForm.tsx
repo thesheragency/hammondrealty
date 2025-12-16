@@ -183,10 +183,17 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
 
     try {
       const fieldValues = Object.entries(formValues)
-        .filter(([, value]) => {
+        .filter(([id, value]) => {
+          // Skip empty values
           if (Array.isArray(value)) return value.length > 0;
           if (typeof value === 'object') return Object.values(value).some((v) => v);
-          return value !== '';
+          if (value === '') return false;
+          
+          // Skip file upload fields (they require special handling via separate upload)
+          const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
+          if (field?.type === 'FILEUPLOAD') return false;
+          
+          return true;
         })
         .map(([id, value]) => {
           const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
