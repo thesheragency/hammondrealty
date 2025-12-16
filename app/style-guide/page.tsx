@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ArrowRight, Check, X, AlertCircle, Info } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 
 function ColorSwatch({ name, variable, className }: { name: string; variable: string; className: string }) {
   return (
@@ -478,50 +480,52 @@ export default function StyleGuide() {
             <p className="text-body text-muted-foreground mb-6">
               Use Tailwind spacing units consistently. Below are the recommended spacing values.
             </p>
-            <div className="flex flex-wrap items-end gap-4">
-              {[1, 2, 4, 6, 8, 12, 16].map((size) => (
-                <div key={size} className="flex flex-col items-center gap-2" data-testid={`spacing-${size}`}>
-                  <div 
-                    className="bg-brand" 
-                    style={{ width: `${size * 4}px`, height: `${size * 4}px` }} 
+            <div className="flex flex-wrap gap-4">
+              {[1, 2, 3, 4, 6, 8, 12, 16].map((size) => (
+                <div key={size} className="flex flex-col items-center">
+                  <div
+                    className="bg-brand"
+                    style={{ width: `${size * 4}px`, height: `${size * 4}px` }}
                   />
-                  <span className="text-small text-muted-foreground">{size}</span>
-                  <span className="text-xs text-muted-foreground">{size * 4}px</span>
+                  <span className="text-small mt-2">{size}</span>
                 </div>
               ))}
             </div>
           </div>
         </Section>
 
-        <Section title="Alerts & States">
+        <Section title="Alerts & Notifications">
           <div className="space-y-4 max-w-xl">
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800" data-testid="alert-success">
-              <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-              <span className="text-body text-green-800 dark:text-green-200">Success message</span>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800" data-testid="alert-info">
+              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+              <div>
+                <p className="font-medium text-blue-800 dark:text-blue-200">Information</p>
+                <span className="text-body text-blue-700 dark:text-blue-300">This is an informational message.</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800" data-testid="alert-error">
-              <X className="h-5 w-5 text-red-600 dark:text-red-400" />
-              <span className="text-body text-red-800 dark:text-red-200">Error message</span>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800" data-testid="alert-success">
+              <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
+              <div>
+                <p className="font-medium text-green-800 dark:text-green-200">Success</p>
+                <span className="text-body text-green-700 dark:text-green-300">Operation completed successfully.</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800" data-testid="alert-warning">
-              <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
-              <span className="text-body text-yellow-800 dark:text-yellow-200">Warning message</span>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800" data-testid="alert-warning">
+              <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+              <div>
+                <p className="font-medium text-yellow-800 dark:text-yellow-200">Warning</p>
+                <span className="text-body text-yellow-700 dark:text-yellow-300">Please review before proceeding.</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800" data-testid="alert-info">
-              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              <span className="text-body text-blue-800 dark:text-blue-200">Info message</span>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800" data-testid="alert-error">
+              <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
+              <div>
+                <p className="font-medium text-red-800 dark:text-red-200">Error</p>
+                <span className="text-body text-red-800 dark:text-red-200">Something went wrong. Please try again.</span>
+              </div>
             </div>
           </div>
         </Section>
-
-        <div className="mt-16 p-6 bg-muted rounded-lg">
-          <h3 className="text-h5 mb-3">Customization</h3>
-          <p className="text-body text-muted-foreground">
-            Edit <code className="px-2 py-1 bg-background rounded text-sm font-mono">client/src/index.css</code> to customize these design tokens. 
-            All changes will be reflected here automatically. See{" "}
-            <code className="px-2 py-1 bg-background rounded text-sm font-mono">design_guidelines.md</code> for full documentation.
-          </p>
-        </div>
       </main>
     </div>
   );
