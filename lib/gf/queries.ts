@@ -141,7 +141,7 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
 
 export const GET_GF_FORM_QUERY = gql`
   ${GF_FORM_FIELDS_FRAGMENT}
-  query GetGfForm($formId: ID!, $idType: GfFormIdTypeEnum = DATABASE_ID) {
+  query GetGfForm($formId: ID!, $idType: FormIdTypeEnum = DATABASE_ID) {
     gfForm(id: $formId, idType: $idType) {
       ...GfFormFields
     }
