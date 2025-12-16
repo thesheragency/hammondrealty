@@ -513,21 +513,28 @@ export default function StyleGuide() {
             <div className="max-w-md space-y-4">
               <div className="gf-field">
                 <Label htmlFor="demo-file" className="gf-label">Upload Document</Label>
-                <div className="relative">
-                  <Input
+                <label
+                  htmlFor="demo-file"
+                  className="flex items-center gap-3 p-3 border rounded-md bg-background cursor-pointer hover:bg-accent/30 transition-colors"
+                >
+                  <span className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium">
+                    Choose File
+                  </span>
+                  <span className="text-muted-foreground text-sm">No file chosen</span>
+                  <input
                     id="demo-file"
                     type="file"
-                    className="gf-input file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 file:cursor-pointer"
+                    className="sr-only"
                     data-testid="input-file-upload"
                   />
-                </div>
+                </label>
                 <p className="text-sm text-muted-foreground mt-1">Accepted formats: PDF, DOC, DOCX (max 10MB)</p>
               </div>
 
               <div className="gf-field">
                 <Label className="gf-label">Drag and Drop Upload</Label>
                 <div
-                  className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
+                  className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 hover:bg-accent/20 transition-colors cursor-pointer"
                   data-testid="dropzone-file-upload"
                 >
                   <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
