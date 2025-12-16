@@ -1,0 +1,623 @@
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Loader2, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
+import type { GfForm, GfFormField, GfChoice } from '@/lib/gf/queries';
+import { evaluateConditionalLogic, type FormValues } from '@/lib/gf/conditionalLogic';
+
+interface GravityFormProps {
+  formId: number;
+  className?: string;
+  onSuccess?: (confirmation: { message?: string; url?: string }) => void;
+  onError?: (errors: Array<{ id: string; message: string }>) => void;
+}
+
+type FieldValue = string | string[] | Record<string, string>;
+
+export function GravityForm({ formId, className, onSuccess, onError }: GravityFormProps) {
+  const [form, setForm] = useState<GfForm | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formValues, setFormValues] = useState<Record<string, FieldValue>>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [honeypot, setHoneypot] = useState('');
+
+  useEffect(() => {
+    async function fetchForm() {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/forms/submit?formId=${formId}`);
+        if (!res.ok) throw new Error('Failed to load form');
+        const data = await res.json();
+        if (data.form) {
+          setForm(data.form);
+          initializeFormValues(data.form);
+        } else {
+          throw new Error(data.error || 'Form not found');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load form');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchForm();
+  }, [formId]);
+
+  const initializeFormValues = (formData: GfForm) => {
+    const values: Record<string, FieldValue> = {};
+    formData.formFields.nodes.forEach((field) => {
+      const id = field.databaseId.toString();
+      if (field.type === 'CHECKBOX') {
+        values[id] = [];
+      } else if (field.type === 'NAME' || field.type === 'ADDRESS') {
+        values[id] = {};
+      } else if (field.defaultValue) {
+        values[id] = field.defaultValue;
+      } else if (field.choices) {
+        const selected = field.choices.find((c) => c.isSelected);
+        if (selected) values[id] = selected.value;
+      } else {
+        values[id] = '';
+      }
+    });
+    setFormValues(values);
+  };
+
+  const updateFieldValue = useCallback((fieldId: string, value: FieldValue) => {
+    setFormValues((prev) => ({ ...prev, [fieldId]: value }));
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next[fieldId];
+      return next;
+    });
+  }, []);
+
+  const getTotalPages = useCallback(() => {
+    if (!form) return 1;
+    const pageNumbers = form.formFields.nodes
+      .map((f) => f.pageNumber || 1)
+      .filter((n) => n > 0);
+    return pageNumbers.length > 0 ? Math.max(...pageNumbers) : 1;
+  }, [form]);
+
+  const getFieldsForPage = useCallback(
+    (page: number) => {
+      if (!form) return [];
+      return form.formFields.nodes.filter((f) => (f.pageNumber || 1) === page);
+    },
+    [form]
+  );
+
+  const isFieldVisible = useCallback(
+    (field: GfFormField) => {
+      if (field.visibility === 'HIDDEN') return false;
+      return evaluateConditionalLogic(field.conditionalLogic, formValues as FormValues);
+    },
+    [formValues]
+  );
+
+  const validateCurrentPage = useCallback(() => {
+    const errors: Record<string, string> = {};
+    const fields = getFieldsForPage(currentPage);
+
+    fields.forEach((field) => {
+      if (!isFieldVisible(field)) return;
+      if (!field.isRequired) return;
+
+      const value = formValues[field.databaseId.toString()];
+      let isEmpty = false;
+
+      if (Array.isArray(value)) {
+        isEmpty = value.length === 0;
+      } else if (typeof value === 'object') {
+        isEmpty = Object.values(value).every((v) => !v);
+      } else {
+        isEmpty = !value || value.trim() === '';
+      }
+
+      if (isEmpty) {
+        errors[field.databaseId.toString()] = `${field.label || 'This field'} is required`;
+      }
+    });
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  }, [currentPage, formValues, getFieldsForPage, isFieldVisible]);
+
+  const handleNextPage = () => {
+    if (validateCurrentPage()) {
+      setCurrentPage((prev) => Math.min(prev + 1, getTotalPages()));
+    }
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateCurrentPage()) return;
+
+    if (honeypot) {
+      setSubmitted(true);
+      setConfirmationMessage('Thank you for your submission.');
+      return;
+    }
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const fieldValues = Object.entries(formValues)
+        .filter(([, value]) => {
+          if (Array.isArray(value)) return value.length > 0;
+          if (typeof value === 'object') return Object.values(value).some((v) => v);
+          return value !== '';
+        })
+        .map(([id, value]) => {
+          const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
+          if (!field) return { id: parseInt(id), value: String(value) };
+
+          if (field.type === 'CHECKBOX' && Array.isArray(value)) {
+            return {
+              id: parseInt(id),
+              checkboxValues: value.map((v, idx) => ({
+                inputId: parseFloat(`${id}.${idx + 1}`),
+                value: v,
+              })),
+            };
+          }
+
+          if (field.type === 'EMAIL' && typeof value === 'string') {
+            return {
+              id: parseInt(id),
+              emailValues: { value },
+            };
+          }
+
+          if (field.type === 'NAME' && typeof value === 'object' && !Array.isArray(value)) {
+            return {
+              id: parseInt(id),
+              nameValues: value as Record<string, string>,
+            };
+          }
+
+          if (field.type === 'ADDRESS' && typeof value === 'object' && !Array.isArray(value)) {
+            return {
+              id: parseInt(id),
+              addressValues: value as Record<string, string>,
+            };
+          }
+
+          return { id: parseInt(id), value: String(value) };
+        });
+
+      const res = await fetch('/api/forms/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formId, fieldValues, gf_hp: honeypot }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data.errors?.length > 0) {
+        const errorMessages = data.errors?.map((e: { message: string }) => e.message).join(', ');
+        throw new Error(errorMessages || data.error || 'Submission failed');
+      }
+
+      setSubmitted(true);
+      setConfirmationMessage(data.confirmation?.message || 'Thank you for your submission.');
+      onSuccess?.(data.confirmation);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Submission failed';
+      setError(message);
+      onError?.([{ id: '0', message }]);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const renderField = (field: GfFormField) => {
+    if (!isFieldVisible(field)) return null;
+    if (field.type === 'PAGE') return null;
+    if (field.displayOnly && field.type !== 'HTML' && field.type !== 'SECTION') return null;
+
+    const id = field.databaseId.toString();
+    const value = formValues[id];
+    const error = fieldErrors[id];
+    const commonProps = {
+      id: `field_${id}`,
+      'aria-describedby': error ? `error_${id}` : undefined,
+      'aria-invalid': !!error,
+      'data-testid': `input-gf-field-${id}`,
+    };
+
+    const renderLabel = () => (
+      <Label htmlFor={`field_${id}`} className="gf-label">
+        {field.label}
+        {field.isRequired && <span className="text-destructive ml-1">*</span>}
+      </Label>
+    );
+
+    const renderDescription = () =>
+      field.description && (
+        <p className="text-sm text-muted-foreground mt-1">{field.description}</p>
+      );
+
+    const renderError = () =>
+      error && (
+        <p id={`error_${id}`} className="text-sm text-destructive mt-1 flex items-center gap-1">
+          <AlertCircle className="h-3 w-3" />
+          {error}
+        </p>
+      );
+
+    const wrapField = (content: React.ReactNode) => (
+      <div key={id} className={`gf-field gf-field-${field.type.toLowerCase()} ${field.cssClass || ''}`}>
+        {content}
+        {renderDescription()}
+        {renderError()}
+      </div>
+    );
+
+    switch (field.type) {
+      case 'TEXT':
+      case 'WEBSITE':
+      case 'PHONE':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Input
+              {...commonProps}
+              type={field.type === 'PHONE' ? 'tel' : field.type === 'WEBSITE' ? 'url' : 'text'}
+              placeholder={field.placeholder}
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, e.target.value)}
+              maxLength={field.maxLength}
+              className="gf-input"
+            />
+          </>
+        );
+
+      case 'TEXTAREA':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Textarea
+              {...commonProps}
+              placeholder={field.placeholder}
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, e.target.value)}
+              maxLength={field.maxLength}
+              className="gf-textarea"
+            />
+          </>
+        );
+
+      case 'EMAIL':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Input
+              {...commonProps}
+              type="email"
+              placeholder={field.placeholder}
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, e.target.value)}
+              className="gf-input"
+            />
+          </>
+        );
+
+      case 'NUMBER':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Input
+              {...commonProps}
+              type="number"
+              placeholder={field.placeholder}
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, e.target.value)}
+              min={field.rangeMin}
+              max={field.rangeMax}
+              className="gf-input"
+            />
+          </>
+        );
+
+      case 'SELECT':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Select
+              value={(value as string) || ''}
+              onValueChange={(v) => updateFieldValue(id, v)}
+            >
+              <SelectTrigger {...commonProps} className="gf-select">
+                <SelectValue placeholder={field.placeholder || 'Select an option'} />
+              </SelectTrigger>
+              <SelectContent>
+                {field.choices?.map((choice: GfChoice, idx: number) => (
+                  <SelectItem key={idx} value={choice.value || choice.text}>
+                    {choice.text}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </>
+        );
+
+      case 'RADIO':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <RadioGroup
+              value={(value as string) || ''}
+              onValueChange={(v) => updateFieldValue(id, v)}
+              className="gf-radio-group"
+            >
+              {field.choices?.map((choice: GfChoice, idx: number) => (
+                <div key={idx} className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    value={choice.value || choice.text}
+                    id={`${id}_${idx}`}
+                    data-testid={`radio-gf-field-${id}-${idx}`}
+                  />
+                  <Label htmlFor={`${id}_${idx}`} className="font-normal cursor-pointer">
+                    {choice.text}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </>
+        );
+
+      case 'CHECKBOX':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <div className="gf-checkbox-group space-y-2">
+              {field.choices?.map((choice: GfChoice, idx: number) => {
+                const checked = Array.isArray(value) && value.includes(choice.value || choice.text);
+                return (
+                  <div key={idx} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`${id}_${idx}`}
+                      checked={checked}
+                      onCheckedChange={(isChecked) => {
+                        const current = (value as string[]) || [];
+                        const choiceValue = choice.value || choice.text;
+                        updateFieldValue(
+                          id,
+                          isChecked
+                            ? [...current, choiceValue]
+                            : current.filter((v) => v !== choiceValue)
+                        );
+                      }}
+                      data-testid={`checkbox-gf-field-${id}-${idx}`}
+                    />
+                    <Label htmlFor={`${id}_${idx}`} className="font-normal cursor-pointer">
+                      {choice.text}
+                    </Label>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        );
+
+      case 'DATE':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Input
+              {...commonProps}
+              type="date"
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, e.target.value)}
+              className="gf-input"
+            />
+          </>
+        );
+
+      case 'HTML':
+        return (
+          <div
+            key={id}
+            className={`gf-field gf-field-html ${field.cssClass || ''}`}
+            dangerouslySetInnerHTML={{ __html: field.content || '' }}
+          />
+        );
+
+      case 'SECTION':
+        return (
+          <div key={id} className={`gf-field gf-field-section ${field.cssClass || ''}`}>
+            {field.label && <h3 className="text-lg font-semibold">{field.label}</h3>}
+            {field.description && (
+              <p className="text-muted-foreground">{field.description}</p>
+            )}
+          </div>
+        );
+
+      case 'NAME':
+      case 'ADDRESS':
+      case 'FILEUPLOAD':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <div className="p-3 border border-dashed rounded-md bg-muted/50 text-muted-foreground text-sm">
+              <AlertCircle className="inline h-4 w-4 mr-1" />
+              Field type &quot;{field.type}&quot; is not fully supported in this form renderer.
+            </div>
+          </>
+        );
+
+      case 'HIDDEN':
+        return (
+          <input
+            key={id}
+            type="hidden"
+            name={`input_${id}`}
+            value={(value as string) || field.defaultValue || ''}
+          />
+        );
+
+      default:
+        console.warn(`Unsupported Gravity Forms field type: ${field.type}`);
+        return wrapField(
+          <>
+            {renderLabel()}
+            <div className="p-3 border border-dashed rounded-md bg-muted/50 text-muted-foreground text-sm">
+              <AlertCircle className="inline h-4 w-4 mr-1" />
+              Unsupported field type: {field.type}
+            </div>
+          </>
+        );
+    }
+  };
+
+  if (loading) {
+    return (
+      <Card className={className}>
+        <CardContent className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error && !form) {
+    return (
+      <Card className={className}>
+        <CardContent className="py-12">
+          <div className="text-center text-destructive">
+            <AlertCircle className="h-8 w-8 mx-auto mb-2" />
+            <p>{error}</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <Card className={className}>
+        <CardContent className="py-12">
+          <div
+            className="text-center"
+            dangerouslySetInnerHTML={{ __html: confirmationMessage || 'Thank you!' }}
+          />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!form) return null;
+
+  const totalPages = getTotalPages();
+  const isMultiPage = totalPages > 1;
+  const isLastPage = currentPage === totalPages;
+  const progress = isMultiPage ? (currentPage / totalPages) * 100 : 100;
+
+  return (
+    <Card className={`gf-form ${className || ''}`} data-testid={`form-gravity-${formId}`}>
+      <CardHeader>
+        <CardTitle>{form.title}</CardTitle>
+        {form.description && <CardDescription>{form.description}</CardDescription>}
+        {isMultiPage && (
+          <div className="mt-4">
+            <div className="flex justify-between text-sm text-muted-foreground mb-2">
+              <span>
+                {form.pagination?.pageNames?.[currentPage - 1] || `Page ${currentPage}`}
+              </span>
+              <span>
+                {currentPage} of {totalPages}
+              </span>
+            </div>
+            <Progress value={progress} className="h-2" />
+          </div>
+        )}
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div
+            className="gf-honeypot"
+            style={{ position: 'absolute', left: '-9999px' }}
+            aria-hidden="true"
+          >
+            <Input
+              type="text"
+              name="gf_hp"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="space-y-4">
+            {getFieldsForPage(currentPage).map(renderField)}
+          </div>
+
+          {error && (
+            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm flex items-center gap-2">
+              <AlertCircle className="h-4 w-4" />
+              {error}
+            </div>
+          )}
+
+          <div className="flex items-center justify-between gap-4 pt-4">
+            {isMultiPage && currentPage > 1 ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handlePrevPage}
+                data-testid="button-gf-prev"
+              >
+                <ChevronLeft className="h-4 w-4 mr-1" />
+                Previous
+              </Button>
+            ) : (
+              <div />
+            )}
+
+            {isMultiPage && !isLastPage ? (
+              <Button type="button" onClick={handleNextPage} data-testid="button-gf-next">
+                Next
+                <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            ) : (
+              <Button type="submit" disabled={submitting} data-testid="button-gf-submit">
+                {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                {form.button?.text || 'Submit'}
+              </Button>
+            )}
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default GravityForm;

@@ -74,6 +74,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/forms/submit/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/forms/submit">> = Specific
+  const handler = {} as typeof import("../../../app/api/forms/submit/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/global-settings/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/global-settings">> = Specific

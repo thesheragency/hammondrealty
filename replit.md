@@ -311,7 +311,73 @@ Visit `/style-guide` to see all design tokens rendered live. Use this to:
 2. Preview changes at `/style-guide`
 3. See `design_guidelines.md` for full documentation
 
+## Gravity Forms Integration
+
+This boilerplate includes a reusable headless Gravity Forms module for WordPress.
+
+### WordPress Requirements
+1. **Gravity Forms** - Licensed plugin for form building
+2. **WPGraphQL** - GraphQL API for WordPress (already required)
+3. **WPGraphQL for Gravity Forms** - AxeWP plugin: https://github.com/AxeWP/wp-graphql-gravity-forms
+
+### Usage
+
+Render any Gravity Form by ID:
+```tsx
+import { GravityForm } from '@/components/forms/GravityForm';
+
+export default function ContactPage() {
+  return (
+    <GravityForm 
+      formId={1} 
+      onSuccess={(confirmation) => console.log('Submitted!', confirmation)}
+      onError={(errors) => console.error('Errors:', errors)}
+    />
+  );
+}
+```
+
+### Supported Field Types
+- **Fully supported**: text, textarea, email, phone, number, select, radio, checkbox, date, hidden, html, section
+- **Stub (shows message)**: name, address, file upload
+
+### Features
+- **Multi-page forms**: Automatic page navigation with progress indicator
+- **Conditional logic**: Show/hide fields based on other field values
+- **Validation**: Required field validation with error messages
+- **Spam protection**: Honeypot field + rate limiting (10 submissions/minute per IP)
+- **Global styling**: CSS variables in `app/globals.css` for consistent form appearance
+
+### API Endpoints
+- `GET /api/forms/submit?formId=X` - Fetch form schema
+- `POST /api/forms/submit` - Submit form data
+
+### Customizing Form Styles
+
+Edit CSS variables in `app/globals.css`:
+```css
+:root {
+  --form-field-spacing: 1rem;
+  --form-label-weight: 500;
+  --form-label-size: 0.875rem;
+  --form-input-bg: 0 0% 100%;
+  --form-input-border: 0 0% 80%;
+  --form-input-focus-ring: var(--ring);
+  --form-placeholder: 0 0% 55%;
+}
+```
+
+### GraphQL Schema Notes
+
+The queries use AxeWP's schema with inline fragments:
+- Form query: `gfForm(id: $formId, idType: DATABASE_ID)`
+- Submit mutation: `submitGfForm(input: { id, fieldValues })`
+
+If your AxeWP version differs, adjust field names in `lib/gf/queries.ts` and `lib/gf/mutations.ts`.
+
 ## Recent Changes
+- Added Gravity Forms integration with multi-page and conditional logic support
+- Added form styling CSS variables and style guide section
 - Added design system with CSS variable infrastructure for easy brand customization
 - Added `/style-guide` page for live visual design token preview
 - Added typography utility classes (text-h1 through text-h6, text-body, etc.)

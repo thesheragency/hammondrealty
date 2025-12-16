@@ -1,6 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ArrowRight, Check, X, AlertCircle, Info } from "lucide-react";
 import { Link } from "wouter";
 
@@ -295,6 +307,168 @@ export default function StyleGuide() {
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+        </Section>
+
+        <Section title="Forms">
+          <p className="text-body text-muted-foreground mb-8">
+            Form elements use global CSS variables for consistent styling across all forms including Gravity Forms.
+            Customize in <code className="px-2 py-1 bg-background rounded text-sm font-mono">app/globals.css</code>.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-h6 mb-4">Text Inputs</h3>
+                <div className="space-y-4">
+                  <div className="gf-field">
+                    <Label htmlFor="demo-text" className="gf-label">Text Input</Label>
+                    <Input id="demo-text" placeholder="Enter text here..." className="gf-input" data-testid="input-demo-text" />
+                  </div>
+                  <div className="gf-field">
+                    <Label htmlFor="demo-email" className="gf-label">
+                      Email Input <span className="text-destructive">*</span>
+                    </Label>
+                    <Input id="demo-email" type="email" placeholder="email@example.com" className="gf-input" data-testid="input-demo-email" />
+                    <p className="text-sm text-muted-foreground mt-1">Helper text appears below the input</p>
+                  </div>
+                  <div className="gf-field">
+                    <Label htmlFor="demo-disabled" className="gf-label">Disabled Input</Label>
+                    <Input id="demo-disabled" disabled placeholder="Cannot edit" className="gf-input" data-testid="input-demo-disabled" />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Textarea</h3>
+                <div className="gf-field">
+                  <Label htmlFor="demo-textarea" className="gf-label">Message</Label>
+                  <Textarea id="demo-textarea" placeholder="Type your message..." className="gf-textarea" data-testid="input-demo-textarea" />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Select Dropdown</h3>
+                <div className="gf-field">
+                  <Label className="gf-label">Choose an option</Label>
+                  <Select>
+                    <SelectTrigger className="gf-select" data-testid="select-demo">
+                      <SelectValue placeholder="Select an option" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="option1">Option One</SelectItem>
+                      <SelectItem value="option2">Option Two</SelectItem>
+                      <SelectItem value="option3">Option Three</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-h6 mb-4">Radio Buttons</h3>
+                <div className="gf-field">
+                  <Label className="gf-label">Select one option</Label>
+                  <RadioGroup defaultValue="radio1" className="gf-radio-group">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="radio1" id="demo-radio1" data-testid="radio-demo-1" />
+                      <Label htmlFor="demo-radio1" className="font-normal cursor-pointer">Radio Option One</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="radio2" id="demo-radio2" data-testid="radio-demo-2" />
+                      <Label htmlFor="demo-radio2" className="font-normal cursor-pointer">Radio Option Two</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="radio3" id="demo-radio3" data-testid="radio-demo-3" />
+                      <Label htmlFor="demo-radio3" className="font-normal cursor-pointer">Radio Option Three</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Checkboxes</h3>
+                <div className="gf-field">
+                  <Label className="gf-label">Select multiple options</Label>
+                  <div className="gf-checkbox-group">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="demo-check1" data-testid="checkbox-demo-1" />
+                      <Label htmlFor="demo-check1" className="font-normal cursor-pointer">Checkbox Option One</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="demo-check2" defaultChecked data-testid="checkbox-demo-2" />
+                      <Label htmlFor="demo-check2" className="font-normal cursor-pointer">Checkbox Option Two (checked)</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="demo-check3" data-testid="checkbox-demo-3" />
+                      <Label htmlFor="demo-check3" className="font-normal cursor-pointer">Checkbox Option Three</Label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Date Input</h3>
+                <div className="gf-field">
+                  <Label htmlFor="demo-date" className="gf-label">Select a date</Label>
+                  <Input id="demo-date" type="date" className="gf-input" data-testid="input-demo-date" />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-h6 mb-4">Number Input</h3>
+                <div className="gf-field">
+                  <Label htmlFor="demo-number" className="gf-label">Quantity</Label>
+                  <Input id="demo-number" type="number" placeholder="0" min={0} max={100} className="gf-input" data-testid="input-demo-number" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-h6 mb-4">Form in Card (Gravity Forms style)</h3>
+            <Card className="gf-form max-w-md" data-testid="card-form-demo">
+              <CardHeader>
+                <CardTitle>Contact Us</CardTitle>
+                <CardDescription>Fill out the form below and we will get back to you.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="gf-field">
+                    <Label htmlFor="card-name" className="gf-label">
+                      Name <span className="text-destructive">*</span>
+                    </Label>
+                    <Input id="card-name" placeholder="Your name" className="gf-input" data-testid="input-card-name" />
+                  </div>
+                  <div className="gf-field">
+                    <Label htmlFor="card-email" className="gf-label">
+                      Email <span className="text-destructive">*</span>
+                    </Label>
+                    <Input id="card-email" type="email" placeholder="you@example.com" className="gf-input" data-testid="input-card-email" />
+                  </div>
+                  <div className="gf-field">
+                    <Label htmlFor="card-message" className="gf-label">Message</Label>
+                    <Textarea id="card-message" placeholder="How can we help?" className="gf-textarea" data-testid="input-card-message" />
+                  </div>
+                  <Button className="w-full" data-testid="button-card-submit">Submit</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8 p-4 bg-muted rounded-lg">
+            <h4 className="text-h6 mb-2">CSS Variables</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm font-mono">
+              <code>--form-field-spacing</code>
+              <code>--form-label-weight</code>
+              <code>--form-label-size</code>
+              <code>--form-input-bg</code>
+              <code>--form-input-border</code>
+              <code>--form-input-focus-ring</code>
+              <code>--form-placeholder</code>
+              <code>--form-radio-checked</code>
+              <code>--form-checkbox-checked</code>
             </div>
           </div>
         </Section>
