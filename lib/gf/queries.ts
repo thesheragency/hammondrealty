@@ -1,15 +1,15 @@
 import { gql } from 'graphql-request';
 
+// Compatible with WPGraphQL for Gravity Forms v0.12.x and earlier
 export const GF_FORM_FIELDS_FRAGMENT = gql`
   fragment GfFormFields on GfForm {
-    formId
     databaseId
     title
     description
     cssClass
     labelPlacement
     descriptionPlacement
-    button {
+    submitButton {
       text
       type
     }
@@ -22,7 +22,6 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
     }
     pagination {
       type
-      pages
       pageNames
       progressbarCompletionText
     }
@@ -46,9 +45,6 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
         ... on GfFieldWithPlaceholderSetting {
           placeholder
         }
-        ... on GfFieldWithRequiredSetting {
-          isRequired
-        }
         ... on GfFieldWithDefaultValueSetting {
           defaultValue
         }
@@ -58,11 +54,13 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
         ... on GfFieldWithMaxLengthSetting {
           maxLength
         }
+        ... on GfFieldWithRulesSetting {
+          isRequired
+        }
         ... on GfFieldWithChoicesSetting {
           choices {
             text
             value
-            isSelected
           }
         }
         ... on GfFieldWithConditionalLogicSetting {
@@ -96,7 +94,7 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
           defaultValue
         }
         ... on RadioField {
-          enableOtherChoice
+          hasOtherChoice
         }
         ... on CheckboxField {
           hasSelectAll
@@ -129,16 +127,6 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
             isHidden
           }
         }
-        ... on PageField {
-          nextButton {
-            text
-            type
-          }
-          previousButton {
-            text
-            type
-          }
-        }
         ... on HtmlField {
           content
         }
@@ -153,7 +141,7 @@ export const GF_FORM_FIELDS_FRAGMENT = gql`
 
 export const GET_GF_FORM_QUERY = gql`
   ${GF_FORM_FIELDS_FRAGMENT}
-  query GetGfForm($formId: ID!, $idType: FormIdTypeEnum = DATABASE_ID) {
+  query GetGfForm($formId: ID!, $idType: GfFormIdTypeEnum = DATABASE_ID) {
     gfForm(id: $formId, idType: $idType) {
       ...GfFormFields
     }
@@ -163,7 +151,7 @@ export const GET_GF_FORM_QUERY = gql`
 export interface GfChoice {
   text: string;
   value: string;
-  isSelected: boolean;
+  isSelected?: boolean;
 }
 
 export interface GfConditionalLogicRule {
@@ -214,7 +202,7 @@ export interface GfFormField {
   rangeMin?: number;
   rangeMax?: number;
   phoneFormat?: string;
-  enableOtherChoice?: boolean;
+  hasOtherChoice?: boolean;
   hasSelectAll?: boolean;
   dateFormat?: string;
   dateType?: string;
@@ -230,7 +218,6 @@ export interface GfFormField {
 
 export interface GfPagination {
   type: string;
-  pages?: string[];
   pageNames?: string[];
   progressbarCompletionText?: string;
 }
@@ -244,14 +231,13 @@ export interface GfConfirmation {
 }
 
 export interface GfForm {
-  formId: number;
   databaseId: number;
   title: string;
   description?: string;
   cssClass?: string;
   labelPlacement?: string;
   descriptionPlacement?: string;
-  button: GfButton;
+  submitButton?: GfButton;
   confirmations: GfConfirmation[];
   pagination?: GfPagination;
   formFields: {

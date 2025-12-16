@@ -2077,7 +2077,7 @@ function GravityForm({ formId, className, onSuccess, onError }) {
                                             lineNumber: 647,
                                             columnNumber: 32
                                         }, this),
-                                        form.button?.text || 'Submit'
+                                        form.submitButton?.text || 'Submit'
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/forms/GravityForm.tsx",

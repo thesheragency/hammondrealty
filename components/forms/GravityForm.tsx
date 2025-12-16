@@ -645,7 +645,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             ) : (
               <Button type="submit" disabled={submitting} data-testid="button-gf-submit">
                 {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                {form.button?.text || 'Submit'}
+                {form.submitButton?.text || 'Submit'}
               </Button>
             )}
           </div>

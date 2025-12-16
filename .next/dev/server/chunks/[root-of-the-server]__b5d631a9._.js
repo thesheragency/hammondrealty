@@ -55,14 +55,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$r
 ;
 const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["gql"]`
   fragment GfFormFields on GfForm {
-    formId
     databaseId
     title
     description
     cssClass
     labelPlacement
     descriptionPlacement
-    button {
+    submitButton {
       text
       type
     }
@@ -75,7 +74,6 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
     }
     pagination {
       type
-      pages
       pageNames
       progressbarCompletionText
     }
@@ -99,9 +97,6 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
         ... on GfFieldWithPlaceholderSetting {
           placeholder
         }
-        ... on GfFieldWithRequiredSetting {
-          isRequired
-        }
         ... on GfFieldWithDefaultValueSetting {
           defaultValue
         }
@@ -111,11 +106,13 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
         ... on GfFieldWithMaxLengthSetting {
           maxLength
         }
+        ... on GfFieldWithRulesSetting {
+          isRequired
+        }
         ... on GfFieldWithChoicesSetting {
           choices {
             text
             value
-            isSelected
           }
         }
         ... on GfFieldWithConditionalLogicSetting {
@@ -149,7 +146,7 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
           defaultValue
         }
         ... on RadioField {
-          enableOtherChoice
+          hasOtherChoice
         }
         ... on CheckboxField {
           hasSelectAll
@@ -182,16 +179,6 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
             isHidden
           }
         }
-        ... on PageField {
-          nextButton {
-            text
-            type
-          }
-          previousButton {
-            text
-            type
-          }
-        }
         ... on HtmlField {
           content
         }
@@ -205,7 +192,7 @@ const GF_FORM_FIELDS_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$
 `;
 const GET_GF_FORM_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["gql"]`
   ${GF_FORM_FIELDS_FRAGMENT}
-  query GetGfForm($formId: ID!, $idType: FormIdTypeEnum = DATABASE_ID) {
+  query GetGfForm($formId: ID!, $idType: GfFormIdTypeEnum = DATABASE_ID) {
     gfForm(id: $formId, idType: $idType) {
       ...GfFormFields
     }
