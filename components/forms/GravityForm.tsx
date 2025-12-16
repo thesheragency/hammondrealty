@@ -418,7 +418,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         return wrapField(
           <>
             {renderLabel()}
-            <div className="gf-checkbox-group space-y-2">
+            <div className="gf-checkbox-group">
               {field.choices?.map((choice: GfChoice, idx: number) => {
                 const checked = Array.isArray(value) && value.includes(choice.value || choice.text);
                 return (
