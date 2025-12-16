@@ -50,49 +50,14 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/headers.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$entrypoints$2f$main$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/entrypoints/main.js [app-route] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/classes/GraphQLClient.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/functions/gql.js [app-route] (ecmascript)");
 ;
 ;
-;
-const GET_POST_URI_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["gql"]`
-  query GetPostUri($id: ID!) {
-    post(id: $id, idType: DATABASE_ID, asPreview: true) {
-      uri
-      slug
-    }
-  }
-`;
-const GET_PAGE_URI_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["gql"]`
-  query GetPageUri($id: ID!) {
-    page(id: $id, idType: DATABASE_ID, asPreview: true) {
-      uri
-      slug
-    }
-  }
-`;
-function getAuthenticatedClient() {
-    const wpApiUrl = process.env.WP_API_URL;
-    if (!wpApiUrl) {
-        throw new Error('WP_API_URL environment variable is not set');
-    }
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-    }
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
-        headers
-    });
-}
 async function GET(request) {
     const searchParams = request.nextUrl.searchParams;
     const secret = searchParams.get('secret');
-    const id = searchParams.get('id');
+    const slug = searchParams.get('slug');
     const type = searchParams.get('type') || 'post';
+    // Validate the preview secret
     if (!secret || secret !== process.env.WP_PREVIEW_SECRET) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Invalid preview secret'
@@ -100,57 +65,48 @@ async function GET(request) {
             status: 401
         });
     }
-    if (!id) {
+    // Slug is required for redirect
+    if (!slug) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Missing id parameter'
+            error: 'Missing slug parameter'
         }, {
             status: 400
         });
     }
-    try {
-        const client = getAuthenticatedClient();
-        let content = null;
-        if (type === 'page') {
-            const response = await client.request(GET_PAGE_URI_QUERY, {
-                id: id.toString()
-            });
-            content = response.page;
-        } else {
-            const response = await client.request(GET_POST_URI_QUERY, {
-                id: id.toString()
-            });
-            content = response.post;
-        }
-        if (!content) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Content not found'
-            }, {
-                status: 404
-            });
-        }
-        const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["draftMode"])();
-        draft.enable();
-        let redirectPath;
-        if (content.uri) {
-            redirectPath = content.uri;
-        } else if (type === 'post' && content.slug) {
-            redirectPath = `/blog/${content.slug}`;
-        } else if (type === 'page' && content.slug) {
-            redirectPath = `/${content.slug}`;
-        } else {
-            redirectPath = '/';
-        }
-        const baseUrl = request.nextUrl.origin;
-        const redirectUrl = new URL(redirectPath, baseUrl);
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].redirect(redirectUrl);
-    } catch (error) {
-        console.error('Preview error:', error);
+    // Sanitize slug to prevent open redirect attacks
+    // WordPress slugs should never start with / or contain ://
+    const sanitizedSlug = slug.replace(/^\/+/, '').replace(/[:]/g, '');
+    if (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/')) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Failed to fetch preview content'
+            error: 'Invalid slug format'
         }, {
-            status: 500
+            status: 400
         });
     }
+    // Enable Draft Mode
+    const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["draftMode"])();
+    draft.enable();
+    // Redirect to the appropriate path based on content type
+    let redirectPath;
+    if (type === 'post') {
+        redirectPath = `/blog/${sanitizedSlug}`;
+    } else if (type === 'page') {
+        redirectPath = `/${sanitizedSlug}`;
+    } else {
+        // For custom post types, use the type as the path prefix
+        redirectPath = `/${type}/${sanitizedSlug}`;
+    }
+    const baseUrl = request.nextUrl.origin;
+    const redirectUrl = new URL(redirectPath, baseUrl);
+    // Final safety check: ensure redirect stays on same origin
+    if (redirectUrl.origin !== request.nextUrl.origin) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: 'Invalid redirect'
+        }, {
+            status: 400
+        });
+    }
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].redirect(redirectUrl);
 }
 }),
 ];
