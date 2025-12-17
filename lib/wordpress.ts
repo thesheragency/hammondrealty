@@ -809,7 +809,7 @@ export async function fetchPages(): Promise<ReturnType<typeof transformPage>[]> 
   }
 }
 
-// Fetch page preview by ID with auth token
+// Fetch page preview by ID with auth token (legacy)
 export async function fetchPagePreview(
   id: number,
   authToken: string
@@ -826,6 +826,32 @@ export async function fetchPagePreview(
     return transformPage(response.page);
   } catch (error) {
     console.error('Error fetching page preview:', error);
+    throw error;
+  }
+}
+
+// Fetch page preview by DATABASE_ID using cookie-based auth (for Draft Mode)
+// This is more reliable than slug for draft pages which may not have a proper slug yet
+export async function fetchPagePreviewById(
+  id: number
+): Promise<ReturnType<typeof transformPage> | null> {
+  console.log('[Preview] Fetching page preview by ID:', id);
+
+  try {
+    // Get preview client with session cookies (async because it may need to authenticate)
+    const client = await getPreviewClient();
+    
+    const response = await client.request<{ page: WpPage | null }>(
+      GET_PAGE_PREVIEW_QUERY,
+      { id: id.toString() }
+    );
+
+    console.log('[Preview] Page response by ID:', response.page ? 'Page found' : 'Page NOT found');
+    
+    if (!response.page) return null;
+    return transformPage(response.page);
+  } catch (error) {
+    console.error('[Preview] Error fetching page preview by ID:', error);
     throw error;
   }
 }

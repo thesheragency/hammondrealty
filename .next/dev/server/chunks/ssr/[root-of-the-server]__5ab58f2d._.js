@@ -578,6 +578,8 @@ __turbopack_context__.s([
     ()=>fetchAcfGlobalScripts,
     "fetchPagePreview",
     ()=>fetchPagePreview,
+    "fetchPagePreviewById",
+    ()=>fetchPagePreviewById,
     "fetchPages",
     ()=>fetchPages,
     "fetchPostBySlug",
@@ -1202,6 +1204,22 @@ async function fetchPagePreview(id, authToken) {
         return transformPage(response.page);
     } catch (error) {
         console.error('Error fetching page preview:', error);
+        throw error;
+    }
+}
+async function fetchPagePreviewById(id) {
+    console.log('[Preview] Fetching page preview by ID:', id);
+    try {
+        // Get preview client with session cookies (async because it may need to authenticate)
+        const client = await getPreviewClient();
+        const response = await client.request(GET_PAGE_PREVIEW_QUERY, {
+            id: id.toString()
+        });
+        console.log('[Preview] Page response by ID:', response.page ? 'Page found' : 'Page NOT found');
+        if (!response.page) return null;
+        return transformPage(response.page);
+    } catch (error) {
+        console.error('[Preview] Error fetching page preview by ID:', error);
         throw error;
     }
 }
