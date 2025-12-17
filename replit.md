@@ -15,6 +15,7 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
 - **SEO Integration:** Leverages Next.js Metadata API with Yoast SEO integration, supporting page titles, meta descriptions, Open Graph, Twitter Cards, and canonical URLs. It also proxies SEO files (sitemaps, robots.txt, llms.txt) directly from WordPress, replacing WordPress URLs with the frontend domain.
 - **Preview Mode:** Allows previewing draft content directly from WordPress using Next.js Draft Mode. When an editor clicks "Preview" in WordPress, they're redirected to `/api/preview` which validates a secret, enables Draft Mode, and redirects to the content page. The page then fetches draft content using authenticated GraphQL requests. Includes `/api/exit-preview` to disable Draft Mode.
   - **Dual Authentication Support:** Handles staging sites with nginx HTTP Basic Auth protection. Uses a cookie-based auth flow: authenticates to WordPress via `/wp-login.php` (with staging Basic Auth to pass nginx), captures session cookies, then uses those cookies + staging Basic Auth for GraphQL requests. Session cookies are cached for 30 minutes.
+  - **Post Type Configuration:** Registered post types are defined in `lib/config/post-types.ts`. The preview route validates incoming requests against this allowlist for security. See "Pre-Launch Checklist" below for adding custom post types.
   - **Required Environment Variables:**
     - `WP_PREVIEW_SECRET`: Shared secret for preview URL validation
     - `WP_AUTH_USER` / `WP_AUTH_PASSWORD`: Staging gate credentials (nginx/apache Basic Auth)
@@ -48,3 +49,52 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
 - **Next.js:** React framework for frontend and API routes.
 - **graphql-request:** GraphQL client for interacting with WPGraphQL.
 - **Shadcn UI:** UI component library.
+
+## Pre-Launch Checklist
+
+### WordPress Post Type Configuration
+
+Before launching each instance of this boilerplate, verify all WordPress post types are properly registered:
+
+1. **Review WordPress post types:**
+   - In WordPress Admin, go to the preview plugin settings (Sher Headless Tools → Preview Settings)
+   - Note all enabled post types and their frontend routes
+
+2. **Update Next.js configuration:**
+   - Open `lib/config/post-types.ts`
+   - Ensure each WordPress post type has a matching entry:
+   ```typescript
+   export const POST_TYPE_CONFIG: Record<string, PostTypeConfig> = {
+     post: { route: '/blog/[slug]', fetcher: 'post', label: 'Blog Post' },
+     page: { route: '/[slug]', fetcher: 'page', label: 'Page' },
+     // Add custom post types:
+     product: { route: '/products/[slug]', fetcher: 'page', label: 'Product' },
+     event: { route: '/events/[slug]', fetcher: 'page', label: 'Event' },
+   };
+   ```
+
+3. **Create matching Next.js routes:**
+   - For each custom post type, create a route folder:
+     - `app/products/[slug]/page.tsx` for products
+     - `app/events/[slug]/page.tsx` for events
+   - Copy and adapt from `app/[slug]/page.tsx` as a template
+
+4. **Test preview for each post type:**
+   - Create a draft for each post type in WordPress
+   - Click "Preview" and verify it loads correctly on the frontend
+
+### Environment Variables Checklist
+
+Verify all required environment variables are set:
+
+- [ ] `WP_API_URL` - WordPress GraphQL endpoint (e.g., `https://wp.example.com/graphql`)
+- [ ] `WP_PREVIEW_SECRET` - Shared secret matching WordPress plugin
+- [ ] `preview_user_un` - WordPress username with Editor/Admin role
+- [ ] `preview_user_pass` - WordPress password (NOT Application Password)
+- [ ] `WP_AUTH_USER` / `WP_AUTH_PASSWORD` - Only if staging has nginx/apache Basic Auth protection
+
+### Content Sync
+
+- [ ] Run initial content sync to populate PostgreSQL cache
+- [ ] Verify posts and pages display correctly
+- [ ] Test preview mode for both posts and pages
