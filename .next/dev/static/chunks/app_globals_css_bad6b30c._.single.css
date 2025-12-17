@@ -1238,6 +1238,10 @@ body {
   z-index: 1;
 }
 
+.order-first {
+  order: -9999;
+}
+
 .-mx-1 {
   margin-left: -.25rem;
   margin-right: -.25rem;
@@ -2900,10 +2904,6 @@ body {
   font-weight: 600;
 }
 
-.uppercase {
-  text-transform: uppercase;
-}
-
 .lowercase {
   text-transform: lowercase;
 }
@@ -3029,6 +3029,10 @@ body {
 .text-muted-foreground {
   --tw-text-opacity: 1;
   color: hsl(var(--muted-foreground) / var(--tw-text-opacity, 1));
+}
+
+.text-muted-foreground\/50 {
+  color: hsl(var(--muted-foreground) / .5);
 }
 
 .text-popover-foreground {
@@ -5082,12 +5086,20 @@ body {
     order: 2;
   }
 
+  .lg\:order-last {
+    order: 9999;
+  }
+
   .lg\:row-span-2 {
     grid-row: span 2 / span 2;
   }
 
   .lg\:aspect-auto {
     aspect-ratio: auto;
+  }
+
+  .lg\:aspect-square {
+    aspect-ratio: 1;
   }
 
   .lg\:h-10 {
@@ -5151,9 +5163,9 @@ body {
     padding-right: 3rem;
   }
 
-  .lg\:py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  .lg\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .lg\:py-24 {

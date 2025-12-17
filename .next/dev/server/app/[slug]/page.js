@@ -1,6 +1,6 @@
 var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/[slug]/page.js")
 R.c("server/chunks/ssr/node_modules_graphql-request_build_entrypoints_main_d14cd47d.js")
-R.c("server/chunks/ssr/[root-of-the-server]__50caa914._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__67a157c7._.js")
 R.c("server/chunks/ssr/node_modules_next_dd6f866e._.js")
 R.c("server/chunks/ssr/node_modules_graphql_78538944._.js")
 R.c("server/chunks/ssr/node_modules_lucide-react_dist_esm_icons_index_b3c9ad30.js")

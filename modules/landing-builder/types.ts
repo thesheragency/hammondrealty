@@ -26,6 +26,10 @@ export interface HeroBlock extends BaseBlock {
     sourceUrl: string;
     altText?: string;
   };
+  heroImage?: {
+    sourceUrl: string;
+    altText?: string;
+  };
 }
 
 // Logo Reel Block

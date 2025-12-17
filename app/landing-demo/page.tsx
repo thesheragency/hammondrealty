@@ -28,6 +28,10 @@ const demoData: LandingPageData = {
       ctaUrl: '#contact',
       secondaryCtaText: 'Learn More',
       secondaryCtaUrl: '#features',
+      heroImage: {
+        sourceUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=800&fit=crop',
+        altText: 'Team working on laptops',
+      },
     },
 
     // Logo Reel Block

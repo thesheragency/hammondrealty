@@ -6,10 +6,20 @@
  */
 
 import type { LogoReelBlock as LogoReelBlockType } from '../types';
+import { layout } from '../layout';
 
 interface Props {
   block: LogoReelBlockType;
 }
+
+const PLACEHOLDER_LOGOS = [
+  'Acme Co',
+  'Globex',
+  'Initech',
+  'Umbrella',
+  'Hooli',
+  'Massive Dynamic',
+];
 
 export function LogoReelBlock({ block }: Props) {
   const logos = block.logos || [];
@@ -17,29 +27,35 @@ export function LogoReelBlock({ block }: Props) {
 
   return (
     <section
-      className="bg-muted py-12 lg:py-16"
+      className={`bg-muted ${layout.section.padding}`}
       data-testid="block-logo-reel"
     >
-      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
-        {hasLogos ? (
-          <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
-            {logos.map((logo, index) => (
+      <div className={layout.container.full}>
+        <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+          {hasLogos ? (
+            logos.map((logo, index) => (
               <img
                 key={index}
                 src={logo.sourceUrl}
                 alt={logo.altText || `Partner logo ${index + 1}`}
-                className="h-7 lg:h-10 w-auto object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"
+                className="h-8 lg:h-10 w-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all"
                 data-testid={`logo-${index}`}
               />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center">
-            <p className="text-small text-muted-foreground uppercase tracking-widest">
-              Trusted by leading companies worldwide
-            </p>
-          </div>
-        )}
+            ))
+          ) : (
+            PLACEHOLDER_LOGOS.map((name, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center h-8 lg:h-10 px-4 lg:px-6 bg-muted-foreground/10 rounded-md"
+                data-testid={`logo-placeholder-${index}`}
+              >
+                <span className="text-small font-medium text-muted-foreground/50 whitespace-nowrap">
+                  {name}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </section>
   );
