@@ -57,13 +57,26 @@ async function getRedirects() {
             return redirectsCache;
         }
         const data = await response.json();
-        // Transform from WordPress plugin format to our format
-        const items = data.items || [];
-        redirectsCache = items.filter((r)=>r.enabled).map((r)=>({
-                origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
-                target: r.action_data?.url || '/',
-                type: r.action_code || 301
-            }));
+        // Support both formats:
+        // 1. Headless Tools plugin format: { from_path, to_url, status }
+        // 2. Redirection plugin format: { items: [{ url, action_data: { url }, action_code, enabled }] }
+        let items = [];
+        if (Array.isArray(data)) {
+            // Headless Tools plugin format - direct array
+            items = data.map((r)=>({
+                    origin: r.from_path.startsWith('/') ? r.from_path : `/${r.from_path}`,
+                    target: r.to_url,
+                    type: r.status || 301
+                }));
+        } else if (data.items && Array.isArray(data.items)) {
+            // Redirection plugin format - { items: [...] }
+            items = data.items.filter((r)=>r.enabled).map((r)=>({
+                    origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
+                    target: r.action_data?.url || '/',
+                    type: r.action_code || 301
+                }));
+        }
+        redirectsCache = items;
         lastFetch = now;
         console.log(`[Redirects] Fetched ${redirectsCache.length} redirects from WordPress`);
     } catch (error) {

@@ -49,15 +49,30 @@ async function getRedirects(): Promise<Redirect[]> {
 
     const data = await response.json();
     
-    // Transform from WordPress plugin format to our format
-    const items = data.items || [];
-    redirectsCache = items
-      .filter((r: { enabled: boolean }) => r.enabled)
-      .map((r: { url: string; action_data: { url?: string }; action_code: number }) => ({
-        origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
-        target: r.action_data?.url || '/',
-        type: (r.action_code || 301) as 301 | 302,
+    // Support both formats:
+    // 1. Headless Tools plugin format: { from_path, to_url, status }
+    // 2. Redirection plugin format: { items: [{ url, action_data: { url }, action_code, enabled }] }
+    let items: Redirect[] = [];
+    
+    if (Array.isArray(data)) {
+      // Headless Tools plugin format - direct array
+      items = data.map((r: { from_path: string; to_url: string; status: number }) => ({
+        origin: r.from_path.startsWith('/') ? r.from_path : `/${r.from_path}`,
+        target: r.to_url,
+        type: (r.status || 301) as 301 | 302,
       }));
+    } else if (data.items && Array.isArray(data.items)) {
+      // Redirection plugin format - { items: [...] }
+      items = data.items
+        .filter((r: { enabled: boolean }) => r.enabled)
+        .map((r: { url: string; action_data: { url?: string }; action_code: number }) => ({
+          origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
+          target: r.action_data?.url || '/',
+          type: (r.action_code || 301) as 301 | 302,
+        }));
+    }
+    
+    redirectsCache = items;
     
     lastFetch = now;
     console.log(`[Redirects] Fetched ${redirectsCache.length} redirects from WordPress`);
