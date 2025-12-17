@@ -2379,6 +2379,11 @@ body {
   background-color: #0000;
 }
 
+.bg-yellow-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
+}
+
 .bg-yellow-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
@@ -4307,6 +4312,10 @@ body {
 .dark\:bg-red-950:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(69 10 10 / var(--tw-bg-opacity, 1));
+}
+
+.dark\:bg-yellow-900\/20:is(.dark *) {
+  background-color: #713f1233;
 }
 
 .dark\:bg-yellow-950:is(.dark *) {
