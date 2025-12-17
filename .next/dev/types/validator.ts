@@ -56,15 +56,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
-// Validate ../../../app/blog/[slug]/page.tsx
-{
-  type __IsExpected<Specific extends AppPageConfig<"/blog/[slug]">> = Specific
-  const handler = {} as typeof import("../../../app/blog/[slug]/page.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
 // Validate ../../../app/blog/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/blog">> = Specific
@@ -96,87 +87,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends AppPageConfig<"/style-guide">> = Specific
   const handler = {} as typeof import("../../../app/style-guide/page.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/exit-preview/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/exit-preview">> = Specific
-  const handler = {} as typeof import("../../../app/api/exit-preview/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/forms/submit-rest/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/forms/submit-rest">> = Specific
-  const handler = {} as typeof import("../../../app/api/forms/submit-rest/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/forms/submit/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/forms/submit">> = Specific
-  const handler = {} as typeof import("../../../app/api/forms/submit/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/global-settings/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/global-settings">> = Specific
-  const handler = {} as typeof import("../../../app/api/global-settings/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/posts/featured/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/posts/featured">> = Specific
-  const handler = {} as typeof import("../../../app/api/posts/featured/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/posts/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/posts">> = Specific
-  const handler = {} as typeof import("../../../app/api/posts/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/preview/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/preview">> = Specific
-  const handler = {} as typeof import("../../../app/api/preview/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/revalidate/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/revalidate">> = Specific
-  const handler = {} as typeof import("../../../app/api/revalidate/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/api/wordpress/sync/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/api/wordpress/sync">> = Specific
-  const handler = {} as typeof import("../../../app/api/wordpress/sync/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -222,15 +132,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/sitemap_index.xml">> = Specific
   const handler = {} as typeof import("../../../app/sitemap_index.xml/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-// Validate ../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.ts
-{
-  type __IsExpected<Specific extends RouteHandlerConfig<"/wp-content/plugins/wordpress-seo/css/[...path]">> = Specific
-  const handler = {} as typeof import("../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
