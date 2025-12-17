@@ -3,21 +3,28 @@ import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { storage } from '@/lib/storage';
-import { fetchPostPreviewBySlug, fetchPostPreview } from '@/lib/wordpress';
+import { fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById } from '@/lib/wordpress';
 import type { Metadata } from 'next';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ preview?: string; token?: string; id?: string }>;
+  searchParams: Promise<{ preview?: string; token?: string; id?: string; previewId?: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const { previewId } = await searchParams;
   const draft = await draftMode();
   
   let post;
   if (draft.isEnabled) {
-    post = await fetchPostPreviewBySlug(slug);
+    // Try fetching by ID first (more reliable for drafts), then fall back to slug
+    if (previewId) {
+      post = await fetchPostPreviewById(parseInt(previewId));
+    }
+    if (!post) {
+      post = await fetchPostPreviewBySlug(slug);
+    }
   } else {
     post = await storage.getPostBySlug(slug);
   }
@@ -50,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPost({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const { preview, token, id } = await searchParams;
+  const { preview, token, id, previewId } = await searchParams;
   const draft = await draftMode();
   
   const isPreview = draft.isEnabled || preview === 'true';
@@ -58,10 +65,20 @@ export default async function BlogPost({ params, searchParams }: PageProps) {
   let post;
   
   if (draft.isEnabled) {
-    post = await fetchPostPreviewBySlug(slug);
+    // For Draft Mode: Try fetching by ID first (more reliable for drafts), then fall back to slug
+    if (previewId) {
+      console.log('[Preview Page] Fetching by previewId:', previewId);
+      post = await fetchPostPreviewById(parseInt(previewId));
+    }
+    if (!post) {
+      console.log('[Preview Page] Fetching by slug:', slug);
+      post = await fetchPostPreviewBySlug(slug);
+    }
   } else if (preview === 'true' && token && id) {
+    // Legacy preview mode with token
     post = await fetchPostPreview(parseInt(id), token);
   } else {
+    // Normal published content
     post = await storage.getPostBySlug(slug);
   }
 

@@ -584,6 +584,8 @@ __turbopack_context__.s([
     ()=>fetchPostBySlug,
     "fetchPostPreview",
     ()=>fetchPostPreview,
+    "fetchPostPreviewById",
+    ()=>fetchPostPreviewById,
     "fetchPostPreviewBySlug",
     ()=>fetchPostPreviewBySlug,
     "fetchPosts",
@@ -1136,6 +1138,22 @@ async function fetchPostPreviewBySlug(slug) {
         throw error;
     }
 }
+async function fetchPostPreviewById(id) {
+    console.log('[Preview] Fetching post preview by ID:', id);
+    try {
+        // Get preview client with session cookies (async because it may need to authenticate)
+        const client = await getPreviewClient();
+        const response = await client.request(GET_POST_PREVIEW_QUERY, {
+            id: id.toString()
+        });
+        console.log('[Preview] Response by ID:', response.post ? 'Post found' : 'Post NOT found');
+        if (!response.post) return null;
+        return transformPost(response.post);
+    } catch (error) {
+        console.error('[Preview] Error fetching post preview by ID:', error);
+        throw error;
+    }
+}
 async function fetchPages() {
     const client = getWpClient();
     try {
@@ -1258,12 +1276,19 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$
 ;
 ;
 ;
-async function generateMetadata({ params }) {
+async function generateMetadata({ params, searchParams }) {
     const { slug } = await params;
+    const { previewId } = await searchParams;
     const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["draftMode"])();
     let post;
     if (draft.isEnabled) {
-        post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewBySlug"])(slug);
+        // Try fetching by ID first (more reliable for drafts), then fall back to slug
+        if (previewId) {
+            post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewById"])(parseInt(previewId));
+        }
+        if (!post) {
+            post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewBySlug"])(slug);
+        }
     } else {
         post = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getPostBySlug(slug);
     }
@@ -1300,15 +1325,25 @@ async function generateMetadata({ params }) {
 }
 async function BlogPost({ params, searchParams }) {
     const { slug } = await params;
-    const { preview, token, id } = await searchParams;
+    const { preview, token, id, previewId } = await searchParams;
     const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["draftMode"])();
     const isPreview = draft.isEnabled || preview === 'true';
     let post;
     if (draft.isEnabled) {
-        post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewBySlug"])(slug);
+        // For Draft Mode: Try fetching by ID first (more reliable for drafts), then fall back to slug
+        if (previewId) {
+            console.log('[Preview Page] Fetching by previewId:', previewId);
+            post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewById"])(parseInt(previewId));
+        }
+        if (!post) {
+            console.log('[Preview Page] Fetching by slug:', slug);
+            post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreviewBySlug"])(slug);
+        }
     } else if (preview === 'true' && token && id) {
+        // Legacy preview mode with token
         post = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPostPreview"])(parseInt(id), token);
     } else {
+        // Normal published content
         post = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getPostBySlug(slug);
     }
     if (!post) {
@@ -1324,22 +1359,22 @@ async function BlogPost({ params, searchParams }) {
                     post: post
                 }, void 0, false, {
                     fileName: "[project]/app/blog/[slug]/page.tsx",
-                    lineNumber: 76,
+                    lineNumber: 93,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/blog/[slug]/page.tsx",
-                lineNumber: 75,
+                lineNumber: 92,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/blog/[slug]/page.tsx",
-            lineNumber: 74,
+            lineNumber: 91,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/blog/[slug]/page.tsx",
-        lineNumber: 73,
+        lineNumber: 90,
         columnNumber: 5
     }, this);
 }

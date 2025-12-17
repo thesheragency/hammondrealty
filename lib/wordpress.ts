@@ -733,6 +733,32 @@ export async function fetchPostPreviewBySlug(
   }
 }
 
+// Fetch post preview by DATABASE_ID using cookie-based auth (for Draft Mode)
+// This is more reliable than slug for draft posts which may not have a proper slug yet
+export async function fetchPostPreviewById(
+  id: number
+): Promise<ReturnType<typeof transformPost> | null> {
+  console.log('[Preview] Fetching post preview by ID:', id);
+
+  try {
+    // Get preview client with session cookies (async because it may need to authenticate)
+    const client = await getPreviewClient();
+    
+    const response = await client.request<{ post: WpPost | null }>(
+      GET_POST_PREVIEW_QUERY,
+      { id: id.toString() }
+    );
+
+    console.log('[Preview] Response by ID:', response.post ? 'Post found' : 'Post NOT found');
+    
+    if (!response.post) return null;
+    return transformPost(response.post);
+  } catch (error) {
+    console.error('[Preview] Error fetching post preview by ID:', error);
+    throw error;
+  }
+}
+
 // Fetch all pages from WordPress
 export async function fetchPages(): Promise<ReturnType<typeof transformPage>[]> {
   const client = getWpClient();

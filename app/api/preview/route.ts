@@ -5,6 +5,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const secret = searchParams.get('secret');
   const slug = searchParams.get('slug');
+  const id = searchParams.get('id'); // WordPress post ID for draft content
   const type = searchParams.get('type') || 'post';
 
   // Validate the preview secret
@@ -15,20 +16,28 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Slug is required for redirect
-  if (!slug) {
+  // Either slug or id is required
+  if (!slug && !id) {
     return NextResponse.json(
-      { error: 'Missing slug parameter' },
+      { error: 'Missing slug or id parameter' },
       { status: 400 }
     );
   }
 
   // Sanitize slug to prevent open redirect attacks
   // WordPress slugs should never start with / or contain ://
-  const sanitizedSlug = slug.replace(/^\/+/, '').replace(/[:]/g, '');
-  if (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/')) {
+  const sanitizedSlug = slug ? slug.replace(/^\/+/, '').replace(/[:]/g, '') : '';
+  if (sanitizedSlug && (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/'))) {
     return NextResponse.json(
       { error: 'Invalid slug format' },
+      { status: 400 }
+    );
+  }
+
+  // Validate ID is numeric if provided
+  if (id && !/^\d+$/.test(id)) {
+    return NextResponse.json(
+      { error: 'Invalid id format' },
       { status: 400 }
     );
   }
@@ -38,15 +47,17 @@ export async function GET(request: NextRequest) {
   draft.enable();
 
   // Redirect to the appropriate path based on content type
+  // For drafts, we use the slug for the URL but pass ID as a query param for fetching
+  const pathSlug = sanitizedSlug || `preview-${id}`;
   let redirectPath: string;
   
   if (type === 'post') {
-    redirectPath = `/blog/${sanitizedSlug}`;
+    redirectPath = `/blog/${pathSlug}`;
   } else if (type === 'page') {
-    redirectPath = `/${sanitizedSlug}`;
+    redirectPath = `/${pathSlug}`;
   } else {
     // For custom post types, use the type as the path prefix
-    redirectPath = `/${type}/${sanitizedSlug}`;
+    redirectPath = `/${type}/${pathSlug}`;
   }
 
   // Get the actual host from headers (handles proxied environments like Replit)
@@ -55,6 +66,12 @@ export async function GET(request: NextRequest) {
   const baseUrl = `${protocol}://${host}`;
   
   const redirectUrl = new URL(redirectPath, baseUrl);
+  
+  // Pass the WordPress post ID as a query parameter for draft content fetching
+  // This is needed because drafts may not have a proper slug yet
+  if (id) {
+    redirectUrl.searchParams.set('previewId', id);
+  }
 
   return NextResponse.redirect(redirectUrl);
 }
