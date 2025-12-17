@@ -572,6 +572,8 @@ function PostContent({ post }) {
 __turbopack_context__.s([
     "checkWordPressConnection",
     ()=>checkWordPressConnection,
+    "clearWordPressSessionCache",
+    ()=>clearWordPressSessionCache,
     "fetchAcfGlobalScripts",
     ()=>fetchAcfGlobalScripts,
     "fetchPagePreview",
@@ -597,6 +599,91 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$r
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/classes/GraphQLClient.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/functions/gql.js [app-rsc] (ecmascript)");
 ;
+let wpSessionCache = null;
+// Session cache duration: 30 minutes (WordPress session is typically longer, but we refresh early)
+const SESSION_CACHE_DURATION_MS = 30 * 60 * 1000;
+/**
+ * Authenticates with WordPress via /wp-login.php to get session cookies
+ * This is needed because:
+ * 1. The staging site has HTTP Basic Auth at nginx level (WP_AUTH_USER/WP_AUTH_PASSWORD)
+ * 2. WordPress needs separate authentication for draft content access
+ * 3. Since both use Basic Auth and we can only send one Authorization header,
+ *    we log in via /wp-login.php to get session cookies, then use cookies + staging Basic Auth
+ */ async function getWordPressSessionCookies() {
+    // Check cache first
+    if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
+        console.log('[Preview Auth] Using cached session cookies');
+        return wpSessionCache.cookies;
+    }
+    const wpApiUrl = process.env.WP_API_URL;
+    const previewUser = process.env.preview_user_un;
+    const previewPass = process.env.preview_user_pass;
+    if (!wpApiUrl || !previewUser || !previewPass) {
+        console.warn('[Preview Auth] Missing required credentials: WP_API_URL, preview_user_un, or preview_user_pass');
+        return null;
+    }
+    // Get WordPress base URL (without /graphql)
+    const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
+    const loginUrl = `${wpBaseUrl}/wp-login.php`;
+    console.log('[Preview Auth] Authenticating with WordPress via /wp-login.php');
+    try {
+        // Build headers with staging Basic Auth to pass nginx
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+            const stagingCredentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
+            headers['Authorization'] = `Basic ${stagingCredentials}`;
+        }
+        // POST login form data
+        const formData = new URLSearchParams({
+            log: previewUser,
+            pwd: previewPass,
+            'wp-submit': 'Log In',
+            redirect_to: `${wpBaseUrl}/wp-admin/`,
+            testcookie: '1'
+        });
+        const response = await fetch(loginUrl, {
+            method: 'POST',
+            headers,
+            body: formData.toString(),
+            redirect: 'manual'
+        });
+        // Extract Set-Cookie headers
+        const setCookieHeaders = response.headers.getSetCookie?.() || [];
+        if (setCookieHeaders.length === 0) {
+            // Fallback for environments where getSetCookie isn't available
+            const rawCookies = response.headers.get('set-cookie');
+            if (rawCookies) {
+                setCookieHeaders.push(...rawCookies.split(/,(?=\s*\w+=)/));
+            }
+        }
+        // Filter for WordPress auth cookies (excluding test cookie) and extract cookie values
+        const authCookies = setCookieHeaders.filter((cookie)=>(cookie.includes('wordpress_logged_in_') || cookie.includes('wordpress_sec_')) && !cookie.includes('wordpress_test_cookie')).map((cookie)=>cookie.split(';')[0]) // Get just the cookie=value part
+        .filter((cookie)=>cookie.length > 0);
+        if (authCookies.length === 0) {
+            console.error('[Preview Auth] Login failed - no auth cookies received. Check preview_user_un and preview_user_pass credentials.');
+            console.log('[Preview Auth] Response status:', response.status);
+            console.log('[Preview Auth] Received cookies:', setCookieHeaders.map((c)=>c.split('=')[0]).join(', '));
+            return null;
+        }
+        const wpCookies = authCookies.join('; ');
+        console.log('[Preview Auth] Successfully authenticated, got session cookies');
+        // Cache the session cookies
+        wpSessionCache = {
+            cookies: wpCookies,
+            expiresAt: Date.now() + SESSION_CACHE_DURATION_MS
+        };
+        return wpCookies;
+    } catch (error) {
+        console.error('[Preview Auth] Error authenticating with WordPress:', error);
+        return null;
+    }
+}
+function clearWordPressSessionCache() {
+    wpSessionCache = null;
+    console.log('[Preview Auth] Session cache cleared');
+}
 // WordPress GraphQL client configuration
 const getWpClient = (authToken)=>{
     const wpApiUrl = process.env.WP_API_URL;
@@ -620,7 +707,8 @@ const getWpClient = (authToken)=>{
     });
 };
 // WordPress GraphQL client for preview/draft requests with WordPress user authentication
-const getPreviewClient = ()=>{
+// Uses cookie-based auth to work with staging sites that have nginx Basic Auth
+async function getPreviewClient() {
     const wpApiUrl = process.env.WP_API_URL;
     if (!wpApiUrl) {
         throw new Error('WP_API_URL environment variable is not set');
@@ -628,24 +716,26 @@ const getPreviewClient = ()=>{
     const headers = {
         'Content-Type': 'application/json'
     };
-    // Use WP_AUTH_USER (staging user) with Application Password for authenticated preview requests
-    // This works because:
-    // 1. WP_AUTH_USER passes the staging nginx/apache Basic Auth gate
-    // 2. Application Password authenticates to WordPress for draft content access
-    const previewUser = process.env.WP_AUTH_USER;
-    const previewPass = process.env.preview_user_app_pass; // Application Password for WP_AUTH_USER
-    if (previewUser && previewPass) {
-        const credentials = Buffer.from(`${previewUser}:${previewPass}`).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-    } else if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        // Fallback to regular staging auth if no Application Password
-        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
+    // Add staging Basic Auth to pass nginx gate
+    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+        const stagingCredentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
+        headers['Authorization'] = `Basic ${stagingCredentials}`;
+    }
+    // Get WordPress session cookies for draft content access
+    // This is the key to the dual-auth problem:
+    // - Basic Auth header passes nginx staging gate
+    // - Cookie header authenticates to WordPress for draft access
+    const sessionCookies = await getWordPressSessionCookies();
+    if (sessionCookies) {
+        headers['Cookie'] = sessionCookies;
+        console.log('[Preview] Using session cookie authentication');
+    } else {
+        console.warn('[Preview] No session cookies available - draft content may not be accessible');
     }
     return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
         headers
     });
-};
+}
 // GraphQL fragments for reusable queries
 // Note: twitterCardType may not be available in all versions of WPGraphQL Yoast SEO
 const SEO_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
@@ -1030,10 +1120,11 @@ async function fetchPostPreview(id, authToken) {
     }
 }
 async function fetchPostPreviewBySlug(slug) {
-    const client = getPreviewClient(); // Uses preview user credentials for WordPress auth
     console.log('[Preview] Fetching post preview by slug:', slug);
     console.log('[Preview] Using credentials:', process.env.preview_user_un ? 'PREVIEW_USER set' : 'PREVIEW_USER not set');
     try {
+        // Get preview client with session cookies (async because it may need to authenticate)
+        const client = await getPreviewClient();
         const response = await client.request(GET_POST_PREVIEW_BY_SLUG_QUERY, {
             slug
         });
