@@ -1067,253 +1067,213 @@ Button.displayName = "Button";
 /**
  * Hero Section Block
  * 
- * Full-width hero section with headline, subheadline, CTA, and background options.
- * Features gradient overlays, decorative elements, and responsive design.
+ * Hero with optional rating, headline, bullet points, and CTAs.
+ * Uses design system typography and components.
  */ __turbopack_context__.s([
     "HeroBlock",
     ()=>HeroBlock
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-rsc] (ecmascript) <export default as ArrowRight>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-rsc] (ecmascript) <export default as Sparkles>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-rsc] (ecmascript) <export default as Check>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/star.js [app-rsc] (ecmascript) <export default as Star>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/phone.js [app-rsc] (ecmascript) <export default as Phone>");
 ;
 ;
 ;
-const bgColorClasses = {
-    brand: 'bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground',
-    accent: 'bg-gradient-to-br from-accent via-accent/90 to-accent/80 text-accent-foreground',
-    muted: 'bg-gradient-to-b from-muted to-background text-foreground',
-    dark: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white'
-};
-const textAlignClasses = {
-    left: 'text-left items-start',
-    center: 'text-center items-center',
-    right: 'text-right items-end'
-};
 function HeroBlock({ block }) {
-    const bgColor = block.backgroundColor || 'brand';
-    const textAlign = block.textAlign || 'center';
     const hasBackgroundImage = !!block.backgroundImage?.sourceUrl;
+    const bulletPoints = block.bulletPoints || [];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `relative py-24 md:py-36 lg:py-44 overflow-hidden ${!hasBackgroundImage ? bgColorClasses[bgColor] : ''}`,
+        className: `relative py-16 md:py-24 ${hasBackgroundImage ? '' : 'bg-background'}`,
         "data-testid": "block-hero",
         children: [
             hasBackgroundImage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-cover bg-center bg-no-repeat scale-105",
+                        className: "absolute inset-0 bg-cover bg-center bg-no-repeat",
                         style: {
                             backgroundImage: `url(${block.backgroundImage?.sourceUrl})`
                         },
                         "aria-hidden": "true"
                     }, void 0, false, {
                         fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 42,
+                        lineNumber: 27,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80",
+                        className: "absolute inset-0 bg-black/50",
                         "aria-hidden": "true"
                     }, void 0, false, {
                         fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 47,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true),
-            !hasBackgroundImage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2",
-                        "aria-hidden": "true"
-                    }, void 0, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 54,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute bottom-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3",
-                        "aria-hidden": "true"
-                    }, void 0, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 55,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-white/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2",
-                        "aria-hidden": "true"
-                    }, void 0, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 56,
+                        lineNumber: 32,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `container relative mx-auto px-4 flex flex-col gap-6 ${textAlignClasses[textAlign]}`,
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm ${hasBackgroundImage ? 'bg-white/10 text-white border border-white/20' : 'bg-white/10 border border-white/20'}`,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
-                                className: "h-4 w-4"
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 69,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                children: "Powerful Landing Pages"
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 70,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 62,
-                        columnNumber: 9
-                    }, this),
-                    block.headline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: `text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold max-w-5xl leading-tight tracking-tight ${hasBackgroundImage ? 'text-white' : ''}`,
-                        "data-testid": "hero-headline",
-                        children: block.headline
-                    }, void 0, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 74,
-                        columnNumber: 11
-                    }, this),
-                    block.subheadline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: `text-lg md:text-xl lg:text-2xl max-w-3xl leading-relaxed ${hasBackgroundImage ? 'text-white/90' : 'opacity-90'}`,
-                        "data-testid": "hero-subheadline",
-                        children: block.subheadline
-                    }, void 0, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 83,
-                        columnNumber: 11
-                    }, this),
-                    block.ctaText && block.ctaUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex flex-col sm:flex-row gap-4 mt-4",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
-                                asChild: true,
-                                size: "lg",
-                                variant: hasBackgroundImage || bgColor === 'brand' ? 'secondary' : 'default',
-                                className: "text-base px-8 py-6 h-auto group",
-                                "data-testid": "hero-cta",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: block.ctaUrl,
-                                    className: "flex items-center gap-2",
-                                    children: [
-                                        block.ctaText,
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
-                                            className: "h-4 w-4 transition-transform group-hover:translate-x-1"
-                                        }, void 0, false, {
-                                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                            lineNumber: 102,
-                                            columnNumber: 17
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                    lineNumber: 100,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 93,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
-                                asChild: true,
-                                size: "lg",
-                                variant: "outline",
-                                className: `text-base px-8 py-6 h-auto ${hasBackgroundImage ? 'border-white/30 text-white hover:bg-white/10' : 'border-current/30 hover:bg-white/10'}`,
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: "#learn-more",
-                                    children: "Learn More"
+                className: "container relative mx-auto px-4 max-w-7xl",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-w-4xl",
+                    children: [
+                        block.showRating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mb-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-small text-muted-foreground mb-2",
+                                    children: block.ratingText || 'Based on 300+ Reviews on'
                                 }, void 0, false, {
                                     fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 41,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-4",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex gap-0.5",
+                                        children: [
+                                            ...Array(5)
+                                        ].map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
+                                                className: "h-4 w-4 fill-foreground text-foreground"
+                                            }, i, false, {
+                                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                                lineNumber: 47,
+                                                columnNumber: 21
+                                            }, this))
+                                    }, void 0, false, {
+                                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                        lineNumber: 45,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                    lineNumber: 44,
                                     columnNumber: 15
                                 }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 105,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 92,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `flex flex-wrap items-center gap-6 mt-8 pt-8 border-t ${hasBackgroundImage ? 'border-white/20' : 'border-white/10'}`,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "text-sm opacity-70",
-                                children: "Trusted by leading companies"
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 118,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex gap-8 opacity-50",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "h-6 w-20 bg-current/20 rounded"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                            lineNumber: 40,
+                            columnNumber: 13
+                        }, this),
+                        block.headline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                            className: `text-h1 mb-4 ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`,
+                            "data-testid": "hero-headline",
+                            children: block.headline
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                            lineNumber: 56,
+                            columnNumber: 13
+                        }, this),
+                        block.subheadline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: `text-body-lg mb-6 max-w-xl ${hasBackgroundImage ? 'text-white/90' : 'text-muted-foreground'}`,
+                            "data-testid": "hero-subheadline",
+                            children: block.subheadline
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                            lineNumber: 66,
+                            columnNumber: 13
+                        }, this),
+                        bulletPoints.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                            className: "space-y-2 mb-8",
+                            children: bulletPoints.map((point, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    className: "flex items-start gap-2",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                            className: `h-6 w-6 flex-shrink-0 ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                            lineNumber: 79,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: `text-body ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`,
+                                            children: point
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                            lineNumber: 80,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, index, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                    lineNumber: 78,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                            lineNumber: 76,
+                            columnNumber: 13
+                        }, this),
+                        (block.ctaText || block.secondaryCtaText) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex flex-wrap gap-3",
+                            children: [
+                                block.ctaText && block.ctaUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
+                                    asChild: true,
+                                    size: "lg",
+                                    "data-testid": "hero-cta",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        href: block.ctaUrl,
+                                        children: block.ctaText
                                     }, void 0, false, {
                                         fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                        lineNumber: 120,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "h-6 w-24 bg-current/20 rounded"
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                        lineNumber: 121,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "h-6 w-16 bg-current/20 rounded"
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                        lineNumber: 122,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "h-6 w-20 bg-current/20 rounded hidden sm:block"
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                        lineNumber: 123,
-                                        columnNumber: 13
+                                        lineNumber: 93,
+                                        columnNumber: 19
                                     }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                                lineNumber: 119,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                        lineNumber: 117,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                    lineNumber: 92,
+                                    columnNumber: 17
+                                }, this),
+                                block.secondaryCtaText && block.secondaryCtaUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
+                                    asChild: true,
+                                    size: "lg",
+                                    variant: "outline",
+                                    "data-testid": "hero-secondary-cta",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        href: block.secondaryCtaUrl,
+                                        className: "flex items-center gap-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"], {
+                                                className: "h-4 w-4"
+                                            }, void 0, false, {
+                                                fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                                lineNumber: 99,
+                                                columnNumber: 21
+                                            }, this),
+                                            block.secondaryCtaText
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                        lineNumber: 98,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                                    lineNumber: 97,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                            lineNumber: 90,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
+                    lineNumber: 37,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-                lineNumber: 60,
+                lineNumber: 36,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/modules/landing-builder/blocks/HeroBlock.tsx",
-        lineNumber: 35,
+        lineNumber: 21,
         columnNumber: 5
     }, this);
 }
@@ -1782,7 +1742,8 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$modules$
 /**
  * Rich Text Block
  * 
- * WYSIWYG content block with configurable width.
+ * WYSIWYG content area for custom HTML content from WordPress.
+ * Features elegant typography and responsive width options.
  */ __turbopack_context__.s([
     "RichTextBlock",
     ()=>RichTextBlock
@@ -1791,7 +1752,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 const bgColorClasses = {
     default: 'bg-background',
-    muted: 'bg-muted',
+    muted: 'bg-muted/50',
     card: 'bg-card'
 };
 const maxWidthClasses = {
@@ -1807,29 +1768,46 @@ function RichTextBlock({ block }) {
         return null;
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-12 md:py-16 ${bgColorClasses[bgColor]}`,
+        className: `py-16 md:py-24 ${bgColorClasses[bgColor]}`,
         "data-testid": "block-rich-text",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "container mx-auto px-4",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `prose prose-lg dark:prose-invert mx-auto ${maxWidthClasses[maxWidth]}`,
-                dangerouslySetInnerHTML: {
-                    __html: block.content
-                },
-                "data-testid": "rich-text-content"
-            }, void 0, false, {
+                className: `${maxWidthClasses[maxWidth]} mx-auto`,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-1 bg-primary rounded-full mb-12",
+                        "aria-hidden": "true"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
+                        lineNumber: 43,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "prose prose-lg md:prose-xl max-w-none dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:md:text-4xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:md:text-3xl prose-h3:mt-10 prose-h3:mb-4 prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-strong:font-semibold prose-ol:my-8 prose-ul:my-8 prose-li:text-muted-foreground prose-li:leading-relaxed prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-muted/30 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-foreground",
+                        dangerouslySetInnerHTML: {
+                            __html: block.content
+                        },
+                        "data-testid": "rich-text-content"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
+                        lineNumber: 45,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-            lineNumber: 39,
+            lineNumber: 40,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-        lineNumber: 35,
+        lineNumber: 36,
         columnNumber: 5
     }, this);
 }
@@ -1981,7 +1959,8 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$componen
 /**
  * Testimonials Block
  * 
- * Display customer testimonials in grid or carousel layout.
+ * Grid of testimonial cards with quotes and avatars.
+ * Uses design system typography and Card components.
  */ __turbopack_context__.s([
     "TestimonialsBlock",
     ()=>TestimonialsBlock
@@ -1989,55 +1968,56 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$componen
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/card.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/avatar.tsx [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/quote.js [app-rsc] (ecmascript) <export default as Quote>");
 ;
 ;
 ;
-;
-const bgColorClasses = {
-    default: 'bg-background',
-    muted: 'bg-muted',
-    card: 'bg-card'
-};
 function TestimonialsBlock({ block }) {
-    const bgColor = block.backgroundColor || 'default';
     const testimonials = block.testimonials || [];
-    const layout = block.layout || 'grid';
     if (testimonials.length === 0) {
         return null;
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-16 md:py-24 ${bgColorClasses[bgColor]}`,
+        className: "bg-background py-16 md:py-24",
         "data-testid": "block-testimonials",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "container mx-auto px-4",
+            className: "container mx-auto px-4 max-w-7xl",
             children: [
-                block.sectionTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-3xl md:text-4xl font-bold mb-12 text-center",
-                    "data-testid": "testimonials-title",
-                    children: block.sectionTitle
-                }, void 0, false, {
+                (block.sectionTitle || block.sectionDescription) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-center mb-12 max-w-3xl mx-auto",
+                    children: [
+                        block.sectionTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "text-h2 mb-4",
+                            "data-testid": "testimonials-title",
+                            children: block.sectionTitle
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                            lineNumber: 30,
+                            columnNumber: 15
+                        }, this),
+                        block.sectionDescription && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-body text-muted-foreground",
+                            children: block.sectionDescription
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                            lineNumber: 35,
+                            columnNumber: 15
+                        }, this)
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                    lineNumber: 38,
+                    lineNumber: 28,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: layout === 'grid' ? 'grid gap-6 md:grid-cols-2 lg:grid-cols-3' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4',
+                    className: "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
                     children: testimonials.map((testimonial, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Card"], {
-                            className: `border-card-border ${layout === 'carousel' ? 'flex-shrink-0 w-80 snap-center' : ''}`,
+                            className: "border",
                             "data-testid": `testimonial-card-${index}`,
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardContent"], {
-                                className: "p-6",
+                                className: "p-6 md:p-8",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"], {
-                                        className: "h-8 w-8 text-primary/20 mb-4"
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 60,
-                                        columnNumber: 17
-                                    }, this),
                                     testimonial.quote && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
-                                        className: "text-lg mb-6 text-foreground",
+                                        className: "text-body text-foreground mb-6",
                                         children: [
                                             '"',
                                             testimonial.quote,
@@ -2045,90 +2025,76 @@ function TestimonialsBlock({ block }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 63,
+                                        lineNumber: 52,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center gap-3",
+                                        className: "flex items-center gap-4",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Avatar"], {
+                                                className: "h-14 w-14",
                                                 children: [
                                                     testimonial.authorImage?.sourceUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarImage"], {
                                                         src: testimonial.authorImage.sourceUrl,
                                                         alt: testimonial.authorImage.altText || testimonial.authorName || ''
                                                     }, void 0, false, {
                                                         fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 71,
+                                                        lineNumber: 60,
                                                         columnNumber: 23
                                                     }, this) : null,
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarFallback"], {
-                                                        children: testimonial.authorName?.charAt(0) || '?'
+                                                        className: "text-body font-semibold",
+                                                        children: testimonial.authorName?.split(' ').map((n)=>n[0]).join('').slice(0, 2) || '?'
                                                     }, void 0, false, {
                                                         fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 76,
+                                                        lineNumber: 65,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                lineNumber: 69,
+                                                lineNumber: 58,
                                                 columnNumber: 19
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    testimonial.authorName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-semibold",
-                                                        children: testimonial.authorName
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 83,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    testimonial.authorTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-muted-foreground",
-                                                        children: testimonial.authorTitle
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 86,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
+                                            testimonial.authorName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-body font-semibold",
+                                                children: testimonial.authorName
+                                            }, void 0, false, {
                                                 fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                lineNumber: 81,
-                                                columnNumber: 19
+                                                lineNumber: 71,
+                                                columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 57,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                lineNumber: 59,
+                                lineNumber: 50,
                                 columnNumber: 15
                             }, this)
                         }, index, false, {
                             fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                            lineNumber: 54,
+                            lineNumber: 45,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                    lineNumber: 46,
+                    lineNumber: 43,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-            lineNumber: 36,
+            lineNumber: 25,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-        lineNumber: 32,
+        lineNumber: 24,
         columnNumber: 5
     }, this);
 }

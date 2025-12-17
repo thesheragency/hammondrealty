@@ -12,120 +12,217 @@ const demoData: LandingPageData = {
   title: 'Landing Page Builder Demo',
   slug: 'landing-demo',
   sections: [
+    // Hero Block
     {
       fieldGroupName: 'LandingSectionsHeroSection',
-      headline: 'Transform Your Ideas Into Reality',
-      subheadline: 'Build stunning, high-converting landing pages in minutes. No code required. Just pure creative freedom powered by WordPress.',
-      ctaText: 'Start Building Free',
-      ctaUrl: '#features',
-      backgroundColor: 'brand',
-      textAlign: 'center',
+      headline: 'Professional Painting Services For Your Home',
+      subheadline: 'Transform your space with our expert painters. Quality work, guaranteed satisfaction.',
+      showRating: true,
+      ratingText: 'Based on 300+ Reviews on',
+      bulletPoints: [
+        '15+ Years of Experience',
+        'Licensed & Insured Professionals',
+        'Free Estimates Within 24 Hours',
+      ],
+      ctaText: 'Get Your Free Estimate',
+      ctaUrl: '#contact',
+      secondaryCtaText: '(123) 456-7890',
+      secondaryCtaUrl: 'tel:+1234567890',
     },
+
+    // Logo Reel Block
     {
-      fieldGroupName: 'LandingSectionsFeatureGrid',
-      sectionTitle: 'Everything You Need to Succeed',
-      sectionDescription: 'Our platform gives you the tools to create beautiful landing pages that actually convert visitors into customers.',
-      columns: '3',
-      backgroundColor: 'default',
-      features: [
+      fieldGroupName: 'LandingSectionsLogoReel',
+      logos: [],
+    },
+
+    // Accordion Block (Split Layout)
+    {
+      fieldGroupName: 'LandingSectionsAccordion',
+      sectionTitle: 'Common Questions About Our Services',
+      sectionDescription: 'We know you have questions. Here are answers to the most common ones.',
+      ctaText: 'Get Started Today',
+      ctaUrl: '#contact',
+      layout: 'split',
+      items: [
         {
-          icon: 'zap',
-          title: 'Blazing Fast Performance',
-          description: 'Built on Next.js with server-side rendering. Your pages load instantly, keeping visitors engaged.',
+          question: 'How long does a typical project take?',
+          answer: 'Most residential projects are completed within 2-5 days depending on the size and scope. We provide a detailed timeline during your free estimate.',
         },
+        {
+          question: 'Do you provide free estimates?',
+          answer: 'Yes! We offer completely free, no-obligation estimates. One of our experts will visit your property and provide a detailed quote within 24 hours.',
+        },
+        {
+          question: 'What paint brands do you use?',
+          answer: 'We use premium paints from Sherwin-Williams and Benjamin Moore. These provide superior coverage, durability, and color retention.',
+        },
+        {
+          question: 'Are you licensed and insured?',
+          answer: 'Absolutely. We are fully licensed, bonded, and insured. Your property and our workers are protected throughout the entire project.',
+        },
+      ],
+    },
+
+    // Services Grid Block
+    {
+      fieldGroupName: 'LandingSectionsServicesGrid',
+      sectionTitle: 'Our Professional Services',
+      sectionDescription: 'From interior to exterior, we handle all your painting needs with precision and care.',
+      showCustomQuote: true,
+      customQuoteText: "Don't See What You're Looking for?",
+      customQuoteUrl: '#contact',
+      services: [
+        { title: 'Interior Painting', linkUrl: '#interior' },
+        { title: 'Exterior Painting', linkUrl: '#exterior' },
+        { title: 'Cabinet Refinishing', linkUrl: '#cabinets' },
+        { title: 'Deck Staining', linkUrl: '#deck' },
+        { title: 'Commercial', linkUrl: '#commercial' },
+      ],
+    },
+
+    // Video Section Block
+    {
+      fieldGroupName: 'LandingSectionsVideoSection',
+      headline: 'See Our Work In Action',
+      bulletPoints: [
+        'Watch our team transform a living room in just 2 days',
+        'Learn about our meticulous prep process',
+        'See the difference quality paint makes',
+        'Hear from satisfied customers',
+      ],
+      ctaText: 'Schedule Your Consultation',
+      ctaUrl: '#contact',
+      secondaryCtaText: 'Call Now',
+      secondaryCtaUrl: 'tel:+1234567890',
+    },
+
+    // Values Block (3 Column)
+    {
+      fieldGroupName: 'LandingSectionsValues',
+      sectionTitle: 'Why Choose Us?',
+      sectionDescription: 'We are committed to delivering exceptional results on every project.',
+      values: [
         {
           icon: 'shield-check',
-          title: 'Enterprise Security',
-          description: 'Bank-grade encryption, iframe sandboxing, and domain allowlists protect your data and users.',
+          title: 'Quality Guaranteed',
+          description: 'We stand behind our work with a 5-year warranty on all painting projects.',
         },
         {
-          icon: 'palette',
-          title: 'Fully Customizable',
-          description: 'Every element adapts to your brand. Colors, fonts, and spacing all sync from your design system.',
+          icon: 'clock',
+          title: 'On-Time Delivery',
+          description: 'We respect your schedule and always complete projects on the agreed timeline.',
         },
         {
-          icon: 'code-2',
-          title: 'Developer Friendly',
-          description: 'Clean TypeScript codebase with modular architecture. Extend blocks or create your own.',
-        },
-        {
-          icon: 'search',
-          title: 'SEO Optimized',
-          description: 'Full Yoast integration with Open Graph, Twitter Cards, and structured data out of the box.',
-        },
-        {
-          icon: 'toggle-right',
-          title: 'Feature Flagged',
-          description: 'Enable or disable the entire builder with one environment variable. Zero risk rollouts.',
+          icon: 'badge-dollar-sign',
+          title: 'Transparent Pricing',
+          description: 'No hidden fees or surprise charges. What we quote is what you pay.',
         },
       ],
     },
+
+    // Content Split Block
     {
-      fieldGroupName: 'LandingSectionsCtaBanner',
-      headline: 'Ready to 10x Your Conversion Rate?',
-      description: 'Join over 10,000 marketers who trust our platform to create landing pages that actually work.',
-      primaryCtaText: 'Start Your Free Trial',
-      primaryCtaUrl: '#signup',
-      secondaryCtaText: 'See Documentation',
-      secondaryCtaUrl: '#docs',
-      backgroundColor: 'accent',
+      fieldGroupName: 'LandingSectionsContentSplit',
+      headline: 'A Family Business Built on Trust',
+      description: 'For over 15 years, we have been serving our local community with pride. What started as a small family operation has grown into one of the most trusted painting companies in the region. Our values remain the same: honest work, fair prices, and treating every home like our own.',
+      ctaText: 'Learn Our Story',
+      ctaUrl: '#about',
+      imagePosition: 'left',
     },
-    {
-      fieldGroupName: 'LandingSectionsRichText',
-      content: `
-        <h2>The Modern Way to Build Landing Pages</h2>
-        <p>Traditional landing page builders are slow, bloated, and lock you into their ecosystem. We took a different approach.</p>
-        <p>By combining the power of WordPress as a headless CMS with Next.js on the frontend, you get the best of both worlds: <strong>familiar content editing</strong> for your marketing team and <strong>blazing fast performance</strong> for your visitors.</p>
-        <h3>How It Works</h3>
-        <ol>
-          <li><strong>Create a page in WordPress</strong> — Select the Landing Page template and start adding sections.</li>
-          <li><strong>Add your content</strong> — Use the flexible content blocks to build your perfect page layout.</li>
-          <li><strong>Publish instantly</strong> — Changes go live immediately with zero downtime.</li>
-        </ol>
-        <blockquote>
-          "This is exactly what we needed. Our marketing team can now launch campaigns without waiting on developers. It's been a game-changer."
-        </blockquote>
-      `,
-      maxWidth: 'medium',
-      backgroundColor: 'muted',
-    },
+
+    // Testimonials Block
     {
       fieldGroupName: 'LandingSectionsTestimonials',
-      sectionTitle: 'Loved by Teams Everywhere',
-      layout: 'grid',
-      backgroundColor: 'default',
+      sectionTitle: 'What Our Customers Say',
+      sectionDescription: 'Real reviews from real customers who trusted us with their homes.',
       testimonials: [
         {
-          quote: 'We went from taking 2 weeks to launch a campaign to just 2 hours. The ROI has been incredible.',
-          authorName: 'Sarah Chen',
-          authorTitle: 'VP of Marketing, TechCorp',
+          quote: 'The team was professional, tidy, and the results exceeded our expectations. Our living room looks brand new!',
+          authorName: 'Sarah Mitchell',
         },
         {
-          quote: 'Finally, a headless solution that our content team actually enjoys using. The WordPress integration is seamless.',
-          authorName: 'Michael Torres',
-          authorTitle: 'Head of Growth, StartupXYZ',
+          quote: 'Best painting experience ever. They were on time, on budget, and the quality is outstanding.',
+          authorName: 'Robert Chen',
         },
         {
-          quote: 'Page load times dropped by 80%. Our conversion rate went up 3x within the first month.',
-          authorName: 'Emily Watson',
-          authorTitle: 'CTO, Digital Agency Co',
+          quote: 'We hired them for our entire exterior and they did an amazing job. Highly recommend!',
+          authorName: 'Jessica Torres',
+        },
+        {
+          quote: 'Professional from start to finish. The color consultation was incredibly helpful.',
+          authorName: 'David Williams',
         },
       ],
     },
+
+    // Photo Gallery Block
     {
-      fieldGroupName: 'LandingSectionsFormSection',
-      sectionTitle: 'Get Started Today',
-      sectionDescription: 'Enter your email to receive access to our platform and start building beautiful landing pages.',
+      fieldGroupName: 'LandingSectionsPhotoGallery',
+      sectionTitle: 'Our Recent Projects',
+      sectionDescription: 'Browse through some of our favorite transformations.',
+      ctaText: 'Get a Quote',
+      ctaUrl: '#contact',
+      photos: [
+        { sourceUrl: 'https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?w=800', altText: 'Living room renovation' },
+        { sourceUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400', altText: 'Kitchen cabinets' },
+        { sourceUrl: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400', altText: 'Modern kitchen' },
+        { sourceUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400', altText: 'Bedroom paint' },
+        { sourceUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400', altText: 'Exterior painting' },
+      ],
+    },
+
+    // FAQ Accordion Block (Centered)
+    {
+      fieldGroupName: 'LandingSectionsAccordion',
+      sectionTitle: 'Frequently Asked Questions',
+      layout: 'centered',
+      ctaText: 'Still Have Questions? Contact Us',
+      ctaUrl: '#contact',
+      items: [
+        {
+          question: 'What areas do you serve?',
+          answer: 'We serve the greater metropolitan area including all surrounding suburbs within a 50-mile radius of downtown.',
+        },
+        {
+          question: 'Do I need to be home during the project?',
+          answer: 'Not necessarily. Many clients provide a key or access code. We are fully insured and our team is thoroughly vetted.',
+        },
+        {
+          question: 'How do I prepare for the painters?',
+          answer: 'We handle most prep work, but we ask that you move small items and valuables away from the walls. We will move larger furniture.',
+        },
+        {
+          question: 'What payment methods do you accept?',
+          answer: 'We accept all major credit cards, checks, and bank transfers. We offer financing options for larger projects.',
+        },
+      ],
+    },
+
+    // Contact Form Block
+    {
+      fieldGroupName: 'LandingSectionsContactForm',
+      headline: 'Book Your Free Consultation',
+      bulletPoints: [
+        'Free on-site estimate',
+        'Color consultation included',
+        'Detailed written proposal',
+        'No obligation to proceed',
+      ],
+      description: 'Fill out the form and one of our experts will contact you within 24 hours.',
       formMode: 'gravity',
       gravityFormId: 1,
-      backgroundColor: 'card',
     },
+
+    // CTA Banner Block
     {
       fieldGroupName: 'LandingSectionsCtaBanner',
-      headline: 'Your Next Landing Page Is Waiting',
-      description: 'Stop wasting time with slow, outdated tools. Build something beautiful today.',
-      primaryCtaText: 'Get Started Free',
-      primaryCtaUrl: '#',
+      headline: 'Ready to Transform Your Space?',
+      description: 'Get your free estimate today and see why hundreds of homeowners trust us with their homes.',
+      primaryCtaText: 'Get Free Estimate',
+      primaryCtaUrl: '#contact',
+      secondaryCtaText: 'Call (123) 456-7890',
+      secondaryCtaUrl: 'tel:+1234567890',
       backgroundColor: 'brand',
     },
   ],

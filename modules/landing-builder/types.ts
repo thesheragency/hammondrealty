@@ -15,17 +15,145 @@ export interface HeroBlock extends BaseBlock {
   fieldGroupName: 'LandingSectionsHeroSection';
   headline?: string;
   subheadline?: string;
+  bulletPoints?: string[];
   ctaText?: string;
   ctaUrl?: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  showRating?: boolean;
+  ratingText?: string;
   backgroundImage?: {
     sourceUrl: string;
     altText?: string;
   };
-  backgroundColor?: 'brand' | 'accent' | 'muted' | 'dark';
-  textAlign?: 'left' | 'center' | 'right';
 }
 
-// Feature Grid Block
+// Logo Reel Block
+export interface LogoReelBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsLogoReel';
+  logos?: Array<{
+    sourceUrl: string;
+    altText?: string;
+  }>;
+}
+
+// Accordion Block (FAQ/Problem-Solution)
+export interface AccordionBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsAccordion';
+  sectionTitle?: string;
+  sectionDescription?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  items?: Array<{
+    question: string;
+    answer: string;
+  }>;
+  layout?: 'centered' | 'split';
+}
+
+// Services Grid Block
+export interface ServicesGridBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsServicesGrid';
+  sectionTitle?: string;
+  sectionDescription?: string;
+  services?: Array<{
+    title: string;
+    linkUrl?: string;
+    image?: {
+      sourceUrl: string;
+      altText?: string;
+    };
+  }>;
+  showCustomQuote?: boolean;
+  customQuoteText?: string;
+  customQuoteUrl?: string;
+}
+
+// Video Section Block
+export interface VideoSectionBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsVideoSection';
+  headline?: string;
+  bulletPoints?: string[];
+  ctaText?: string;
+  ctaUrl?: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  videoUrl?: string;
+  videoThumbnail?: {
+    sourceUrl: string;
+    altText?: string;
+  };
+}
+
+// Values/Features Block (3-column with icons)
+export interface ValuesBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsValues';
+  sectionTitle?: string;
+  sectionDescription?: string;
+  values?: Array<{
+    icon?: string;
+    title: string;
+    description: string;
+  }>;
+}
+
+// Content Split Block (Image + Text)
+export interface ContentSplitBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsContentSplit';
+  headline?: string;
+  description?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  image?: {
+    sourceUrl: string;
+    altText?: string;
+  };
+  imagePosition?: 'left' | 'right';
+}
+
+// Testimonials Block
+export interface TestimonialsBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsTestimonials';
+  sectionTitle?: string;
+  sectionDescription?: string;
+  testimonials?: Array<{
+    quote?: string;
+    authorName?: string;
+    authorImage?: {
+      sourceUrl: string;
+      altText?: string;
+    };
+  }>;
+}
+
+// Photo Gallery Block
+export interface PhotoGalleryBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsPhotoGallery';
+  sectionTitle?: string;
+  sectionDescription?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  photos?: Array<{
+    sourceUrl: string;
+    altText?: string;
+  }>;
+}
+
+// Contact/Form Block
+export interface ContactFormBlock extends BaseBlock {
+  fieldGroupName: 'LandingSectionsContactForm';
+  headline?: string;
+  bulletPoints?: string[];
+  description?: string;
+  formMode?: 'gravity' | 'iframe';
+  gravityFormId?: number;
+  iframeUrl?: string;
+  iframeHeight?: number;
+}
+
+// Feature Grid Block (kept for backwards compatibility)
 export interface FeatureGridBlock extends BaseBlock {
   fieldGroupName: 'LandingSectionsFeatureGrid';
   sectionTitle?: string;
@@ -51,7 +179,7 @@ export interface CtaBannerBlock extends BaseBlock {
   backgroundColor?: 'brand' | 'accent' | 'dark';
 }
 
-// Form Section Block
+// Form Section Block (kept for backwards compatibility)
 export interface FormSectionBlock extends BaseBlock {
   fieldGroupName: 'LandingSectionsFormSection';
   sectionTitle?: string;
@@ -71,31 +199,22 @@ export interface RichTextBlock extends BaseBlock {
   backgroundColor?: 'default' | 'muted' | 'card';
 }
 
-// Testimonials Block
-export interface TestimonialsBlock extends BaseBlock {
-  fieldGroupName: 'LandingSectionsTestimonials';
-  sectionTitle?: string;
-  testimonials?: Array<{
-    quote?: string;
-    authorName?: string;
-    authorTitle?: string;
-    authorImage?: {
-      sourceUrl: string;
-      altText?: string;
-    };
-  }>;
-  layout?: 'grid' | 'carousel';
-  backgroundColor?: 'default' | 'muted' | 'card';
-}
-
 // Union type for all block types
 export type LandingBlock =
   | HeroBlock
+  | LogoReelBlock
+  | AccordionBlock
+  | ServicesGridBlock
+  | VideoSectionBlock
+  | ValuesBlock
+  | ContentSplitBlock
+  | TestimonialsBlock
+  | PhotoGalleryBlock
+  | ContactFormBlock
   | FeatureGridBlock
   | CtaBannerBlock
   | FormSectionBlock
-  | RichTextBlock
-  | TestimonialsBlock;
+  | RichTextBlock;
 
 // Landing page data structure
 export interface LandingPageData {
@@ -114,11 +233,19 @@ export interface LandingPageData {
 // Map ACF field group names to block types for type guards
 export const BLOCK_TYPE_MAP = {
   'LandingSectionsHeroSection': 'hero',
+  'LandingSectionsLogoReel': 'logo-reel',
+  'LandingSectionsAccordion': 'accordion',
+  'LandingSectionsServicesGrid': 'services-grid',
+  'LandingSectionsVideoSection': 'video-section',
+  'LandingSectionsValues': 'values',
+  'LandingSectionsContentSplit': 'content-split',
+  'LandingSectionsTestimonials': 'testimonials',
+  'LandingSectionsPhotoGallery': 'photo-gallery',
+  'LandingSectionsContactForm': 'contact-form',
   'LandingSectionsFeatureGrid': 'feature-grid',
   'LandingSectionsCtaBanner': 'cta-banner',
   'LandingSectionsFormSection': 'form-section',
   'LandingSectionsRichText': 'rich-text',
-  'LandingSectionsTestimonials': 'testimonials',
 } as const;
 
 export type BlockTypeName = typeof BLOCK_TYPE_MAP[keyof typeof BLOCK_TYPE_MAP];
