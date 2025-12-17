@@ -22,7 +22,7 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
     - `preview_user_un`: WordPress username with Editor/Admin role
     - `preview_user_pass`: WordPress password (regular login password, NOT Application Password)
   - **WordPress Plugin:** A separate MU plugin (maintained in different repo) must override preview links to redirect to the headless frontend.
-- **301 Redirects:** Integrates with the WordPress Redirection plugin to sync and apply 301 redirects, ensuring proper URL management.
+- **301 Redirects:** Uses Next.js middleware (`middleware.ts`) to fetch and apply 301/302 redirects from the WordPress Headless Tools plugin in real-time. Redirects are fetched from `/wp-json/headless/v1/redirects` and cached for 5 minutes. Supports Basic Auth for staging environments.
 - **ACF Global Scripts:** Supports injecting custom `<head>` and `<body>` scripts configured via Advanced Custom Fields (ACF) in WordPress.
 - **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, client-side validation, spam protection, multicolumn layouts (12-column grid), and file uploads. Uses a hybrid approach: WPGraphQL for fetching form schemas and Gravity Forms REST API v2 for form submissions (enabling native file upload support without additional plugins).
   - **Client-Side Validation:** Comprehensive validation utility (`lib/gf/validation.ts`) with support for required fields, email format, phone format (7-15 digits), number ranges, URL format, date validation, time validation (12/24-hour), and file upload validation (type and size). Validation runs on blur for real-time feedback and blocks page navigation/submission until resolved.
