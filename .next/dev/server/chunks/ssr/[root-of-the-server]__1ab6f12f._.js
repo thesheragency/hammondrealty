@@ -516,35 +516,42 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 function LogoReelBlock({ block }) {
     const logos = block.logos || [];
-    const placeholderLogos = logos.length === 0 ? Array(6).fill(null) : null;
+    const hasLogos = logos.length > 0;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-muted py-16",
+        className: "bg-muted py-12 lg:py-16",
         "data-testid": "block-logo-reel",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "container mx-auto px-6 lg:px-12 max-w-[1200px]",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            children: hasLogos ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex flex-wrap items-center justify-center gap-10 lg:gap-16",
-                children: placeholderLogos ? placeholderLogos.map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "h-7 lg:h-10 w-28 lg:w-40 bg-muted-foreground/20 rounded",
-                        "data-testid": `logo-placeholder-${index}`
-                    }, index, false, {
-                        fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
-                        lineNumber: 27,
-                        columnNumber: 15
-                    }, this)) : logos.map((logo, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                children: logos.map((logo, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                         src: logo.sourceUrl,
                         alt: logo.altText || `Partner logo ${index + 1}`,
                         className: "h-7 lg:h-10 w-auto object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all",
                         "data-testid": `logo-${index}`
                     }, index, false, {
                         fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
-                        lineNumber: 35,
+                        lineNumber: 27,
                         columnNumber: 15
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
-                lineNumber: 24,
-                columnNumber: 9
+                lineNumber: 25,
+                columnNumber: 11
+            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-center",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-small text-muted-foreground uppercase tracking-widest",
+                    children: "Trusted by leading companies worldwide"
+                }, void 0, false, {
+                    fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
+                    lineNumber: 38,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
+                lineNumber: 37,
+                columnNumber: 11
             }, this)
         }, void 0, false, {
             fileName: "[project]/modules/landing-builder/blocks/LogoReelBlock.tsx",
@@ -1466,7 +1473,7 @@ function TestimonialsBlock({ block }) {
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "grid gap-8 lg:gap-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+                    className: "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
                     children: testimonials.map((testimonial, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Card"], {
                             className: "border",
                             "data-testid": `testimonial-card-${index}`,
@@ -1684,10 +1691,10 @@ function PhotoGalleryBlock({ block }) {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "grid lg:grid-cols-2 gap-10 mb-12",
+                    className: "grid lg:grid-cols-2 gap-6 mb-12",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "aspect-[3/2] overflow-hidden rounded-xl",
+                            className: "aspect-square lg:aspect-auto lg:row-span-2 overflow-hidden rounded-xl",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: mainPhoto.sourceUrl,
                                 alt: mainPhoto.altText || 'Gallery photo',
@@ -1706,7 +1713,7 @@ function PhotoGalleryBlock({ block }) {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "grid grid-cols-2 gap-6",
                             children: gridPhotos.map((photo, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "aspect-[3/2] overflow-hidden rounded-xl",
+                                    className: "aspect-[4/3] overflow-hidden rounded-xl",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                         src: photo.sourceUrl,
                                         alt: photo.altText || `Gallery photo ${index + 2}`,
@@ -2958,19 +2965,19 @@ const demoData = {
         // Hero Block
         {
             fieldGroupName: 'LandingSectionsHeroSection',
-            headline: 'Professional Painting Services For Your Home',
-            subheadline: 'Transform your space with our expert painters. Quality work, guaranteed satisfaction.',
+            headline: 'Build Beautiful Landing Pages With Ease',
+            subheadline: 'A flexible, modular system for creating high-converting landing pages without writing code.',
             showRating: true,
-            ratingText: 'Based on 300+ Reviews on',
+            ratingText: 'Trusted by teams worldwide',
             bulletPoints: [
-                '15+ Years of Experience',
-                'Licensed & Insured Professionals',
-                'Free Estimates Within 24 Hours'
+                'Modular block-based design',
+                'Fully responsive layouts',
+                'Easy content management'
             ],
-            ctaText: 'Get Your Free Estimate',
+            ctaText: 'Get Started',
             ctaUrl: '#contact',
-            secondaryCtaText: '(123) 456-7890',
-            secondaryCtaUrl: 'tel:+1234567890'
+            secondaryCtaText: 'Learn More',
+            secondaryCtaUrl: '#features'
         },
         // Logo Reel Block
         {
@@ -2980,77 +2987,77 @@ const demoData = {
         // Accordion Block (Split Layout)
         {
             fieldGroupName: 'LandingSectionsAccordion',
-            sectionTitle: 'Common Questions About Our Services',
-            sectionDescription: 'We know you have questions. Here are answers to the most common ones.',
-            ctaText: 'Get Started Today',
+            sectionTitle: 'Everything You Need to Know',
+            sectionDescription: 'Common questions answered clearly and concisely.',
+            ctaText: 'Contact Us',
             ctaUrl: '#contact',
             layout: 'split',
             items: [
                 {
-                    question: 'How long does a typical project take?',
-                    answer: 'Most residential projects are completed within 2-5 days depending on the size and scope. We provide a detailed timeline during your free estimate.'
+                    question: 'How does the block system work?',
+                    answer: 'Each section is a self-contained block that can be arranged in any order. Simply choose the blocks you need and populate them with your content.'
                 },
                 {
-                    question: 'Do you provide free estimates?',
-                    answer: 'Yes! We offer completely free, no-obligation estimates. One of our experts will visit your property and provide a detailed quote within 24 hours.'
+                    question: 'Can I customize the design?',
+                    answer: 'Yes, all blocks follow a consistent design system with customizable colors, typography, and spacing through CSS variables.'
                 },
                 {
-                    question: 'What paint brands do you use?',
-                    answer: 'We use premium paints from Sherwin-Williams and Benjamin Moore. These provide superior coverage, durability, and color retention.'
+                    question: 'Is it mobile-friendly?',
+                    answer: 'Absolutely. Every block is built with responsive design principles, ensuring your landing page looks great on all devices.'
                 },
                 {
-                    question: 'Are you licensed and insured?',
-                    answer: 'Absolutely. We are fully licensed, bonded, and insured. Your property and our workers are protected throughout the entire project.'
+                    question: 'How do I add new blocks?',
+                    answer: 'New blocks can be added through the WordPress admin interface using ACF Flexible Content fields. No coding required.'
                 }
             ]
         },
         // Services Grid Block
         {
             fieldGroupName: 'LandingSectionsServicesGrid',
-            sectionTitle: 'Our Professional Services',
-            sectionDescription: 'From interior to exterior, we handle all your painting needs with precision and care.',
+            sectionTitle: 'Explore Our Features',
+            sectionDescription: 'Discover what makes our landing page builder unique and powerful.',
             showCustomQuote: true,
-            customQuoteText: "Don't See What You're Looking for?",
+            customQuoteText: 'Need Something Custom?',
             customQuoteUrl: '#contact',
             services: [
                 {
-                    title: 'Interior Painting',
-                    linkUrl: '#interior',
+                    title: 'Hero Sections',
+                    linkUrl: '#',
                     image: {
-                        sourceUrl: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&h=800&fit=crop',
-                        altText: 'Interior painting'
+                        sourceUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=800&fit=crop',
+                        altText: 'Hero sections'
                     }
                 },
                 {
-                    title: 'Exterior Painting',
-                    linkUrl: '#exterior',
+                    title: 'Feature Grids',
+                    linkUrl: '#',
                     image: {
-                        sourceUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop',
-                        altText: 'Exterior painting'
+                        sourceUrl: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&h=800&fit=crop',
+                        altText: 'Feature grids'
                     }
                 },
                 {
-                    title: 'Cabinet Refinishing',
-                    linkUrl: '#cabinets',
+                    title: 'Testimonials',
+                    linkUrl: '#',
                     image: {
-                        sourceUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=800&fit=crop',
-                        altText: 'Cabinet refinishing'
+                        sourceUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=800&fit=crop',
+                        altText: 'Testimonials'
                     }
                 },
                 {
-                    title: 'Deck Staining',
-                    linkUrl: '#deck',
+                    title: 'Contact Forms',
+                    linkUrl: '#',
                     image: {
-                        sourceUrl: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&h=800&fit=crop',
-                        altText: 'Deck staining'
+                        sourceUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=800&fit=crop',
+                        altText: 'Contact forms'
                     }
                 },
                 {
-                    title: 'Commercial',
-                    linkUrl: '#commercial',
+                    title: 'Photo Galleries',
+                    linkUrl: '#',
                     image: {
-                        sourceUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=800&fit=crop',
-                        altText: 'Commercial painting'
+                        sourceUrl: 'https://images.unsplash.com/photo-1493397212122-2b85dda8106b?w=600&h=800&fit=crop',
+                        altText: 'Photo galleries'
                     }
                 }
             ]
@@ -3058,109 +3065,105 @@ const demoData = {
         // Video Section Block
         {
             fieldGroupName: 'LandingSectionsVideoSection',
-            headline: 'See Our Work In Action',
+            headline: 'See It In Action',
             bulletPoints: [
-                'Watch our team transform a living room in just 2 days',
-                'Learn about our meticulous prep process',
-                'See the difference quality paint makes',
-                'Hear from satisfied customers'
+                'Watch a quick overview of all available blocks',
+                'Learn how content flows from WordPress to the frontend',
+                'See responsive design across different screen sizes',
+                'Discover customization options'
             ],
-            ctaText: 'Schedule Your Consultation',
+            ctaText: 'Start Building',
             ctaUrl: '#contact',
-            secondaryCtaText: 'Call Now',
-            secondaryCtaUrl: 'tel:+1234567890',
+            secondaryCtaText: 'View Documentation',
+            secondaryCtaUrl: '#docs',
             videoThumbnail: {
-                sourceUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=450&fit=crop',
-                altText: 'Video thumbnail - painting process'
+                sourceUrl: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=450&fit=crop',
+                altText: 'Video overview'
             }
         },
         // Values Block (3 Column)
         {
             fieldGroupName: 'LandingSectionsValues',
-            sectionTitle: 'Why Choose Us?',
-            sectionDescription: 'We are committed to delivering exceptional results on every project.',
+            sectionTitle: 'Built With Purpose',
+            sectionDescription: 'Core principles that guide every aspect of our landing page builder.',
             values: [
                 {
-                    icon: 'shield-check',
-                    title: 'Quality Guaranteed',
-                    description: 'We stand behind our work with a 5-year warranty on all painting projects.'
+                    icon: 'zap',
+                    title: 'Performance First',
+                    description: 'Optimized for speed with minimal JavaScript and efficient rendering.'
                 },
                 {
-                    icon: 'clock',
-                    title: 'On-Time Delivery',
-                    description: 'We respect your schedule and always complete projects on the agreed timeline.'
+                    icon: 'shield',
+                    title: 'Secure by Default',
+                    description: 'Built with security best practices and regular updates.'
                 },
                 {
-                    icon: 'badge-dollar-sign',
-                    title: 'Transparent Pricing',
-                    description: 'No hidden fees or surprise charges. What we quote is what you pay.'
+                    icon: 'heart',
+                    title: 'User Friendly',
+                    description: 'Intuitive interfaces for both developers and content editors.'
                 }
             ]
         },
         // Content Split Block
         {
             fieldGroupName: 'LandingSectionsContentSplit',
-            headline: 'A Family Business Built on Trust',
-            description: 'For over 15 years, we have been serving our local community with pride. What started as a small family operation has grown into one of the most trusted painting companies in the region. Our values remain the same: honest work, fair prices, and treating every home like our own.',
-            ctaText: 'Learn Our Story',
+            headline: 'Designed for Modern Teams',
+            description: 'Our landing page builder bridges the gap between design and development. Marketing teams can update content independently while developers maintain control over the codebase. The result is faster iteration cycles and better collaboration.',
+            ctaText: 'Learn More',
             ctaUrl: '#about',
             imagePosition: 'left',
             image: {
-                sourceUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop',
-                altText: 'Team working together'
+                sourceUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
+                altText: 'Team collaboration'
             }
         },
         // Testimonials Block
         {
             fieldGroupName: 'LandingSectionsTestimonials',
-            sectionTitle: 'What Our Customers Say',
-            sectionDescription: 'Real reviews from real customers who trusted us with their homes.',
+            sectionTitle: 'What People Are Saying',
+            sectionDescription: 'Feedback from teams using our landing page builder.',
             testimonials: [
                 {
-                    quote: 'The team was professional, tidy, and the results exceeded our expectations. Our living room looks brand new!',
-                    authorName: 'Sarah Mitchell'
+                    quote: 'The modular approach makes it so easy to experiment with different layouts. We can test new ideas in minutes instead of days.',
+                    authorName: 'Alex Morgan'
                 },
                 {
-                    quote: 'Best painting experience ever. They were on time, on budget, and the quality is outstanding.',
-                    authorName: 'Robert Chen'
+                    quote: 'Finally, a system that gives our marketing team independence without sacrificing code quality.',
+                    authorName: 'Jordan Lee'
                 },
                 {
-                    quote: 'We hired them for our entire exterior and they did an amazing job. Highly recommend!',
-                    authorName: 'Jessica Torres'
-                },
-                {
-                    quote: 'Professional from start to finish. The color consultation was incredibly helpful.',
-                    authorName: 'David Williams'
+                    quote: 'The design consistency across all blocks is impressive. Everything just works together seamlessly.',
+                    authorName: 'Sam Rivera'
                 }
             ]
         },
         // Photo Gallery Block
         {
             fieldGroupName: 'LandingSectionsPhotoGallery',
-            sectionTitle: 'Our Recent Projects',
-            sectionDescription: 'Browse through some of our favorite transformations.',
-            ctaText: 'Get a Quote',
-            ctaUrl: '#contact',
+            sectionTitle: 'Featured Work',
+            sectionDescription: 'Examples of landing pages built with our system.',
+            ctaText: 'View All',
+            ctaUrl: '#gallery',
             photos: [
                 {
-                    sourceUrl: 'https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?w=800',
-                    altText: 'Living room renovation'
+                    sourceUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
+                    altText: 'Dashboard design'
                 },
                 {
-                    sourceUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
-                    altText: 'Kitchen cabinets'
+                    sourceUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400',
+                    altText: 'Analytics interface'
                 },
                 {
-                    sourceUrl: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400',
-                    altText: 'Modern kitchen'
+                    sourceUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400',
+                    altText: 'Code editor'
                 },
                 {
-                    sourceUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400',
-                    altText: 'Bedroom paint'
+                    sourceUrl: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=400',
+                    altText: 'Design mockup'
                 },
                 {
-                    sourceUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400',
-                    altText: 'Exterior painting'
+                    sourceUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+                    altText: 'Mobile app'
                 }
             ]
         },
@@ -3169,50 +3172,50 @@ const demoData = {
             fieldGroupName: 'LandingSectionsAccordion',
             sectionTitle: 'Frequently Asked Questions',
             layout: 'centered',
-            ctaText: 'Still Have Questions? Contact Us',
+            ctaText: 'Still Have Questions?',
             ctaUrl: '#contact',
             items: [
                 {
-                    question: 'What areas do you serve?',
-                    answer: 'We serve the greater metropolitan area including all surrounding suburbs within a 50-mile radius of downtown.'
+                    question: 'What technologies does this use?',
+                    answer: 'Built with Next.js, React, Tailwind CSS, and WordPress with ACF for content management.'
                 },
                 {
-                    question: 'Do I need to be home during the project?',
-                    answer: 'Not necessarily. Many clients provide a key or access code. We are fully insured and our team is thoroughly vetted.'
+                    question: 'Can I use my own design system?',
+                    answer: 'Yes, the CSS is built with custom properties making it easy to adapt to your brand guidelines.'
                 },
                 {
-                    question: 'How do I prepare for the painters?',
-                    answer: 'We handle most prep work, but we ask that you move small items and valuables away from the walls. We will move larger furniture.'
+                    question: 'Is there a learning curve?',
+                    answer: 'The block system is intuitive for anyone familiar with WordPress. Most teams are productive within a few hours.'
                 },
                 {
-                    question: 'What payment methods do you accept?',
-                    answer: 'We accept all major credit cards, checks, and bank transfers. We offer financing options for larger projects.'
+                    question: 'How do updates work?',
+                    answer: 'Core blocks can be updated independently of your content, ensuring you always have the latest features.'
                 }
             ]
         },
         // Contact Form Block
         {
             fieldGroupName: 'LandingSectionsContactForm',
-            headline: 'Book Your Free Consultation',
+            headline: 'Get In Touch',
             bulletPoints: [
-                'Free on-site estimate',
-                'Color consultation included',
-                'Detailed written proposal',
-                'No obligation to proceed'
+                'Quick response time',
+                'No commitment required',
+                'Personalized guidance',
+                'Technical support included'
             ],
-            description: 'Fill out the form and one of our experts will contact you within 24 hours.',
+            description: 'Fill out the form and we will get back to you within 24 hours.',
             formMode: 'gravity',
             gravityFormId: 1
         },
         // CTA Banner Block
         {
             fieldGroupName: 'LandingSectionsCtaBanner',
-            headline: 'Ready to Transform Your Space?',
-            description: 'Get your free estimate today and see why hundreds of homeowners trust us with their homes.',
-            primaryCtaText: 'Get Free Estimate',
+            headline: 'Ready to Get Started?',
+            description: 'Join teams who are building better landing pages with our modular system.',
+            primaryCtaText: 'Start Building',
             primaryCtaUrl: '#contact',
-            secondaryCtaText: 'Call (123) 456-7890',
-            secondaryCtaUrl: 'tel:+1234567890',
+            secondaryCtaText: 'View Documentation',
+            secondaryCtaUrl: '#docs',
             backgroundColor: 'brand'
         }
     ]
@@ -3229,7 +3232,7 @@ function LandingDemoPage() {
                             className: "inline-block w-2 h-2 bg-amber-500 rounded-full animate-pulse"
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 244,
+                            lineNumber: 240,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3237,7 +3240,7 @@ function LandingDemoPage() {
                             children: "Demo Mode"
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 245,
+                            lineNumber: 241,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3245,18 +3248,18 @@ function LandingDemoPage() {
                             children: "— This page shows sample content. Connect WordPress to use real data."
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 246,
+                            lineNumber: 242,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/landing-demo/page.tsx",
-                    lineNumber: 243,
+                    lineNumber: 239,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/landing-demo/page.tsx",
-                lineNumber: 242,
+                lineNumber: 238,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$LandingPageRenderer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["LandingPageRenderer"], {
@@ -3264,13 +3267,13 @@ function LandingDemoPage() {
                 isPreview: false
             }, void 0, false, {
                 fileName: "[project]/app/landing-demo/page.tsx",
-                lineNumber: 249,
+                lineNumber: 245,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/landing-demo/page.tsx",
-        lineNumber: 241,
+        lineNumber: 237,
         columnNumber: 5
     }, this);
 }

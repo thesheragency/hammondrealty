@@ -1516,10 +1516,6 @@ body {
   display: none;
 }
 
-.aspect-\[3\/2\] {
-  aspect-ratio: 3 / 2;
-}
-
 .aspect-\[3\/4\] {
   aspect-ratio: 3 / 4;
 }
@@ -1739,10 +1735,6 @@ body {
 
 .w-20 {
   width: 5rem;
-}
-
-.w-28 {
-  width: 7rem;
 }
 
 .w-3 {
@@ -2576,10 +2568,6 @@ body {
   background-color: hsl(var(--muted-foreground) / .1);
 }
 
-.bg-muted-foreground\/20 {
-  background-color: hsl(var(--muted-foreground) / .2);
-}
-
 .bg-muted\/30 {
   background-color: hsl(var(--muted) / .3);
 }
@@ -2992,6 +2980,10 @@ body {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .lowercase {
@@ -5172,12 +5164,16 @@ body {
     order: 2;
   }
 
-  .lg\:h-10 {
-    height: 2.5rem;
+  .lg\:row-span-2 {
+    grid-row: span 2 / span 2;
   }
 
-  .lg\:w-40 {
-    width: 10rem;
+  .lg\:aspect-auto {
+    aspect-ratio: auto;
+  }
+
+  .lg\:h-10 {
+    height: 2.5rem;
   }
 
   .lg\:w-\[360px\] {
@@ -5232,13 +5228,14 @@ body {
     gap: 2rem;
   }
 
-  .lg\:gap-9 {
-    gap: 2.25rem;
-  }
-
   .lg\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .lg\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .lg\:py-24 {
@@ -5258,12 +5255,6 @@ body {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

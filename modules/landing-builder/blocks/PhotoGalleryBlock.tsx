@@ -56,10 +56,10 @@ export function PhotoGalleryBlock({ block }: Props) {
           </div>
         </div>
 
-        {/* Photo Grid */}
-        <div className="grid lg:grid-cols-2 gap-10 mb-12">
-          {/* Large photo - 3:2 aspect ratio */}
-          <div className="aspect-[3/2] overflow-hidden rounded-xl">
+        {/* Photo Grid - 2 columns with matched heights */}
+        <div className="grid lg:grid-cols-2 gap-6 mb-12">
+          {/* Large photo - fills left column */}
+          <div className="aspect-square lg:aspect-auto lg:row-span-2 overflow-hidden rounded-xl">
             <img
               src={mainPhoto.sourceUrl}
               alt={mainPhoto.altText || 'Gallery photo'}
@@ -68,10 +68,10 @@ export function PhotoGalleryBlock({ block }: Props) {
             />
           </div>
 
-          {/* 2x2 Grid - 3:2 aspect ratio per image */}
+          {/* 2x2 Grid - matches height of main photo */}
           <div className="grid grid-cols-2 gap-6">
             {gridPhotos.map((photo, index) => (
-              <div key={index} className="aspect-[3/2] overflow-hidden rounded-xl">
+              <div key={index} className="aspect-[4/3] overflow-hidden rounded-xl">
                 <img
                   src={photo.sourceUrl}
                   alt={photo.altText || `Gallery photo ${index + 2}`}

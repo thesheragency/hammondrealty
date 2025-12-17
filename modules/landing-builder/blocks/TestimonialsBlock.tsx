@@ -39,8 +39,8 @@ export function TestimonialsBlock({ block }: Props) {
           </div>
         )}
 
-        {/* Testimonials Grid - 3 columns on large screens */}
-        <div className="grid gap-8 lg:gap-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {/* Testimonials Grid - max 3 columns */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
