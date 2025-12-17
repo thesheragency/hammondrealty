@@ -3015,23 +3015,43 @@ const demoData = {
             services: [
                 {
                     title: 'Interior Painting',
-                    linkUrl: '#interior'
+                    linkUrl: '#interior',
+                    image: {
+                        sourceUrl: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&h=800&fit=crop',
+                        altText: 'Interior painting'
+                    }
                 },
                 {
                     title: 'Exterior Painting',
-                    linkUrl: '#exterior'
+                    linkUrl: '#exterior',
+                    image: {
+                        sourceUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop',
+                        altText: 'Exterior painting'
+                    }
                 },
                 {
                     title: 'Cabinet Refinishing',
-                    linkUrl: '#cabinets'
+                    linkUrl: '#cabinets',
+                    image: {
+                        sourceUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=800&fit=crop',
+                        altText: 'Cabinet refinishing'
+                    }
                 },
                 {
                     title: 'Deck Staining',
-                    linkUrl: '#deck'
+                    linkUrl: '#deck',
+                    image: {
+                        sourceUrl: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&h=800&fit=crop',
+                        altText: 'Deck staining'
+                    }
                 },
                 {
                     title: 'Commercial',
-                    linkUrl: '#commercial'
+                    linkUrl: '#commercial',
+                    image: {
+                        sourceUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=800&fit=crop',
+                        altText: 'Commercial painting'
+                    }
                 }
             ]
         },
@@ -3048,7 +3068,11 @@ const demoData = {
             ctaText: 'Schedule Your Consultation',
             ctaUrl: '#contact',
             secondaryCtaText: 'Call Now',
-            secondaryCtaUrl: 'tel:+1234567890'
+            secondaryCtaUrl: 'tel:+1234567890',
+            videoThumbnail: {
+                sourceUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=450&fit=crop',
+                altText: 'Video thumbnail - painting process'
+            }
         },
         // Values Block (3 Column)
         {
@@ -3080,7 +3104,11 @@ const demoData = {
             description: 'For over 15 years, we have been serving our local community with pride. What started as a small family operation has grown into one of the most trusted painting companies in the region. Our values remain the same: honest work, fair prices, and treating every home like our own.',
             ctaText: 'Learn Our Story',
             ctaUrl: '#about',
-            imagePosition: 'left'
+            imagePosition: 'left',
+            image: {
+                sourceUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop',
+                altText: 'Team working together'
+            }
         },
         // Testimonials Block
         {
@@ -3201,7 +3229,7 @@ function LandingDemoPage() {
                             className: "inline-block w-2 h-2 bg-amber-500 rounded-full animate-pulse"
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 236,
+                            lineNumber: 244,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3209,7 +3237,7 @@ function LandingDemoPage() {
                             children: "Demo Mode"
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 237,
+                            lineNumber: 245,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3217,18 +3245,18 @@ function LandingDemoPage() {
                             children: "— This page shows sample content. Connect WordPress to use real data."
                         }, void 0, false, {
                             fileName: "[project]/app/landing-demo/page.tsx",
-                            lineNumber: 238,
+                            lineNumber: 246,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/landing-demo/page.tsx",
-                    lineNumber: 235,
+                    lineNumber: 243,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/landing-demo/page.tsx",
-                lineNumber: 234,
+                lineNumber: 242,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$LandingPageRenderer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["LandingPageRenderer"], {
@@ -3236,13 +3264,13 @@ function LandingDemoPage() {
                 isPreview: false
             }, void 0, false, {
                 fileName: "[project]/app/landing-demo/page.tsx",
-                lineNumber: 241,
+                lineNumber: 249,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/landing-demo/page.tsx",
-        lineNumber: 233,
+        lineNumber: 241,
         columnNumber: 5
     }, this);
 }

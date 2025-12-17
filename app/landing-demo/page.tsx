@@ -73,11 +73,11 @@ const demoData: LandingPageData = {
       customQuoteText: "Don't See What You're Looking for?",
       customQuoteUrl: '#contact',
       services: [
-        { title: 'Interior Painting', linkUrl: '#interior' },
-        { title: 'Exterior Painting', linkUrl: '#exterior' },
-        { title: 'Cabinet Refinishing', linkUrl: '#cabinets' },
-        { title: 'Deck Staining', linkUrl: '#deck' },
-        { title: 'Commercial', linkUrl: '#commercial' },
+        { title: 'Interior Painting', linkUrl: '#interior', image: { sourceUrl: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&h=800&fit=crop', altText: 'Interior painting' } },
+        { title: 'Exterior Painting', linkUrl: '#exterior', image: { sourceUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop', altText: 'Exterior painting' } },
+        { title: 'Cabinet Refinishing', linkUrl: '#cabinets', image: { sourceUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=800&fit=crop', altText: 'Cabinet refinishing' } },
+        { title: 'Deck Staining', linkUrl: '#deck', image: { sourceUrl: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&h=800&fit=crop', altText: 'Deck staining' } },
+        { title: 'Commercial', linkUrl: '#commercial', image: { sourceUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=800&fit=crop', altText: 'Commercial painting' } },
       ],
     },
 
@@ -95,6 +95,10 @@ const demoData: LandingPageData = {
       ctaUrl: '#contact',
       secondaryCtaText: 'Call Now',
       secondaryCtaUrl: 'tel:+1234567890',
+      videoThumbnail: {
+        sourceUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=450&fit=crop',
+        altText: 'Video thumbnail - painting process',
+      },
     },
 
     // Values Block (3 Column)
@@ -129,6 +133,10 @@ const demoData: LandingPageData = {
       ctaText: 'Learn Our Story',
       ctaUrl: '#about',
       imagePosition: 'left',
+      image: {
+        sourceUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop',
+        altText: 'Team working together',
+      },
     },
 
     // Testimonials Block
