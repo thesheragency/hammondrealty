@@ -1,11 +1,73 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { draftMode } from 'next/headers';
+import { isValidPostType, buildPreviewPath } from '@/lib/config/post-types';
+
+/**
+ * Validate and sanitize a slug to prevent security issues
+ * - Decodes URL encoding to catch encoded attacks
+ * - Rejects path traversal attempts (.., backslashes)
+ * - Rejects protocol handlers and special characters
+ * - Only allows alphanumeric, hyphens, and underscores
+ */
+function sanitizeSlug(slug: string): string | null {
+  if (!slug) return null;
+  
+  // Decode URL encoding to catch encoded attacks like %2e%2e
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(slug);
+  } catch {
+    // Invalid encoding
+    return null;
+  }
+  
+  // Reject path traversal patterns
+  if (decoded.includes('..') || decoded.includes('\\') || decoded.includes('//')) {
+    return null;
+  }
+  
+  // Reject protocol handlers and special patterns
+  if (decoded.includes('://') || decoded.includes(':')) {
+    return null;
+  }
+  
+  // Reject control characters and null bytes
+  if (/[\x00-\x1f\x7f]/.test(decoded)) {
+    return null;
+  }
+  
+  // Remove leading/trailing slashes and whitespace
+  const cleaned = decoded.replace(/^\/+|\/+$/g, '').trim();
+  
+  // Validate slug format: only alphanumeric, hyphens, underscores
+  // WordPress slugs follow this pattern
+  if (!/^[a-zA-Z0-9_-]+$/.test(cleaned)) {
+    return null;
+  }
+  
+  return cleaned;
+}
+
+/**
+ * Validate post type against allowlist
+ * Only alphanumeric and underscores allowed (WordPress post type format)
+ */
+function sanitizeType(type: string): string | null {
+  if (!type) return null;
+  
+  // WordPress post types are lowercase alphanumeric with underscores
+  if (!/^[a-z0-9_]+$/.test(type)) {
+    return null;
+  }
+  
+  return type;
+}
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const secret = searchParams.get('secret');
   const slug = searchParams.get('slug');
-  const id = searchParams.get('id'); // WordPress post ID for draft content
+  const id = searchParams.get('id');
   const type = searchParams.get('type') || 'post';
 
   // Validate the preview secret
@@ -24,10 +86,27 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Sanitize slug to prevent open redirect attacks
-  // WordPress slugs should never start with / or contain ://
-  const sanitizedSlug = slug ? slug.replace(/^\/+/, '').replace(/[:]/g, '') : '';
-  if (sanitizedSlug && (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/'))) {
+  // Sanitize and validate the type parameter
+  const sanitizedType = sanitizeType(type);
+  if (!sanitizedType) {
+    return NextResponse.json(
+      { error: 'Invalid type format' },
+      { status: 400 }
+    );
+  }
+
+  // Validate type against registered post types
+  if (!isValidPostType(sanitizedType)) {
+    console.warn(`[Preview] Unregistered post type requested: ${sanitizedType}`);
+    return NextResponse.json(
+      { error: `Post type '${sanitizedType}' is not registered. Add it to lib/config/post-types.ts` },
+      { status: 400 }
+    );
+  }
+
+  // Sanitize slug if provided
+  const sanitizedSlug = slug ? sanitizeSlug(slug) : null;
+  if (slug && !sanitizedSlug) {
     return NextResponse.json(
       { error: 'Invalid slug format' },
       { status: 400 }
@@ -46,18 +125,15 @@ export async function GET(request: NextRequest) {
   const draft = await draftMode();
   draft.enable();
 
-  // Redirect to the appropriate path based on content type
-  // For drafts, we use the slug for the URL but pass ID as a query param for fetching
+  // Build the redirect path using the post type configuration
   const pathSlug = sanitizedSlug || `preview-${id}`;
-  let redirectPath: string;
+  const redirectPath = buildPreviewPath(sanitizedType, pathSlug);
   
-  if (type === 'post') {
-    redirectPath = `/blog/${pathSlug}`;
-  } else if (type === 'page') {
-    redirectPath = `/${pathSlug}`;
-  } else {
-    // For custom post types, use the type as the path prefix
-    redirectPath = `/${type}/${pathSlug}`;
+  if (!redirectPath) {
+    return NextResponse.json(
+      { error: 'Failed to build preview path' },
+      { status: 500 }
+    );
   }
 
   // Get the actual host from headers (handles proxied environments like Replit)
@@ -68,10 +144,14 @@ export async function GET(request: NextRequest) {
   const redirectUrl = new URL(redirectPath, baseUrl);
   
   // Pass the WordPress post ID as a query parameter for draft content fetching
-  // This is needed because drafts may not have a proper slug yet
   if (id) {
     redirectUrl.searchParams.set('previewId', id);
   }
+  
+  // Pass the type for the catch-all route to know which fetcher to use
+  redirectUrl.searchParams.set('type', sanitizedType);
 
+  console.log(`[Preview] Redirecting to: ${redirectUrl.pathname}${redirectUrl.search}`);
+  
   return NextResponse.redirect(redirectUrl);
 }
