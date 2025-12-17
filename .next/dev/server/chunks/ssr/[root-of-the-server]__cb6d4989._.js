@@ -206,784 +206,6 @@ function Layout({ children, isPreview = false }) {
     }, this);
 }
 }),
-"[project]/lib/wordpress.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "checkWordPressConnection",
-    ()=>checkWordPressConnection,
-    "clearWordPressSessionCache",
-    ()=>clearWordPressSessionCache,
-    "fetchAcfGlobalScripts",
-    ()=>fetchAcfGlobalScripts,
-    "fetchPagePreview",
-    ()=>fetchPagePreview,
-    "fetchPagePreviewById",
-    ()=>fetchPagePreviewById,
-    "fetchPages",
-    ()=>fetchPages,
-    "fetchPostBySlug",
-    ()=>fetchPostBySlug,
-    "fetchPostPreview",
-    ()=>fetchPostPreview,
-    "fetchPostPreviewById",
-    ()=>fetchPostPreviewById,
-    "fetchPostPreviewBySlug",
-    ()=>fetchPostPreviewBySlug,
-    "fetchPosts",
-    ()=>fetchPosts,
-    "fetchRedirects",
-    ()=>fetchRedirects,
-    "transformPage",
-    ()=>transformPage,
-    "transformPost",
-    ()=>transformPost
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$entrypoints$2f$main$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/entrypoints/main.js [app-rsc] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/classes/GraphQLClient.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/functions/gql.js [app-rsc] (ecmascript)");
-;
-let wpSessionCache = null;
-// Mutex to prevent multiple simultaneous login attempts
-// When Next.js renders a page, it runs generateMetadata and page component in parallel
-// Without this lock, both would try to login simultaneously and one might fail
-let loginInProgress = null;
-// Session cache duration: 30 minutes (WordPress session is typically longer, but we refresh early)
-const SESSION_CACHE_DURATION_MS = 30 * 60 * 1000;
-/**
- * Authenticates with WordPress via /wp-login.php to get session cookies
- * This is needed because:
- * 1. The staging site has HTTP Basic Auth at nginx level (WP_AUTH_USER/WP_AUTH_PASSWORD)
- * 2. WordPress needs separate authentication for draft content access
- * 3. Since both use Basic Auth and we can only send one Authorization header,
- *    we log in via /wp-login.php to get session cookies, then use cookies + staging Basic Auth
- */ async function getWordPressSessionCookies() {
-    // Check cache first
-    if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
-        console.log('[Preview Auth] Using cached session cookies');
-        return wpSessionCache.cookies;
-    }
-    // If a login is already in progress, wait for it instead of starting another
-    if (loginInProgress) {
-        console.log('[Preview Auth] Login already in progress, waiting...');
-        return loginInProgress;
-    }
-    // Start login and store the promise so other callers can wait
-    loginInProgress = performWordPressLogin();
-    try {
-        const result = await loginInProgress;
-        return result;
-    } finally{
-        // Clear the in-progress flag when done
-        loginInProgress = null;
-    }
-}
-/**
- * Performs the actual WordPress login
- * This is separated from getWordPressSessionCookies to allow for mutex handling
- */ async function performWordPressLogin() {
-    // Double-check cache (another request might have populated it while we were waiting)
-    if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
-        console.log('[Preview Auth] Using cached session cookies (after lock)');
-        return wpSessionCache.cookies;
-    }
-    const wpApiUrl = process.env.WP_API_URL;
-    const previewUser = process.env.preview_user_un;
-    const previewPass = process.env.preview_user_pass;
-    if (!wpApiUrl || !previewUser || !previewPass) {
-        console.warn('[Preview Auth] Missing required credentials: WP_API_URL, preview_user_un, or preview_user_pass');
-        return null;
-    }
-    // Get WordPress base URL (without /graphql)
-    const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
-    const loginUrl = `${wpBaseUrl}/wp-login.php`;
-    console.log('[Preview Auth] Authenticating with WordPress via /wp-login.php');
-    try {
-        // Build headers with staging Basic Auth to pass nginx
-        const headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
-        if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-            const stagingCredentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-            headers['Authorization'] = `Basic ${stagingCredentials}`;
-        }
-        // POST login form data
-        const formData = new URLSearchParams({
-            log: previewUser,
-            pwd: previewPass,
-            'wp-submit': 'Log In',
-            redirect_to: `${wpBaseUrl}/wp-admin/`,
-            testcookie: '1'
-        });
-        const response = await fetch(loginUrl, {
-            method: 'POST',
-            headers,
-            body: formData.toString(),
-            redirect: 'manual'
-        });
-        // Extract Set-Cookie headers
-        const setCookieHeaders = response.headers.getSetCookie?.() || [];
-        if (setCookieHeaders.length === 0) {
-            // Fallback for environments where getSetCookie isn't available
-            const rawCookies = response.headers.get('set-cookie');
-            if (rawCookies) {
-                setCookieHeaders.push(...rawCookies.split(/,(?=\s*\w+=)/));
-            }
-        }
-        // Filter for WordPress auth cookies (excluding test cookie) and extract cookie values
-        const authCookies = setCookieHeaders.filter((cookie)=>(cookie.includes('wordpress_logged_in_') || cookie.includes('wordpress_sec_')) && !cookie.includes('wordpress_test_cookie')).map((cookie)=>cookie.split(';')[0]) // Get just the cookie=value part
-        .filter((cookie)=>cookie.length > 0);
-        if (authCookies.length === 0) {
-            console.error('[Preview Auth] Login failed - no auth cookies received. Check preview_user_un and preview_user_pass credentials.');
-            console.log('[Preview Auth] Response status:', response.status);
-            console.log('[Preview Auth] Received cookies:', setCookieHeaders.map((c)=>c.split('=')[0]).join(', '));
-            return null;
-        }
-        const wpCookies = authCookies.join('; ');
-        console.log('[Preview Auth] Successfully authenticated, got session cookies');
-        // Cache the session cookies
-        wpSessionCache = {
-            cookies: wpCookies,
-            expiresAt: Date.now() + SESSION_CACHE_DURATION_MS
-        };
-        return wpCookies;
-    } catch (error) {
-        console.error('[Preview Auth] Error authenticating with WordPress:', error);
-        return null;
-    }
-}
-function clearWordPressSessionCache() {
-    wpSessionCache = null;
-    console.log('[Preview Auth] Session cache cleared');
-}
-// WordPress GraphQL client configuration
-const getWpClient = (authToken)=>{
-    const wpApiUrl = process.env.WP_API_URL;
-    if (!wpApiUrl) {
-        throw new Error('WP_API_URL environment variable is not set');
-    }
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    // Add Basic Auth if credentials are provided (for staging gate)
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        headers['Authorization'] = `Basic ${credentials}`;
-    }
-    // Override with preview token if provided
-    if (authToken) {
-        headers['Authorization'] = `Bearer ${authToken}`;
-    }
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
-        headers
-    });
-};
-// WordPress GraphQL client for preview/draft requests with WordPress user authentication
-// Uses cookie-based auth to work with staging sites that have nginx Basic Auth
-async function getPreviewClient() {
-    const wpApiUrl = process.env.WP_API_URL;
-    if (!wpApiUrl) {
-        throw new Error('WP_API_URL environment variable is not set');
-    }
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    // Add staging Basic Auth to pass nginx gate
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-        const stagingCredentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        headers['Authorization'] = `Basic ${stagingCredentials}`;
-    }
-    // Get WordPress session cookies for draft content access
-    // This is the key to the dual-auth problem:
-    // - Basic Auth header passes nginx staging gate
-    // - Cookie header authenticates to WordPress for draft access
-    const sessionCookies = await getWordPressSessionCookies();
-    if (sessionCookies) {
-        headers['Cookie'] = sessionCookies;
-        console.log('[Preview] Using session cookie authentication');
-    } else {
-        console.warn('[Preview] No session cookies available - draft content may not be accessible');
-    }
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$classes$2f$GraphQLClient$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GraphQLClient"](wpApiUrl, {
-        headers
-    });
-}
-// GraphQL fragments for reusable queries
-// Note: twitterCardType may not be available in all versions of WPGraphQL Yoast SEO
-const SEO_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  fragment SeoFields on PostTypeSEO {
-    title
-    metaDesc
-    canonical
-    opengraphTitle
-    opengraphDescription
-    opengraphImage {
-      sourceUrl
-    }
-    opengraphType
-    opengraphUrl
-    opengraphSiteName
-    twitterTitle
-    twitterDescription
-    twitterImage {
-      sourceUrl
-    }
-  }
-`;
-const FEATURED_IMAGE_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  fragment FeaturedImageFields on MediaItem {
-    sourceUrl
-    altText
-    mediaDetails {
-      width
-      height
-    }
-  }
-`;
-const TAXONOMY_FRAGMENT = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  fragment TaxonomyFields on TermNode {
-    databaseId
-    name
-    slug
-    description
-    count
-  }
-`;
-// Query for fetching all posts (WordPress default post type)
-const GET_POSTS_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  ${FEATURED_IMAGE_FRAGMENT}
-  ${TAXONOMY_FRAGMENT}
-  query GetPosts($first: Int = 100, $after: String) {
-    posts(first: $first, after: $after, where: { status: PUBLISH }) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        databaseId
-        slug
-        title
-        content
-        excerpt
-        status
-        date
-        modified
-        author {
-          node {
-            name
-          }
-        }
-        featuredImage {
-          node {
-            ...FeaturedImageFields
-          }
-        }
-        categories {
-          nodes {
-            ...TaxonomyFields
-          }
-        }
-        tags {
-          nodes {
-            ...TaxonomyFields
-          }
-        }
-        seo {
-          ...SeoFields
-        }
-      }
-    }
-  }
-`;
-// Query for fetching a single post by slug
-const GET_POST_BY_SLUG_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  ${FEATURED_IMAGE_FRAGMENT}
-  ${TAXONOMY_FRAGMENT}
-  query GetPostBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      databaseId
-      slug
-      title
-      content
-      excerpt
-      status
-      date
-      modified
-      author {
-        node {
-          name
-        }
-      }
-      featuredImage {
-        node {
-          ...FeaturedImageFields
-        }
-      }
-      categories {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      tags {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      seo {
-        ...SeoFields
-      }
-    }
-  }
-`;
-// Query for preview (draft) content by DATABASE_ID
-const GET_POST_PREVIEW_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  ${FEATURED_IMAGE_FRAGMENT}
-  ${TAXONOMY_FRAGMENT}
-  query GetPostPreview($id: ID!) {
-    post(id: $id, idType: DATABASE_ID, asPreview: true) {
-      databaseId
-      slug
-      title
-      content
-      excerpt
-      status
-      date
-      modified
-      author {
-        node {
-          name
-        }
-      }
-      featuredImage {
-        node {
-          ...FeaturedImageFields
-        }
-      }
-      categories {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      tags {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      seo {
-        ...SeoFields
-      }
-    }
-  }
-`;
-// Query for preview (draft) content by SLUG - used when Draft Mode is enabled
-const GET_POST_PREVIEW_BY_SLUG_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  ${FEATURED_IMAGE_FRAGMENT}
-  ${TAXONOMY_FRAGMENT}
-  query GetPostPreviewBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG, asPreview: true) {
-      databaseId
-      slug
-      title
-      content
-      excerpt
-      status
-      date
-      modified
-      author {
-        node {
-          name
-        }
-      }
-      featuredImage {
-        node {
-          ...FeaturedImageFields
-        }
-      }
-      categories {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      tags {
-        nodes {
-          ...TaxonomyFields
-        }
-      }
-      seo {
-        ...SeoFields
-      }
-    }
-  }
-`;
-// Query for pages
-const GET_PAGES_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  query GetPages($first: Int = 100) {
-    pages(first: $first, where: { status: PUBLISH }) {
-      nodes {
-        databaseId
-        slug
-        title
-        content
-        status
-        modified
-        seo {
-          ...SeoFields
-        }
-      }
-    }
-  }
-`;
-// Query for page preview
-const GET_PAGE_PREVIEW_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  ${SEO_FRAGMENT}
-  query GetPagePreview($id: ID!) {
-    page(id: $id, idType: DATABASE_ID, asPreview: true) {
-      databaseId
-      slug
-      title
-      content
-      status
-      modified
-      seo {
-        ...SeoFields
-      }
-    }
-  }
-`;
-// Query for Yoast redirects (requires Yoast SEO Premium with WPGraphQL extension)
-const GET_REDIRECTS_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  query GetRedirects {
-    seo {
-      redirects {
-        origin
-        target
-        type
-        format
-      }
-    }
-  }
-`;
-// Query for ACF Global Scripts (requires WPGraphQL for ACF plugin)
-// These fields should be registered in ACF Options page with field names:
-// - global_head_scripts
-// - global_body_scripts
-// Note: The query field name is based on your ACF Options Page name (e.g., "SherOptions" -> "sherOptions")
-// Update this query if your Options Page has a different name
-const GET_ACF_OPTIONS_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-  query GetAcfOptions {
-    sherOptions {
-      globalScripts {
-        globalHeadScripts
-        globalBodyScripts
-      }
-    }
-  }
-`;
-// Transform WordPress SEO data to our schema format
-const transformSeoData = (seo)=>{
-    if (!seo) return undefined;
-    return {
-        title: seo.title,
-        metaDesc: seo.metaDesc,
-        canonical: seo.canonical,
-        opengraphTitle: seo.opengraphTitle,
-        opengraphDescription: seo.opengraphDescription,
-        opengraphImage: seo.opengraphImage?.sourceUrl,
-        opengraphType: seo.opengraphType,
-        opengraphUrl: seo.opengraphUrl,
-        opengraphSiteName: seo.opengraphSiteName,
-        twitterTitle: seo.twitterTitle,
-        twitterDescription: seo.twitterDescription,
-        twitterImage: seo.twitterImage?.sourceUrl
-    };
-};
-// Transform taxonomy terms to our schema format
-const transformTaxonomyTerms = (terms)=>{
-    if (!terms || terms.length === 0) return null;
-    return terms.map((term)=>({
-            id: term.databaseId,
-            name: term.name,
-            slug: term.slug,
-            description: term.description,
-            count: term.count
-        }));
-};
-const transformPost = (post)=>{
-    const featuredImage = post.featuredImage?.node;
-    return {
-        wpId: post.databaseId,
-        slug: post.slug,
-        title: post.title,
-        content: post.content,
-        excerpt: post.excerpt,
-        status: post.status.toLowerCase(),
-        author: post.author?.node?.name || null,
-        publishedAt: post.date ? new Date(post.date) : null,
-        featuredImage: featuredImage?.sourceUrl || null,
-        featuredImageAlt: featuredImage?.altText || null,
-        categories: transformTaxonomyTerms(post.categories?.nodes),
-        tags: transformTaxonomyTerms(post.tags?.nodes),
-        seoMetadata: transformSeoData(post.seo),
-        isFeatured: false,
-        wpModified: post.modified ? new Date(post.modified) : null
-    };
-};
-const transformPage = (page)=>{
-    return {
-        wpId: page.databaseId,
-        slug: page.slug,
-        title: page.title,
-        content: page.content,
-        status: page.status.toLowerCase(),
-        seoMetadata: transformSeoData(page.seo),
-        wpModified: page.modified ? new Date(page.modified) : null
-    };
-};
-async function fetchPosts() {
-    const client = getWpClient();
-    const allPosts = [];
-    let hasNextPage = true;
-    let after = null;
-    while(hasNextPage){
-        try {
-            const response = await client.request(GET_POSTS_QUERY, {
-                first: 100,
-                after
-            });
-            allPosts.push(...response.posts.nodes);
-            hasNextPage = response.posts.pageInfo.hasNextPage;
-            after = response.posts.pageInfo.endCursor;
-        } catch (error) {
-            console.error('Error fetching posts from WordPress:', error);
-            throw error;
-        }
-    }
-    return allPosts.map(transformPost);
-}
-async function fetchPostBySlug(slug) {
-    const client = getWpClient();
-    try {
-        const response = await client.request(GET_POST_BY_SLUG_QUERY, {
-            slug
-        });
-        if (!response.post) return null;
-        return transformPost(response.post);
-    } catch (error) {
-        console.error('Error fetching post by slug:', error);
-        throw error;
-    }
-}
-async function fetchPostPreview(id, authToken) {
-    const client = getWpClient(authToken);
-    try {
-        const response = await client.request(GET_POST_PREVIEW_QUERY, {
-            id: id.toString()
-        });
-        if (!response.post) return null;
-        return transformPost(response.post);
-    } catch (error) {
-        console.error('Error fetching post preview:', error);
-        throw error;
-    }
-}
-async function fetchPostPreviewBySlug(slug) {
-    console.log('[Preview] Fetching post preview by slug:', slug);
-    console.log('[Preview] Using credentials:', process.env.preview_user_un ? 'PREVIEW_USER set' : 'PREVIEW_USER not set');
-    try {
-        // Get preview client with session cookies (async because it may need to authenticate)
-        const client = await getPreviewClient();
-        const response = await client.request(GET_POST_PREVIEW_BY_SLUG_QUERY, {
-            slug
-        });
-        console.log('[Preview] Response:', response.post ? 'Post found' : 'Post NOT found');
-        if (!response.post) return null;
-        return transformPost(response.post);
-    } catch (error) {
-        console.error('[Preview] Error fetching post preview by slug:', error);
-        throw error;
-    }
-}
-async function fetchPostPreviewById(id) {
-    console.log('[Preview] Fetching post preview by ID:', id);
-    try {
-        // Get preview client with session cookies (async because it may need to authenticate)
-        const client = await getPreviewClient();
-        const response = await client.request(GET_POST_PREVIEW_QUERY, {
-            id: id.toString()
-        });
-        console.log('[Preview] Response by ID:', response.post ? 'Post found' : 'Post NOT found');
-        if (!response.post) return null;
-        return transformPost(response.post);
-    } catch (error) {
-        console.error('[Preview] Error fetching post preview by ID:', error);
-        throw error;
-    }
-}
-async function fetchPages() {
-    const client = getWpClient();
-    try {
-        const response = await client.request(GET_PAGES_QUERY);
-        return response.pages.nodes.map(transformPage);
-    } catch (error) {
-        console.error('Error fetching pages from WordPress:', error);
-        throw error;
-    }
-}
-async function fetchPagePreview(id, authToken) {
-    const client = getWpClient(authToken);
-    try {
-        const response = await client.request(GET_PAGE_PREVIEW_QUERY, {
-            id: id.toString()
-        });
-        if (!response.page) return null;
-        return transformPage(response.page);
-    } catch (error) {
-        console.error('Error fetching page preview:', error);
-        throw error;
-    }
-}
-async function fetchPagePreviewById(id) {
-    console.log('[Preview] Fetching page preview by ID:', id);
-    try {
-        // Get preview client with session cookies (async because it may need to authenticate)
-        const client = await getPreviewClient();
-        const response = await client.request(GET_PAGE_PREVIEW_QUERY, {
-            id: id.toString()
-        });
-        console.log('[Preview] Page response by ID:', response.page ? 'Page found' : 'Page NOT found');
-        if (!response.page) return null;
-        return transformPage(response.page);
-    } catch (error) {
-        console.error('[Preview] Error fetching page preview by ID:', error);
-        throw error;
-    }
-}
-async function fetchRedirects() {
-    const wpApiUrl = process.env.WP_API_URL;
-    if (!wpApiUrl) {
-        console.warn('WP_API_URL not set, cannot fetch redirects');
-        return [];
-    }
-    // Get WordPress base URL (without /graphql)
-    const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
-    const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
-    try {
-        // Build request headers with authentication
-        const headers = {
-            'Content-Type': 'application/json'
-        };
-        if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-            const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-            headers['Authorization'] = `Basic ${credentials}`;
-        }
-        const response = await fetch(redirectsEndpoint, {
-            headers
-        });
-        if (!response.ok) {
-            console.warn(`Redirects API returned ${response.status} - mu-plugin may not be installed (see wordpress-plugins/headless-redirects-api.php)`);
-            return [];
-        }
-        const data = await response.json();
-        // Redirection plugin returns { items: [...] } with each item having:
-        // url: source URL, action_data: { url: target }, action_code: redirect type (301, 302, etc.)
-        const items = data.items || [];
-        return items.filter((r)=>r.enabled).map((r)=>({
-                origin: r.url.startsWith('/') ? r.url : `/${r.url}`,
-                target: r.action_data?.url || '/',
-                type: r.action_code || 301,
-                format: 'plain'
-            }));
-    } catch (error) {
-        console.warn('Could not fetch redirects from Redirection plugin:', error);
-        return [];
-    }
-}
-async function fetchAcfGlobalScripts() {
-    const client = getWpClient();
-    try {
-        const response = await client.request(GET_ACF_OPTIONS_QUERY);
-        const globalScripts = response.sherOptions?.globalScripts;
-        return {
-            headScripts: globalScripts?.globalHeadScripts || null,
-            bodyScripts: globalScripts?.globalBodyScripts || null
-        };
-    } catch (error) {
-        // ACF Options may not be configured, return empty
-        console.warn('Could not fetch ACF global scripts (ACF Options may not be configured):', error);
-        return {
-            headScripts: null,
-            bodyScripts: null
-        };
-    }
-}
-async function checkWordPressConnection() {
-    try {
-        const client = getWpClient();
-        await client.request(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
-      query HealthCheck {
-        generalSettings {
-          title
-        }
-      }
-    `);
-        return true;
-    } catch (error) {
-        console.error('WordPress connection check failed:', error);
-        return false;
-    }
-}
-}),
-"[project]/lib/config/features.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-/**
- * Feature Flags Configuration
- * 
- * Toggle features on/off for the boilerplate.
- * Set via environment variables or defaults here.
- */ __turbopack_context__.s([
-    "FEATURES",
-    ()=>FEATURES,
-    "getLandingTemplateName",
-    ()=>getLandingTemplateName,
-    "isLandingBuilderEnabled",
-    ()=>isLandingBuilderEnabled
-]);
-const FEATURES = {
-    /**
-   * Landing Page Builder
-   * 
-   * When enabled, pages with the "Landing Page" template in WordPress
-   * will be rendered using the ACF Flexible Content block system
-   * instead of the standard page template.
-   * 
-   * Requirements:
-   * - WordPress: "Landing Page" page template registered
-   * - WordPress: ACF Flexible Content field group attached to the template
-   * - WordPress: WPGraphQL for ACF plugin installed and configured
-   * 
-   * Set FEATURE_LANDING_BUILDER=false to disable
-   */ LANDING_BUILDER: process.env.FEATURE_LANDING_BUILDER !== 'false',
-    /**
-   * Landing Page Template Name
-   * 
-   * The exact template name as it appears in WordPress.
-   * This must match the template filename (without .php) or the
-   * Template Name defined in the template file header.
-   */ LANDING_TEMPLATE_NAME: process.env.LANDING_TEMPLATE_NAME || 'template-landing-page'
-};
-function isLandingBuilderEnabled() {
-    return FEATURES.LANDING_BUILDER;
-}
-function getLandingTemplateName() {
-    return FEATURES.LANDING_TEMPLATE_NAME;
-}
-}),
 "[project]/lib/utils.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1318,91 +540,6 @@ function HeroBlock({ block }) {
     }, this);
 }
 }),
-"[project]/components/ui/card.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "Card",
-    ()=>Card,
-    "CardContent",
-    ()=>CardContent,
-    "CardDescription",
-    ()=>CardDescription,
-    "CardFooter",
-    ()=>CardFooter,
-    "CardHeader",
-    ()=>CardHeader,
-    "CardTitle",
-    ()=>CardTitle
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.ts [app-rsc] (ecmascript)");
-;
-;
-;
-const Card = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("shadcn-card rounded-xl border bg-card border-card-border text-card-foreground shadow-sm", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 9,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-Card.displayName = "Card";
-const CardHeader = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("flex flex-col space-y-1.5 p-6", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 24,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-CardHeader.displayName = "CardHeader";
-const CardTitle = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("text-2xl font-semibold leading-none tracking-tight", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 36,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-CardTitle.displayName = "CardTitle";
-const CardDescription = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("text-sm text-muted-foreground", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 51,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-CardDescription.displayName = "CardDescription";
-const CardContent = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("p-6 pt-0", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 63,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-CardContent.displayName = "CardContent";
-const CardFooter = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["forwardRef"](({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cn"])("flex items-center p-6 pt-0", className),
-        ...props
-    }, void 0, false, {
-        fileName: "[project]/components/ui/card.tsx",
-        lineNumber: 71,
-        columnNumber: 3
-    }, ("TURBOPACK compile-time value", void 0)));
-CardFooter.displayName = "CardFooter";
-;
-}),
 "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1410,19 +547,18 @@ CardFooter.displayName = "CardFooter";
  * Feature Grid Block
  * 
  * Grid of feature cards with icons, titles, and descriptions.
+ * Features hover effects, gradient accents, and responsive layouts.
  */ __turbopack_context__.s([
     "FeatureGridBlock",
     ()=>FeatureGridBlock
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/card.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$lucide$2d$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/lucide-react.js [app-rsc] (ecmascript)");
-;
 ;
 ;
 const bgColorClasses = {
     default: 'bg-background',
-    muted: 'bg-muted',
+    muted: 'bg-muted/50',
     card: 'bg-card'
 };
 const columnClasses = {
@@ -1446,16 +582,16 @@ function FeatureGridBlock({ block }) {
     const columns = block.columns || '3';
     const features = block.features || [];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-16 md:py-24 ${bgColorClasses[bgColor]}`,
+        className: `py-20 md:py-28 ${bgColorClasses[bgColor]}`,
         "data-testid": "block-feature-grid",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "container mx-auto px-4",
             children: [
                 (block.sectionTitle || block.sectionDescription) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "text-center mb-12 max-w-3xl mx-auto",
+                    className: "text-center mb-16 max-w-3xl mx-auto",
                     children: [
                         block.sectionTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                            className: "text-3xl md:text-4xl font-bold mb-4",
+                            className: "text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight",
                             "data-testid": "feature-grid-title",
                             children: block.sectionTitle
                         }, void 0, false, {
@@ -1464,7 +600,7 @@ function FeatureGridBlock({ block }) {
                             columnNumber: 15
                         }, this),
                         block.sectionDescription && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-lg text-muted-foreground",
+                            className: "text-lg md:text-xl text-muted-foreground leading-relaxed",
                             "data-testid": "feature-grid-description",
                             children: block.sectionDescription
                         }, void 0, false, {
@@ -1479,52 +615,62 @@ function FeatureGridBlock({ block }) {
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: `grid gap-6 ${columnClasses[columns]}`,
+                    className: `grid gap-8 ${columnClasses[columns]}`,
                     children: features.map((feature, index)=>{
                         const Icon = getIcon(feature.icon);
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Card"], {
-                            className: "border-card-border",
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300",
                             "data-testid": `feature-card-${index}`,
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardContent"], {
-                                className: "p-6",
-                                children: [
-                                    Icon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "mb-4 text-primary",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
-                                            className: "h-8 w-8"
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                                    "aria-hidden": "true"
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
+                                    lineNumber: 89,
+                                    columnNumber: 17
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative",
+                                    children: [
+                                        Icon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "mb-5 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                                                className: "h-7 w-7"
+                                            }, void 0, false, {
+                                                fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
+                                                lineNumber: 94,
+                                                columnNumber: 23
+                                            }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
-                                            lineNumber: 91,
-                                            columnNumber: 23
+                                            lineNumber: 93,
+                                            columnNumber: 21
+                                        }, this),
+                                        feature.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-xl font-semibold mb-3 tracking-tight",
+                                            children: feature.title
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
+                                            lineNumber: 98,
+                                            columnNumber: 21
+                                        }, this),
+                                        feature.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-muted-foreground leading-relaxed",
+                                            children: feature.description
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
+                                            lineNumber: 103,
+                                            columnNumber: 21
                                         }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
-                                        lineNumber: 90,
-                                        columnNumber: 21
-                                    }, this),
-                                    feature.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xl font-semibold mb-2",
-                                        children: feature.title
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
-                                        lineNumber: 95,
-                                        columnNumber: 21
-                                    }, this),
-                                    feature.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-muted-foreground",
-                                        children: feature.description
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
-                                        lineNumber: 100,
-                                        columnNumber: 21
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
-                                lineNumber: 88,
-                                columnNumber: 17
-                            }, this)
-                        }, index, false, {
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
+                                    lineNumber: 91,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, index, true, {
                             fileName: "[project]/modules/landing-builder/blocks/FeatureGridBlock.tsx",
                             lineNumber: 83,
                             columnNumber: 15
@@ -1555,102 +701,263 @@ function FeatureGridBlock({ block }) {
  * CTA Banner Block
  * 
  * Full-width call-to-action banner with primary and optional secondary buttons.
+ * Features gradient backgrounds, decorative elements, and engaging animations.
  */ __turbopack_context__.s([
     "CtaBannerBlock",
     ()=>CtaBannerBlock
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-rsc] (ecmascript) <export default as ArrowRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/zap.js [app-rsc] (ecmascript) <export default as Zap>");
+;
 ;
 ;
 const bgColorClasses = {
-    brand: 'bg-primary text-primary-foreground',
-    accent: 'bg-accent text-accent-foreground',
-    dark: 'bg-gray-900 text-white'
+    brand: 'bg-gradient-to-r from-primary via-primary to-primary/90 text-primary-foreground',
+    accent: 'bg-gradient-to-r from-accent via-accent to-accent/90 text-accent-foreground',
+    dark: 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white'
 };
 function CtaBannerBlock({ block }) {
     const bgColor = block.backgroundColor || 'brand';
     const hasPrimaryCta = block.primaryCtaText && block.primaryCtaUrl;
     const hasSecondaryCta = block.secondaryCtaText && block.secondaryCtaUrl;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-16 md:py-20 ${bgColorClasses[bgColor]}`,
+        className: `relative py-20 md:py-28 overflow-hidden ${bgColorClasses[bgColor]}`,
         "data-testid": "block-cta-banner",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "container mx-auto px-4 text-center",
-            children: [
-                block.headline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-3xl md:text-4xl font-bold mb-4",
-                    "data-testid": "cta-headline",
-                    children: block.headline
-                }, void 0, false, {
-                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                    lineNumber: 32,
-                    columnNumber: 11
-                }, this),
-                block.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-lg mb-8 max-w-2xl mx-auto opacity-90",
-                    "data-testid": "cta-description",
-                    children: block.description
-                }, void 0, false, {
-                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                    lineNumber: 41,
-                    columnNumber: 11
-                }, this),
-                (hasPrimaryCta || hasSecondaryCta) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col sm:flex-row gap-4 justify-center",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 overflow-hidden",
+                "aria-hidden": "true",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute bottom-0 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                        lineNumber: 35,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute top-1/2 right-0 w-64 h-64 bg-white/5 rounded-full blur-2xl translate-x-1/2"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                        lineNumber: 36,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                lineNumber: 33,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 opacity-10",
+                style: {
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                },
+                "aria-hidden": "true"
+            }, void 0, false, {
+                fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "container relative mx-auto px-4",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-w-4xl mx-auto text-center",
                     children: [
-                        hasPrimaryCta && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
-                            asChild: true,
-                            size: "lg",
-                            variant: "secondary",
-                            "data-testid": "cta-primary-button",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                href: block.primaryCtaUrl,
-                                children: block.primaryCtaText
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "inline-flex items-center justify-center w-16 h-16 mb-8 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"], {
+                                className: "h-8 w-8"
                             }, void 0, false, {
                                 fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                                lineNumber: 58,
-                                columnNumber: 17
+                                lineNumber: 52,
+                                columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                            lineNumber: 52,
-                            columnNumber: 15
+                            lineNumber: 51,
+                            columnNumber: 11
                         }, this),
-                        hasSecondaryCta && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
-                            asChild: true,
-                            size: "lg",
-                            variant: "outline",
-                            className: "border-current text-current hover:bg-white/10",
-                            "data-testid": "cta-secondary-button",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                href: block.secondaryCtaUrl,
-                                children: block.secondaryCtaText
-                            }, void 0, false, {
-                                fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                                lineNumber: 69,
-                                columnNumber: 17
-                            }, this)
+                        block.headline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight",
+                            "data-testid": "cta-headline",
+                            children: block.headline
                         }, void 0, false, {
                             fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                            lineNumber: 62,
-                            columnNumber: 15
+                            lineNumber: 56,
+                            columnNumber: 13
+                        }, this),
+                        block.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-lg md:text-xl mb-10 max-w-2xl mx-auto opacity-90 leading-relaxed",
+                            "data-testid": "cta-description",
+                            children: block.description
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                            lineNumber: 65,
+                            columnNumber: 13
+                        }, this),
+                        (hasPrimaryCta || hasSecondaryCta) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex flex-col sm:flex-row gap-4 justify-center",
+                            children: [
+                                hasPrimaryCta && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
+                                    asChild: true,
+                                    size: "lg",
+                                    variant: "secondary",
+                                    className: "text-base px-8 py-6 h-auto group shadow-lg",
+                                    "data-testid": "cta-primary-button",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        href: block.primaryCtaUrl,
+                                        className: "flex items-center gap-2",
+                                        children: [
+                                            block.primaryCtaText,
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                                                className: "h-4 w-4 transition-transform group-hover:translate-x-1"
+                                            }, void 0, false, {
+                                                fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                                lineNumber: 85,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                        lineNumber: 83,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                    lineNumber: 76,
+                                    columnNumber: 17
+                                }, this),
+                                hasSecondaryCta && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
+                                    asChild: true,
+                                    size: "lg",
+                                    variant: "outline",
+                                    className: "text-base px-8 py-6 h-auto border-white/30 text-current hover:bg-white/10 backdrop-blur-sm",
+                                    "data-testid": "cta-secondary-button",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        href: block.secondaryCtaUrl,
+                                        children: block.secondaryCtaText
+                                    }, void 0, false, {
+                                        fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                        lineNumber: 97,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                    lineNumber: 90,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                            lineNumber: 74,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-3 gap-8 mt-16 pt-12 border-t border-white/20",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-3xl md:text-4xl font-bold",
+                                            children: "10K+"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 106,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-sm opacity-70 mt-1",
+                                            children: "Happy Customers"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 107,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                    lineNumber: 105,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-3xl md:text-4xl font-bold",
+                                            children: "99%"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 110,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-sm opacity-70 mt-1",
+                                            children: "Uptime SLA"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 111,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                    lineNumber: 109,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-3xl md:text-4xl font-bold",
+                                            children: "24/7"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 114,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "text-sm opacity-70 mt-1",
+                                            children: "Support"
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                            lineNumber: 115,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                                    lineNumber: 113,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                            lineNumber: 104,
+                            columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-                    lineNumber: 50,
-                    columnNumber: 11
+                    lineNumber: 49,
+                    columnNumber: 9
                 }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-            lineNumber: 30,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+            }, void 0, false, {
+                fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
+                lineNumber: 48,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/modules/landing-builder/blocks/CtaBannerBlock.tsx",
-        lineNumber: 26,
+        lineNumber: 28,
         columnNumber: 5
     }, this);
 }
@@ -1697,7 +1004,8 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$modules$
 /**
  * Rich Text Block
  * 
- * WYSIWYG content block with configurable width.
+ * WYSIWYG content area for custom HTML content from WordPress.
+ * Features elegant typography and responsive width options.
  */ __turbopack_context__.s([
     "RichTextBlock",
     ()=>RichTextBlock
@@ -1706,7 +1014,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 const bgColorClasses = {
     default: 'bg-background',
-    muted: 'bg-muted',
+    muted: 'bg-muted/50',
     card: 'bg-card'
 };
 const maxWidthClasses = {
@@ -1722,29 +1030,46 @@ function RichTextBlock({ block }) {
         return null;
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-12 md:py-16 ${bgColorClasses[bgColor]}`,
+        className: `py-16 md:py-24 ${bgColorClasses[bgColor]}`,
         "data-testid": "block-rich-text",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "container mx-auto px-4",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `prose prose-lg dark:prose-invert mx-auto ${maxWidthClasses[maxWidth]}`,
-                dangerouslySetInnerHTML: {
-                    __html: block.content
-                },
-                "data-testid": "rich-text-content"
-            }, void 0, false, {
+                className: `${maxWidthClasses[maxWidth]} mx-auto`,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-1 bg-primary rounded-full mb-12",
+                        "aria-hidden": "true"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
+                        lineNumber: 43,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "prose prose-lg md:prose-xl max-w-none dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:md:text-4xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:md:text-3xl prose-h3:mt-10 prose-h3:mb-4 prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-strong:font-semibold prose-ol:my-8 prose-ul:my-8 prose-li:text-muted-foreground prose-li:leading-relaxed prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-muted/30 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-foreground",
+                        dangerouslySetInnerHTML: {
+                            __html: block.content
+                        },
+                        "data-testid": "rich-text-content"
+                    }, void 0, false, {
+                        fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
+                        lineNumber: 45,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-            lineNumber: 39,
+            lineNumber: 40,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/modules/landing-builder/blocks/RichTextBlock.tsx",
-        lineNumber: 35,
+        lineNumber: 36,
         columnNumber: 5
     }, this);
 }
@@ -1812,21 +1137,20 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$componen
  * Testimonials Block
  * 
  * Display customer testimonials in grid or carousel layout.
+ * Features elegant cards with quotation styling and author info.
  */ __turbopack_context__.s([
     "TestimonialsBlock",
     ()=>TestimonialsBlock
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/card.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/avatar.tsx [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/quote.js [app-rsc] (ecmascript) <export default as Quote>");
-;
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/star.js [app-rsc] (ecmascript) <export default as Star>");
 ;
 ;
 ;
 const bgColorClasses = {
     default: 'bg-background',
-    muted: 'bg-muted',
+    muted: 'bg-muted/50',
     card: 'bg-card'
 };
 function TestimonialsBlock({ block }) {
@@ -1837,117 +1161,160 @@ function TestimonialsBlock({ block }) {
         return null;
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: `py-16 md:py-24 ${bgColorClasses[bgColor]}`,
+        className: `py-20 md:py-28 ${bgColorClasses[bgColor]}`,
         "data-testid": "block-testimonials",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "container mx-auto px-4",
             children: [
-                block.sectionTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-3xl md:text-4xl font-bold mb-12 text-center",
-                    "data-testid": "testimonials-title",
-                    children: block.sectionTitle
-                }, void 0, false, {
+                block.sectionTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-center mb-16",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight",
+                            "data-testid": "testimonials-title",
+                            children: block.sectionTitle
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                            lineNumber: 39,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-lg text-muted-foreground max-w-2xl mx-auto",
+                            children: "See what our customers have to say about their experience"
+                        }, void 0, false, {
+                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                            lineNumber: 45,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
                     lineNumber: 38,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: layout === 'grid' ? 'grid gap-6 md:grid-cols-2 lg:grid-cols-3' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4',
-                    children: testimonials.map((testimonial, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Card"], {
-                            className: `border-card-border ${layout === 'carousel' ? 'flex-shrink-0 w-80 snap-center' : ''}`,
+                    className: layout === 'grid' ? 'grid gap-8 md:grid-cols-2 lg:grid-cols-3' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4',
+                    children: testimonials.map((testimonial, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: `group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 ${layout === 'carousel' ? 'flex-shrink-0 w-[360px] snap-center' : ''}`,
                             "data-testid": `testimonial-card-${index}`,
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardContent"], {
-                                className: "p-6",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"], {
-                                        className: "h-8 w-8 text-primary/20 mb-4"
-                                    }, void 0, false, {
-                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 60,
-                                        columnNumber: 17
-                                    }, this),
-                                    testimonial.quote && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
-                                        className: "text-lg mb-6 text-foreground",
-                                        children: [
-                                            '"',
-                                            testimonial.quote,
-                                            '"'
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 63,
-                                        columnNumber: 19
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center gap-3",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Avatar"], {
-                                                children: [
-                                                    testimonial.authorImage?.sourceUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarImage"], {
-                                                        src: testimonial.authorImage.sourceUrl,
-                                                        alt: testimonial.authorImage.altText || testimonial.authorName || ''
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 71,
-                                                        columnNumber: 23
-                                                    }, this) : null,
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarFallback"], {
-                                                        children: testimonial.authorName?.charAt(0) || '?'
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 76,
-                                                        columnNumber: 21
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                lineNumber: 69,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    testimonial.authorName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-semibold",
-                                                        children: testimonial.authorName
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 83,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    testimonial.authorTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-muted-foreground",
-                                                        children: testimonial.authorTitle
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                        lineNumber: 86,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                                lineNumber: 81,
-                                                columnNumber: 19
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                        lineNumber: 68,
-                                        columnNumber: 17
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                                lineNumber: 59,
-                                columnNumber: 15
-                            }, this)
-                        }, index, false, {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                                    "aria-hidden": "true"
+                                }, void 0, false, {
+                                    fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                    lineNumber: 65,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex gap-1 mb-6",
+                                            children: [
+                                                ...Array(5)
+                                            ].map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
+                                                    className: "h-5 w-5 fill-primary text-primary"
+                                                }, i, false, {
+                                                    fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                    lineNumber: 71,
+                                                    columnNumber: 21
+                                                }, this))
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                            lineNumber: 69,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute -top-2 -left-2 text-7xl font-serif text-primary/10 select-none",
+                                            "aria-hidden": "true",
+                                            children: '"'
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                            lineNumber: 76,
+                                            columnNumber: 17
+                                        }, this),
+                                        testimonial.quote && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
+                                            className: "text-lg leading-relaxed mb-8 text-foreground relative z-10",
+                                            children: testimonial.quote
+                                        }, void 0, false, {
+                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                            lineNumber: 81,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-4 pt-6 border-t border-border/50",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Avatar"], {
+                                                    className: "h-12 w-12 ring-2 ring-primary/10",
+                                                    children: [
+                                                        testimonial.authorImage?.sourceUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarImage"], {
+                                                            src: testimonial.authorImage.sourceUrl,
+                                                            alt: testimonial.authorImage.altText || testimonial.authorName || ''
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                            lineNumber: 89,
+                                                            columnNumber: 23
+                                                        }, this) : null,
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AvatarFallback"], {
+                                                            className: "bg-primary/10 text-primary font-semibold",
+                                                            children: testimonial.authorName?.split(' ').map((n)=>n[0]).join('').slice(0, 2) || '?'
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                            lineNumber: 94,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                    lineNumber: 87,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        testimonial.authorName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "font-semibold text-foreground",
+                                                            children: testimonial.authorName
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                            lineNumber: 101,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        testimonial.authorTitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm text-muted-foreground",
+                                                            children: testimonial.authorTitle
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                            lineNumber: 104,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                                    lineNumber: 99,
+                                                    columnNumber: 19
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                            lineNumber: 86,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
+                                    lineNumber: 67,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, index, true, {
                             fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                            lineNumber: 54,
+                            lineNumber: 59,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/modules/landing-builder/blocks/TestimonialsBlock.tsx",
-                    lineNumber: 46,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, this)
             ]
@@ -2232,6 +1599,52 @@ function isLandingPageTemplate(templateName) {
     const normalized = templateName.toLowerCase().replace(/[^a-z0-9]/g, '');
     // Match common landing page template naming patterns
     return normalized.includes('landingpage') || normalized.includes('landing') || templateName === 'template-landing-page' || templateName === 'template-landing-page.php' || templateName === 'Landing Page';
+}
+}),
+"[project]/lib/config/features.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+/**
+ * Feature Flags Configuration
+ * 
+ * Toggle features on/off for the boilerplate.
+ * Set via environment variables or defaults here.
+ */ __turbopack_context__.s([
+    "FEATURES",
+    ()=>FEATURES,
+    "getLandingTemplateName",
+    ()=>getLandingTemplateName,
+    "isLandingBuilderEnabled",
+    ()=>isLandingBuilderEnabled
+]);
+const FEATURES = {
+    /**
+   * Landing Page Builder
+   * 
+   * When enabled, pages with the "Landing Page" template in WordPress
+   * will be rendered using the ACF Flexible Content block system
+   * instead of the standard page template.
+   * 
+   * Requirements:
+   * - WordPress: "Landing Page" page template registered
+   * - WordPress: ACF Flexible Content field group attached to the template
+   * - WordPress: WPGraphQL for ACF plugin installed and configured
+   * 
+   * Set FEATURE_LANDING_BUILDER=false to disable
+   */ LANDING_BUILDER: process.env.FEATURE_LANDING_BUILDER !== 'false',
+    /**
+   * Landing Page Template Name
+   * 
+   * The exact template name as it appears in WordPress.
+   * This must match the template filename (without .php) or the
+   * Template Name defined in the template file header.
+   */ LANDING_TEMPLATE_NAME: process.env.LANDING_TEMPLATE_NAME || 'template-landing-page'
+};
+function isLandingBuilderEnabled() {
+    return FEATURES.LANDING_BUILDER;
+}
+function getLandingTemplateName() {
+    return FEATURES.LANDING_TEMPLATE_NAME;
 }
 }),
 "[project]/modules/landing-builder/server/resolve.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
@@ -2612,203 +2025,210 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builde
 ;
 ;
 }),
-"[project]/app/[slug]/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"[project]/app/landing-demo/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
     "default",
-    ()=>WordPressPage,
-    "generateMetadata",
-    ()=>generateMetadata
+    ()=>LandingDemoPage,
+    "metadata",
+    ()=>metadata
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/headers.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$Layout$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/layout/Layout.tsx [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/storage.ts [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wordpress.ts [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$config$2f$features$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/config/features.ts [app-rsc] (ecmascript)");
-// Conditionally import landing builder (tree-shaken if disabled)
 var __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/modules/landing-builder/index.ts [app-rsc] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$server$2f$resolve$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/modules/landing-builder/server/resolve.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$LandingPageRenderer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/modules/landing-builder/LandingPageRenderer.tsx [app-rsc] (ecmascript)");
 ;
 ;
 ;
-;
-;
-;
-;
-;
-async function generateMetadata({ params, searchParams }) {
-    const { slug } = await params;
-    const { previewId } = await searchParams;
-    const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["draftMode"])();
-    // Check if this is a landing page and get SEO from template info
-    if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$config$2f$features$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isLandingBuilderEnabled"])()) {
-        const templateInfo = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$server$2f$resolve$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getPageTemplateInfo"])(slug);
-        if (templateInfo?.isLandingPage && templateInfo.seo) {
-            const seo = templateInfo.seo;
-            return {
-                title: seo.title || templateInfo.title,
-                description: seo.metaDesc || '',
-                openGraph: {
-                    title: seo.opengraphTitle || templateInfo.title,
-                    description: seo.opengraphDescription || '',
-                    type: 'website',
-                    images: seo.opengraphImage ? [
-                        seo.opengraphImage
-                    ] : undefined
-                },
-                twitter: {
-                    card: 'summary_large_image',
-                    title: seo.twitterTitle || templateInfo.title,
-                    description: seo.twitterDescription || '',
-                    images: seo.twitterImage ? [
-                        seo.twitterImage
-                    ] : undefined
-                }
-            };
-        }
-    }
-    // Regular page metadata
-    let page;
-    if (draft.isEnabled && previewId) {
-        page = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPagePreviewById"])(parseInt(previewId));
-    }
-    if (!page) {
-        page = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getPageBySlug(slug);
-    }
-    if (!page) {
-        return {
-            title: 'Page Not Found'
-        };
-    }
-    const seo = page.seoMetadata;
-    return {
-        title: seo?.title || page.title,
-        description: seo?.metaDesc || '',
-        openGraph: {
-            title: seo?.opengraphTitle || page.title,
-            description: seo?.opengraphDescription || '',
-            type: 'website',
-            images: seo?.opengraphImage ? [
-                seo.opengraphImage
-            ] : undefined
+const metadata = {
+    title: 'Landing Page Builder Demo',
+    description: 'Preview of all available landing page blocks'
+};
+const demoData = {
+    title: 'Landing Page Builder Demo',
+    slug: 'landing-demo',
+    sections: [
+        {
+            fieldGroupName: 'LandingSectionsHeroSection',
+            headline: 'Transform Your Ideas Into Reality',
+            subheadline: 'Build stunning, high-converting landing pages in minutes. No code required. Just pure creative freedom powered by WordPress.',
+            ctaText: 'Start Building Free',
+            ctaUrl: '#features',
+            backgroundColor: 'brand',
+            textAlign: 'center'
         },
-        twitter: {
-            card: 'summary_large_image',
-            title: seo?.twitterTitle || page.title,
-            description: seo?.twitterDescription || '',
-            images: seo?.twitterImage ? [
-                seo.twitterImage
-            ] : undefined
+        {
+            fieldGroupName: 'LandingSectionsFeatureGrid',
+            sectionTitle: 'Everything You Need to Succeed',
+            sectionDescription: 'Our platform gives you the tools to create beautiful landing pages that actually convert visitors into customers.',
+            columns: '3',
+            backgroundColor: 'default',
+            features: [
+                {
+                    icon: 'zap',
+                    title: 'Blazing Fast Performance',
+                    description: 'Built on Next.js with server-side rendering. Your pages load instantly, keeping visitors engaged.'
+                },
+                {
+                    icon: 'shield-check',
+                    title: 'Enterprise Security',
+                    description: 'Bank-grade encryption, iframe sandboxing, and domain allowlists protect your data and users.'
+                },
+                {
+                    icon: 'palette',
+                    title: 'Fully Customizable',
+                    description: 'Every element adapts to your brand. Colors, fonts, and spacing all sync from your design system.'
+                },
+                {
+                    icon: 'code-2',
+                    title: 'Developer Friendly',
+                    description: 'Clean TypeScript codebase with modular architecture. Extend blocks or create your own.'
+                },
+                {
+                    icon: 'search',
+                    title: 'SEO Optimized',
+                    description: 'Full Yoast integration with Open Graph, Twitter Cards, and structured data out of the box.'
+                },
+                {
+                    icon: 'toggle-right',
+                    title: 'Feature Flagged',
+                    description: 'Enable or disable the entire builder with one environment variable. Zero risk rollouts.'
+                }
+            ]
+        },
+        {
+            fieldGroupName: 'LandingSectionsCtaBanner',
+            headline: 'Ready to 10x Your Conversion Rate?',
+            description: 'Join over 10,000 marketers who trust our platform to create landing pages that actually work.',
+            primaryCtaText: 'Start Your Free Trial',
+            primaryCtaUrl: '#signup',
+            secondaryCtaText: 'See Documentation',
+            secondaryCtaUrl: '#docs',
+            backgroundColor: 'accent'
+        },
+        {
+            fieldGroupName: 'LandingSectionsRichText',
+            content: `
+        <h2>The Modern Way to Build Landing Pages</h2>
+        <p>Traditional landing page builders are slow, bloated, and lock you into their ecosystem. We took a different approach.</p>
+        <p>By combining the power of WordPress as a headless CMS with Next.js on the frontend, you get the best of both worlds: <strong>familiar content editing</strong> for your marketing team and <strong>blazing fast performance</strong> for your visitors.</p>
+        <h3>How It Works</h3>
+        <ol>
+          <li><strong>Create a page in WordPress</strong> — Select the Landing Page template and start adding sections.</li>
+          <li><strong>Add your content</strong> — Use the flexible content blocks to build your perfect page layout.</li>
+          <li><strong>Publish instantly</strong> — Changes go live immediately with zero downtime.</li>
+        </ol>
+        <blockquote>
+          "This is exactly what we needed. Our marketing team can now launch campaigns without waiting on developers. It's been a game-changer."
+        </blockquote>
+      `,
+            maxWidth: 'medium',
+            backgroundColor: 'muted'
+        },
+        {
+            fieldGroupName: 'LandingSectionsTestimonials',
+            sectionTitle: 'Loved by Teams Everywhere',
+            layout: 'grid',
+            backgroundColor: 'default',
+            testimonials: [
+                {
+                    quote: 'We went from taking 2 weeks to launch a campaign to just 2 hours. The ROI has been incredible.',
+                    authorName: 'Sarah Chen',
+                    authorTitle: 'VP of Marketing, TechCorp'
+                },
+                {
+                    quote: 'Finally, a headless solution that our content team actually enjoys using. The WordPress integration is seamless.',
+                    authorName: 'Michael Torres',
+                    authorTitle: 'Head of Growth, StartupXYZ'
+                },
+                {
+                    quote: 'Page load times dropped by 80%. Our conversion rate went up 3x within the first month.',
+                    authorName: 'Emily Watson',
+                    authorTitle: 'CTO, Digital Agency Co'
+                }
+            ]
+        },
+        {
+            fieldGroupName: 'LandingSectionsFormSection',
+            sectionTitle: 'Get Started Today',
+            sectionDescription: 'Enter your email to receive access to our platform and start building beautiful landing pages.',
+            formMode: 'gravity',
+            gravityFormId: 1,
+            backgroundColor: 'card'
+        },
+        {
+            fieldGroupName: 'LandingSectionsCtaBanner',
+            headline: 'Your Next Landing Page Is Waiting',
+            description: 'Stop wasting time with slow, outdated tools. Build something beautiful today.',
+            primaryCtaText: 'Get Started Free',
+            primaryCtaUrl: '#',
+            backgroundColor: 'brand'
         }
-    };
-}
-async function WordPressPage({ params, searchParams }) {
-    const { slug } = await params;
-    const { previewId } = await searchParams;
-    const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["draftMode"])();
-    const isPreview = draft.isEnabled;
-    // Check if this is a landing page (only if feature is enabled)
-    if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$config$2f$features$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isLandingBuilderEnabled"])()) {
-        const templateInfo = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$server$2f$resolve$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getPageTemplateInfo"])(slug);
-        if (templateInfo?.isLandingPage) {
-            console.log('[Page] Rendering as landing page:', slug);
-            // Fetch landing page sections from WordPress
-            // Pass isPreview to use preview query for draft content
-            const landingData = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$server$2f$resolve$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getLandingPageData"])(templateInfo.databaseId, isPreview);
-            if (landingData && landingData.sections.length > 0) {
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$Layout$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Layout"], {
-                    isPreview: isPreview,
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$LandingPageRenderer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["LandingPageRenderer"], {
-                        data: landingData,
-                        isPreview: isPreview
-                    }, void 0, false, {
-                        fileName: "[project]/app/[slug]/page.tsx",
-                        lineNumber: 106,
-                        columnNumber: 13
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/app/[slug]/page.tsx",
-                    lineNumber: 105,
-                    columnNumber: 11
-                }, this);
-            }
-            // Fall through to regular page rendering if no sections
-            console.log('[Page] Landing page has no sections, falling back to regular rendering');
-        }
-    }
-    // Regular page rendering
-    let page;
-    if (draft.isEnabled && previewId) {
-        console.log('[Preview Page] Fetching page by previewId:', previewId);
-        page = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPagePreviewById"])(parseInt(previewId));
-    }
-    if (!page) {
-        console.log('[Preview Page] Fetching page by slug:', slug);
-        page = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getPageBySlug(slug);
-    }
-    if (!page) {
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
-    }
+    ]
+};
+function LandingDemoPage() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$Layout$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Layout"], {
-        isPreview: isPreview,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "py-12 md:py-16",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "container max-w-4xl mx-auto px-4",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 px-4 py-3 text-center text-sm",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "inline-flex items-center gap-2",
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-3xl md:text-4xl font-bold mb-8",
-                            "data-testid": "text-page-title",
-                            children: page.title
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "inline-block w-2 h-2 bg-amber-500 rounded-full animate-pulse"
                         }, void 0, false, {
-                            fileName: "[project]/app/[slug]/page.tsx",
-                            lineNumber: 138,
-                            columnNumber: 13
+                            fileName: "[project]/app/landing-demo/page.tsx",
+                            lineNumber: 139,
+                            columnNumber: 11
                         }, this),
-                        page.content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "prose prose-lg max-w-none dark:prose-invert",
-                            dangerouslySetInnerHTML: {
-                                __html: page.content
-                            },
-                            "data-testid": "content-page-body"
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "font-medium text-amber-800 dark:text-amber-200",
+                            children: "Demo Mode"
                         }, void 0, false, {
-                            fileName: "[project]/app/[slug]/page.tsx",
-                            lineNumber: 146,
-                            columnNumber: 15
+                            fileName: "[project]/app/landing-demo/page.tsx",
+                            lineNumber: 140,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-amber-700 dark:text-amber-300",
+                            children: "— This page shows sample content. Connect WordPress to use real data."
+                        }, void 0, false, {
+                            fileName: "[project]/app/landing-demo/page.tsx",
+                            lineNumber: 141,
+                            columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
-                    fileName: "[project]/app/[slug]/page.tsx",
-                    lineNumber: 137,
-                    columnNumber: 11
+                    fileName: "[project]/app/landing-demo/page.tsx",
+                    lineNumber: 138,
+                    columnNumber: 9
                 }, this)
             }, void 0, false, {
-                fileName: "[project]/app/[slug]/page.tsx",
-                lineNumber: 136,
-                columnNumber: 9
+                fileName: "[project]/app/landing-demo/page.tsx",
+                lineNumber: 137,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$modules$2f$landing$2d$builder$2f$LandingPageRenderer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["LandingPageRenderer"], {
+                data: demoData,
+                isPreview: false
+            }, void 0, false, {
+                fileName: "[project]/app/landing-demo/page.tsx",
+                lineNumber: 144,
+                columnNumber: 7
             }, this)
-        }, void 0, false, {
-            fileName: "[project]/app/[slug]/page.tsx",
-            lineNumber: 135,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
-        fileName: "[project]/app/[slug]/page.tsx",
-        lineNumber: 134,
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/landing-demo/page.tsx",
+        lineNumber: 136,
         columnNumber: 5
     }, this);
 }
 }),
-"[project]/app/[slug]/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", ((__turbopack_context__) => {
+"[project]/app/landing-demo/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", ((__turbopack_context__) => {
 
-__turbopack_context__.n(__turbopack_context__.i("[project]/app/[slug]/page.tsx [app-rsc] (ecmascript)"));
+__turbopack_context__.n(__turbopack_context__.i("[project]/app/landing-demo/page.tsx [app-rsc] (ecmascript)"));
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__bb9c302a._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__cb6d4989._.js.map

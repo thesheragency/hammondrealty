@@ -2,10 +2,10 @@
  * Feature Grid Block
  * 
  * Grid of feature cards with icons, titles, and descriptions.
+ * Features hover effects, gradient accents, and responsive layouts.
  */
 
 import type { FeatureGridBlock as FeatureGridBlockType } from '../types';
-import { Card, CardContent } from '@/components/ui/card';
 import * as LucideIcons from 'lucide-react';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 const bgColorClasses = {
   default: 'bg-background',
-  muted: 'bg-muted',
+  muted: 'bg-muted/50',
   card: 'bg-card',
 } as const;
 
@@ -50,15 +50,15 @@ export function FeatureGridBlock({ block }: Props) {
 
   return (
     <section
-      className={`py-16 md:py-24 ${bgColorClasses[bgColor]}`}
+      className={`py-20 md:py-28 ${bgColorClasses[bgColor]}`}
       data-testid="block-feature-grid"
     >
       <div className="container mx-auto px-4">
         {(block.sectionTitle || block.sectionDescription) && (
-          <div className="text-center mb-12 max-w-3xl mx-auto">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
             {block.sectionTitle && (
               <h2
-                className="text-3xl md:text-4xl font-bold mb-4"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight"
                 data-testid="feature-grid-title"
               >
                 {block.sectionTitle}
@@ -66,7 +66,7 @@ export function FeatureGridBlock({ block }: Props) {
             )}
             {block.sectionDescription && (
               <p
-                className="text-lg text-muted-foreground"
+                className="text-lg md:text-xl text-muted-foreground leading-relaxed"
                 data-testid="feature-grid-description"
               >
                 {block.sectionDescription}
@@ -75,34 +75,37 @@ export function FeatureGridBlock({ block }: Props) {
           </div>
         )}
 
-        <div className={`grid gap-6 ${columnClasses[columns]}`}>
+        <div className={`grid gap-8 ${columnClasses[columns]}`}>
           {features.map((feature, index) => {
             const Icon = getIcon(feature.icon);
             
             return (
-              <Card
+              <div
                 key={index}
-                className="border-card-border"
+                className="group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                 data-testid={`feature-card-${index}`}
               >
-                <CardContent className="p-6">
+                {/* Gradient accent on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+                
+                <div className="relative">
                   {Icon && (
-                    <div className="mb-4 text-primary">
-                      <Icon className="h-8 w-8" />
+                    <div className="mb-5 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="h-7 w-7" />
                     </div>
                   )}
                   {feature.title && (
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-3 tracking-tight">
                       {feature.title}
                     </h3>
                   )}
                   {feature.description && (
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground leading-relaxed">
                       {feature.description}
                     </p>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             );
           })}
         </div>

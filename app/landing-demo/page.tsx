@@ -14,112 +14,116 @@ const demoData: LandingPageData = {
   sections: [
     {
       fieldGroupName: 'LandingSectionsHeroSection',
-      headline: 'Build Beautiful Landing Pages',
-      subheadline: 'Create high-converting landing pages using modular blocks that sync from WordPress. No coding required.',
-      ctaText: 'Get Started',
+      headline: 'Transform Your Ideas Into Reality',
+      subheadline: 'Build stunning, high-converting landing pages in minutes. No code required. Just pure creative freedom powered by WordPress.',
+      ctaText: 'Start Building Free',
       ctaUrl: '#features',
       backgroundColor: 'brand',
       textAlign: 'center',
     },
     {
       fieldGroupName: 'LandingSectionsFeatureGrid',
-      sectionTitle: 'Powerful Features',
-      sectionDescription: 'Everything you need to create stunning landing pages that convert visitors into customers.',
+      sectionTitle: 'Everything You Need to Succeed',
+      sectionDescription: 'Our platform gives you the tools to create beautiful landing pages that actually convert visitors into customers.',
       columns: '3',
       backgroundColor: 'default',
       features: [
         {
           icon: 'zap',
-          title: 'Lightning Fast',
-          description: 'Built on Next.js with server-side rendering for optimal performance and SEO.',
+          title: 'Blazing Fast Performance',
+          description: 'Built on Next.js with server-side rendering. Your pages load instantly, keeping visitors engaged.',
         },
         {
-          icon: 'shield',
-          title: 'Secure by Default',
-          description: 'Iframe sandboxing, domain allowlists, and built-in protection against common vulnerabilities.',
+          icon: 'shield-check',
+          title: 'Enterprise Security',
+          description: 'Bank-grade encryption, iframe sandboxing, and domain allowlists protect your data and users.',
         },
         {
           icon: 'palette',
           title: 'Fully Customizable',
-          description: 'Uses your design system variables for consistent branding across all blocks.',
+          description: 'Every element adapts to your brand. Colors, fonts, and spacing all sync from your design system.',
         },
         {
-          icon: 'code',
+          icon: 'code-2',
           title: 'Developer Friendly',
-          description: 'Clean TypeScript codebase with modular architecture for easy extension.',
+          description: 'Clean TypeScript codebase with modular architecture. Extend blocks or create your own.',
         },
         {
-          icon: 'globe',
+          icon: 'search',
           title: 'SEO Optimized',
-          description: 'Full Yoast SEO integration with Open Graph and Twitter Card support.',
+          description: 'Full Yoast integration with Open Graph, Twitter Cards, and structured data out of the box.',
         },
         {
           icon: 'toggle-right',
           title: 'Feature Flagged',
-          description: 'Enable or disable the entire landing builder with a single environment variable.',
+          description: 'Enable or disable the entire builder with one environment variable. Zero risk rollouts.',
         },
       ],
     },
     {
       fieldGroupName: 'LandingSectionsCtaBanner',
-      headline: 'Ready to Transform Your Marketing?',
-      description: 'Start building landing pages that actually convert. Join thousands of marketers who trust our platform.',
-      primaryCtaText: 'Start Free Trial',
+      headline: 'Ready to 10x Your Conversion Rate?',
+      description: 'Join over 10,000 marketers who trust our platform to create landing pages that actually work.',
+      primaryCtaText: 'Start Your Free Trial',
       primaryCtaUrl: '#signup',
-      secondaryCtaText: 'View Documentation',
+      secondaryCtaText: 'See Documentation',
       secondaryCtaUrl: '#docs',
       backgroundColor: 'accent',
     },
     {
       fieldGroupName: 'LandingSectionsRichText',
       content: `
-        <h2>How It Works</h2>
-        <p>The landing page builder integrates seamlessly with WordPress and ACF (Advanced Custom Fields) to give your marketing team complete control over landing page content.</p>
+        <h2>The Modern Way to Build Landing Pages</h2>
+        <p>Traditional landing page builders are slow, bloated, and lock you into their ecosystem. We took a different approach.</p>
+        <p>By combining the power of WordPress as a headless CMS with Next.js on the frontend, you get the best of both worlds: <strong>familiar content editing</strong> for your marketing team and <strong>blazing fast performance</strong> for your visitors.</p>
+        <h3>How It Works</h3>
         <ol>
-          <li><strong>Create a Page</strong> - In WordPress, create a new page and select the "Landing Page" template.</li>
-          <li><strong>Add Sections</strong> - Use the ACF Flexible Content field to add Hero, Feature Grid, CTA, and other blocks.</li>
-          <li><strong>Publish</strong> - When you publish, the Next.js frontend automatically renders your landing page with all sections.</li>
+          <li><strong>Create a page in WordPress</strong> — Select the Landing Page template and start adding sections.</li>
+          <li><strong>Add your content</strong> — Use the flexible content blocks to build your perfect page layout.</li>
+          <li><strong>Publish instantly</strong> — Changes go live immediately with zero downtime.</li>
         </ol>
-        <p>Each block type is fully styled using your design system, ensuring brand consistency across all landing pages.</p>
+        <blockquote>
+          "This is exactly what we needed. Our marketing team can now launch campaigns without waiting on developers. It's been a game-changer."
+        </blockquote>
       `,
       maxWidth: 'medium',
       backgroundColor: 'muted',
     },
     {
       fieldGroupName: 'LandingSectionsTestimonials',
-      sectionTitle: 'What Our Customers Say',
+      sectionTitle: 'Loved by Teams Everywhere',
       layout: 'grid',
       backgroundColor: 'default',
       testimonials: [
         {
-          quote: 'This landing page builder has transformed how we create marketing campaigns. We can now launch new pages in hours instead of weeks.',
+          quote: 'We went from taking 2 weeks to launch a campaign to just 2 hours. The ROI has been incredible.',
           authorName: 'Sarah Chen',
-          authorTitle: 'Marketing Director, TechCorp',
+          authorTitle: 'VP of Marketing, TechCorp',
         },
         {
-          quote: 'The integration with WordPress makes it easy for our content team to manage everything without developer involvement.',
+          quote: 'Finally, a headless solution that our content team actually enjoys using. The WordPress integration is seamless.',
           authorName: 'Michael Torres',
           authorTitle: 'Head of Growth, StartupXYZ',
         },
         {
-          quote: 'Finally, a headless solution that actually works. The performance improvements alone were worth the switch.',
+          quote: 'Page load times dropped by 80%. Our conversion rate went up 3x within the first month.',
           authorName: 'Emily Watson',
-          authorTitle: 'CTO, Digital Agency',
+          authorTitle: 'CTO, Digital Agency Co',
         },
       ],
     },
     {
       fieldGroupName: 'LandingSectionsFormSection',
-      sectionTitle: 'Get in Touch',
-      sectionDescription: 'Have questions? Fill out the form below and our team will get back to you within 24 hours.',
+      sectionTitle: 'Get Started Today',
+      sectionDescription: 'Enter your email to receive access to our platform and start building beautiful landing pages.',
       formMode: 'gravity',
       gravityFormId: 1,
       backgroundColor: 'card',
     },
     {
       fieldGroupName: 'LandingSectionsCtaBanner',
-      headline: 'Start Building Today',
-      description: 'Create your first landing page in minutes with our intuitive block-based builder.',
+      headline: 'Your Next Landing Page Is Waiting',
+      description: 'Stop wasting time with slow, outdated tools. Build something beautiful today.',
       primaryCtaText: 'Get Started Free',
       primaryCtaUrl: '#',
       backgroundColor: 'brand',
@@ -130,8 +134,12 @@ const demoData: LandingPageData = {
 export default function LandingDemoPage() {
   return (
     <Layout>
-      <div className="bg-yellow-100 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-800 px-4 py-2 text-center text-sm">
-        <span className="font-medium">Demo Mode:</span> This page shows sample content. Connect WordPress to use real data.
+      <div className="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 px-4 py-3 text-center text-sm">
+        <span className="inline-flex items-center gap-2">
+          <span className="inline-block w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+          <span className="font-medium text-amber-800 dark:text-amber-200">Demo Mode</span>
+          <span className="text-amber-700 dark:text-amber-300">— This page shows sample content. Connect WordPress to use real data.</span>
+        </span>
       </div>
       <LandingPageRenderer data={demoData} isPreview={false} />
     </Layout>
