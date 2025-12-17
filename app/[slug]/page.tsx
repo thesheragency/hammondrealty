@@ -3,7 +3,15 @@ import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
 import { storage } from '@/lib/storage';
 import { fetchPagePreviewById } from '@/lib/wordpress';
+import { isLandingBuilderEnabled } from '@/lib/config/features';
 import type { Metadata } from 'next';
+
+// Conditionally import landing builder (tree-shaken if disabled)
+import { 
+  getPageTemplateInfo, 
+  getLandingPageData,
+  LandingPageRenderer 
+} from '@/modules/landing-builder';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,6 +23,31 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { previewId } = await searchParams;
   const draft = await draftMode();
   
+  // Check if this is a landing page and get SEO from template info
+  if (isLandingBuilderEnabled()) {
+    const templateInfo = await getPageTemplateInfo(slug);
+    if (templateInfo?.isLandingPage && templateInfo.seo) {
+      const seo = templateInfo.seo;
+      return {
+        title: seo.title || templateInfo.title,
+        description: seo.metaDesc || '',
+        openGraph: {
+          title: seo.opengraphTitle || templateInfo.title,
+          description: seo.opengraphDescription || '',
+          type: 'website',
+          images: seo.opengraphImage ? [seo.opengraphImage] : undefined,
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: seo.twitterTitle || templateInfo.title,
+          description: seo.twitterDescription || '',
+          images: seo.twitterImage ? [seo.twitterImage] : undefined,
+        },
+      };
+    }
+  }
+  
+  // Regular page metadata
   let page;
   if (draft.isEnabled && previewId) {
     page = await fetchPagePreviewById(parseInt(previewId));
@@ -56,6 +89,31 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   
   const isPreview = draft.isEnabled;
   
+  // Check if this is a landing page (only if feature is enabled)
+  if (isLandingBuilderEnabled()) {
+    const templateInfo = await getPageTemplateInfo(slug);
+    
+    if (templateInfo?.isLandingPage) {
+      console.log('[Page] Rendering as landing page:', slug);
+      
+      // Fetch landing page sections from WordPress
+      // Pass isPreview to use preview query for draft content
+      const landingData = await getLandingPageData(templateInfo.databaseId, isPreview);
+      
+      if (landingData && landingData.sections.length > 0) {
+        return (
+          <Layout isPreview={isPreview}>
+            <LandingPageRenderer data={landingData} isPreview={isPreview} />
+          </Layout>
+        );
+      }
+      
+      // Fall through to regular page rendering if no sections
+      console.log('[Page] Landing page has no sections, falling back to regular rendering');
+    }
+  }
+  
+  // Regular page rendering
   let page;
   
   if (draft.isEnabled && previewId) {

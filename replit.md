@@ -41,6 +41,13 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
   - **DATE Field UX:** Calendar icon positioned on left with entire input clickable to open date picker for improved usability.
 - **Design System:** Features a comprehensive design system with CSS variables for brand colors, typography, spacing, and radius, located in `app/globals.css`. A `/style-guide` page provides a live visual reference for all design tokens and components.
 - **Modular Component Architecture:** Emphasizes modular React components for easy restyling and maintenance.
+- **Landing Page Builder (Feature Flag):** An optional module for self-service landing page creation using ACF Flexible Content blocks. When enabled, pages using the "Landing Page" template in WordPress are rendered with modular blocks instead of standard page content.
+  - **Feature Flag:** Set `FEATURE_LANDING_BUILDER=false` to disable. Enabled by default.
+  - **Template Detection:** Checks the page's WordPress template; if it matches the landing page template, uses the block renderer.
+  - **Available Blocks:** Hero, Feature Grid, CTA Banner, Form Section (Gravity Forms or iframe), Rich Text, Testimonials.
+  - **Form Section:** Supports toggling between Gravity Forms (by ID) and iframe embeds (for CRM forms like HubSpot, Salesforce).
+  - **Module Location:** All landing builder code is isolated in `modules/landing-builder/` to prevent accidental modification during frontend updates.
+  - **Style Guide Integration:** All blocks use Tailwind CSS and the global style guide variables, ensuring landing pages stay on-brand.
 
 **Core Features:**
 - Full taxonomy support (categories and tags) for posts.
@@ -109,3 +116,47 @@ Verify all required environment variables are set:
 - [ ] Run initial content sync to populate PostgreSQL cache
 - [ ] Verify posts and pages display correctly
 - [ ] Test preview mode for both posts and pages
+
+### Landing Page Builder Setup (Optional)
+
+If using the landing page builder feature:
+
+1. **Create Page Template in WordPress:**
+   Create `template-landing-page.php` in your theme:
+   ```php
+   <?php
+   /**
+    * Template Name: Landing Page
+    * Description: Flexible landing page builder template
+    */
+   get_header();
+   the_content();
+   get_footer();
+   ```
+
+2. **Create ACF Field Group:**
+   - **Field Group Title:** Landing Page Sections
+   - **Field Name:** `landing_sections`
+   - **Field Type:** Flexible Content
+   - **Location Rule:** Post Template is equal to "Landing Page"
+   - **Show in GraphQL:** Yes (required for headless access)
+
+3. **Add ACF Layouts (blocks):**
+   Each layout should have "Show in GraphQL" enabled:
+   - `hero_section` - Headline, subheadline, CTA, background
+   - `feature_grid` - Grid of feature cards with icons
+   - `cta_banner` - Full-width call-to-action
+   - `form_section` - Gravity Forms or iframe embed
+   - `rich_text` - WYSIWYG content
+   - `testimonials` - Customer quotes
+
+4. **Install Required Plugins:**
+   - ACF Pro (for Flexible Content)
+   - WPGraphQL for ACF
+
+5. **Test:**
+   - Create a Page, select "Landing Page" template
+   - Add sections using the ACF flexible content interface
+   - Publish and view on frontend
+
+**To Disable:** Set environment variable `FEATURE_LANDING_BUILDER=false`
