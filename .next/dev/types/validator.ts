@@ -155,6 +155,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/revalidate/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/revalidate">> = Specific
+  const handler = {} as typeof import("../../../app/api/revalidate/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/wordpress/sync/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/wordpress/sync">> = Specific

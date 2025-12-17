@@ -23,6 +23,17 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
     - `preview_user_pass`: WordPress password (regular login password, NOT Application Password)
   - **WordPress Plugin:** A separate MU plugin (maintained in different repo) must override preview links to redirect to the headless frontend.
 - **301 Redirects:** Uses Next.js middleware (`middleware.ts`) to fetch and apply 301/302 redirects from the WordPress Headless Tools plugin in real-time. Redirects are fetched from `/wp-json/headless/v1/redirects` and cached for 5 minutes. Supports Basic Auth for staging environments.
+- **On-Demand Revalidation:** Provides a `/api/revalidate` endpoint for cache purging when content is updated in WordPress. Supports both POST and GET requests:
+  - **POST** (recommended): `{ secret, path?, type?, slug? }`
+    - `path`: Specific path to revalidate (e.g., `/blog/my-post`)
+    - `type`: Content type (`post`, `page`, `posts`, `pages`, `all`)
+    - `slug`: Content slug (used with `type` to build path)
+  - **GET**: `?secret=...&path=/blog/my-post`
+  - **Examples:**
+    - Purge single post: `POST { secret, type: "post", slug: "my-post" }`
+    - Purge all posts: `POST { secret, type: "posts" }`
+    - Purge entire site: `POST { secret, type: "all" }`
+  - Uses `REVALIDATE_SECRET` env var (falls back to `WP_PREVIEW_SECRET` if not set)
 - **ACF Global Scripts:** Supports injecting custom `<head>` and `<body>` scripts configured via Advanced Custom Fields (ACF) in WordPress.
 - **Gravity Forms Integration:** Includes a reusable headless module for Gravity Forms, supporting multi-page forms, conditional logic, client-side validation, spam protection, multicolumn layouts (12-column grid), and file uploads. Uses a hybrid approach: WPGraphQL for fetching form schemas and Gravity Forms REST API v2 for form submissions (enabling native file upload support without additional plugins).
   - **Client-Side Validation:** Comprehensive validation utility (`lib/gf/validation.ts`) with support for required fields, email format, phone format (7-15 digits), number ranges, URL format, date validation, time validation (12/24-hour), and file upload validation (type and size). Validation runs on blur for real-time feedback and blocks page navigation/submission until resolved.
