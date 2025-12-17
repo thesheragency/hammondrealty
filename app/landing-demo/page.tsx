@@ -100,7 +100,7 @@ const demoData: LandingPageData = {
       secondaryCtaText: 'View Documentation',
       secondaryCtaUrl: '#docs',
       videoThumbnail: {
-        sourceUrl: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=450&fit=crop',
+        sourceUrl: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80',
         altText: 'Video overview',
       },
     },
