@@ -602,6 +602,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$r
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/graphql-request/build/legacy/functions/gql.js [app-rsc] (ecmascript)");
 ;
 let wpSessionCache = null;
+// Mutex to prevent multiple simultaneous login attempts
+// When Next.js renders a page, it runs generateMetadata and page component in parallel
+// Without this lock, both would try to login simultaneously and one might fail
+let loginInProgress = null;
 // Session cache duration: 30 minutes (WordPress session is typically longer, but we refresh early)
 const SESSION_CACHE_DURATION_MS = 30 * 60 * 1000;
 /**
@@ -615,6 +619,30 @@ const SESSION_CACHE_DURATION_MS = 30 * 60 * 1000;
     // Check cache first
     if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
         console.log('[Preview Auth] Using cached session cookies');
+        return wpSessionCache.cookies;
+    }
+    // If a login is already in progress, wait for it instead of starting another
+    if (loginInProgress) {
+        console.log('[Preview Auth] Login already in progress, waiting...');
+        return loginInProgress;
+    }
+    // Start login and store the promise so other callers can wait
+    loginInProgress = performWordPressLogin();
+    try {
+        const result = await loginInProgress;
+        return result;
+    } finally{
+        // Clear the in-progress flag when done
+        loginInProgress = null;
+    }
+}
+/**
+ * Performs the actual WordPress login
+ * This is separated from getWordPressSessionCookies to allow for mutex handling
+ */ async function performWordPressLogin() {
+    // Double-check cache (another request might have populated it while we were waiting)
+    if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
+        console.log('[Preview Auth] Using cached session cookies (after lock)');
         return wpSessionCache.cookies;
     }
     const wpApiUrl = process.env.WP_API_URL;

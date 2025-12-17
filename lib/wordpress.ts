@@ -10,6 +10,11 @@ interface CachedSession {
 
 let wpSessionCache: CachedSession | null = null;
 
+// Mutex to prevent multiple simultaneous login attempts
+// When Next.js renders a page, it runs generateMetadata and page component in parallel
+// Without this lock, both would try to login simultaneously and one might fail
+let loginInProgress: Promise<string | null> | null = null;
+
 // Session cache duration: 30 minutes (WordPress session is typically longer, but we refresh early)
 const SESSION_CACHE_DURATION_MS = 30 * 60 * 1000;
 
@@ -25,6 +30,35 @@ async function getWordPressSessionCookies(): Promise<string | null> {
   // Check cache first
   if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
     console.log('[Preview Auth] Using cached session cookies');
+    return wpSessionCache.cookies;
+  }
+
+  // If a login is already in progress, wait for it instead of starting another
+  if (loginInProgress) {
+    console.log('[Preview Auth] Login already in progress, waiting...');
+    return loginInProgress;
+  }
+
+  // Start login and store the promise so other callers can wait
+  loginInProgress = performWordPressLogin();
+  
+  try {
+    const result = await loginInProgress;
+    return result;
+  } finally {
+    // Clear the in-progress flag when done
+    loginInProgress = null;
+  }
+}
+
+/**
+ * Performs the actual WordPress login
+ * This is separated from getWordPressSessionCookies to allow for mutex handling
+ */
+async function performWordPressLogin(): Promise<string | null> {
+  // Double-check cache (another request might have populated it while we were waiting)
+  if (wpSessionCache && wpSessionCache.expiresAt > Date.now()) {
+    console.log('[Preview Auth] Using cached session cookies (after lock)');
     return wpSessionCache.cookies;
   }
 

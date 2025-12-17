@@ -56,6 +56,7 @@ async function GET(request) {
     const searchParams = request.nextUrl.searchParams;
     const secret = searchParams.get('secret');
     const slug = searchParams.get('slug');
+    const id = searchParams.get('id'); // WordPress post ID for draft content
     const type = searchParams.get('type') || 'post';
     // Validate the preview secret
     if (!secret || secret !== process.env.WP_PREVIEW_SECRET) {
@@ -65,20 +66,28 @@ async function GET(request) {
             status: 401
         });
     }
-    // Slug is required for redirect
-    if (!slug) {
+    // Either slug or id is required
+    if (!slug && !id) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Missing slug parameter'
+            error: 'Missing slug or id parameter'
         }, {
             status: 400
         });
     }
     // Sanitize slug to prevent open redirect attacks
     // WordPress slugs should never start with / or contain ://
-    const sanitizedSlug = slug.replace(/^\/+/, '').replace(/[:]/g, '');
-    if (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/')) {
+    const sanitizedSlug = slug ? slug.replace(/^\/+/, '').replace(/[:]/g, '') : '';
+    if (sanitizedSlug && (sanitizedSlug.includes('://') || sanitizedSlug.startsWith('/'))) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Invalid slug format'
+        }, {
+            status: 400
+        });
+    }
+    // Validate ID is numeric if provided
+    if (id && !/^\d+$/.test(id)) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: 'Invalid id format'
         }, {
             status: 400
         });
@@ -87,20 +96,27 @@ async function GET(request) {
     const draft = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["draftMode"])();
     draft.enable();
     // Redirect to the appropriate path based on content type
+    // For drafts, we use the slug for the URL but pass ID as a query param for fetching
+    const pathSlug = sanitizedSlug || `preview-${id}`;
     let redirectPath;
     if (type === 'post') {
-        redirectPath = `/blog/${sanitizedSlug}`;
+        redirectPath = `/blog/${pathSlug}`;
     } else if (type === 'page') {
-        redirectPath = `/${sanitizedSlug}`;
+        redirectPath = `/${pathSlug}`;
     } else {
         // For custom post types, use the type as the path prefix
-        redirectPath = `/${type}/${sanitizedSlug}`;
+        redirectPath = `/${type}/${pathSlug}`;
     }
     // Get the actual host from headers (handles proxied environments like Replit)
     const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || request.nextUrl.host;
     const protocol = request.headers.get('x-forwarded-proto') || 'https';
     const baseUrl = `${protocol}://${host}`;
     const redirectUrl = new URL(redirectPath, baseUrl);
+    // Pass the WordPress post ID as a query parameter for draft content fetching
+    // This is needed because drafts may not have a proper slug yet
+    if (id) {
+        redirectUrl.searchParams.set('previewId', id);
+    }
     return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].redirect(redirectUrl);
 }
 }),
