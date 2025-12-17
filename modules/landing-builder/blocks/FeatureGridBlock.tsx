@@ -43,12 +43,12 @@ export function FeatureGridBlock({ block }: Props) {
 
   return (
     <section
-      className="bg-background py-16 md:py-24"
+      className="bg-background py-24 lg:py-36"
       data-testid="block-feature-grid"
     >
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
         {(block.sectionTitle || block.sectionDescription) && (
-          <div className="text-center mb-12 max-w-3xl mx-auto">
+          <div className="text-center mb-16 max-w-[640px] mx-auto">
             {block.sectionTitle && (
               <h2 className="text-h2 mb-4" data-testid="feature-grid-title">
                 {block.sectionTitle}
@@ -62,20 +62,20 @@ export function FeatureGridBlock({ block }: Props) {
           </div>
         )}
 
-        <div className={`grid gap-6 ${columnClasses[columns]}`}>
+        <div className={`grid gap-8 lg:gap-10 ${columnClasses[columns]}`}>
           {features.map((feature, index) => {
             const Icon = getIcon(feature.icon);
             
             return (
               <Card key={index} data-testid={`feature-card-${index}`}>
-                <CardContent className="p-6">
+                <CardContent className="p-8">
                   {Icon && (
-                    <div className="mb-4 text-brand">
-                      <Icon className="h-8 w-8" />
+                    <div className="mb-6 text-brand">
+                      <Icon className="h-10 w-10" />
                     </div>
                   )}
                   {feature.title && (
-                    <h3 className="text-h5 mb-2">{feature.title}</h3>
+                    <h3 className="text-h5 mb-3">{feature.title}</h3>
                   )}
                   {feature.description && (
                     <p className="text-body text-muted-foreground">

@@ -21,11 +21,11 @@ export function TestimonialsBlock({ block }: Props) {
   }
 
   return (
-    <section className="bg-background py-16 md:py-24" data-testid="block-testimonials">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="bg-background py-24 lg:py-36" data-testid="block-testimonials">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
         {/* Header */}
         {(block.sectionTitle || block.sectionDescription) && (
-          <div className="text-center mb-12 max-w-3xl mx-auto">
+          <div className="text-center mb-16 max-w-[640px] mx-auto">
             {block.sectionTitle && (
               <h2 className="text-h2 mb-4" data-testid="testimonials-title">
                 {block.sectionTitle}
@@ -39,17 +39,17 @@ export function TestimonialsBlock({ block }: Props) {
           </div>
         )}
 
-        {/* Testimonials Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* Testimonials Grid - 3 columns on large screens */}
+        <div className="grid gap-8 lg:gap-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
               className="border"
               data-testid={`testimonial-card-${index}`}
             >
-              <CardContent className="p-6 md:p-8">
+              <CardContent className="p-8">
                 {testimonial.quote && (
-                  <blockquote className="text-body text-foreground mb-6">
+                  <blockquote className="text-body-lg text-foreground mb-8 leading-relaxed">
                     "{testimonial.quote}"
                   </blockquote>
                 )}

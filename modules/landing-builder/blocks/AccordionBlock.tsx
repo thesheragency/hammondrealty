@@ -29,10 +29,10 @@ export function AccordionBlock({ block }: Props) {
     <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
       {items.map((item, index) => (
         <AccordionItem key={index} value={`item-${index}`} data-testid={`accordion-item-${index}`}>
-          <AccordionTrigger className="text-h5 text-left">
+          <AccordionTrigger className="text-h5 text-left py-6">
             {item.question}
           </AccordionTrigger>
-          <AccordionContent className="text-body text-muted-foreground">
+          <AccordionContent className="text-body text-muted-foreground pb-6">
             {item.answer}
           </AccordionContent>
         </AccordionItem>
@@ -42,16 +42,16 @@ export function AccordionBlock({ block }: Props) {
 
   if (layout === 'split') {
     return (
-      <section className="bg-background py-16 md:py-24" data-testid="block-accordion">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid lg:grid-cols-5 gap-12 lg:gap-20">
-            {/* Left side - Title and CTA */}
-            <div className="lg:col-span-2">
+      <section className="bg-background py-24 lg:py-36" data-testid="block-accordion">
+        <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Left side - Title and CTA (fixed width) */}
+            <div className="w-full lg:w-[360px] lg:flex-shrink-0">
               {block.sectionTitle && (
                 <h2 className="text-h2 mb-6">{block.sectionTitle}</h2>
               )}
               {block.sectionDescription && (
-                <p className="text-body text-muted-foreground mb-8">
+                <p className="text-body text-muted-foreground mb-10">
                   {block.sectionDescription}
                 </p>
               )}
@@ -62,8 +62,8 @@ export function AccordionBlock({ block }: Props) {
               )}
             </div>
 
-            {/* Right side - Accordion */}
-            <div className="lg:col-span-3">
+            {/* Right side - Accordion (flexible width) */}
+            <div className="flex-1 lg:pl-8">
               <AccordionList />
             </div>
           </div>
@@ -74,11 +74,11 @@ export function AccordionBlock({ block }: Props) {
 
   // Centered layout
   return (
-    <section className="bg-background py-16 md:py-24" data-testid="block-accordion">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="max-w-3xl mx-auto">
+    <section className="bg-background py-24 lg:py-36" data-testid="block-accordion">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
+        <div className="max-w-[800px] mx-auto">
           {(block.sectionTitle || block.sectionDescription) && (
-            <div className="text-center mb-12">
+            <div className="text-center mb-20">
               {block.sectionTitle && (
                 <h2 className="text-h2 mb-4">{block.sectionTitle}</h2>
               )}
@@ -93,7 +93,7 @@ export function AccordionBlock({ block }: Props) {
           <AccordionList />
 
           {block.ctaText && block.ctaUrl && (
-            <div className="flex flex-wrap justify-center gap-3 mt-12">
+            <div className="flex flex-wrap justify-center gap-6 mt-16">
               <Button asChild size="lg">
                 <a href={block.ctaUrl}>{block.ctaText}</a>
               </Button>

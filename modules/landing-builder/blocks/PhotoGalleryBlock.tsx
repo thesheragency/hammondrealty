@@ -24,10 +24,10 @@ export function PhotoGalleryBlock({ block }: Props) {
   const gridPhotos = photos.slice(1, 5);
 
   return (
-    <section className="bg-background py-16 md:py-24" data-testid="block-photo-gallery">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="bg-background py-24 lg:py-36" data-testid="block-photo-gallery">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
             {block.sectionTitle && (
               <h2 className="text-h2 mb-2" data-testid="photo-gallery-title">
@@ -41,25 +41,25 @@ export function PhotoGalleryBlock({ block }: Props) {
             )}
           </div>
           
-          {/* Navigation arrows placeholder */}
-          <div className="flex gap-3">
-            <button className="w-12 h-12 rounded-full border border-foreground flex items-center justify-center hover:bg-muted transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          {/* Navigation arrows */}
+          <div className="flex gap-4">
+            <button className="w-12 h-12 rounded-full border-2 border-foreground flex items-center justify-center hover:bg-muted transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button className="w-12 h-12 rounded-full border border-foreground flex items-center justify-center hover:bg-muted transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <button className="w-12 h-12 rounded-full border-2 border-foreground flex items-center justify-center hover:bg-muted transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
         </div>
 
         {/* Photo Grid */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-10">
-          {/* Large photo */}
-          <div className="aspect-square overflow-hidden rounded-lg">
+        <div className="grid lg:grid-cols-2 gap-10 mb-12">
+          {/* Large photo - 3:2 aspect ratio */}
+          <div className="aspect-[3/2] overflow-hidden rounded-xl">
             <img
               src={mainPhoto.sourceUrl}
               alt={mainPhoto.altText || 'Gallery photo'}
@@ -68,10 +68,10 @@ export function PhotoGalleryBlock({ block }: Props) {
             />
           </div>
 
-          {/* 2x2 Grid */}
+          {/* 2x2 Grid - 3:2 aspect ratio per image */}
           <div className="grid grid-cols-2 gap-6">
             {gridPhotos.map((photo, index) => (
-              <div key={index} className="aspect-square overflow-hidden rounded-lg">
+              <div key={index} className="aspect-[3/2] overflow-hidden rounded-xl">
                 <img
                   src={photo.sourceUrl}
                   alt={photo.altText || `Gallery photo ${index + 2}`}
@@ -85,7 +85,7 @@ export function PhotoGalleryBlock({ block }: Props) {
 
         {/* CTA */}
         {block.ctaText && block.ctaUrl && (
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-6">
             <p className="text-body font-bold">Want the same?</p>
             <Button asChild size="lg">
               <a href={block.ctaUrl}>{block.ctaText}</a>

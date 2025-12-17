@@ -25,24 +25,24 @@ export function CtaBannerBlock({ block }: Props) {
 
   return (
     <section
-      className={`py-16 md:py-24 ${bgColorClasses[bgColor]}`}
+      className={`py-24 lg:py-36 ${bgColorClasses[bgColor]}`}
       data-testid="block-cta-banner"
     >
-      <div className="container mx-auto px-4 max-w-7xl text-center">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px] text-center">
         {block.headline && (
-          <h2 className="text-h2 mb-4" data-testid="cta-headline">
+          <h2 className="text-h2 mb-6 max-w-[680px] mx-auto" data-testid="cta-headline">
             {block.headline}
           </h2>
         )}
 
         {block.description && (
-          <p className="text-body-lg mb-8 max-w-2xl mx-auto opacity-90" data-testid="cta-description">
+          <p className="text-body-lg mb-10 max-w-[520px] mx-auto opacity-90" data-testid="cta-description">
             {block.description}
           </p>
         )}
 
         {(hasPrimaryCta || hasSecondaryCta) && (
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             {hasPrimaryCta && (
               <Button
                 asChild

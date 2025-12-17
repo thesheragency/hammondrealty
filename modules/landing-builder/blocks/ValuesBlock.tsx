@@ -44,11 +44,11 @@ export function ValuesBlock({ block }: Props) {
   const values = block.values || [];
 
   return (
-    <section className="bg-background py-16 md:py-24" data-testid="block-values">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="bg-background py-24 lg:py-36" data-testid="block-values">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
         {/* Header */}
         {(block.sectionTitle || block.sectionDescription) && (
-          <div className="text-center mb-16 max-w-3xl mx-auto">
+          <div className="text-center mb-20 max-w-[640px] mx-auto">
             {block.sectionTitle && (
               <h2 className="text-h2 mb-4">{block.sectionTitle}</h2>
             )}
@@ -61,7 +61,7 @@ export function ValuesBlock({ block }: Props) {
         )}
 
         {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
           {values.map((value, index) => {
             const Icon = getIcon(value.icon) || DefaultIcon;
             
@@ -71,10 +71,10 @@ export function ValuesBlock({ block }: Props) {
                 className="text-center"
                 data-testid={`value-card-${index}`}
               >
-                <div className="mb-4 flex justify-center">
-                  <Icon className="h-12 w-12 text-foreground" />
+                <div className="mb-6 flex justify-center">
+                  <Icon className="h-16 w-16 text-foreground" />
                 </div>
-                <h3 className="text-h4 mb-4">{value.title}</h3>
+                <h3 className="text-h4 mb-3">{value.title}</h3>
                 <p className="text-body text-muted-foreground">
                   {value.description}
                 </p>

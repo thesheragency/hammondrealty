@@ -17,20 +17,20 @@ export function VideoSectionBlock({ block }: Props) {
   const bulletPoints = block.bulletPoints || [];
 
   return (
-    <section className="bg-background py-16 md:py-24" data-testid="block-video-section">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section className="bg-background py-24 lg:py-36" data-testid="block-video-section">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
           {/* Left side - Content */}
-          <div>
+          <div className="max-w-[640px]">
             {block.headline && (
-              <h2 className="text-h2 mb-6">{block.headline}</h2>
+              <h2 className="text-h2 mb-8">{block.headline}</h2>
             )}
 
             {bulletPoints.length > 0 && (
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-4 mb-10">
                 {bulletPoints.map((point, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <Check className="h-6 w-6 flex-shrink-0 text-brand" />
+                  <li key={index} className="flex items-start gap-3">
+                    <Check className="h-6 w-6 flex-shrink-0 mt-0.5 text-brand" />
                     <span className="text-body text-muted-foreground">{point}</span>
                   </li>
                 ))}
@@ -38,7 +38,7 @@ export function VideoSectionBlock({ block }: Props) {
             )}
 
             {(block.ctaText || block.secondaryCtaText) && (
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-6">
                 {block.ctaText && block.ctaUrl && (
                   <Button asChild size="lg">
                     <a href={block.ctaUrl}>{block.ctaText}</a>
@@ -59,7 +59,7 @@ export function VideoSectionBlock({ block }: Props) {
           {/* Right side - Video */}
           <div>
             <div 
-              className="relative aspect-video bg-muted rounded-lg overflow-hidden cursor-pointer group"
+              className="relative aspect-video bg-muted rounded-2xl overflow-hidden cursor-pointer group"
               data-testid="video-player"
             >
               {block.videoThumbnail?.sourceUrl ? (
@@ -72,8 +72,8 @@ export function VideoSectionBlock({ block }: Props) {
               
               {/* Play button */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-background/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
-                  <Play className="h-6 w-6 text-foreground fill-foreground ml-1" />
+                <div className="w-20 h-20 rounded-full bg-background/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
+                  <Play className="h-8 w-8 text-foreground fill-foreground ml-1" />
                 </div>
               </div>
             </div>

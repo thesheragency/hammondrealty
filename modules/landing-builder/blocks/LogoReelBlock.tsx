@@ -17,16 +17,16 @@ export function LogoReelBlock({ block }: Props) {
 
   return (
     <section
-      className="bg-muted py-12 md:py-16"
+      className="bg-muted py-16"
       data-testid="block-logo-reel"
     >
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+      <div className="container mx-auto px-6 lg:px-12 max-w-[1200px]">
+        <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
           {placeholderLogos ? (
             placeholderLogos.map((_, index) => (
               <div
                 key={index}
-                className="h-8 md:h-12 w-32 md:w-48 bg-muted-foreground/20 rounded-md"
+                className="h-7 lg:h-10 w-28 lg:w-40 bg-muted-foreground/20 rounded"
                 data-testid={`logo-placeholder-${index}`}
               />
             ))
@@ -36,7 +36,7 @@ export function LogoReelBlock({ block }: Props) {
                 key={index}
                 src={logo.sourceUrl}
                 alt={logo.altText || `Partner logo ${index + 1}`}
-                className="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all"
+                className="h-7 lg:h-10 w-auto object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"
                 data-testid={`logo-${index}`}
               />
             ))

@@ -19,7 +19,7 @@ export function HeroBlock({ block }: Props) {
 
   return (
     <section
-      className={`relative py-16 md:py-24 ${hasBackgroundImage ? '' : 'bg-background'}`}
+      className={`relative py-24 lg:py-36 ${hasBackgroundImage ? '' : 'bg-background'}`}
       data-testid="block-hero"
     >
       {hasBackgroundImage && (
@@ -33,18 +33,18 @@ export function HeroBlock({ block }: Props) {
         </>
       )}
 
-      <div className="container relative mx-auto px-4 max-w-7xl">
-        <div className="max-w-4xl">
+      <div className="container relative mx-auto px-6 lg:px-12 max-w-[1200px]">
+        <div className="max-w-[680px]">
           {/* Rating badge */}
           {block.showRating && (
-            <div className="mb-4">
-              <p className="text-small text-muted-foreground mb-2">
+            <div className="mb-6">
+              <p className="text-small text-muted-foreground mb-3">
                 {block.ratingText || 'Based on 300+ Reviews on'}
               </p>
-              <div className="flex items-center gap-4">
-                <div className="flex gap-0.5">
+              <div className="flex items-center gap-4 h-6">
+                <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-foreground text-foreground" />
+                    <Star key={i} className="h-5 w-5 fill-foreground text-foreground" />
                   ))}
                 </div>
               </div>
@@ -54,7 +54,7 @@ export function HeroBlock({ block }: Props) {
           {/* Headline */}
           {block.headline && (
             <h1
-              className={`text-h1 mb-4 ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`}
+              className={`text-h1 mb-6 max-w-[680px] ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`}
               data-testid="hero-headline"
             >
               {block.headline}
@@ -64,7 +64,7 @@ export function HeroBlock({ block }: Props) {
           {/* Subheadline */}
           {block.subheadline && (
             <p
-              className={`text-body-lg mb-6 max-w-xl ${hasBackgroundImage ? 'text-white/90' : 'text-muted-foreground'}`}
+              className={`text-body-lg mb-8 max-w-[520px] ${hasBackgroundImage ? 'text-white/90' : 'text-muted-foreground'}`}
               data-testid="hero-subheadline"
             >
               {block.subheadline}
@@ -73,10 +73,10 @@ export function HeroBlock({ block }: Props) {
 
           {/* Bullet points */}
           {bulletPoints.length > 0 && (
-            <ul className="space-y-2 mb-8">
+            <ul className="space-y-4 mb-10">
               {bulletPoints.map((point, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <Check className={`h-6 w-6 flex-shrink-0 ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`} />
+                <li key={index} className="flex items-start gap-3">
+                  <Check className={`h-6 w-6 flex-shrink-0 mt-0.5 ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`} />
                   <span className={`text-body ${hasBackgroundImage ? 'text-white' : 'text-foreground'}`}>
                     {point}
                   </span>
@@ -87,7 +87,7 @@ export function HeroBlock({ block }: Props) {
 
           {/* CTA Buttons */}
           {(block.ctaText || block.secondaryCtaText) && (
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-6">
               {block.ctaText && block.ctaUrl && (
                 <Button asChild size="lg" data-testid="hero-cta">
                   <a href={block.ctaUrl}>{block.ctaText}</a>
