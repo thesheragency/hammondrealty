@@ -7,7 +7,8 @@ import { isValidPostType, buildPreviewPath } from '@/lib/config/post-types';
  * - Decodes URL encoding to catch encoded attacks
  * - Rejects path traversal attempts (.., backslashes)
  * - Rejects protocol handlers and special characters
- * - Only allows alphanumeric, hyphens, and underscores
+ * - Allows hierarchical slugs (parent/child) for nested WordPress pages
+ * - Each segment must be alphanumeric with hyphens/underscores
  */
 function sanitizeSlug(slug: string): string | null {
   if (!slug) return null;
@@ -39,10 +40,15 @@ function sanitizeSlug(slug: string): string | null {
   // Remove leading/trailing slashes and whitespace
   const cleaned = decoded.replace(/^\/+|\/+$/g, '').trim();
   
-  // Validate slug format: only alphanumeric, hyphens, underscores
-  // WordPress slugs follow this pattern
-  if (!/^[a-zA-Z0-9_-]+$/.test(cleaned)) {
-    return null;
+  // Split into segments for hierarchical slugs (parent/child)
+  const segments = cleaned.split('/');
+  
+  // Validate each segment: alphanumeric, hyphens, underscores only
+  // This allows paths like "parent/child" but blocks malicious patterns
+  for (const segment of segments) {
+    if (!segment || !/^[a-zA-Z0-9_-]+$/.test(segment)) {
+      return null;
+    }
   }
   
   return cleaned;
