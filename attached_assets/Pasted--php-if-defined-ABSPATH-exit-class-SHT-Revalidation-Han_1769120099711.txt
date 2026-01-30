@@ -1,0 +1,216 @@
+<?php
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class SHT_Revalidation_Handler {
+    
+    public function __construct() {
+        add_action('save_post', array($this, 'handle_post_save'), 10, 3);
+        add_action('delete_post', array($this, 'handle_post_delete'), 10, 2);
+        add_action('trash_post', array($this, 'handle_post_trash'), 10, 1);
+        add_action('transition_post_status', array($this, 'handle_status_change'), 10, 3);
+    }
+    
+    public function handle_post_save($post_id, $post, $update) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        
+        if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+            return;
+        }
+        
+        if ($post->post_status !== 'publish') {
+            return;
+        }
+        
+        if (!$this->is_revalidation_enabled_for_post_type($post->post_type)) {
+            return;
+        }
+        
+        $this->send_revalidation_request($post);
+    }
+    
+    public function handle_post_delete($post_id, $post) {
+        if (!$this->is_revalidation_enabled_for_post_type($post->post_type)) {
+            return;
+        }
+        
+        $this->send_revalidation_request($post);
+    }
+    
+    public function handle_post_trash($post_id) {
+        $post = get_post($post_id);
+        if (!$post) {
+            return;
+        }
+        
+        if (!$this->is_revalidation_enabled_for_post_type($post->post_type)) {
+            return;
+        }
+        
+        $this->send_revalidation_request($post);
+    }
+    
+    public function handle_status_change($new_status, $old_status, $post) {
+        if ($new_status === $old_status) {
+            return;
+        }
+        
+        if ($old_status !== 'publish' && $new_status !== 'publish') {
+            return;
+        }
+        
+        if (!$this->is_revalidation_enabled_for_post_type($post->post_type)) {
+            return;
+        }
+        
+        $this->send_revalidation_request($post);
+    }
+    
+    private function is_revalidation_enabled_for_post_type($post_type) {
+        $options = get_option('sht_settings', array());
+        $enabled_post_types = isset($options['revalidate_post_types']) ? $options['revalidate_post_types'] : array('post', 'page');
+        return in_array($post_type, $enabled_post_types);
+    }
+    
+    private function send_revalidation_request($post) {
+        $options = get_option('sht_settings', array());
+        $frontend_url = isset($options['frontend_url']) ? $options['frontend_url'] : '';
+        $preview_secret = isset($options['preview_secret']) ? $options['preview_secret'] : '';
+        
+        if (empty($frontend_url) || empty($preview_secret)) {
+            return false;
+        }
+        
+        $path = $this->get_frontend_path_for_post($post);
+        
+        $endpoint = trailingslashit($frontend_url) . 'api/revalidate';
+        
+        $response = wp_remote_post($endpoint, array(
+            'timeout' => 10,
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode(array(
+                'secret' => $preview_secret,
+                'path'   => $path,
+                'type'   => $post->post_type,
+                'id'     => $post->ID,
+                'slug'   => $post->post_name,
+            )),
+        ));
+        
+        if (is_wp_error($response)) {
+            $this->log_error('Revalidation request failed: ' . $response->get_error_message());
+            return false;
+        }
+        
+        $response_code = wp_remote_retrieve_response_code($response);
+        if ($response_code !== 200) {
+            $this->log_error('Revalidation request returned status ' . $response_code);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private function get_frontend_path_for_post($post) {
+        $options = get_option('sht_settings', array());
+        $post_type_routes = isset($options['post_type_routes']) ? $options['post_type_routes'] : array();
+        
+        $route = isset($post_type_routes[$post->post_type]) 
+            ? $post_type_routes[$post->post_type] 
+            : $this->get_default_route($post->post_type);
+        
+        $slug = $post->post_name ? $post->post_name : sanitize_title($post->post_title);
+        
+        $route = str_replace('[slug]', $slug, $route);
+        $route = str_replace('[id]', $post->ID, $route);
+        
+        return $route;
+    }
+    
+    private function get_default_route($post_type) {
+        $defaults = array(
+            'post' => '/blog/[slug]',
+            'page' => '/[slug]',
+        );
+        
+        return isset($defaults[$post_type]) ? $defaults[$post_type] : '/' . $post_type . 's/[slug]';
+    }
+    
+    private function log_error($message) {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('[Sher Headless Tools] ' . $message);
+        }
+    }
+    
+    public function trigger_manual_revalidation($post_id) {
+        $post = get_post($post_id);
+        if (!$post) {
+            return false;
+        }
+        
+        return $this->send_revalidation_request($post);
+    }
+    
+    public function trigger_path_revalidation($path) {
+        $options = get_option('sht_settings', array());
+        $frontend_url = isset($options['frontend_url']) ? $options['frontend_url'] : '';
+        $preview_secret = isset($options['preview_secret']) ? $options['preview_secret'] : '';
+        
+        if (empty($frontend_url) || empty($preview_secret)) {
+            return false;
+        }
+        
+        $endpoint = trailingslashit($frontend_url) . 'api/revalidate';
+        
+        $response = wp_remote_post($endpoint, array(
+            'timeout' => 10,
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode(array(
+                'secret' => $preview_secret,
+                'path'   => $path,
+                'type'   => 'custom',
+            )),
+        ));
+        
+        return !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200;
+    }
+    
+    public function trigger_bulk_revalidation($type, $slug = '') {
+        $options = get_option('sht_settings', array());
+        $frontend_url = isset($options['frontend_url']) ? $options['frontend_url'] : '';
+        $preview_secret = isset($options['preview_secret']) ? $options['preview_secret'] : '';
+        
+        if (empty($frontend_url) || empty($preview_secret)) {
+            return false;
+        }
+        
+        $endpoint = trailingslashit($frontend_url) . 'api/revalidate';
+        
+        $body = array(
+            'secret' => $preview_secret,
+            'type'   => $type,
+        );
+        
+        if (!empty($slug)) {
+            $body['slug'] = $slug;
+        }
+        
+        $response = wp_remote_post($endpoint, array(
+            'timeout' => 30,
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode($body),
+        ));
+        
+        return !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200;
+    }
+}

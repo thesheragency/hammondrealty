@@ -1,0 +1,113 @@
+<?php
+/**
+ * Plugin Name: Sher Headless Tools
+ * Plugin URI: https://github.com/your-repo/sher-headless-tools
+ * Description: Essential tools for headless WordPress setups - Preview redirects to Next.js and 301 redirect management.
+ * Version: 1.0.0
+ * Author: Sher
+ * Author URI: https://yourwebsite.com
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: sher-headless-tools
+ * Requires at least: 5.0
+ * Requires PHP: 7.4
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+define('SHT_VERSION', '1.0.0');
+define('SHT_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('SHT_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('SHT_PLUGIN_BASENAME', plugin_basename(__FILE__));
+
+require_once SHT_PLUGIN_DIR . 'includes/class-sht-settings.php';
+require_once SHT_PLUGIN_DIR . 'includes/class-sht-preview-handler.php';
+require_once SHT_PLUGIN_DIR . 'includes/class-sht-redirect-manager.php';
+require_once SHT_PLUGIN_DIR . 'includes/class-sht-revalidation-handler.php';
+
+class Sher_Headless_Tools {
+    
+    private static $instance = null;
+    private $settings;
+    private $preview_handler;
+    private $redirect_manager;
+    private $revalidation_handler;
+    
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct() {
+        $this->settings = new SHT_Settings();
+        $this->preview_handler = new SHT_Preview_Handler();
+        $this->redirect_manager = new SHT_Redirect_Manager();
+        $this->revalidation_handler = new SHT_Revalidation_Handler();
+        
+        add_action('plugins_loaded', array($this, 'init'));
+    }
+    
+    public function init() {
+        load_plugin_textdomain('sher-headless-tools', false, dirname(SHT_PLUGIN_BASENAME) . '/languages');
+        $this->maybe_migrate_settings();
+    }
+    
+    private function maybe_migrate_settings() {
+        $old_settings = get_option('njpr_settings');
+        if ($old_settings && !get_option('sht_settings')) {
+            update_option('sht_settings', $old_settings);
+            delete_option('njpr_settings');
+        }
+    }
+    
+    public function get_settings() {
+        return $this->settings;
+    }
+    
+    public function get_preview_handler() {
+        return $this->preview_handler;
+    }
+    
+    public function get_redirect_manager() {
+        return $this->redirect_manager;
+    }
+    
+    public function get_revalidation_handler() {
+        return $this->revalidation_handler;
+    }
+}
+
+function sht_init() {
+    return Sher_Headless_Tools::get_instance();
+}
+
+sht_init();
+
+register_activation_hook(__FILE__, 'sht_activate');
+register_deactivation_hook(__FILE__, 'sht_deactivate');
+
+function sht_activate() {
+    $default_options = array(
+        'frontend_url' => '',
+        'preview_secret' => wp_generate_password(32, false),
+        'post_type_routes' => array(
+            'post' => '/blog/[slug]',
+            'page' => '/[slug]',
+        ),
+        'enabled_post_types' => array('post', 'page'),
+        'revalidate_post_types' => array('post', 'page'),
+    );
+    
+    if (!get_option('sht_settings')) {
+        add_option('sht_settings', $default_options);
+    }
+    
+    SHT_Redirect_Manager::create_table();
+}
+
+function sht_deactivate() {
+}
