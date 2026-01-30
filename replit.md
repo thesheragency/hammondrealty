@@ -111,6 +111,21 @@ Verify all required environment variables are set:
 - [ ] `preview_user_pass` - WordPress password (NOT Application Password)
 - [ ] `WP_AUTH_USER` / `WP_AUTH_PASSWORD` - Only if staging has nginx/apache Basic Auth protection
 
+### Database Setup (Required for New Instances)
+
+When duplicating this boilerplate, the database secrets copy over but the actual database does not. You must provision a fresh database for each new project instance:
+
+1. **Provision Database:** Use the Replit Database tool in the workspace to create a new PostgreSQL database
+2. **Push Schema:** Run `npx drizzle-kit push` to create the tables
+3. **Sync Content:** Run the WordPress content sync to populate the cache
+
+The database uses these tables:
+- `posts` - Cached WordPress posts
+- `pages` - Cached WordPress pages  
+- `redirects` - 301/302 redirects from WordPress
+- `sync_status` - Tracks last sync times
+- `global_settings` - ACF global options
+
 ### Content Sync
 
 - [ ] Run initial content sync to populate PostgreSQL cache
