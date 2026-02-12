@@ -191,7 +191,7 @@ export default function StyleGuide() {
               <h3 className="text-h6 mb-4">On Dark Background</h3>
               <div className="bg-foreground p-6 rounded-lg">
                 <div className="flex flex-wrap items-center gap-4">
-                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10" data-testid="button-dark-outline">
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/30" data-testid="button-dark-outline">
                     Outline on Dark
                   </Button>
                   <Button className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/90" data-testid="button-dark-accent">
