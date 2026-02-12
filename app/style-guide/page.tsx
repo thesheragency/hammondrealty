@@ -247,7 +247,7 @@ export default function StyleGuide() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
               <Card className="group overflow-hidden relative h-64" data-testid="card-image-reveal">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand to-brand-accent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90 group-hover:via-black/50 group-hover:to-black/10" />
                 <div className="absolute bottom-0 p-4 text-white">
                   <h4 className="text-h5">Card Title</h4>
                   <p className="text-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2">

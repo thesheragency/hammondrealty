@@ -3855,6 +3855,10 @@ body {
   border-color: hsl(var(--primary) / .5);
 }
 
+.hover\:border-white\/30:hover {
+  border-color: #ffffff4d;
+}
+
 .hover\:bg-accent:hover {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--accent) / var(--tw-bg-opacity, 1));
@@ -4132,6 +4136,15 @@ body {
   --tw-gradient-from: #000000e6 var(--tw-gradient-from-position);
   --tw-gradient-to: #0000 var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.group:hover .group-hover\:via-black\/50 {
+  --tw-gradient-to: #0000 var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #00000080 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.group:hover .group-hover\:to-black\/10 {
+  --tw-gradient-to: #0000001a var(--tw-gradient-to-position);
 }
 
 .group:hover .group-hover\:text-primary {
