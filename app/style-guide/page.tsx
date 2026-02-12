@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +38,25 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+function formatPhoneNumber(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 10);
+  if (digits.length === 0) return "";
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 export default function StyleGuide() {
+  const [phone, setPhone] = useState("");
+  const [mcPhone, setMcPhone] = useState("");
+  const [mpPhone, setMpPhone] = useState("");
+
+  const handlePhoneChange = useCallback((setter: (v: string) => void) => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
+      setter(formatPhoneNumber(e.target.value));
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
@@ -499,7 +518,7 @@ export default function StyleGuide() {
                 <h3 className="text-h6 mb-4">Phone Input</h3>
                 <div className="gf-field gf-field-phone">
                   <Label htmlFor="demo-phone" className="gf-label">Phone Number</Label>
-                  <Input id="demo-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-demo-phone" />
+                  <Input id="demo-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-demo-phone" value={phone} onChange={handlePhoneChange(setPhone)} />
                 </div>
               </div>
 
@@ -619,7 +638,7 @@ export default function StyleGuide() {
                   <div className="gf-field-column" style={{ gridColumn: 'span 8 / span 8' }}>
                     <div className="gf-field">
                       <Label htmlFor="mc-phone" className="gf-label">Phone</Label>
-                      <Input id="mc-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-mc-phone" />
+                      <Input id="mc-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-mc-phone" value={mcPhone} onChange={handlePhoneChange(setMcPhone)} />
                       <span className="text-xs text-muted-foreground">span 8</span>
                     </div>
                   </div>
@@ -658,7 +677,7 @@ export default function StyleGuide() {
                   </div>
                   <div className="gf-field">
                     <Label htmlFor="multipage-phone" className="gf-label">Phone</Label>
-                    <Input id="multipage-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-multipage-phone" />
+                    <Input id="multipage-phone" type="tel" placeholder="(555) 123-4567" className="gf-input" data-testid="input-multipage-phone" value={mpPhone} onChange={handlePhoneChange(setMpPhone)} />
                   </div>
                 </div>
                 <div className="flex justify-between gap-4 mt-6">
