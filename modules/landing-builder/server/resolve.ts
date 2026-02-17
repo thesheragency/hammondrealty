@@ -7,7 +7,8 @@
  */
 
 import { gql } from 'graphql-request';
-import { isLandingBuilderEnabled, getLandingTemplateName } from '@/lib/config/features';
+import { isLandingBuilderEnabled } from '@/lib/config/features';
+import { isTemplateRenderer } from '@/lib/config/post-types';
 import type { LandingBlock, LandingPageData } from '../types';
 
 // Import existing WordPress client infrastructure for proper auth handling
@@ -322,26 +323,10 @@ async function getPreviewWpClient() {
 
 /**
  * Check if a template name matches the landing page template
+ * Uses the centralized PAGE_TEMPLATE_CONFIG registry in lib/config/post-types.ts
  */
 function matchesLandingTemplate(templateName: string | null | undefined): boolean {
-  if (!templateName) return false;
-  
-  const configuredTemplate = getLandingTemplateName();
-  
-  // Normalize for comparison
-  const normalizedTemplate = templateName.toLowerCase().replace(/\.php$/, '');
-  const normalizedConfig = configuredTemplate.toLowerCase().replace(/\.php$/, '');
-  
-  // Direct match
-  if (normalizedTemplate === normalizedConfig) return true;
-  
-  // Check common patterns
-  const isLanding = 
-    normalizedTemplate.includes('landing') ||
-    normalizedTemplate === 'template-landing-page' ||
-    normalizedTemplate === 'landing page';
-    
-  return isLanding;
+  return isTemplateRenderer(templateName, 'landing-builder');
 }
 
 /**

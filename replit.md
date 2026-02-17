@@ -43,7 +43,7 @@ The system is built on a Next.js 16 App Router frontend with TypeScript, utilizi
 - **Modular Component Architecture:** Emphasizes modular React components for easy restyling and maintenance.
 - **Landing Page Builder (Feature Flag):** An optional module for self-service landing page creation using ACF Flexible Content blocks. When enabled, pages using the "Landing Page" template in WordPress are rendered with modular blocks instead of standard page content.
   - **Feature Flag:** Set `FEATURE_LANDING_BUILDER=false` to disable. Enabled by default.
-  - **Template Detection:** Checks the page's WordPress template; if it matches the landing page template, uses the block renderer.
+  - **Template Detection:** Uses the centralized `PAGE_TEMPLATE_CONFIG` registry in `lib/config/post-types.ts` to map WordPress template names to frontend renderers. Template matching is case-insensitive and ignores `.php` extensions. Each entry can optionally reference a feature flag.
   - **Available Blocks:** Hero, Feature Grid, CTA Banner, Form Section (Gravity Forms or iframe), Rich Text, Testimonials.
   - **Form Section:** Supports toggling between Gravity Forms (by ID) and iframe embeds (for CRM forms like HubSpot, Salesforce).
   - **Module Location:** All landing builder code is isolated in `modules/landing-builder/` to prevent accidental modification during frontend updates.
@@ -100,6 +100,38 @@ Before launching each instance of this boilerplate, verify all WordPress post ty
 4. **Test preview for each post type:**
    - Create a draft for each post type in WordPress
    - Click "Preview" and verify it loads correctly on the frontend
+
+### WordPress Page Template Configuration
+
+Page templates (e.g., "Landing Page") are mapped to frontend renderers via `PAGE_TEMPLATE_CONFIG` in `lib/config/post-types.ts`. This registry determines which component renders pages that use a specific WordPress template.
+
+1. **Register the template in the config:**
+   ```typescript
+   export const PAGE_TEMPLATE_CONFIG: Record<string, PageTemplateConfig> = {
+     'template-landing-page': {
+       renderer: 'landing-builder',
+       label: 'Landing Page',
+       featureFlag: 'FEATURE_LANDING_BUILDER',
+     },
+     // Add name variations WordPress might return:
+     'landing page': {
+       renderer: 'landing-builder',
+       label: 'Landing Page',
+       featureFlag: 'FEATURE_LANDING_BUILDER',
+     },
+     // Custom templates:
+     // 'template-full-width': { renderer: 'default', label: 'Full Width' },
+   };
+   ```
+
+2. **Add new renderer types** to the `TemplateRenderer` union type if needed:
+   ```typescript
+   export type TemplateRenderer = 'landing-builder' | 'default';
+   ```
+
+3. **Wire the renderer** into your page route (e.g., `app/[slug]/page.tsx`) using `getTemplateRenderer(templateName)`.
+
+4. **Feature flags** are optional. If `featureFlag` is set, the template is ignored when `process.env[featureFlag] === 'false'`.
 
 ### Environment Variables Checklist
 

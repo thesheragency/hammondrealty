@@ -6,6 +6,7 @@
  */
 
 import { gql, GraphQLClient } from 'graphql-request';
+import { isTemplateRenderer } from '@/lib/config/post-types';
 import type { LandingBlock, LandingPageData } from '../types';
 
 // GraphQL query for landing page with ACF flexible content
@@ -157,20 +158,9 @@ export async function fetchLandingPage(
 }
 
 /**
- * Check if a template name matches the landing page template
+ * Check if a template name matches the landing page template.
+ * Uses the centralized PAGE_TEMPLATE_CONFIG registry in lib/config/post-types.ts
  */
 export function isLandingPageTemplate(templateName: string | undefined | null): boolean {
-  if (!templateName) return false;
-  
-  // Normalize template name for comparison
-  const normalized = templateName.toLowerCase().replace(/[^a-z0-9]/g, '');
-  
-  // Match common landing page template naming patterns
-  return (
-    normalized.includes('landingpage') ||
-    normalized.includes('landing') ||
-    templateName === 'template-landing-page' ||
-    templateName === 'template-landing-page.php' ||
-    templateName === 'Landing Page'
-  );
+  return isTemplateRenderer(templateName, 'landing-builder');
 }

@@ -82,3 +82,99 @@ export function buildPreviewPath(type: string, slug: string): string | null {
   if (!config) return null;
   return config.route.replace('[slug]', slug);
 }
+
+
+/**
+ * Page Template Configuration
+ * 
+ * Maps WordPress page template slugs to frontend renderer identifiers.
+ * When WordPress returns a page with a specific template, this registry
+ * determines which frontend component handles the rendering.
+ * 
+ * Template matching is case-insensitive and ignores the .php extension,
+ * so "Landing Page", "template-landing-page", and "template-landing-page.php"
+ * all resolve correctly.
+ * 
+ * To add a new page template:
+ * 1. Create the template PHP file in your WordPress theme
+ * 2. Add an entry below with ALL name variations WordPress might return
+ * 3. Create the corresponding frontend renderer component
+ * 4. Wire the renderer into your page route (e.g., app/[slug]/page.tsx)
+ */
+
+export type TemplateRenderer = 'landing-builder' | 'default';
+
+export interface PageTemplateConfig {
+  renderer: TemplateRenderer;
+  label: string;
+  featureFlag?: string;
+}
+
+export const PAGE_TEMPLATE_CONFIG: Record<string, PageTemplateConfig> = {
+  'template-landing-page': {
+    renderer: 'landing-builder',
+    label: 'Landing Page',
+    featureFlag: 'FEATURE_LANDING_BUILDER',
+  },
+  'landing page': {
+    renderer: 'landing-builder',
+    label: 'Landing Page',
+    featureFlag: 'FEATURE_LANDING_BUILDER',
+  },
+  // Add custom page templates below:
+  // 'template-full-width': {
+  //   renderer: 'default',
+  //   label: 'Full Width',
+  // },
+};
+
+/**
+ * Normalize a WordPress template name for registry lookup.
+ * Strips .php extension and lowercases.
+ */
+function normalizeTemplateName(name: string): string {
+  return name.toLowerCase().replace(/\.php$/, '').trim();
+}
+
+/**
+ * Look up template configuration from a WordPress template name.
+ * Returns the config if found and any associated feature flag is enabled.
+ * Returns undefined if the template is not registered or its feature flag is disabled.
+ */
+export function getPageTemplateConfig(templateName: string | null | undefined): PageTemplateConfig | undefined {
+  if (!templateName) return undefined;
+
+  const normalized = normalizeTemplateName(templateName);
+  const config = PAGE_TEMPLATE_CONFIG[normalized];
+
+  if (!config) return undefined;
+
+  if (config.featureFlag && process.env[config.featureFlag] === 'false') {
+    return undefined;
+  }
+
+  return config;
+}
+
+/**
+ * Determine the renderer for a given WordPress template name.
+ * Returns 'default' if the template is not registered or its feature flag is disabled.
+ */
+export function getTemplateRenderer(templateName: string | null | undefined): TemplateRenderer {
+  const config = getPageTemplateConfig(templateName);
+  return config?.renderer ?? 'default';
+}
+
+/**
+ * Check if a template name resolves to a specific renderer
+ */
+export function isTemplateRenderer(templateName: string | null | undefined, renderer: TemplateRenderer): boolean {
+  return getTemplateRenderer(templateName) === renderer;
+}
+
+/**
+ * Get all registered template slugs
+ */
+export function getRegisteredTemplates(): string[] {
+  return Object.keys(PAGE_TEMPLATE_CONFIG);
+}
