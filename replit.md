@@ -13,6 +13,11 @@ The architecture is based on a Next.js 16 App Router frontend, utilizing Next.js
 -   **Server-Side Rendering (SSR):** All pages are SSR for enhanced SEO and performance.
 -   **Content Caching:** WordPress content is synced to PostgreSQL to decouple the frontend from direct WordPress queries, improving data retrieval speed. Taxonomies are embedded as JSON within post records.
 -   **SEO Integration:** Integrates Next.js Metadata API with Yoast SEO for comprehensive meta-data, Open Graph, Twitter Cards, and canonical URLs. It proxies SEO files (sitemaps, robots.txt) from WordPress and fetches Schema.org JSON-LD via Yoast's REST API, replacing WordPress domains with the frontend domain.
+-   **Authentication:** Centralized in `lib/wp-auth.ts`. Three credential sets serve distinct purposes:
+    - `WP_USER` + `WP_APPLIC_PASS` — WordPress Application Password. Primary auth for GraphQL queries, REST API calls, form submissions, and preview/draft content. Required for most WordPress interactions.
+    - `WP_AUTH_USER` + `WP_AUTH_PASSWORD` — nginx Basic Auth credentials. Only needed when WordPress is behind an nginx proxy with HTTP Basic Auth (staging environments). Gated by `WP_BASIC_AUTH_ENABLED` flag; ignored when flag is `false` or `0`.
+    - `WP_PREVIEW_SECRET` — Shared secret for validating preview requests from WordPress.
+    Auth priority: Application Password is preferred; nginx Basic Auth is used as fallback. For staging sites with dual auth (nginx + WordPress), the system uses nginx Basic Auth header + WordPress session cookies obtained via wp-login.php with the Application Password credentials.
 -   **Preview Mode:** Enables previewing draft content from WordPress using Next.js Draft Mode, supporting authenticated GraphQL requests for draft content. It includes dual authentication support for staging sites protected by HTTP Basic Auth.
 -   **301 Redirects:** Next.js middleware fetches and applies 301/302 redirects from WordPress Headless Tools plugin in real-time, with caching and Basic Auth support.
 -   **On-Demand Revalidation:** A `/api/revalidate` endpoint allows for purging the cache when WordPress content is updated, supporting specific paths, content types, or the entire site.

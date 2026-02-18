@@ -9,11 +9,9 @@
 import { gql } from 'graphql-request';
 import { isLandingBuilderEnabled } from '@/lib/config/features';
 import { isTemplateRenderer } from '@/lib/config/post-types';
+import { getWpAuthHeaders } from '@/lib/wp-auth';
 import type { LandingBlock, LandingPageData } from '../types';
 
-// Import existing WordPress client infrastructure for proper auth handling
-// These are internal functions we need to access - we'll add exports to wordpress.ts
-// For now, we replicate the client creation logic to avoid modifying core files
 
 // Query to check if a page uses the landing page template
 const GET_PAGE_TEMPLATE_QUERY = gql`
@@ -263,8 +261,9 @@ interface WpLandingSectionsResponse {
 }
 
 /**
- * Get WordPress GraphQL client with proper Basic Auth for staging sites
- * Replicates logic from lib/wordpress.ts to avoid circular imports
+ * Get WordPress GraphQL client with proper auth
+ * Uses centralized auth: Application Password (WP_USER/WP_APPLIC_PASS) preferred,
+ * falls back to nginx Basic Auth (WP_AUTH_USER/WP_AUTH_PASSWORD) for staging sites
  */
 async function getWpClient() {
   const { GraphQLClient } = await import('graphql-request');
@@ -276,49 +275,18 @@ async function getWpClient() {
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...getWpAuthHeaders(),
   };
-
-  // Add Basic Auth if credentials are provided (for staging gate)
-  if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-    const credentials = Buffer.from(
-      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-    ).toString('base64');
-    headers['Authorization'] = `Basic ${credentials}`;
-  }
 
   return new GraphQLClient(wpApiUrl, { headers });
 }
 
 /**
  * Get WordPress GraphQL client for preview/draft requests
- * Uses session cookies for WordPress authentication in addition to Basic Auth for staging gate
+ * Uses same auth as standard client — preview routing is handled by /api/preview
  */
 async function getPreviewWpClient() {
-  const { GraphQLClient } = await import('graphql-request');
-  const wpApiUrl = process.env.WP_API_URL;
-  
-  if (!wpApiUrl) {
-    throw new Error('WP_API_URL environment variable is not set');
-  }
-
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  };
-
-  // Add Basic Auth if credentials are provided (for staging gate)
-  if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-    const credentials = Buffer.from(
-      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-    ).toString('base64');
-    headers['Authorization'] = `Basic ${credentials}`;
-  }
-
-  // Note: For preview/draft content on staging sites with dual auth (nginx + WordPress),
-  // the preview flow goes through the existing /api/preview route which handles authentication.
-  // By the time we get here, we're fetching via the authenticated GraphQL endpoint.
-  // Basic Auth alone should work for published landing pages on staging sites.
-
-  return new GraphQLClient(wpApiUrl, { headers });
+  return getWpClient();
 }
 
 /**

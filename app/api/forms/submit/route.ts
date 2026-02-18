@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GraphQLClient, gql } from 'graphql-request';
 import { GET_GF_FORM_QUERY, type GetGfFormResponse } from '@/lib/gf/queries';
 import { SUBMIT_GF_FORM_MUTATION, type SubmitGfFormResponse, type FieldValueInput } from '@/lib/gf/mutations';
+import { getWpAuthHeaders } from '@/lib/wp-auth';
 
 const CHECK_GF_SCHEMA_QUERY = gql`
   query CheckGfSchema {
@@ -56,14 +57,8 @@ function getWpClient(): GraphQLClient {
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...getWpAuthHeaders(),
   };
-
-  if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-    const credentials = Buffer.from(
-      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-    ).toString('base64');
-    headers['Authorization'] = `Basic ${credentials}`;
-  }
 
   return new GraphQLClient(wpApiUrl, { headers });
 }

@@ -41,11 +41,12 @@ async function getRedirects() {
     const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
     const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
     try {
-        // Build request headers with Basic Auth for staging environment
         const headers = {
             'Content-Type': 'application/json'
         };
-        if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
+        const wpBasicAuthEnabled = process.env.WP_BASIC_AUTH_ENABLED;
+        const useBasicAuth = wpBasicAuthEnabled !== 'false' && wpBasicAuthEnabled !== '0' && process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD;
+        if (useBasicAuth) {
             const credentials = btoa(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`);
             headers['Authorization'] = `Basic ${credentials}`;
         }

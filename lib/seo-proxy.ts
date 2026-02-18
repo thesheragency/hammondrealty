@@ -1,28 +1,5 @@
 import { headers } from 'next/headers';
-
-function getWordPressBaseUrl(): string {
-  const wpApiUrl = process.env.WP_API_URL || '';
-  return wpApiUrl.replace(/\/graphql\/?$/, '');
-}
-
-function shouldUseBasicAuth(): boolean {
-  const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-  if (enabled === 'false' || enabled === '0') {
-    return false;
-  }
-  return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
-}
-
-function getWordPressAuthHeaders(): Record<string, string> {
-  const authHeaders: Record<string, string> = {};
-  if (shouldUseBasicAuth()) {
-    const credentials = Buffer.from(
-      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-    ).toString('base64');
-    authHeaders['Authorization'] = `Basic ${credentials}`;
-  }
-  return authHeaders;
-}
+import { getNginxBasicAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
 
 export async function getFrontendUrl(): Promise<string> {
   if (process.env.FRONTEND_URL) {
@@ -44,12 +21,12 @@ export async function proxyWordPressFile(
   frontendUrl: string
 ): Promise<{ content: string; contentType: string } | null> {
   const wpBaseUrl = getWordPressBaseUrl();
-  if (!wpBaseUrl) {
+  if (!wpBaseUrl || wpBaseUrl === '') {
     return null;
   }
 
   try {
-    const authHeaders = getWordPressAuthHeaders();
+    const authHeaders = getNginxBasicAuthHeaders();
     const response = await fetch(`${wpBaseUrl}${wpPath}`, { 
       headers: authHeaders,
       next: { revalidate: 3600 }

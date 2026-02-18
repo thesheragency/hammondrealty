@@ -1,28 +1,5 @@
 import { getFrontendUrl } from './seo-proxy';
-
-function getWordPressBaseUrl(): string {
-  const wpApiUrl = process.env.WP_API_URL || '';
-  return wpApiUrl.replace(/\/graphql\/?$/, '');
-}
-
-function shouldUseBasicAuth(): boolean {
-  const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-  if (enabled === 'false' || enabled === '0') {
-    return false;
-  }
-  return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
-}
-
-function getWordPressAuthHeaders(): Record<string, string> {
-  const authHeaders: Record<string, string> = {};
-  if (shouldUseBasicAuth()) {
-    const credentials = Buffer.from(
-      `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-    ).toString('base64');
-    authHeaders['Authorization'] = `Basic ${credentials}`;
-  }
-  return authHeaders;
-}
+import { getNginxBasicAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
 
 function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -65,7 +42,7 @@ export async function fetchYoastSchema(pagePath: string): Promise<string[] | nul
     const pageUrl = `${wpBaseUrl}${pagePath === '/' ? '' : pagePath}`;
     const yoastUrl = `${wpBaseUrl}/wp-json/yoast/v1/get_head?url=${encodeURIComponent(pageUrl)}`;
 
-    const authHeaders = getWordPressAuthHeaders();
+    const authHeaders = getNginxBasicAuthHeaders();
     const response = await fetch(yoastUrl, {
       headers: {
         ...authHeaders,

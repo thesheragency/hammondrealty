@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getWpAuthHeaders } from '@/lib/wp-auth';
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000;
@@ -87,15 +88,9 @@ export async function POST(request: NextRequest) {
     const wpRestUrl = getWpRestBaseUrl();
     const submitUrl = `${wpRestUrl}/gf/v2/forms/${formId}/submissions`;
 
-    const headers: Record<string, string> = {};
-    
-    // Add Basic Auth if configured
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-      const credentials = Buffer.from(
-        `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-      ).toString('base64');
-      headers['Authorization'] = `Basic ${credentials}`;
-    }
+    const headers: Record<string, string> = {
+      ...getWpAuthHeaders(),
+    };
 
     const response = await fetch(submitUrl, {
       method: 'POST',
