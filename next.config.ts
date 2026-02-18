@@ -22,6 +22,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "2mb",
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: "/:path([\\w-]*sitemap[\\w-]*\\.(?:xml|xsl))",
+        destination: "/api/sitemap-proxy/:path",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

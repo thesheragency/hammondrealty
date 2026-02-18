@@ -173,6 +173,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/sitemap-proxy/[...path]/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/sitemap-proxy/[...path]">> = Specific
+  const handler = {} as typeof import("../../../app/api/sitemap-proxy/[...path]/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/wordpress/sync/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/wordpress/sync">> = Specific

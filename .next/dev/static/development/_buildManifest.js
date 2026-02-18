@@ -1,6 +1,11 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
-    "afterFiles": [],
+    "afterFiles": [
+      {
+        "source": "/:path([\\w-]*sitemap[\\w-]*\\.(?:xml|xsl))",
+        "destination": "/api/sitemap-proxy/:path"
+      }
+    ],
     "beforeFiles": [],
     "fallback": []
   },
