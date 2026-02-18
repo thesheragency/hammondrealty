@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
+import { YoastSchema } from '@/components/seo/YoastSchema';
 import { storage } from '@/lib/storage';
 import { fetchPagePreviewById } from '@/lib/wordpress';
 import { isLandingBuilderEnabled } from '@/lib/config/features';
@@ -103,6 +104,7 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
       if (landingData && landingData.sections.length > 0) {
         return (
           <Layout isPreview={isPreview}>
+            <YoastSchema path={`/${slug}`} />
             <LandingPageRenderer data={landingData} isPreview={isPreview} />
           </Layout>
         );
@@ -132,6 +134,7 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
 
   return (
     <Layout isPreview={isPreview}>
+      <YoastSchema path={`/${slug}`} />
       <div className="py-12 md:py-16">
         <div className="container max-w-4xl mx-auto px-4">
           <article>

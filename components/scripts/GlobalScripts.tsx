@@ -1,39 +1,60 @@
-import Script from 'next/script';
 import { storage } from '@/lib/storage';
 
-export async function GlobalScripts() {
+export async function GlobalHeadScripts() {
   let headScripts: string | null = null;
-  let bodyScripts: string | null = null;
-  
+
   try {
     const settings = await storage.getAllGlobalSettings();
     for (const setting of settings) {
       if (setting.key === 'global_head_scripts') {
         headScripts = setting.value;
-      } else if (setting.key === 'global_body_scripts') {
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching global head scripts:', error);
+  }
+
+  if (!headScripts) return null;
+
+  return (
+    <div
+      id="global-head-scripts"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: headScripts }}
+    />
+  );
+}
+
+export async function GlobalBodyScripts() {
+  let bodyScripts: string | null = null;
+
+  try {
+    const settings = await storage.getAllGlobalSettings();
+    for (const setting of settings) {
+      if (setting.key === 'global_body_scripts') {
         bodyScripts = setting.value;
       }
     }
   } catch (error) {
-    console.error('Error fetching global scripts:', error);
+    console.error('Error fetching global body scripts:', error);
   }
 
+  if (!bodyScripts) return null;
+
+  return (
+    <div
+      id="global-body-scripts"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: bodyScripts }}
+    />
+  );
+}
+
+export async function GlobalScripts() {
   return (
     <>
-      {headScripts && (
-        <Script
-          id="global-head-scripts"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: headScripts }}
-        />
-      )}
-      {bodyScripts && (
-        <Script
-          id="global-body-scripts"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{ __html: bodyScripts }}
-        />
-      )}
+      <GlobalHeadScripts />
+      <GlobalBodyScripts />
     </>
   );
 }

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { PostListServer } from '@/components/posts/PostListServer';
 import { GravityForm } from '@/components/forms/GravityForm';
+import { YoastSchema } from '@/components/seo/YoastSchema';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ const features = [
 export default function Home() {
   return (
     <Layout>
+      <YoastSchema path="/" />
       <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
