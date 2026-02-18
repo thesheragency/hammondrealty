@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { getNginxBasicAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
+import { getWpAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
 
 export async function getFrontendUrl(): Promise<string> {
   if (process.env.FRONTEND_URL) {
@@ -26,7 +26,7 @@ export async function proxyWordPressFile(
   }
 
   try {
-    const authHeaders = getNginxBasicAuthHeaders();
+    const authHeaders = getWpAuthHeaders();
     const response = await fetch(`${wpBaseUrl}${wpPath}`, { 
       headers: authHeaders,
       next: { revalidate: 3600 }

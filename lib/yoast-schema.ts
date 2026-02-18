@@ -1,5 +1,5 @@
 import { getFrontendUrl } from './seo-proxy';
-import { getNginxBasicAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
+import { getWpAuthHeaders, getWordPressBaseUrl } from '@/lib/wp-auth';
 
 function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -42,7 +42,7 @@ export async function fetchYoastSchema(pagePath: string): Promise<string[] | nul
     const pageUrl = `${wpBaseUrl}${pagePath === '/' ? '' : pagePath}`;
     const yoastUrl = `${wpBaseUrl}/wp-json/yoast/v1/get_head?url=${encodeURIComponent(pageUrl)}`;
 
-    const authHeaders = getNginxBasicAuthHeaders();
+    const authHeaders = getWpAuthHeaders();
     const response = await fetch(yoastUrl, {
       headers: {
         ...authHeaders,

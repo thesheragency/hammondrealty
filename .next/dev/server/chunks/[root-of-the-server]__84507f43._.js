@@ -53,14 +53,24 @@ module.exports = mod;
  * 2. Ensure the WordPress preview plugin has the same frontend route configured
  * 3. Test preview functionality from WordPress
  */ __turbopack_context__.s([
+    "PAGE_TEMPLATE_CONFIG",
+    ()=>PAGE_TEMPLATE_CONFIG,
     "POST_TYPE_CONFIG",
     ()=>POST_TYPE_CONFIG,
     "buildPreviewPath",
     ()=>buildPreviewPath,
+    "getPageTemplateConfig",
+    ()=>getPageTemplateConfig,
     "getPostTypeConfig",
     ()=>getPostTypeConfig,
     "getRegisteredPostTypes",
     ()=>getRegisteredPostTypes,
+    "getRegisteredTemplates",
+    ()=>getRegisteredTemplates,
+    "getTemplateRenderer",
+    ()=>getTemplateRenderer,
+    "isTemplateRenderer",
+    ()=>isTemplateRenderer,
     "isValidPostType",
     ()=>isValidPostType
 ]);
@@ -89,6 +99,44 @@ function buildPreviewPath(type, slug) {
     const config = getPostTypeConfig(type);
     if (!config) return null;
     return config.route.replace('[slug]', slug);
+}
+const PAGE_TEMPLATE_CONFIG = {
+    'template-landing-page': {
+        renderer: 'landing-builder',
+        label: 'Landing Page',
+        featureFlag: 'FEATURE_LANDING_BUILDER'
+    },
+    'landing page': {
+        renderer: 'landing-builder',
+        label: 'Landing Page',
+        featureFlag: 'FEATURE_LANDING_BUILDER'
+    }
+};
+/**
+ * Normalize a WordPress template name for registry lookup.
+ * Strips .php extension and lowercases.
+ */ function normalizeTemplateName(name) {
+    return name.toLowerCase().replace(/\.php$/, '').trim();
+}
+function getPageTemplateConfig(templateName) {
+    if (!templateName) return undefined;
+    const normalized = normalizeTemplateName(templateName);
+    const config = PAGE_TEMPLATE_CONFIG[normalized];
+    if (!config) return undefined;
+    if (config.featureFlag && process.env[config.featureFlag] === 'false') {
+        return undefined;
+    }
+    return config;
+}
+function getTemplateRenderer(templateName) {
+    const config = getPageTemplateConfig(templateName);
+    return config?.renderer ?? 'default';
+}
+function isTemplateRenderer(templateName, renderer) {
+    return getTemplateRenderer(templateName) === renderer;
+}
+function getRegisteredTemplates() {
+    return Object.keys(PAGE_TEMPLATE_CONFIG);
 }
 }),
 "[project]/app/api/preview/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
