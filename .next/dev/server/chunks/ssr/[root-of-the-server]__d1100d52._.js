@@ -362,7 +362,8 @@ async function fetchYoastSchema(pagePath) {
     }
     try {
         const frontendUrl = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$seo$2d$proxy$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getFrontendUrl"])();
-        const pageUrl = `${wpBaseUrl}${pagePath === '/' ? '' : pagePath}`;
+        const normalizedPath = pagePath.endsWith('/') ? pagePath : `${pagePath}/`;
+        const pageUrl = `${wpBaseUrl}${normalizedPath}`;
         const yoastUrl = `${wpBaseUrl}/wp-json/yoast/v1/get_head?url=${encodeURIComponent(pageUrl)}`;
         const authHeaders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWpAuthHeaders"])();
         const response = await fetch(yoastUrl, {

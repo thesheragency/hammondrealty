@@ -39,7 +39,8 @@ export async function fetchYoastSchema(pagePath: string): Promise<string[] | nul
 
   try {
     const frontendUrl = await getFrontendUrl();
-    const pageUrl = `${wpBaseUrl}${pagePath === '/' ? '' : pagePath}`;
+    const normalizedPath = pagePath.endsWith('/') ? pagePath : `${pagePath}/`;
+    const pageUrl = `${wpBaseUrl}${normalizedPath}`;
     const yoastUrl = `${wpBaseUrl}/wp-json/yoast/v1/get_head?url=${encodeURIComponent(pageUrl)}`;
 
     const authHeaders = getWpAuthHeaders();
