@@ -34,17 +34,12 @@ async function getRedirects(): Promise<Redirect[]> {
       'Content-Type': 'application/json',
     };
     
-    if (process.env.WP_USER && process.env.WP_APPLIC_PASS) {
-      const credentials = btoa(`${process.env.WP_USER}:${process.env.WP_APPLIC_PASS}`);
+    const wpBasicAuthEnabled = process.env.WP_BASIC_AUTH_ENABLED;
+    const useNginxAuth = wpBasicAuthEnabled && wpBasicAuthEnabled !== 'false' && wpBasicAuthEnabled !== '0'
+      && process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD;
+    if (useNginxAuth) {
+      const credentials = btoa(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`);
       headers['Authorization'] = `Basic ${credentials}`;
-    } else {
-      const wpBasicAuthEnabled = process.env.WP_BASIC_AUTH_ENABLED;
-      const useBasicAuth = wpBasicAuthEnabled !== 'false' && wpBasicAuthEnabled !== '0'
-        && process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD;
-      if (useBasicAuth) {
-        const credentials = btoa(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`);
-        headers['Authorization'] = `Basic ${credentials}`;
-      }
     }
 
     const response = await fetch(redirectsEndpoint, { headers });
