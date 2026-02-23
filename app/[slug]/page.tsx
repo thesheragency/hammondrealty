@@ -2,12 +2,10 @@ import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
 import { YoastSchema } from '@/components/seo/YoastSchema';
-import { storage } from '@/lib/storage';
-import { fetchPagePreviewById } from '@/lib/wordpress';
+import { fetchPageBySlug, fetchPagePreviewById } from '@/lib/wordpress';
 import { isLandingBuilderEnabled } from '@/lib/config/features';
 import type { Metadata } from 'next';
 
-// Conditionally import landing builder (tree-shaken if disabled)
 import { 
   getPageTemplateInfo, 
   getLandingPageData,
@@ -24,7 +22,6 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { previewId } = await searchParams;
   const draft = await draftMode();
   
-  // Check if this is a landing page and get SEO from template info
   if (isLandingBuilderEnabled()) {
     const templateInfo = await getPageTemplateInfo(slug);
     if (templateInfo?.isLandingPage && templateInfo.seo) {
@@ -48,13 +45,12 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     }
   }
   
-  // Regular page metadata
   let page;
   if (draft.isEnabled && previewId) {
     page = await fetchPagePreviewById(parseInt(previewId));
   }
   if (!page) {
-    page = await storage.getPageBySlug(slug);
+    page = await fetchPageBySlug(slug);
   }
   
   if (!page) {
@@ -90,15 +86,12 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   
   const isPreview = draft.isEnabled;
   
-  // Check if this is a landing page (only if feature is enabled)
   if (isLandingBuilderEnabled()) {
     const templateInfo = await getPageTemplateInfo(slug);
     
     if (templateInfo?.isLandingPage) {
       console.log('[Page] Rendering as landing page:', slug);
       
-      // Fetch landing page sections from WordPress
-      // Pass isPreview to use preview query for draft content
       const landingData = await getLandingPageData(templateInfo.databaseId, isPreview);
       
       if (landingData && landingData.sections.length > 0) {
@@ -110,12 +103,10 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
         );
       }
       
-      // Fall through to regular page rendering if no sections
       console.log('[Page] Landing page has no sections, falling back to regular rendering');
     }
   }
   
-  // Regular page rendering
   let page;
   
   if (draft.isEnabled && previewId) {
@@ -124,8 +115,7 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   }
   
   if (!page) {
-    console.log('[Preview Page] Fetching page by slug:', slug);
-    page = await storage.getPageBySlug(slug);
+    page = await fetchPageBySlug(slug);
   }
 
   if (!page) {

@@ -435,6 +435,23 @@ const GET_PAGES_QUERY = gql`
   }
 `;
 
+const GET_PAGE_BY_SLUG_QUERY = gql`
+  ${SEO_FRAGMENT}
+  query GetPageBySlug($slug: ID!) {
+    page(id: $slug, idType: URI) {
+      databaseId
+      slug
+      title
+      content
+      status
+      modified
+      seo {
+        ...SeoFields
+      }
+    }
+  }
+`;
+
 // Query for page preview
 const GET_PAGE_PREVIEW_QUERY = gql`
   ${SEO_FRAGMENT}
@@ -778,6 +795,23 @@ export async function fetchPages(): Promise<ReturnType<typeof transformPage>[]> 
     return response.pages.nodes.map(transformPage);
   } catch (error) {
     console.error('Error fetching pages from WordPress:', error);
+    throw error;
+  }
+}
+
+export async function fetchPageBySlug(slug: string): Promise<ReturnType<typeof transformPage> | null> {
+  const client = getWpClient();
+
+  try {
+    const response = await client.request<{ page: WpPage | null }>(
+      GET_PAGE_BY_SLUG_QUERY,
+      { slug }
+    );
+
+    if (!response.page) return null;
+    return transformPage(response.page);
+  } catch (error) {
+    console.error('Error fetching page by slug:', error);
     throw error;
   }
 }

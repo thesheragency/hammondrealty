@@ -601,13 +601,14 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$posts$2f$PostCard$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/posts/PostCard.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-rsc] (ecmascript) <export default as AlertCircle>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/storage.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wordpress.ts [app-rsc] (ecmascript)");
 ;
 ;
 ;
 ;
 async function PostListServer({ featured = false }) {
-    const posts = featured ? await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getFeaturedPosts() : await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$storage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["storage"].getAllPosts();
+    const allPosts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPosts"])();
+    const posts = featured ? allPosts.filter((p)=>p.isFeatured).length > 0 ? allPosts.filter((p)=>p.isFeatured) : allPosts.slice(0, 6) : allPosts;
     if (!posts || posts.length === 0) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex flex-col items-center justify-center py-12 text-center",
@@ -619,12 +620,12 @@ async function PostListServer({ featured = false }) {
                         className: "h-8 w-8 text-muted-foreground"
                     }, void 0, false, {
                         fileName: "[project]/components/posts/PostListServer.tsx",
-                        lineNumber: 21,
+                        lineNumber: 25,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/posts/PostListServer.tsx",
-                    lineNumber: 20,
+                    lineNumber: 24,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -632,21 +633,21 @@ async function PostListServer({ featured = false }) {
                     children: "No posts found"
                 }, void 0, false, {
                     fileName: "[project]/components/posts/PostListServer.tsx",
-                    lineNumber: 23,
+                    lineNumber: 27,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-sm text-muted-foreground max-w-md",
-                    children: featured ? 'No featured posts yet. Mark some posts as featured in WordPress.' : 'No posts have been synced yet. Trigger a sync to fetch content from WordPress.'
+                    children: featured ? 'No featured posts yet. Mark some posts as featured in WordPress.' : 'No posts have been published yet.'
                 }, void 0, false, {
                     fileName: "[project]/components/posts/PostListServer.tsx",
-                    lineNumber: 24,
+                    lineNumber: 28,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/posts/PostListServer.tsx",
-            lineNumber: 16,
+            lineNumber: 20,
             columnNumber: 7
         }, this);
     }
@@ -655,14 +656,14 @@ async function PostListServer({ featured = false }) {
         "data-testid": featured ? 'post-list-featured' : 'post-list',
         children: posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$posts$2f$PostCard$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["PostCard"], {
                 post: post
-            }, post.id, false, {
+            }, post.wpId, false, {
                 fileName: "[project]/components/posts/PostListServer.tsx",
-                lineNumber: 40,
+                lineNumber: 44,
                 columnNumber: 9
             }, this))
     }, void 0, false, {
         fileName: "[project]/components/posts/PostListServer.tsx",
-        lineNumber: 35,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }
@@ -723,26 +724,9 @@ __turbopack_context__.s([
     ()=>proxyWordPressFile
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/headers.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wp-auth.ts [app-rsc] (ecmascript)");
 ;
-function getWordPressBaseUrl() {
-    const wpApiUrl = process.env.WP_API_URL || '';
-    return wpApiUrl.replace(/\/graphql\/?$/, '');
-}
-function shouldUseBasicAuth() {
-    const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-    if (enabled === 'false' || enabled === '0') {
-        return false;
-    }
-    return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
-}
-function getWordPressAuthHeaders() {
-    const authHeaders = {};
-    if (shouldUseBasicAuth()) {
-        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        authHeaders['Authorization'] = `Basic ${credentials}`;
-    }
-    return authHeaders;
-}
+;
 async function getFrontendUrl() {
     if (process.env.FRONTEND_URL) {
         return process.env.FRONTEND_URL.replace(/\/$/, '');
@@ -756,12 +740,12 @@ function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 async function proxyWordPressFile(wpPath, frontendUrl) {
-    const wpBaseUrl = getWordPressBaseUrl();
-    if (!wpBaseUrl) {
+    const wpBaseUrl = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWordPressBaseUrl"])();
+    if (!wpBaseUrl || wpBaseUrl === '') {
         return null;
     }
     try {
-        const authHeaders = getWordPressAuthHeaders();
+        const authHeaders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWpAuthHeaders"])();
         const response = await fetch(`${wpBaseUrl}${wpPath}`, {
             headers: authHeaders,
             next: {
@@ -798,26 +782,9 @@ __turbopack_context__.s([
     ()=>fetchYoastSchema
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$seo$2d$proxy$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/seo-proxy.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wp-auth.ts [app-rsc] (ecmascript)");
 ;
-function getWordPressBaseUrl() {
-    const wpApiUrl = process.env.WP_API_URL || '';
-    return wpApiUrl.replace(/\/graphql\/?$/, '');
-}
-function shouldUseBasicAuth() {
-    const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-    if (enabled === 'false' || enabled === '0') {
-        return false;
-    }
-    return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
-}
-function getWordPressAuthHeaders() {
-    const authHeaders = {};
-    if (shouldUseBasicAuth()) {
-        const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-        authHeaders['Authorization'] = `Basic ${credentials}`;
-    }
-    return authHeaders;
-}
+;
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -845,15 +812,16 @@ function extractJsonLd(html) {
     return jsonLdBlocks;
 }
 async function fetchYoastSchema(pagePath) {
-    const wpBaseUrl = getWordPressBaseUrl();
+    const wpBaseUrl = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWordPressBaseUrl"])();
     if (!wpBaseUrl) {
         return null;
     }
     try {
         const frontendUrl = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$seo$2d$proxy$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getFrontendUrl"])();
-        const pageUrl = `${wpBaseUrl}${pagePath === '/' ? '' : pagePath}`;
+        const normalizedPath = pagePath.endsWith('/') ? pagePath : `${pagePath}/`;
+        const pageUrl = `${wpBaseUrl}${normalizedPath}`;
         const yoastUrl = `${wpBaseUrl}/wp-json/yoast/v1/get_head?url=${encodeURIComponent(pageUrl)}`;
-        const authHeaders = getWordPressAuthHeaders();
+        const authHeaders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWpAuthHeaders"])();
         const response = await fetch(yoastUrl, {
             headers: {
                 ...authHeaders,
@@ -926,7 +894,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-rsc] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/zap.js [app-rsc] (ecmascript) <export default as Zap>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$database$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Database$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/database.js [app-rsc] (ecmascript) <export default as Database>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/refresh-cw.js [app-rsc] (ecmascript) <export default as RefreshCw>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/globe.js [app-rsc] (ecmascript) <export default as Globe>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shield.js [app-rsc] (ecmascript) <export default as Shield>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-rsc] (ecmascript)");
@@ -946,10 +914,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$seo$2f$YoastSc
 ;
 const metadata = {
     title: 'WordPress Headless CMS Boilerplate',
-    description: 'A modern headless WordPress implementation with Next.js and PostgreSQL caching.',
+    description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
     openGraph: {
         title: 'WordPress Headless CMS Boilerplate',
-        description: 'A modern headless WordPress implementation with Next.js and PostgreSQL caching.',
+        description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
         type: 'website'
     }
 };
@@ -960,9 +928,9 @@ const features = [
         description: 'Fetch content from WordPress via WPGraphQL while using React for the frontend.'
     },
     {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$database$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Database$3e$__["Database"],
-        title: 'Local Caching',
-        description: 'Content is cached in PostgreSQL for faster page loads and offline resilience.'
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"],
+        title: 'ISR Caching',
+        description: 'Pages are cached and revalidated on-demand when content changes in WordPress.'
     },
     {
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"],
@@ -1014,7 +982,7 @@ function Home() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto",
                                 "data-testid": "text-hero-description",
-                                children: "A modern decoupled WordPress setup with Next.js frontend, and PostgreSQL caching. Built for performance and developer experience."
+                                children: "A modern decoupled WordPress setup with Next.js frontend and ISR caching. Built for performance and developer experience."
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
                                 lineNumber: 58,
@@ -1206,7 +1174,7 @@ function Home() {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-muted-foreground",
-                                            children: "Recent content synced from WordPress"
+                                            children: "Recent content from WordPress"
                                         }, void 0, false, {
                                             fileName: "[project]/app/page.tsx",
                                             lineNumber: 130,
@@ -1288,7 +1256,7 @@ function Home() {
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "mb-6 opacity-90 max-w-xl mx-auto",
-                                    children: "Connect your WordPress site and start syncing content. Configure your environment variables to begin."
+                                    children: "Connect your WordPress site and start building. Configure your environment variables to begin."
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
                                     lineNumber: 156,

@@ -5,37 +5,7 @@ import { Button } from '@/components/ui/button';
 import type { Post } from '@/shared/schema';
 
 interface PostContentProps {
-  post: Post | {
-    wpId: number;
-    slug: string;
-    title: string;
-    content: string;
-    excerpt: string;
-    status: string;
-    author: string | null;
-    publishedAt: Date | null;
-    featuredImage: string | null;
-    featuredImageAlt: string | null;
-    categories: { id: number; name: string; slug: string; description?: string; count?: number }[] | null;
-    tags: { id: number; name: string; slug: string; description?: string; count?: number }[] | null;
-    seoMetadata?: {
-      title?: string;
-      metaDesc?: string;
-      canonical?: string;
-      opengraphTitle?: string;
-      opengraphDescription?: string;
-      opengraphImage?: string;
-      opengraphType?: string;
-      opengraphUrl?: string;
-      opengraphSiteName?: string;
-      twitterTitle?: string;
-      twitterDescription?: string;
-      twitterImage?: string;
-      twitterCard?: string;
-    };
-    isFeatured?: boolean;
-    wpModified: Date | null;
-  };
+  post: Post;
 }
 
 export function PostContent({ post }: PostContentProps) {

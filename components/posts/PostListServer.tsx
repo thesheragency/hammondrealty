@@ -1,15 +1,19 @@
 import { PostCard } from './PostCard';
 import { AlertCircle } from 'lucide-react';
-import { storage } from '@/lib/storage';
+import { fetchPosts } from '@/lib/wordpress';
 
 interface PostListServerProps {
   featured?: boolean;
 }
 
 export async function PostListServer({ featured = false }: PostListServerProps) {
-  const posts = featured 
-    ? await storage.getFeaturedPosts()
-    : await storage.getAllPosts();
+  const allPosts = await fetchPosts();
+
+  const posts = featured
+    ? allPosts.filter(p => p.isFeatured).length > 0
+      ? allPosts.filter(p => p.isFeatured)
+      : allPosts.slice(0, 6)
+    : allPosts;
 
   if (!posts || posts.length === 0) {
     return (
@@ -24,7 +28,7 @@ export async function PostListServer({ featured = false }: PostListServerProps) 
         <p className="text-sm text-muted-foreground max-w-md">
           {featured 
             ? 'No featured posts yet. Mark some posts as featured in WordPress.'
-            : 'No posts have been synced yet. Trigger a sync to fetch content from WordPress.'
+            : 'No posts have been published yet.'
           }
         </p>
       </div>
@@ -37,7 +41,7 @@ export async function PostListServer({ featured = false }: PostListServerProps) 
       data-testid={featured ? 'post-list-featured' : 'post-list'}
     >
       {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
+        <PostCard key={post.wpId} post={post} />
       ))}
     </div>
   );

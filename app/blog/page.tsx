@@ -5,10 +5,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog | WordPress Headless CMS',
-  description: 'Browse all blog posts synced from WordPress.',
+  description: 'Browse all blog posts from WordPress.',
   openGraph: {
     title: 'Blog | WordPress Headless CMS',
-    description: 'Browse all blog posts synced from WordPress.',
+    description: 'Browse all blog posts from WordPress.',
     type: 'website',
   },
 };
@@ -30,7 +30,7 @@ export default function Blog() {
               className="text-lg text-muted-foreground max-w-2xl"
               data-testid="text-page-description"
             >
-              Browse all blog posts synced from WordPress.
+              Browse all blog posts from WordPress.
             </p>
           </div>
 

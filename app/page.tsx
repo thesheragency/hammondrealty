@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Zap, Database, Globe, Shield } from 'lucide-react';
+import { ArrowRight, Zap, RefreshCw, Globe, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
@@ -10,10 +10,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'WordPress Headless CMS Boilerplate',
-  description: 'A modern headless WordPress implementation with Next.js and PostgreSQL caching.',
+  description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
   openGraph: {
     title: 'WordPress Headless CMS Boilerplate',
-    description: 'A modern headless WordPress implementation with Next.js and PostgreSQL caching.',
+    description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
     type: 'website',
   },
 };
@@ -25,9 +25,9 @@ const features = [
     description: 'Fetch content from WordPress via WPGraphQL while using React for the frontend.',
   },
   {
-    icon: Database,
-    title: 'Local Caching',
-    description: 'Content is cached in PostgreSQL for faster page loads and offline resilience.',
+    icon: RefreshCw,
+    title: 'ISR Caching',
+    description: 'Pages are cached and revalidated on-demand when content changes in WordPress.',
   },
   {
     icon: Zap,
@@ -59,8 +59,8 @@ export default function Home() {
               className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
               data-testid="text-hero-description"
             >
-              A modern decoupled WordPress setup with Next.js frontend, 
-              and PostgreSQL caching. Built for performance and developer experience.
+              A modern decoupled WordPress setup with Next.js frontend 
+              and ISR caching. Built for performance and developer experience.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/blog">
@@ -128,7 +128,7 @@ export default function Home() {
                 Latest Posts
               </h2>
               <p className="text-muted-foreground">
-                Recent content synced from WordPress
+                Recent content from WordPress
               </p>
             </div>
             <Link href="/blog">
@@ -154,7 +154,7 @@ export default function Home() {
                 Ready to Get Started?
               </h2>
               <p className="mb-6 opacity-90 max-w-xl mx-auto">
-                Connect your WordPress site and start syncing content. 
+                Connect your WordPress site and start building. 
                 Configure your environment variables to begin.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

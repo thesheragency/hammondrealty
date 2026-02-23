@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { storage } from '@/lib/storage';
+import { fetchPosts } from '@/lib/wordpress';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const posts = await storage.getAllPosts();
+    const posts = await fetchPosts();
     return NextResponse.json(posts);
   } catch (error) {
     console.error('Error fetching posts:', error);

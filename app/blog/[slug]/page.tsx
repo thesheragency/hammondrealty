@@ -3,8 +3,7 @@ import { draftMode } from 'next/headers';
 import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { YoastSchema } from '@/components/seo/YoastSchema';
-import { storage } from '@/lib/storage';
-import { fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById } from '@/lib/wordpress';
+import { fetchPostBySlug, fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById } from '@/lib/wordpress';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -19,7 +18,6 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   
   let post;
   if (draft.isEnabled) {
-    // Try fetching by ID first (more reliable for drafts), then fall back to slug
     if (previewId) {
       post = await fetchPostPreviewById(parseInt(previewId));
     }
@@ -27,7 +25,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       post = await fetchPostPreviewBySlug(slug);
     }
   } else {
-    post = await storage.getPostBySlug(slug);
+    post = await fetchPostBySlug(slug);
   }
   
   if (!post) {
@@ -66,7 +64,6 @@ export default async function BlogPost({ params, searchParams }: PageProps) {
   let post;
   
   if (draft.isEnabled) {
-    // For Draft Mode: Try fetching by ID first (more reliable for drafts), then fall back to slug
     if (previewId) {
       console.log('[Preview Page] Fetching by previewId:', previewId);
       post = await fetchPostPreviewById(parseInt(previewId));
@@ -76,11 +73,9 @@ export default async function BlogPost({ params, searchParams }: PageProps) {
       post = await fetchPostPreviewBySlug(slug);
     }
   } else if (preview === 'true' && token && id) {
-    // Legacy preview mode with token
     post = await fetchPostPreview(parseInt(id), token);
   } else {
-    // Normal published content
-    post = await storage.getPostBySlug(slug);
+    post = await fetchPostBySlug(slug);
   }
 
   if (!post) {

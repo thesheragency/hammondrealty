@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getFrontendUrl } from '@/lib/seo-proxy';
-import { storage } from '@/lib/storage';
+import { fetchPosts, fetchPages } from '@/lib/wordpress';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,8 +8,8 @@ export async function GET() {
   const frontendUrl = await getFrontendUrl();
   
   try {
-    const posts = await storage.getAllPosts();
-    const pages = await storage.getAllPages();
+    const posts = await fetchPosts();
+    const pages = await fetchPages();
     
     let content = `# ${frontendUrl.replace(/https?:\/\//, '')} - Full Content
 
