@@ -5,14 +5,86 @@ import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { YoastSchema } from '@/components/seo/YoastSchema';
 import { fetchPageBySlug, fetchPagePreviewById } from '@/lib/wordpress';
-import { isLandingBuilderEnabled } from '@/lib/config/features';
 import type { Metadata } from 'next';
 
 import { 
   getPageTemplateInfo, 
   getLandingPageData,
-  LandingPageRenderer 
+  LandingPageRenderer,
+  type PageTemplateInfo,
 } from '@/modules/landing-builder';
+
+type TemplateRenderFn = (props: {
+  templateInfo: PageTemplateInfo;
+  isPreview: boolean;
+  slug: string;
+}) => Promise<React.ReactElement | null>;
+
+/**
+ * Template Renderer Registry
+ * 
+ * Maps renderer identifiers (from PAGE_TEMPLATE_CONFIG in lib/config/post-types.ts)
+ * to async render functions. Each function receives the template info, preview state,
+ * and slug, and returns a React element or null (to fall through to default rendering).
+ * 
+ * To add a new template renderer:
+ * 1. Register the WordPress template in PAGE_TEMPLATE_CONFIG (lib/config/post-types.ts)
+ * 2. Add a renderer function here that fetches the template's data and returns JSX
+ * 
+ * The renderer function should:
+ * - Use templateInfo.databaseId for ACF/data queries (not the slug — slugs change)
+ * - Return null to fall through to the default page rendering
+ * - Wrap content in <Layout> and include <YoastSchema>
+ */
+const TEMPLATE_RENDERERS: Record<string, TemplateRenderFn> = {
+  'landing-builder': async ({ templateInfo, isPreview, slug }) => {
+    const landingData = await getLandingPageData(templateInfo.databaseId, isPreview);
+    
+    if (!landingData || landingData.sections.length === 0) {
+      console.log('[Page] Landing page has no sections, falling back to regular rendering');
+      return null;
+    }
+
+    return (
+      <Layout isPreview={isPreview}>
+        <YoastSchema path={`/${slug}`} />
+        <LandingPageRenderer data={landingData} isPreview={isPreview} />
+      </Layout>
+    );
+  },
+
+  // To add a new template renderer, add an entry here:
+  //
+  // 'services': async ({ templateInfo, isPreview, slug }) => {
+  //   const data = await fetchServicesPageData(templateInfo.databaseId, isPreview);
+  //   if (!data) return null;
+  //   return (
+  //     <Layout isPreview={isPreview}>
+  //       <YoastSchema path={`/${slug}`} />
+  //       <ServicesPageRenderer data={data} />
+  //     </Layout>
+  //   );
+  // },
+};
+
+function buildMetadataFromSeo(seo: PageTemplateInfo['seo'], title: string): Metadata {
+  return {
+    title: seo?.title || title,
+    description: seo?.metaDesc || '',
+    openGraph: {
+      title: seo?.opengraphTitle || title,
+      description: seo?.opengraphDescription || '',
+      type: 'website',
+      images: seo?.opengraphImage ? [seo.opengraphImage] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo?.twitterTitle || title,
+      description: seo?.twitterDescription || '',
+      images: seo?.twitterImage ? [seo.twitterImage] : undefined,
+    },
+  };
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,27 +96,10 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { previewId } = await searchParams;
   const draft = await draftMode();
   
-  if (isLandingBuilderEnabled()) {
-    const templateInfo = await getPageTemplateInfo(slug);
-    if (templateInfo?.isLandingPage && templateInfo.seo) {
-      const seo = templateInfo.seo;
-      return {
-        title: seo.title || templateInfo.title,
-        description: seo.metaDesc || '',
-        openGraph: {
-          title: seo.opengraphTitle || templateInfo.title,
-          description: seo.opengraphDescription || '',
-          type: 'website',
-          images: seo.opengraphImage ? [seo.opengraphImage] : undefined,
-        },
-        twitter: {
-          card: 'summary_large_image',
-          title: seo.twitterTitle || templateInfo.title,
-          description: seo.twitterDescription || '',
-          images: seo.twitterImage ? [seo.twitterImage] : undefined,
-        },
-      };
-    }
+  const templateInfo = await getPageTemplateInfo(slug);
+  
+  if (templateInfo && templateInfo.renderer !== 'default' && templateInfo.seo) {
+    return buildMetadataFromSeo(templateInfo.seo, templateInfo.title);
   }
   
   let page;
@@ -61,24 +116,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     };
   }
 
-  const seo = page.seoMetadata;
-  
-  return {
-    title: seo?.title || page.title,
-    description: seo?.metaDesc || '',
-    openGraph: {
-      title: seo?.opengraphTitle || page.title,
-      description: seo?.opengraphDescription || '',
-      type: 'website',
-      images: seo?.opengraphImage ? [seo.opengraphImage] : undefined,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo?.twitterTitle || page.title,
-      description: seo?.twitterDescription || '',
-      images: seo?.twitterImage ? [seo.twitterImage] : undefined,
-    },
-  };
+  return buildMetadataFromSeo(page.seoMetadata, page.title);
 }
 
 export default async function WordPressPage({ params, searchParams }: PageProps) {
@@ -88,24 +126,17 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   
   const isPreview = draft.isEnabled;
   
-  if (isLandingBuilderEnabled()) {
-    const templateInfo = await getPageTemplateInfo(slug);
+  const templateInfo = await getPageTemplateInfo(slug);
+  
+  if (templateInfo && templateInfo.renderer !== 'default') {
+    const renderFn = TEMPLATE_RENDERERS[templateInfo.renderer];
     
-    if (templateInfo?.isLandingPage) {
-      console.log('[Page] Rendering as landing page:', slug);
-      
-      const landingData = await getLandingPageData(templateInfo.databaseId, isPreview);
-      
-      if (landingData && landingData.sections.length > 0) {
-        return (
-          <Layout isPreview={isPreview}>
-            <YoastSchema path={`/${slug}`} />
-            <LandingPageRenderer data={landingData} isPreview={isPreview} />
-          </Layout>
-        );
-      }
-      
-      console.log('[Page] Landing page has no sections, falling back to regular rendering');
+    if (renderFn) {
+      console.log(`[Page] Rendering with template "${templateInfo.templateName}" (renderer: ${templateInfo.renderer}):`, slug);
+      const result = await renderFn({ templateInfo, isPreview, slug });
+      if (result) return result;
+    } else {
+      console.warn(`[Page] No renderer registered for "${templateInfo.renderer}" — falling back to default`);
     }
   }
   
@@ -117,7 +148,11 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   }
   
   if (!page) {
-    page = await fetchPageBySlug(slug);
+    if (templateInfo) {
+      page = await fetchPageBySlug(templateInfo.slug);
+    } else {
+      page = await fetchPageBySlug(slug);
+    }
   }
 
   if (!page) {

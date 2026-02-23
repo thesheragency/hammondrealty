@@ -7,8 +7,7 @@
  */
 
 import { gql } from 'graphql-request';
-import { isLandingBuilderEnabled } from '@/lib/config/features';
-import { isTemplateRenderer } from '@/lib/config/post-types';
+import { getTemplateRenderer } from '@/lib/config/post-types';
 import { getWpAuthHeaders } from '@/lib/wp-auth';
 import type { LandingBlock, LandingPageData } from '../types';
 
@@ -290,14 +289,6 @@ async function getPreviewWpClient() {
 }
 
 /**
- * Check if a template name matches the landing page template
- * Uses the centralized PAGE_TEMPLATE_CONFIG registry in lib/config/post-types.ts
- */
-function matchesLandingTemplate(templateName: string | null | undefined): boolean {
-  return isTemplateRenderer(templateName, 'landing-builder');
-}
-
-/**
  * Transform SEO data to consistent format
  */
 function transformSeoData(seo: WpSeo | null | undefined) {
@@ -318,6 +309,7 @@ export interface PageTemplateInfo {
   databaseId: number;
   slug: string;
   title: string;
+  renderer: string;
   isLandingPage: boolean;
   templateName: string | null;
   seo?: {
@@ -333,15 +325,12 @@ export interface PageTemplateInfo {
 }
 
 /**
- * Fetch page template information from WordPress
- * Returns null if page doesn't exist
+ * Fetch page template information from WordPress.
+ * Always performs the template lookup regardless of feature flags —
+ * the registry in lib/config/post-types.ts handles feature flag checks.
+ * Returns null if page doesn't exist in WordPress.
  */
 export async function getPageTemplateInfo(slug: string): Promise<PageTemplateInfo | null> {
-  // If landing builder is disabled, skip template check
-  if (!isLandingBuilderEnabled()) {
-    return null;
-  }
-
   try {
     const client = await getWpClient();
     const response = await client.request<WpPageTemplateResponse>(
@@ -355,17 +344,19 @@ export async function getPageTemplateInfo(slug: string): Promise<PageTemplateInf
 
     const { page } = response;
     const templateName = page.template?.templateName || null;
+    const renderer = getTemplateRenderer(templateName);
 
     return {
       databaseId: page.databaseId,
       slug: page.slug,
       title: page.title,
-      isLandingPage: matchesLandingTemplate(templateName),
+      renderer,
+      isLandingPage: renderer === 'landing-builder',
       templateName,
       seo: transformSeoData(page.seo),
     };
   } catch (error) {
-    console.error('[Landing Builder] Error fetching page template info:', error);
+    console.error('[Template] Error fetching page template info:', error);
     return null;
   }
 }

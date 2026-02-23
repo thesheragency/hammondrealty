@@ -95,14 +95,21 @@ export function buildPreviewPath(type: string, slug: string): string | null {
  * so "Landing Page", "template-landing-page", and "template-landing-page.php"
  * all resolve correctly.
  * 
+ * IMPORTANT: All WordPress pages are routed through the dynamic app/[slug]/page.tsx
+ * catch-all. The template determines which renderer handles the page — NOT the URL.
+ * This means slug changes in WordPress are automatically reflected without any
+ * frontend code changes. Never create hardcoded route directories for individual
+ * WordPress page slugs.
+ * 
  * To add a new page template:
- * 1. Create the template PHP file in your WordPress theme
- * 2. Add an entry below with ALL name variations WordPress might return
- * 3. Create the corresponding frontend renderer component
- * 4. Wire the renderer into your page route (e.g., app/[slug]/page.tsx)
+ * 1. Create the template in WordPress (block editor or PHP template file)
+ * 2. Add an entry below mapping the template name to a renderer identifier
+ *    - Include ALL name variations WordPress might return (lowercased, with/without prefix)
+ * 3. Create the renderer component and register it in TEMPLATE_RENDERERS (app/[slug]/page.tsx)
+ * 4. Optionally gate behind a feature flag
  */
 
-export type TemplateRenderer = 'landing-builder' | 'default';
+export type TemplateRenderer = string;
 
 export interface PageTemplateConfig {
   renderer: TemplateRenderer;
@@ -121,11 +128,19 @@ export const PAGE_TEMPLATE_CONFIG: Record<string, PageTemplateConfig> = {
     label: 'Landing Page',
     featureFlag: 'FEATURE_LANDING_BUILDER',
   },
-  // Add custom page templates below:
-  // 'template-full-width': {
-  //   renderer: 'default',
-  //   label: 'Full Width',
-  // },
+  // Add custom page templates below. Use the normalized template name
+  // (lowercase, no .php extension) as the key. Include all name variations
+  // WordPress might return for the same template.
+  //
+  // Example — a "Services" page template:
+  //   'template-services': {
+  //     renderer: 'services',
+  //     label: 'Services Page',
+  //   },
+  //   'services': {
+  //     renderer: 'services',
+  //     label: 'Services Page',
+  //   },
 };
 
 /**

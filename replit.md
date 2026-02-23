@@ -26,18 +26,23 @@ The architecture is based on a Next.js 16 App Router frontend. Content is fetche
 -   **Gravity Forms Integration:** Provides a headless module for Gravity Forms, supporting multi-page forms, conditional logic, client-side validation, spam protection, and file uploads. It uses WPGraphQL for schema fetching and Gravity Forms REST API v2 for submissions.
 -   **Design System:** A comprehensive design system is implemented using CSS variables for brand consistency, with a `/style-guide` page for visual reference.
 -   **Modular Component Architecture:** Emphasizes modular React components for flexibility and maintainability.
--   **Landing Page Builder (Feature Flag):** An optional module that enables self-service landing page creation using ACF Flexible Content blocks, rendered with modular components. It uses a centralized template registry for mapping WordPress templates to frontend renderers and isolates its code in `modules/landing-builder/`.
+-   **Template-Driven Routing:** All WordPress pages route through the dynamic `app/[slug]/page.tsx` catch-all. The page's WordPress template (not its slug) determines which renderer handles it. This means slug changes in WordPress are automatically reflected without any frontend code changes. Never create hardcoded route directories for individual WordPress page slugs. New template renderers are registered in `TEMPLATE_RENDERERS` (in `app/[slug]/page.tsx`) and mapped via `PAGE_TEMPLATE_CONFIG` (in `lib/config/post-types.ts`).
+-   **Landing Page Builder (Feature Flag):** An optional module that enables self-service landing page creation using ACF Flexible Content blocks, rendered with modular components. It is the reference implementation of a template renderer and isolates its code in `modules/landing-builder/`.
 
 **Data Flow:**
 1. Visitor requests a page → Next.js serves cached page if available (ISR)
-2. On cache miss → Next.js fetches content from WordPress GraphQL, renders, and caches the page
-3. Content updated in WordPress → WordPress webhook calls `/api/revalidate` → Next.js purges cached page
-4. Next request gets fresh content from WordPress
+2. On cache miss → Next.js fetches page metadata from WordPress (slug → databaseId + templateName)
+3. Template registry determines which renderer handles the page
+4. Renderer fetches template-specific data (ACF fields, etc.) using databaseId and returns JSX
+5. If no custom renderer matches, falls back to standard page rendering (title + content HTML)
+6. Content updated in WordPress → WordPress webhook calls `/api/revalidate` → Next.js purges cached page
+7. Next request gets fresh content from WordPress
 
 **Core Features:**
 -   Full taxonomy support for posts (categories and tags).
 -   SEO-friendly URL structure and meta-data handling.
 -   Template registry for mapping WordPress page templates to frontend renderers (`lib/config/post-types.ts`).
+-   Extensible renderer dispatch in `app/[slug]/page.tsx` via `TEMPLATE_RENDERERS` map.
 
 ## Key Files
 -   `lib/wp-auth.ts` — Centralized WordPress authentication
