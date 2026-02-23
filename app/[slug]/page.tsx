@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
+import { after } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { YoastSchema } from '@/components/seo/YoastSchema';
 import { fetchPageBySlug, fetchPagePreviewById } from '@/lib/wordpress';
@@ -119,6 +121,10 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
   }
 
   if (!page) {
+    after(() => {
+      revalidatePath(`/${slug}`);
+      console.log(`[Page] Self-healing: purged stale cache for /${slug} (page not found in WordPress)`);
+    });
     notFound();
   }
 

@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
+import { after } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { YoastSchema } from '@/components/seo/YoastSchema';
@@ -79,6 +81,10 @@ export default async function BlogPost({ params, searchParams }: PageProps) {
   }
 
   if (!post) {
+    after(() => {
+      revalidatePath(`/blog/${slug}`);
+      console.log(`[Post] Self-healing: purged stale cache for /blog/${slug} (post not found in WordPress)`);
+    });
     notFound();
   }
 

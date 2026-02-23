@@ -60,7 +60,7 @@ const dynamic = 'force-dynamic';
 async function POST(request) {
     try {
         const body = await request.json();
-        const { secret, path, type, slug } = body;
+        const { secret, path, oldPath, type, slug, oldSlug } = body;
         const revalidateSecret = process.env.REVALIDATE_SECRET || process.env.WP_PREVIEW_SECRET;
         if (!secret || secret !== revalidateSecret) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -75,26 +75,49 @@ async function POST(request) {
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(normalizedPath);
             revalidatedPaths.push(normalizedPath);
         }
+        if (oldPath) {
+            const normalizedOldPath = oldPath.startsWith('/') ? oldPath : `/${oldPath}`;
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(normalizedOldPath);
+            revalidatedPaths.push(`${normalizedOldPath} (old path)`);
+        }
         if (type && slug) {
             let contentPath;
             if (type === 'post' || type === 'posts') {
                 contentPath = `/blog/${slug}`;
-            } else if (type === 'page' || type === 'pages') {
-                contentPath = `/${slug}`;
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(contentPath);
+                revalidatedPaths.push(contentPath);
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/blog');
+                revalidatedPaths.push('/blog');
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/');
+                revalidatedPaths.push('/');
             } else {
                 contentPath = `/${slug}`;
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(contentPath);
+                revalidatedPaths.push(contentPath);
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/');
+                revalidatedPaths.push('/');
             }
-            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(contentPath);
-            revalidatedPaths.push(contentPath);
+            if (oldSlug && oldSlug !== slug) {
+                let oldContentPath;
+                if (type === 'post' || type === 'posts') {
+                    oldContentPath = `/blog/${oldSlug}`;
+                } else {
+                    oldContentPath = `/${oldSlug}`;
+                }
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])(oldContentPath);
+                revalidatedPaths.push(`${oldContentPath} (old slug)`);
+            }
         }
         if (type === 'posts' && !slug) {
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/blog');
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/blog/[slug]', 'page');
-            revalidatedPaths.push('/blog', '/blog/[slug]');
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/');
+            revalidatedPaths.push('/blog', '/blog/[slug]', '/');
         }
         if (type === 'pages' && !slug) {
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/[slug]', 'page');
-            revalidatedPaths.push('/[slug]');
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/');
+            revalidatedPaths.push('/[slug]', '/');
         }
         if (type === 'all') {
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["revalidatePath"])('/', 'layout');

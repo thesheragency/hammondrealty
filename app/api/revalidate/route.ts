@@ -6,14 +6,16 @@ export const dynamic = 'force-dynamic';
 interface RevalidateRequest {
   secret: string;
   path?: string;
+  oldPath?: string;
   type?: 'post' | 'page' | 'posts' | 'pages' | 'all';
   slug?: string;
+  oldSlug?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: RevalidateRequest = await request.json();
-    const { secret, path, type, slug } = body;
+    const { secret, path, oldPath, type, slug, oldSlug } = body;
 
     const revalidateSecret = process.env.REVALIDATE_SECRET || process.env.WP_PREVIEW_SECRET;
 
@@ -32,30 +34,54 @@ export async function POST(request: NextRequest) {
       revalidatedPaths.push(normalizedPath);
     }
 
+    if (oldPath) {
+      const normalizedOldPath = oldPath.startsWith('/') ? oldPath : `/${oldPath}`;
+      revalidatePath(normalizedOldPath);
+      revalidatedPaths.push(`${normalizedOldPath} (old path)`);
+    }
+
     if (type && slug) {
       let contentPath: string;
       
       if (type === 'post' || type === 'posts') {
         contentPath = `/blog/${slug}`;
-      } else if (type === 'page' || type === 'pages') {
-        contentPath = `/${slug}`;
+        revalidatePath(contentPath);
+        revalidatedPaths.push(contentPath);
+        revalidatePath('/blog');
+        revalidatedPaths.push('/blog');
+        revalidatePath('/');
+        revalidatedPaths.push('/');
       } else {
         contentPath = `/${slug}`;
+        revalidatePath(contentPath);
+        revalidatedPaths.push(contentPath);
+        revalidatePath('/');
+        revalidatedPaths.push('/');
       }
-      
-      revalidatePath(contentPath);
-      revalidatedPaths.push(contentPath);
+
+      if (oldSlug && oldSlug !== slug) {
+        let oldContentPath: string;
+        if (type === 'post' || type === 'posts') {
+          oldContentPath = `/blog/${oldSlug}`;
+        } else {
+          oldContentPath = `/${oldSlug}`;
+        }
+        revalidatePath(oldContentPath);
+        revalidatedPaths.push(`${oldContentPath} (old slug)`);
+      }
     }
 
     if (type === 'posts' && !slug) {
       revalidatePath('/blog');
       revalidatePath('/blog/[slug]', 'page');
-      revalidatedPaths.push('/blog', '/blog/[slug]');
+      revalidatePath('/');
+      revalidatedPaths.push('/blog', '/blog/[slug]', '/');
     }
 
     if (type === 'pages' && !slug) {
       revalidatePath('/[slug]', 'page');
-      revalidatedPaths.push('/[slug]');
+      revalidatePath('/');
+      revalidatedPaths.push('/[slug]', '/');
     }
 
     if (type === 'all') {
