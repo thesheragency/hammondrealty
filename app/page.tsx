@@ -6,17 +6,15 @@ import { Layout } from '@/components/layout/Layout';
 import { PostListServer } from '@/components/posts/PostListServer';
 import { GravityForm } from '@/components/forms/GravityForm';
 import { YoastSchema } from '@/components/seo/YoastSchema';
+import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'WordPress Headless CMS Boilerplate',
-  description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMetadata({
     title: 'WordPress Headless CMS Boilerplate',
     description: 'A modern headless WordPress implementation with Next.js and ISR caching.',
-    type: 'website',
-  },
-};
+  });
+}
 
 const features = [
   {

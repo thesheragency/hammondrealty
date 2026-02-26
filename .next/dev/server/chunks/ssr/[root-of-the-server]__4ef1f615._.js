@@ -145,6 +145,8 @@ __turbopack_context__.s([
     ()=>fetchPosts,
     "fetchRedirects",
     ()=>fetchRedirects,
+    "fetchYoastGlobalDefaults",
+    ()=>fetchYoastGlobalDefaults,
     "transformPage",
     ()=>transformPage,
     "transformPost",
@@ -841,6 +843,43 @@ async function fetchAcfGlobalScripts() {
             headScripts: null,
             bodyScripts: null
         };
+    }
+}
+const GET_YOAST_GLOBAL_DEFAULTS = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
+  query GetYoastGlobalDefaults {
+    seo {
+      openGraph {
+        defaultImage {
+          sourceUrl
+        }
+      }
+      schema {
+        siteName
+      }
+    }
+  }
+`;
+let yoastGlobalCache = null;
+const YOAST_GLOBAL_CACHE_TTL = 3600 * 1000;
+async function fetchYoastGlobalDefaults() {
+    if (yoastGlobalCache && Date.now() - yoastGlobalCache.fetchedAt < YOAST_GLOBAL_CACHE_TTL) {
+        return yoastGlobalCache.data;
+    }
+    try {
+        const client = getWpClient();
+        const response = await client.request(GET_YOAST_GLOBAL_DEFAULTS);
+        const data = {
+            defaultImage: response.seo?.openGraph?.defaultImage?.sourceUrl || undefined,
+            siteName: response.seo?.schema?.siteName || undefined
+        };
+        yoastGlobalCache = {
+            data,
+            fetchedAt: Date.now()
+        };
+        return data;
+    } catch (error) {
+        console.warn('[Yoast Global] Could not fetch global SEO defaults:', error instanceof Error ? error.message : error);
+        return {};
     }
 }
 async function checkWordPressConnection() {

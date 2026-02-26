@@ -6,6 +6,7 @@ import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { YoastSchema } from '@/components/seo/YoastSchema';
 import { fetchPostBySlug, fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById } from '@/lib/wordpress';
+import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -36,24 +37,15 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     };
   }
 
-  const seo = post.seoMetadata;
-  
-  return {
-    title: seo?.title || post.title,
-    description: seo?.metaDesc || post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 160),
-    openGraph: {
-      title: seo?.opengraphTitle || post.title,
-      description: seo?.opengraphDescription || post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 160),
-      type: 'article',
-      images: seo?.opengraphImage ? [seo.opengraphImage] : post.featuredImage ? [post.featuredImage] : undefined,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo?.twitterTitle || post.title,
-      description: seo?.twitterDescription || post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 160),
-      images: seo?.twitterImage ? [seo.twitterImage] : post.featuredImage ? [post.featuredImage] : undefined,
-    },
-  };
+  const description = post.excerpt?.replace(/<[^>]*>/g, '').slice(0, 160);
+
+  return buildMetadata({
+    seo: post.seoMetadata,
+    title: post.title,
+    description,
+    ogType: 'article',
+    featuredImage: post.featuredImage,
+  });
 }
 
 export default async function BlogPost({ params, searchParams }: PageProps) {

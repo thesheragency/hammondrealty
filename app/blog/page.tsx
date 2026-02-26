@@ -1,17 +1,15 @@
 import { Layout } from '@/components/layout/Layout';
 import { PostListServer } from '@/components/posts/PostListServer';
 import { YoastSchema } from '@/components/seo/YoastSchema';
+import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Blog | WordPress Headless CMS',
-  description: 'Browse all blog posts from WordPress.',
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMetadata({
     title: 'Blog | WordPress Headless CMS',
     description: 'Browse all blog posts from WordPress.',
-    type: 'website',
-  },
-};
+  });
+}
 
 export default function Blog() {
   return (

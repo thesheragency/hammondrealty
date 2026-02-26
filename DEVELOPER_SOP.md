@@ -99,6 +99,15 @@ In WordPress Admin > Yoast SEO:
 2. Customize robots.txt if needed
 3. The boilerplate will proxy this automatically
 
+### Site Image (OG/Twitter/Slack Fallback)
+1. Go to Settings > General > Site basics
+2. Set the **Site image** — this image is used as a fallback for posts/pages that don't have their own OG image set
+3. The frontend automatically uses this fallback: page-specific Yoast OG/Twitter image > post featured image > Yoast global site image
+
+**How it works:** Each page and post first checks for a Yoast-configured OG image and Twitter image at the individual content level. If none is set, it falls back to the post's featured image (for blog posts), and finally to the global site image configured here. This ensures that links shared on social media (Facebook, Twitter/X, Slack, LinkedIn, etc.) always have a preview image.
+
+**Per-page/post OG settings:** Edit any page or post in WordPress, scroll to the Yoast SEO panel, and click the "Social" tab to set page-specific Open Graph and Twitter Card images, titles, and descriptions.
+
 ### Redirects (Yoast Premium only)
 1. Go to Redirects
 2. Add any 301 redirects

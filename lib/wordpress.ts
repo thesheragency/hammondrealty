@@ -938,6 +938,64 @@ export async function fetchAcfGlobalScripts(): Promise<GlobalScripts> {
   }
 }
 
+export interface YoastGlobalDefaults {
+  defaultImage?: string;
+  siteName?: string;
+}
+
+const GET_YOAST_GLOBAL_DEFAULTS = gql`
+  query GetYoastGlobalDefaults {
+    seo {
+      openGraph {
+        defaultImage {
+          sourceUrl
+        }
+      }
+      schema {
+        siteName
+      }
+    }
+  }
+`;
+
+interface WpYoastGlobalResponse {
+  seo: {
+    openGraph?: {
+      defaultImage?: {
+        sourceUrl?: string;
+      } | null;
+    } | null;
+    schema?: {
+      siteName?: string;
+    } | null;
+  } | null;
+}
+
+let yoastGlobalCache: { data: YoastGlobalDefaults; fetchedAt: number } | null = null;
+const YOAST_GLOBAL_CACHE_TTL = 3600 * 1000;
+
+export async function fetchYoastGlobalDefaults(): Promise<YoastGlobalDefaults> {
+  if (yoastGlobalCache && Date.now() - yoastGlobalCache.fetchedAt < YOAST_GLOBAL_CACHE_TTL) {
+    return yoastGlobalCache.data;
+  }
+
+  try {
+    const client = getWpClient();
+    const response = await client.request<WpYoastGlobalResponse>(GET_YOAST_GLOBAL_DEFAULTS);
+
+    const data: YoastGlobalDefaults = {
+      defaultImage: response.seo?.openGraph?.defaultImage?.sourceUrl || undefined,
+      siteName: response.seo?.schema?.siteName || undefined,
+    };
+
+    yoastGlobalCache = { data, fetchedAt: Date.now() };
+    return data;
+  } catch (error) {
+    console.warn('[Yoast Global] Could not fetch global SEO defaults:', error instanceof Error ? error.message : error);
+    return {};
+  }
+}
+
 // Check WordPress connection
 export async function checkWordPressConnection(): Promise<boolean> {
   try {

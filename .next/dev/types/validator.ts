@@ -227,28 +227,19 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/wp-content/plugins/wordpress-seo/css/[...path]">> = Specific
+  const handler = {} as typeof import("../../../app/wp-content/plugins/wordpress-seo/css/[...path]/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/wp-sitemap.xml/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/wp-sitemap.xml">> = Specific
   const handler = {} as typeof import("../../../app/wp-sitemap.xml/route.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
-
-
-
-
-// Validate ../../../app/layout.tsx
-{
-  type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
-  const handler = {} as typeof import("../../../app/layout.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-f import("../../../app/wp-sitemap.xml/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

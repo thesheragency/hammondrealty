@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { YoastSchema } from '@/components/seo/YoastSchema';
 import { fetchPageBySlug, fetchPagePreviewById } from '@/lib/wordpress';
+import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
 import { 
@@ -67,24 +68,6 @@ const TEMPLATE_RENDERERS: Record<string, TemplateRenderFn> = {
   // },
 };
 
-function buildMetadataFromSeo(seo: PageTemplateInfo['seo'], title: string): Metadata {
-  return {
-    title: seo?.title || title,
-    description: seo?.metaDesc || '',
-    openGraph: {
-      title: seo?.opengraphTitle || title,
-      description: seo?.opengraphDescription || '',
-      type: 'website',
-      images: seo?.opengraphImage ? [seo.opengraphImage] : undefined,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo?.twitterTitle || title,
-      description: seo?.twitterDescription || '',
-      images: seo?.twitterImage ? [seo.twitterImage] : undefined,
-    },
-  };
-}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -99,7 +82,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const templateInfo = await getPageTemplateInfo(slug);
   
   if (templateInfo && templateInfo.renderer !== 'default' && templateInfo.seo) {
-    return buildMetadataFromSeo(templateInfo.seo, templateInfo.title);
+    return buildMetadata({ seo: templateInfo.seo, title: templateInfo.title });
   }
   
   let page;
@@ -116,7 +99,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     };
   }
 
-  return buildMetadataFromSeo(page.seoMetadata, page.title);
+  return buildMetadata({ seo: page.seoMetadata, title: page.title });
 }
 
 export default async function WordPressPage({ params, searchParams }: PageProps) {

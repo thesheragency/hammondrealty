@@ -13,7 +13,7 @@ The architecture is based on a Next.js 16 App Router frontend. Content is fetche
 -   **Direct WordPress Fetching:** All page routes fetch content directly from WordPress GraphQL API. No intermediate database cache. WordPress is the single source of truth.
 -   **ISR Caching:** Next.js caches rendered pages. Content updates are propagated via on-demand revalidation (`/api/revalidate` endpoint) triggered by WordPress webhooks on content save. The revalidate endpoint supports `oldSlug`/`oldPath` parameters to purge stale cached pages when slugs change in WordPress. Individual content revalidation also purges listing pages (homepage, `/blog`).
 -   **Self-Healing Stale Slugs:** Page and post routes use `after()` from `next/server` to call `revalidatePath` after returning a 404. When a slug changes in WordPress, visiting the old URL returns 404 and automatically purges the stale ISR cache entry so subsequent visits won't serve stale content.
--   **SEO Integration:** Integrates Next.js Metadata API with Yoast SEO for comprehensive meta-data, Open Graph, Twitter Cards, and canonical URLs. It proxies SEO files (sitemaps, robots.txt) from WordPress and fetches Schema.org JSON-LD via Yoast's REST API, replacing WordPress domains with the frontend domain.
+-   **SEO Integration:** Integrates Next.js Metadata API with Yoast SEO for comprehensive meta-data, Open Graph, Twitter Cards, and canonical URLs. It proxies SEO files (sitemaps, robots.txt) from WordPress and fetches Schema.org JSON-LD via Yoast's REST API, replacing WordPress domains with the frontend domain. OG/Twitter images follow a fallback chain: page-specific Yoast image → post featured image → Yoast global "Site image" (from Settings > Site basics). Centralized in `lib/seo-helpers.ts`.
 -   **Authentication:** Centralized in `lib/wp-auth.ts`. Three credential sets serve distinct purposes:
     - `WP_USER` + `WP_APPLIC_PASS` — WordPress Application Password. Primary auth for GraphQL queries, REST API calls, form submissions, and preview/draft content. Required for most WordPress interactions.
     - `WP_AUTH_USER` + `WP_AUTH_PASSWORD` — nginx Basic Auth credentials. Only needed when WordPress is behind an nginx proxy with HTTP Basic Auth (staging environments). Gated by `WP_BASIC_AUTH_ENABLED` flag; ignored when flag is `false` or `0`.
@@ -47,6 +47,7 @@ The architecture is based on a Next.js 16 App Router frontend. Content is fetche
 ## Key Files
 -   `lib/wp-auth.ts` — Centralized WordPress authentication
 -   `lib/wordpress.ts` — All WordPress GraphQL queries and data transformers
+-   `lib/seo-helpers.ts` — Centralized SEO metadata builder with Yoast fallback chain
 -   `lib/yoast-schema.ts` — Yoast Schema.org JSON-LD fetching
 -   `lib/seo-proxy.ts` — Sitemap/robots.txt proxying with domain replacement
 -   `lib/config/post-types.ts` — Post type and page template registry
