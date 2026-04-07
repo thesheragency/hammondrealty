@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Zap, RefreshCw, Globe, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -42,7 +43,9 @@ const features = [
 export default function Home() {
   return (
     <Layout>
-      <YoastSchema path="/" />
+      <Suspense fallback={null}>
+        <YoastSchema path="/" />
+      </Suspense>
       <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -106,7 +109,9 @@ export default function Home() {
               </Button>
             </Link>
           </div>
-          <PostListServer featured />
+          <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><p className="text-muted-foreground">Loading posts...</p></div>}>
+            <PostListServer featured />
+          </Suspense>
         </div>
       </section>
 

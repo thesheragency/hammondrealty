@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { after } from 'next/server';
@@ -48,7 +49,9 @@ const TEMPLATE_RENDERERS: Record<string, TemplateRenderFn> = {
 
     return (
       <Layout isPreview={isPreview}>
-        <YoastSchema path={`/${slug}`} />
+        <Suspense fallback={null}>
+          <YoastSchema path={`/${slug}`} />
+        </Suspense>
         <LandingPageRenderer data={landingData} isPreview={isPreview} />
       </Layout>
     );
@@ -148,7 +151,9 @@ export default async function WordPressPage({ params, searchParams }: PageProps)
 
   return (
     <Layout isPreview={isPreview}>
-      <YoastSchema path={`/${slug}`} />
+      <Suspense fallback={null}>
+        <YoastSchema path={`/${slug}`} />
+      </Suspense>
       <div className="py-12 md:py-16">
         <div className="container max-w-4xl mx-auto px-4">
           <article>

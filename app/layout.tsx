@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import { ClientToaster } from "@/components/ui/client-toaster";
 import { GlobalScripts } from "@/components/scripts/GlobalScripts";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-background text-foreground`}>
         <GlobalScripts />
         {children}
-        <Toaster />
+        <ClientToaster />
       </body>
     </html>
   );

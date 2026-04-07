@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { after } from 'next/server';
@@ -82,7 +83,9 @@ export default async function BlogPost({ params, searchParams }: PageProps) {
 
   return (
     <Layout isPreview={isPreview}>
-      <YoastSchema path={`/blog/${slug}`} />
+      <Suspense fallback={null}>
+        <YoastSchema path={`/blog/${slug}`} />
+      </Suspense>
       <div className="py-12 md:py-16">
         <div className="container max-w-7xl mx-auto px-4">
           <PostContent post={post} />
