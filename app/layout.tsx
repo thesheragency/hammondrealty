@@ -1,8 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClientToaster } from "@/components/ui/client-toaster";
-import { GlobalScripts } from "@/components/scripts/GlobalScripts";
+import { GlobalHeadScripts, GlobalBodyScripts } from "@/components/scripts/GlobalScripts";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -18,9 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Suspense fallback={null}>
+          <GlobalHeadScripts />
+        </Suspense>
+      </head>
       <body className={`${inter.variable} font-sans antialiased bg-background text-foreground`}>
-        <GlobalScripts />
         {children}
+        <Suspense fallback={null}>
+          <GlobalBodyScripts />
+        </Suspense>
         <ClientToaster />
       </body>
     </html>
