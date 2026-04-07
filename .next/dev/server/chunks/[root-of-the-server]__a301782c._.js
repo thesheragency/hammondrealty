@@ -261,7 +261,7 @@ __turbopack_context__.s([
 ]);
 function shouldUseNginxBasicAuth() {
     const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-    if (enabled === 'false' || enabled === '0') {
+    if (!enabled || enabled === 'false' || enabled === '0') {
         return false;
     }
     return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);

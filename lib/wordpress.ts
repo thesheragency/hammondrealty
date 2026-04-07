@@ -877,16 +877,11 @@ export async function fetchRedirects(): Promise<WpRedirect[]> {
   const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
 
   try {
-    // Build request headers with authentication
+    const nginxAuth = getNginxBasicAuthHeaders();
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
+      ...nginxAuth,
     };
-    if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-      const credentials = Buffer.from(
-        `${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`
-      ).toString('base64');
-      headers['Authorization'] = `Basic ${credentials}`;
-    }
 
     const response = await fetch(redirectsEndpoint, { headers });
     

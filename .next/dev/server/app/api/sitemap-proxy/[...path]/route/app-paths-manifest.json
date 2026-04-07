@@ -1,3 +1,0 @@
-{
-  "/api/sitemap-proxy/[...path]/route": "app/api/sitemap-proxy/[...path]/route.js"
-}

@@ -78,7 +78,7 @@ __turbopack_context__.s([
 ]);
 function shouldUseNginxBasicAuth() {
     const enabled = process.env.WP_BASIC_AUTH_ENABLED;
-    if (enabled === 'false' || enabled === '0') {
+    if (!enabled || enabled === 'false' || enabled === '0') {
         return false;
     }
     return !!(process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD);
@@ -797,14 +797,11 @@ async function fetchRedirects() {
     const wpBaseUrl = wpApiUrl.replace(/\/graphql\/?$/, '');
     const redirectsEndpoint = `${wpBaseUrl}/wp-json/headless/v1/redirects`;
     try {
-        // Build request headers with authentication
+        const nginxAuth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getNginxBasicAuthHeaders"])();
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...nginxAuth
         };
-        if (process.env.WP_AUTH_USER && process.env.WP_AUTH_PASSWORD) {
-            const credentials = Buffer.from(`${process.env.WP_AUTH_USER}:${process.env.WP_AUTH_PASSWORD}`).toString('base64');
-            headers['Authorization'] = `Basic ${credentials}`;
-        }
         const response = await fetch(redirectsEndpoint, {
             headers
         });
