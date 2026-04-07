@@ -23,3 +23,11 @@ nextProcess.on('error', (error) => {
 nextProcess.on('close', (code) => {
   process.exit(code ?? 0);
 });
+
+function shutdown(signal: string) {
+  console.log(`Received ${signal}, shutting down Next.js...`);
+  nextProcess.kill(signal as NodeJS.Signals);
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

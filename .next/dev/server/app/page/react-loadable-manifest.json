@@ -1,10 +1,1 @@
-{
-  "[project]/components/forms/GravityForm.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/components/forms/GravityForm.tsx [app-client] (ecmascript, next/dynamic entry)",
-    "files": [
-      "static/chunks/_0ee43078._.js",
-      "static/chunks/node_modules_a40f9867._.js",
-      "static/chunks/components_forms_GravityForm_tsx_94cd8d80._.js"
-    ]
-  }
-}
+{}

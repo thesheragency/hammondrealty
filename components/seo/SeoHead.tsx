@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import type { SeoMetadata } from '@shared/schema';
+import type { SeoMetadata } from '@/shared/schema';
 
 interface SeoHeadProps {
   seo?: SeoMetadata | null;

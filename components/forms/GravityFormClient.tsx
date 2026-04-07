@@ -1,19 +1,30 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { useState, useEffect, Suspense, lazy } from 'react';
 
-const GravityFormLazy = dynamic(
-  () => import('@/components/forms/GravityForm').then(mod => mod.GravityForm),
-  { ssr: false }
+const GravityFormLazy = lazy(
+  () => import('@/components/forms/GravityForm').then(mod => ({ default: mod.GravityForm }))
 );
 
 interface GravityFormClientProps {
   formId: number;
   className?: string;
-  onSuccess?: () => void;
-  onError?: (error: string) => void;
+  onSuccess?: (confirmation: { message?: string; url?: string }) => void;
+  onError?: (errors: Array<{ id: string; message: string }>) => void;
 }
 
 export function GravityFormClient(props: GravityFormClientProps) {
-  return <GravityFormLazy {...props} />;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <GravityFormLazy {...props} />
+    </Suspense>
+  );
 }
