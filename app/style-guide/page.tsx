@@ -213,7 +213,7 @@ export default function StyleGuide() {
                   <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/30" data-testid="button-dark-outline">
                     Outline on Dark
                   </Button>
-                  <Button className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/90" data-testid="button-dark-accent">
+                  <Button className="bg-brand-accent text-brand-accent-foreground hover:bg-[color-mix(in_srgb,hsl(var(--color-accent)),black_15%)]" data-testid="button-dark-accent">
                     Accent Button
                   </Button>
                 </div>
