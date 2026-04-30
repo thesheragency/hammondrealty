@@ -583,11 +583,13 @@ const GET_REDIRECTS_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node
 // These fields should be registered in ACF Options page with field names:
 // - global_head_scripts
 // - global_body_scripts
-// Note: The query field name is based on your ACF Options Page name (e.g., "SherOptions" -> "sherOptions")
-// Update this query if your Options Page has a different name
+// Note: The query field name is based on your ACF Options Page name.
+// WPGraphQL converts the page title to a GraphQL field name, preserving consecutive
+// uppercase characters as an acronym (e.g., "SHER Options" -> "sHEROptions").
+// Update this query if your Options Page has a different name.
 const GET_ACF_OPTIONS_QUERY = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$graphql$2d$request$2f$build$2f$legacy$2f$functions$2f$gql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["gql"]`
   query GetAcfOptions {
-    sherOptions {
+    sHEROptions {
       globalScripts {
         globalHeadScripts
         globalBodyScripts
@@ -828,7 +830,7 @@ async function fetchAcfGlobalScripts() {
     const client = getWpClient();
     try {
         const response = await client.request(GET_ACF_OPTIONS_QUERY);
-        const globalScripts = response.sherOptions?.globalScripts;
+        const globalScripts = response.sHEROptions?.globalScripts;
         return {
             headScripts: globalScripts?.globalHeadScripts || null,
             bodyScripts: globalScripts?.globalBodyScripts || null
