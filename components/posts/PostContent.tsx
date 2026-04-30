@@ -14,6 +14,7 @@ export function PostContent({ post }: PostContentProps) {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        timeZone: 'UTC',
       })
     : null;
 
