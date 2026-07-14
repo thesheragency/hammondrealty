@@ -1073,12 +1073,19 @@ const MENUS_QUERY = `
     }
   }
 `;
+function sanitizeHref(href) {
+    const trimmed = href.trim();
+    if (trimmed.startsWith("/") || trimmed.startsWith("#") || /^(https?:|mailto:|tel:)/i.test(trimmed)) {
+        return trimmed;
+    }
+    return "#";
+}
 function toItems(node) {
     const items = node?.nodes?.[0]?.menuItems?.nodes;
     if (!items || items.length === 0) return null;
     const mapped = items.map((i)=>({
             label: i.label || "",
-            href: i.path || i.url || "#"
+            href: sanitizeHref(i.path || i.url || "#")
         })).filter((i)=>i.label);
     return mapped.length > 0 ? mapped : null;
 }

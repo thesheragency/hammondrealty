@@ -39,11 +39,23 @@ interface RawMenuItem {
   url?: string | null;
 }
 
+function sanitizeHref(href: string): string {
+  const trimmed = href.trim();
+  if (
+    trimmed.startsWith("/") ||
+    trimmed.startsWith("#") ||
+    /^(https?:|mailto:|tel:)/i.test(trimmed)
+  ) {
+    return trimmed;
+  }
+  return "#";
+}
+
 function toItems(node: any): WpMenuItem[] | null {
   const items: RawMenuItem[] | undefined = node?.nodes?.[0]?.menuItems?.nodes;
   if (!items || items.length === 0) return null;
   const mapped = items
-    .map((i) => ({ label: i.label || "", href: i.path || i.url || "#" }))
+    .map((i) => ({ label: i.label || "", href: sanitizeHref(i.path || i.url || "#") }))
     .filter((i) => i.label);
   return mapped.length > 0 ? mapped : null;
 }

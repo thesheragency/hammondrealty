@@ -1,4 +1,11 @@
 {
+  "/about/page": "app/about/page.js",
+  "/api/forms/submit-rest/route": "app/api/forms/submit-rest/route.js",
+  "/api/forms/submit/route": "app/api/forms/submit/route.js",
   "/api/revalidate/route": "app/api/revalidate/route.js",
-  "/page": "app/page.js"
+  "/buyer/page": "app/buyer/page.js",
+  "/connect/page": "app/connect/page.js",
+  "/home-value-analysis/page": "app/home-value-analysis/page.js",
+  "/page": "app/page.js",
+  "/seller/page": "app/seller/page.js"
 }
