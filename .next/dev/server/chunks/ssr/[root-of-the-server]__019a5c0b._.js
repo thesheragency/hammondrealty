@@ -122,6 +122,8 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$seo$2d$helpers$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/seo-helpers.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$pages$2f$PrivacyPolicyPage$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/pages/PrivacyPolicyPage.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wp-auth.ts [app-rsc] (ecmascript)");
+;
 ;
 ;
 ;
@@ -132,10 +134,44 @@ async function generateMetadata() {
         canonicalPath: '/privacy-policy'
     });
 }
-function Page() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$pages$2f$PrivacyPolicyPage$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+async function fetchPrivacyPolicyContent() {
+    try {
+        const wpApiUrl = process.env.WP_API_URL;
+        if (!wpApiUrl) return null;
+        const res = await fetch(wpApiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWpAuthHeaders"])()
+            },
+            body: JSON.stringify({
+                query: `{ page(id: "privacy-policy", idType: URI) { content } }`
+            }),
+            next: {
+                revalidate: 60,
+                tags: [
+                    'wp-content'
+                ]
+            }
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        const content = json?.data?.page?.content;
+        // Only use WP content when it's substantive (not an empty placeholder stub)
+        if (content && content.replace(/<[^>]+>/g, '').trim().length > 100) return content;
+        return null;
+    } catch (error) {
+        console.error('[privacy-policy] Failed to fetch WP content:', error);
+        return null;
+    }
+}
+async function Page() {
+    const content = await fetchPrivacyPolicyContent();
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$pages$2f$PrivacyPolicyPage$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+        content: content
+    }, void 0, false, {
         fileName: "[project]/app/privacy-policy/page.tsx",
-        lineNumber: 14,
+        lineNumber: 40,
         columnNumber: 10
     }, this);
 }

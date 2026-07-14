@@ -801,7 +801,16 @@ function Booked({ acf }) {
                                     lineNumber: 31,
                                     columnNumber: 15
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                acf?.videoEmbed ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative aspect-video w-full max-w-3xl mx-auto shadow-2xl mb-10 overflow-hidden [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_video]:absolute [&_video]:inset-0 [&_video]:w-full [&_video]:h-full [&_video]:object-cover",
+                                    dangerouslySetInnerHTML: {
+                                        __html: acf.videoEmbed
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/components/pages/BookedPage.tsx",
+                                    lineNumber: 36,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "relative aspect-video w-full max-w-3xl mx-auto bg-foreground/80 shadow-2xl mb-10 group cursor-pointer overflow-hidden",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "absolute inset-0 flex items-center justify-center",
@@ -813,23 +822,23 @@ function Booked({ acf }) {
                                                 strokeWidth: 0
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BookedPage.tsx",
-                                                lineNumber: 39,
-                                                columnNumber: 21
+                                                lineNumber: 44,
+                                                columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/BookedPage.tsx",
-                                            lineNumber: 38,
-                                            columnNumber: 19
+                                            lineNumber: 43,
+                                            columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/BookedPage.tsx",
-                                        lineNumber: 37,
-                                        columnNumber: 17
+                                        lineNumber: 42,
+                                        columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/BookedPage.tsx",
-                                    lineNumber: 36,
-                                    columnNumber: 15
+                                    lineNumber: 41,
+                                    columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                     href: acf?.buttonLink || "/",
@@ -837,7 +846,7 @@ function Booked({ acf }) {
                                     children: acf?.buttonText || "Back to Home"
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/BookedPage.tsx",
-                                    lineNumber: 48,
+                                    lineNumber: 54,
                                     columnNumber: 15
                                 }, this)
                             ]
@@ -863,7 +872,7 @@ function Booked({ acf }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/BookedPage.tsx",
-                lineNumber: 59,
+                lineNumber: 65,
                 columnNumber: 7
             }, this)
         ]

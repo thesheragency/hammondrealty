@@ -105,6 +105,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md">
                   {acf?.body2 || "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time."}
                 </p>
+                {acf?.scheduleText && (
+                  <a
+                    href={acf?.scheduleLink || "#"}
+                    className="mt-8 inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 px-8 h-[45px]"
+                  >
+                    {acf.scheduleText}
+                  </a>
+                )}
               </div>
 
               {/* Right: form → then calendar */}

@@ -1020,6 +1020,15 @@ function BookConsultation({ acf }) {
                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
                                             lineNumber: 105,
                                             columnNumber: 17
+                                        }, this),
+                                        acf?.scheduleText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                            href: acf?.scheduleLink || "#",
+                                            className: "mt-8 inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 px-8 h-[45px]",
+                                            children: acf.scheduleText
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/pages/BookConsultationPage.tsx",
+                                            lineNumber: 109,
+                                            columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
@@ -1054,7 +1063,7 @@ function BookConsultation({ acf }) {
                                                     children: "Step 1 of 2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 122,
+                                                    lineNumber: 130,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1062,7 +1071,7 @@ function BookConsultation({ acf }) {
                                                     children: "A little about you"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 125,
+                                                    lineNumber: 133,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1070,7 +1079,7 @@ function BookConsultation({ acf }) {
                                                     children: "Fill this out and we will get you straight to the calendar."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 136,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1086,7 +1095,7 @@ function BookConsultation({ acf }) {
                                                                     children: "Name"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 134,
+                                                                    lineNumber: 142,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1101,13 +1110,13 @@ function BookConsultation({ acf }) {
                                                                     className: "rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 137,
+                                                                    lineNumber: 145,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 133,
+                                                            lineNumber: 141,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1119,7 +1128,7 @@ function BookConsultation({ acf }) {
                                                                     children: "Email"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 148,
+                                                                    lineNumber: 156,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1135,13 +1144,13 @@ function BookConsultation({ acf }) {
                                                                     className: "rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 151,
+                                                                    lineNumber: 159,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 147,
+                                                            lineNumber: 155,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1158,13 +1167,13 @@ function BookConsultation({ acf }) {
                                                                             children: "(optional)"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                            lineNumber: 165,
+                                                                            lineNumber: 173,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 163,
+                                                                    lineNumber: 171,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1178,13 +1187,13 @@ function BookConsultation({ acf }) {
                                                                     className: "rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 167,
+                                                                    lineNumber: 175,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 162,
+                                                            lineNumber: 170,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1196,7 +1205,7 @@ function BookConsultation({ acf }) {
                                                                     children: "Anything you would like me to know"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 177,
+                                                                    lineNumber: 185,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1211,13 +1220,13 @@ function BookConsultation({ acf }) {
                                                                     className: "w-full rounded-none bg-white border border-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary px-3 py-2.5 text-sm resize-none"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 180,
+                                                                    lineNumber: 188,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 176,
+                                                            lineNumber: 184,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1230,25 +1239,25 @@ function BookConsultation({ acf }) {
                                                                     strokeWidth: 2
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                                    lineNumber: 195,
+                                                                    lineNumber: 203,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 190,
+                                                            lineNumber: 198,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 140,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, "form", true, {
                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                            lineNumber: 114,
+                                            lineNumber: 122,
                                             columnNumber: 21
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                             id: "calendar",
@@ -1280,12 +1289,12 @@ function BookConsultation({ acf }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                        lineNumber: 210,
+                                                        lineNumber: 218,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 209,
+                                                    lineNumber: 217,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1296,7 +1305,7 @@ function BookConsultation({ acf }) {
                                                             children: "Step 2 of 2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 216,
+                                                            lineNumber: 224,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2d$days$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CalendarDays$3e$__["CalendarDays"], {
@@ -1304,7 +1313,7 @@ function BookConsultation({ acf }) {
                                                             strokeWidth: 1.5
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 219,
+                                                            lineNumber: 227,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1312,7 +1321,7 @@ function BookConsultation({ acf }) {
                                                             children: acf?.calendarHeading || "Calendar Embed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 223,
+                                                            lineNumber: 231,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1320,7 +1329,7 @@ function BookConsultation({ acf }) {
                                                             children: acf?.calendarText || "Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 226,
+                                                            lineNumber: 234,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1329,29 +1338,29 @@ function BookConsultation({ acf }) {
                                                             children: acf?.confirmText || "Confirm Booking"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                            lineNumber: 229,
+                                                            lineNumber: 237,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                                    lineNumber: 215,
+                                                    lineNumber: 223,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, "calendar", true, {
                                             fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 208,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 120,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 119,
                                     columnNumber: 15
                                 }, this)
                             ]
@@ -1377,7 +1386,7 @@ function BookConsultation({ acf }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/BookConsultationPage.tsx",
-                lineNumber: 246,
+                lineNumber: 254,
                 columnNumber: 7
             }, this)
         ]

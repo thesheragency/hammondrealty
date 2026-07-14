@@ -693,6 +693,14 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.prepCtaLink || "/home-prep-program"}>{acf?.prepCtaText || "Learn More"}</Link>
                   </Button>
+                  {acf?.prepPhoneText && (
+                    <a
+                      href={acf?.prepPhoneLink || "#"}
+                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+                    >
+                      Or call {acf.prepPhoneText}
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

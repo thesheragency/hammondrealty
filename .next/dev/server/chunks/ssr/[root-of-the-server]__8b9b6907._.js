@@ -2746,16 +2746,30 @@ function HomePrep({ acf }) {
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex flex-col sm:flex-row sm:items-center gap-5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: acf?.familiarCtaLink || "/book-consultation",
-                                                        className: "inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]",
-                                                        children: acf?.familiarCtaText || "Schedule a Home Prep Consultation"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 498,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                            href: acf?.familiarCtaLink || "/book-consultation",
+                                                            className: "inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]",
+                                                            children: acf?.familiarCtaText || "Schedule a Home Prep Consultation"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                            lineNumber: 498,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        acf?.familiarPhoneText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                            href: acf?.familiarPhoneLink || "#",
+                                                            className: "text-sm font-medium text-foreground/70 hover:text-primary transition-colors",
+                                                            children: [
+                                                                "Or call ",
+                                                                acf.familiarPhoneText
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                            lineNumber: 505,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
                                                     lineNumber: 497,
                                                     columnNumber: 17
@@ -2815,14 +2829,14 @@ function HomePrep({ acf }) {
                                                 className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 521,
+                                                lineNumber: 529,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 526,
+                                                lineNumber: 534,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2833,23 +2847,23 @@ function HomePrep({ acf }) {
                                                         className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 529,
+                                                        lineNumber: 537,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 528,
+                                                    lineNumber: 536,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 527,
+                                                lineNumber: 535,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                        lineNumber: 520,
+                                        lineNumber: 528,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2859,7 +2873,7 @@ function HomePrep({ acf }) {
                                                 children: acf?.whyEyebrow || "Our Difference"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 535,
+                                                lineNumber: 543,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2867,7 +2881,7 @@ function HomePrep({ acf }) {
                                                 children: acf?.whyHeading || "Home Prep Program"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 538,
+                                                lineNumber: 546,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2875,7 +2889,7 @@ function HomePrep({ acf }) {
                                                 children: acf?.whyBody || "Buyers reward homes that show better than the competition. This turnkey renovation program quietly removes every friction point without you writing a check before closing."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 541,
+                                                lineNumber: 549,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2890,12 +2904,12 @@ function HomePrep({ acf }) {
                                                                     strokeWidth: 3
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 548,
+                                                                    lineNumber: 556,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 547,
+                                                                lineNumber: 555,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2906,30 +2920,30 @@ function HomePrep({ acf }) {
                                                                         children: b.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                        lineNumber: 551,
+                                                                        lineNumber: 559,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                        lineNumber: 552,
+                                                                        lineNumber: 560,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     b.desc
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 550,
+                                                                lineNumber: 558,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, b.title, true, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 546,
+                                                        lineNumber: 554,
                                                         columnNumber: 21
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 544,
+                                                lineNumber: 552,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2941,14 +2955,14 @@ function HomePrep({ acf }) {
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 560,
+                                                        lineNumber: 568,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "absolute inset-0 bg-foreground/20"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 565,
+                                                        lineNumber: 573,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2959,23 +2973,23 @@ function HomePrep({ acf }) {
                                                                 className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 568,
+                                                                lineNumber: 576,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 567,
+                                                            lineNumber: 575,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 566,
+                                                        lineNumber: 574,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 559,
+                                                lineNumber: 567,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2989,12 +3003,12 @@ function HomePrep({ acf }) {
                                                             children: acf?.whyCtaText || "Schedule a Home Prep Consultation"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 574,
+                                                            lineNumber: 582,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 573,
+                                                        lineNumber: 581,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -3006,40 +3020,40 @@ function HomePrep({ acf }) {
                                                             children: acf?.whySecondaryText || "Free Home Value Analysis"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 581,
+                                                            lineNumber: 589,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 576,
+                                                        lineNumber: 584,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 572,
+                                                lineNumber: 580,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                        lineNumber: 534,
+                                        lineNumber: 542,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                lineNumber: 519,
+                                lineNumber: 527,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                            lineNumber: 518,
+                            lineNumber: 526,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 511,
+                        lineNumber: 519,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3086,17 +3100,17 @@ function HomePrep({ acf }) {
                                         }
                                     }, activeStep, false, {
                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                        lineNumber: 601,
+                                        lineNumber: 609,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 600,
+                                    lineNumber: 608,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                lineNumber: 599,
+                                lineNumber: 607,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3114,7 +3128,7 @@ function HomePrep({ acf }) {
                                                             children: acf?.processEyebrow || "Home Prep Program Process"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 618,
+                                                            lineNumber: 626,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3124,7 +3138,7 @@ function HomePrep({ acf }) {
                                                                     "100% Funded",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                        lineNumber: 622,
+                                                                        lineNumber: 630,
                                                                         columnNumber: 79
                                                                     }, this),
                                                                     "Renovations"
@@ -3132,7 +3146,7 @@ function HomePrep({ acf }) {
                                                             }, void 0, true)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 621,
+                                                            lineNumber: 629,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3140,13 +3154,13 @@ function HomePrep({ acf }) {
                                                             children: acf?.processSubtitle || "5 steps to a stress-free, high-profit sale."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 624,
+                                                            lineNumber: 632,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 617,
+                                                    lineNumber: 625,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3165,7 +3179,7 @@ function HomePrep({ acf }) {
                                                                             children: step.num
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                            lineNumber: 641,
+                                                                            lineNumber: 649,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3176,7 +3190,7 @@ function HomePrep({ acf }) {
                                                                                     children: step.title
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                                    lineNumber: 645,
+                                                                                    lineNumber: 653,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -3201,29 +3215,29 @@ function HomePrep({ acf }) {
                                                                                         children: step.desc
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                                        lineNumber: 650,
+                                                                                        lineNumber: 658,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                                    lineNumber: 648,
+                                                                                    lineNumber: 656,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                            lineNumber: 644,
+                                                                            lineNumber: 652,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 640,
+                                                                    lineNumber: 648,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, step.title, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 633,
+                                                                lineNumber: 641,
                                                                 columnNumber: 23
                                                             }, this);
                                                         }),
@@ -3249,76 +3263,95 @@ function HomePrep({ acf }) {
                                                                     }
                                                                 }, `m-${activeStep}`, false, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 670,
+                                                                    lineNumber: 678,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 669,
+                                                                lineNumber: 677,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 668,
+                                                            lineNumber: 676,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "mt-8 flex flex-wrap items-center gap-3 sm:gap-4",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                                                asChild: true,
-                                                                className: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                                    href: acf?.processCtaLink || "/book-consultation",
-                                                                    children: acf?.processCtaText || "Schedule a Home Prep Consultation"
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                                                    asChild: true,
+                                                                    className: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                                        href: acf?.processCtaLink || "/book-consultation",
+                                                                        children: acf?.processCtaText || "Schedule a Home Prep Consultation"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                                        lineNumber: 693,
+                                                                        columnNumber: 23
+                                                                    }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 685,
+                                                                    lineNumber: 692,
+                                                                    columnNumber: 21
+                                                                }, this),
+                                                                acf?.processSecondaryText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                                                    asChild: true,
+                                                                    variant: "outline",
+                                                                    className: "border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                                        href: acf?.processSecondaryLink || "#",
+                                                                        children: acf.processSecondaryText
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                                        lineNumber: 701,
+                                                                        columnNumber: 25
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                                    lineNumber: 696,
                                                                     columnNumber: 23
                                                                 }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 684,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        }, void 0, false, {
+                                                            ]
+                                                        }, void 0, true, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 683,
+                                                            lineNumber: 691,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 629,
+                                                    lineNumber: 637,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 616,
+                                            lineNumber: 624,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "hidden lg:block"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 690,
+                                            lineNumber: 707,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 615,
+                                    lineNumber: 623,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                lineNumber: 614,
+                                lineNumber: 622,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 590,
+                        lineNumber: 598,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3353,7 +3386,7 @@ function HomePrep({ acf }) {
                                                     children: acf?.includedEyebrow || "What's Included"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 706,
+                                                    lineNumber: 723,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3363,7 +3396,7 @@ function HomePrep({ acf }) {
                                                             "We Manage The Contractors",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 710,
+                                                                lineNumber: 727,
                                                                 columnNumber: 93
                                                             }, this),
                                                             "& Cover The Costs"
@@ -3371,13 +3404,13 @@ function HomePrep({ acf }) {
                                                     }, void 0, true)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 709,
+                                                    lineNumber: 726,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 705,
+                                            lineNumber: 722,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3392,12 +3425,12 @@ function HomePrep({ acf }) {
                                                         className: "w-8 h-8"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 720,
+                                                        lineNumber: 737,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 714,
+                                                    lineNumber: 731,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3409,24 +3442,24 @@ function HomePrep({ acf }) {
                                                         className: "w-8 h-8"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 728,
+                                                        lineNumber: 745,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 722,
+                                                    lineNumber: 739,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 713,
+                                            lineNumber: 730,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 704,
+                                    lineNumber: 721,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(IncludedCarousel, {
@@ -3434,7 +3467,7 @@ function HomePrep({ acf }) {
                                     cards: included
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 732,
+                                    lineNumber: 749,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3449,12 +3482,12 @@ function HomePrep({ acf }) {
                                                 className: "w-8 h-8"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 740,
+                                                lineNumber: 757,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 734,
+                                            lineNumber: 751,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3466,29 +3499,29 @@ function HomePrep({ acf }) {
                                                 className: "w-8 h-8"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 748,
+                                                lineNumber: 765,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 742,
+                                            lineNumber: 759,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 733,
+                                    lineNumber: 750,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                            lineNumber: 703,
+                            lineNumber: 720,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 696,
+                        lineNumber: 713,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3519,12 +3552,12 @@ function HomePrep({ acf }) {
                                         children: acf?.caseSectionHeading || "Before & After Case Study"
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                        lineNumber: 764,
+                                        lineNumber: 781,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 763,
+                                    lineNumber: 780,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3537,7 +3570,7 @@ function HomePrep({ acf }) {
                                                     children: acf?.caseEyebrow || "Roseville, CA"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 770,
+                                                    lineNumber: 787,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -3547,7 +3580,7 @@ function HomePrep({ acf }) {
                                                             "Our Home Prep Program Put An Extra",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                lineNumber: 774,
+                                                                lineNumber: 791,
                                                                 columnNumber: 94
                                                             }, this),
                                                             "$50,000 In Our Client's Pocket"
@@ -3555,7 +3588,7 @@ function HomePrep({ acf }) {
                                                     }, void 0, true)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 773,
+                                                    lineNumber: 790,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3563,7 +3596,7 @@ function HomePrep({ acf }) {
                                                     children: acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 776,
+                                                    lineNumber: 793,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -3578,12 +3611,12 @@ function HomePrep({ acf }) {
                                                                         strokeWidth: 3
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                        lineNumber: 781,
+                                                                        lineNumber: 798,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 780,
+                                                                    lineNumber: 797,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3591,18 +3624,18 @@ function HomePrep({ acf }) {
                                                                     children: b
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                                    lineNumber: 783,
+                                                                    lineNumber: 800,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, b, true, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 779,
+                                                            lineNumber: 796,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 777,
+                                                    lineNumber: 794,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3614,41 +3647,55 @@ function HomePrep({ acf }) {
                                                         afterAlt: "Roseville living room after prep and staging"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 789,
+                                                        lineNumber: 806,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 788,
+                                                    lineNumber: 805,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex flex-wrap items-center gap-3 sm:gap-4",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                                        asChild: true,
-                                                        className: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                            href: acf?.caseCtaLink || "/book-consultation",
-                                                            children: acf?.caseCtaText || "Schedule a Home Prep Consultation"
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                                            asChild: true,
+                                                            className: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                                href: acf?.caseCtaLink || "/book-consultation",
+                                                                children: acf?.caseCtaText || "Schedule a Home Prep Consultation"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                                lineNumber: 815,
+                                                                columnNumber: 21
+                                                            }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                            lineNumber: 798,
+                                                            lineNumber: 814,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        acf?.casePhoneText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                            href: acf?.casePhoneLink || "#",
+                                                            className: "text-sm font-medium text-foreground/70 hover:text-primary transition-colors",
+                                                            children: [
+                                                                "Or call ",
+                                                                acf.casePhoneText
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/pages/HomePrepPage.tsx",
+                                                            lineNumber: 818,
                                                             columnNumber: 21
                                                         }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                        lineNumber: 797,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                    lineNumber: 796,
+                                                    lineNumber: 813,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 769,
+                                            lineNumber: 786,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3660,34 +3707,34 @@ function HomePrep({ acf }) {
                                                 afterAlt: "Roseville living room after prep and staging"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                                lineNumber: 804,
+                                                lineNumber: 829,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                            lineNumber: 803,
+                                            lineNumber: 828,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomePrepPage.tsx",
-                                    lineNumber: 768,
+                                    lineNumber: 785,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/HomePrepPage.tsx",
-                            lineNumber: 762,
+                            lineNumber: 779,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 755,
+                        lineNumber: 772,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$TestimonialsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 815,
+                        lineNumber: 840,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$FaqsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3695,12 +3742,12 @@ function HomePrep({ acf }) {
                         intro: acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 817,
+                        lineNumber: 842,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$CtaSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/HomePrepPage.tsx",
-                        lineNumber: 822,
+                        lineNumber: 847,
                         columnNumber: 9
                     }, this)
                 ]
@@ -3711,7 +3758,7 @@ function HomePrep({ acf }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/HomePrepPage.tsx",
-                lineNumber: 824,
+                lineNumber: 849,
                 columnNumber: 7
             }, this)
         ]

@@ -501,6 +501,14 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   >
                     {acf?.familiarCtaText || "Schedule a Home Prep Consultation"}
                   </Link>
+                  {acf?.familiarPhoneText && (
+                    <a
+                      href={acf?.familiarPhoneLink || "#"}
+                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+                    >
+                      Or call {acf.familiarPhoneText}
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -684,6 +692,15 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
                       <Link href={acf?.processCtaLink || "/book-consultation"}>{acf?.processCtaText || "Schedule a Home Prep Consultation"}</Link>
                     </Button>
+                    {acf?.processSecondaryText && (
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+                      >
+                        <Link href={acf?.processSecondaryLink || "#"}>{acf.processSecondaryText}</Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -797,6 +814,14 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
                     <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
+                  {acf?.casePhoneText && (
+                    <a
+                      href={acf?.casePhoneLink || "#"}
+                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+                    >
+                      Or call {acf.casePhoneText}
+                    </a>
+                  )}
                 </div>
               </div>
 

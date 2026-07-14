@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 
-export default function PrivacyPolicy() {
+export default function PrivacyPolicy({ content }: { content?: string | null }) {
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
@@ -26,6 +26,12 @@ export default function PrivacyPolicy() {
               </h1>
               <p className="text-foreground/60 text-sm mb-12">Effective Date: April 10, 2025</p>
 
+              {content ? (
+                <div
+                  className="wp-legal-content text-foreground/80 leading-relaxed space-y-6 [&_h2]:font-sans [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mb-4 [&_h2]:mt-10 [&_h3]:font-sans [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-foreground [&_h3]:mb-3 [&_h3]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary [&_strong]:text-foreground"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+              ) : (
               <div className="space-y-10 text-foreground/80 leading-relaxed">
                 <p>
                   Hammond Realty values your privacy. This Privacy Policy explains how we
@@ -110,6 +116,7 @@ export default function PrivacyPolicy() {
                   </p>
                 </section>
               </div>
+              )}
             </div>
           </div>
         </motion.section>

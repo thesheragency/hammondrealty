@@ -722,7 +722,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFo
 ;
 ;
 ;
-function PrivacyPolicy() {
+function PrivacyPolicy({ content }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col",
         children: [
@@ -778,14 +778,23 @@ function PrivacyPolicy() {
                                     lineNumber: 27,
                                     columnNumber: 15
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                content ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "wp-legal-content text-foreground/80 leading-relaxed space-y-6 [&_h2]:font-sans [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mb-4 [&_h2]:mt-10 [&_h3]:font-sans [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-foreground [&_h3]:mb-3 [&_h3]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary [&_strong]:text-foreground",
+                                    dangerouslySetInnerHTML: {
+                                        __html: content
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
+                                    lineNumber: 30,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "space-y-10 text-foreground/80 leading-relaxed",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             children: "Hammond Realty values your privacy. This Privacy Policy explains how we collect, use, and protect your information."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 30,
+                                            lineNumber: 36,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -795,7 +804,7 @@ function PrivacyPolicy() {
                                                     children: "Information We Collect"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 36,
+                                                    lineNumber: 42,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -803,7 +812,7 @@ function PrivacyPolicy() {
                                                     children: "We may collect personal information such as your name, phone number, email address, and property preferences when you:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 39,
+                                                    lineNumber: 45,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -813,33 +822,33 @@ function PrivacyPolicy() {
                                                             children: "Fill out a contact form on our website"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 44,
+                                                            lineNumber: 50,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                             children: "Request a home valuation"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 45,
+                                                            lineNumber: 51,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                             children: "Subscribe to receive updates or messages from us"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 46,
+                                                            lineNumber: 52,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 43,
+                                                    lineNumber: 49,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 35,
+                                            lineNumber: 41,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -849,7 +858,7 @@ function PrivacyPolicy() {
                                                     children: "How We Use Your Information"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 51,
+                                                    lineNumber: 57,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -857,7 +866,7 @@ function PrivacyPolicy() {
                                                     children: "We use the information you provide to:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 54,
+                                                    lineNumber: 60,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -867,33 +876,33 @@ function PrivacyPolicy() {
                                                             children: "Communicate with you about real estate services"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 56,
+                                                            lineNumber: 62,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                             children: "Send you updates, follow-ups, and other relevant messages"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 57,
+                                                            lineNumber: 63,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                             children: "Improve our services and personalize your experience"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                            lineNumber: 58,
+                                                            lineNumber: 64,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 55,
+                                                    lineNumber: 61,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 50,
+                                            lineNumber: 56,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -903,7 +912,7 @@ function PrivacyPolicy() {
                                                     children: "SMS Consent"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 63,
+                                                    lineNumber: 69,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -911,20 +920,20 @@ function PrivacyPolicy() {
                                                     children: "By submitting your phone number, you consent to receive SMS messages from Hammond Realty. Message and data rates may apply. Message frequency may vary. You can reply STOP at any time to opt out, or HELP for more information."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 66,
+                                                    lineNumber: 72,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     children: "No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 72,
+                                                    lineNumber: 78,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 62,
+                                            lineNumber: 68,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -934,20 +943,20 @@ function PrivacyPolicy() {
                                                     children: "Data Protection"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 81,
+                                                    lineNumber: 87,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     children: "Your data is securely stored and only accessed by authorized personnel. We will never sell, rent, or share your information with outside parties."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 84,
+                                                    lineNumber: 90,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 86,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -957,7 +966,7 @@ function PrivacyPolicy() {
                                                     children: "Contact Us"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 91,
+                                                    lineNumber: 97,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -965,7 +974,7 @@ function PrivacyPolicy() {
                                                     children: "If you have questions about this Privacy Policy, contact us at:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 94,
+                                                    lineNumber: 100,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -973,7 +982,7 @@ function PrivacyPolicy() {
                                                     children: "Hammond Realty"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 97,
+                                                    lineNumber: 103,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -983,12 +992,12 @@ function PrivacyPolicy() {
                                                         children: "(916) 625-6118"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 105,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 98,
+                                                    lineNumber: 104,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -998,24 +1007,24 @@ function PrivacyPolicy() {
                                                         children: "blakehammondre@gmail.com"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                        lineNumber: 104,
+                                                        lineNumber: 110,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                                    lineNumber: 103,
+                                                    lineNumber: 109,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 96,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                                    lineNumber: 29,
+                                    lineNumber: 35,
                                     columnNumber: 15
                                 }, this)
                             ]
@@ -1041,7 +1050,7 @@ function PrivacyPolicy() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/PrivacyPolicyPage.tsx",
-                lineNumber: 118,
+                lineNumber: 125,
                 columnNumber: 7
             }, this)
         ]

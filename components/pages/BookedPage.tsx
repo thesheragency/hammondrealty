@@ -32,18 +32,24 @@ export default function Booked({ acf }: { acf?: Record<string, any> | null }) {
                 {acf?.body || "You are all set. Take 4 minutes to watch this short walkthrough video. It will help make our upcoming conversation faster, smoother, and much more useful for your planning."}
               </p>
 
-              {/* Video placeholder */}
-              <div className="relative aspect-video w-full max-w-3xl mx-auto bg-foreground/80 shadow-2xl mb-10 group cursor-pointer overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 md:w-24 md:h-24 bg-background/95 rounded-full flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
-                    <Play
-                      className="w-8 h-8 md:w-10 md:h-10 text-foreground ml-1"
-                      fill="currentColor"
-                      strokeWidth={0}
-                    />
+              {acf?.videoEmbed ? (
+                <div
+                  className="relative aspect-video w-full max-w-3xl mx-auto shadow-2xl mb-10 overflow-hidden [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_video]:absolute [&_video]:inset-0 [&_video]:w-full [&_video]:h-full [&_video]:object-cover"
+                  dangerouslySetInnerHTML={{ __html: acf.videoEmbed }}
+                />
+              ) : (
+                <div className="relative aspect-video w-full max-w-3xl mx-auto bg-foreground/80 shadow-2xl mb-10 group cursor-pointer overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-24 md:h-24 bg-background/95 rounded-full flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+                      <Play
+                        className="w-8 h-8 md:w-10 md:h-10 text-foreground ml-1"
+                        fill="currentColor"
+                        strokeWidth={0}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <a
                 href={acf?.buttonLink || "/"}
