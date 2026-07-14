@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,46 +13,27 @@ const DEFAULT_CALENDLY_URL =
   "https://calendly.com/blakehammondre/real-estate-consult-with-blake";
 
 function CalendlyEmbed({ url, name, email }: { url: string; name: string; email: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const params = new URLSearchParams();
-  if (name) params.set("name", name);
-  if (email) params.set("email", email);
-  const embedUrl = params.toString() ? `${url}?${params.toString()}` : url;
+  const [embedSrc, setEmbedSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    const existing = document.querySelector<HTMLScriptElement>(
-      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
-    );
-    const init = () => {
-      const w = window as any;
-      if (w.Calendly && containerRef.current) {
-        containerRef.current.innerHTML = "";
-        w.Calendly.initInlineWidget({
-          url: embedUrl,
-          parentElement: containerRef.current,
-        });
-      }
-    };
-    if (existing) {
-      if ((window as any).Calendly) {
-        init();
-      } else {
-        existing.addEventListener("load", init, { once: true });
-      }
-    } else {
-      const script = document.createElement("script");
-      script.src = "https://assets.calendly.com/assets/external/widget.js";
-      script.async = true;
-      script.addEventListener("load", init, { once: true });
-      document.body.appendChild(script);
-    }
-  }, [embedUrl]);
+    const params = new URLSearchParams({
+      embed_domain: window.location.hostname,
+      embed_type: "Inline",
+    });
+    if (name) params.set("name", name);
+    if (email) params.set("email", email);
+    setEmbedSrc(`${url}?${params.toString()}`);
+  }, [url, name, email]);
+
+  if (!embedSrc) {
+    return <div className="w-full bg-muted" style={{ minWidth: 320, height: 700 }} />;
+  }
 
   return (
-    <div
-      ref={containerRef}
-      className="calendly-inline-widget w-full"
+    <iframe
+      src={embedSrc}
+      title="Schedule a call with Blake"
+      className="w-full border-0"
       style={{ minWidth: 320, height: 700 }}
       data-testid="embed-calendly"
     />
