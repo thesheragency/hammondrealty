@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
+import { fetchHomePrepAcf } from '@/lib/wp-acf';
 import HomePrepPage from '@/components/pages/HomePrepPage';
+
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -10,6 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function Page() {
-  return <HomePrepPage />;
+export default async function Page() {
+  const acf = await fetchHomePrepAcf();
+  return <HomePrepPage acf={acf} />;
 }

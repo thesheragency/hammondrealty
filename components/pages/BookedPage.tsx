@@ -5,7 +5,7 @@ import { Play, CalendarCheck } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 
-export default function Booked() {
+export default function Booked({ acf }: { acf?: Record<string, any> | null }) {
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
@@ -21,17 +21,15 @@ export default function Booked() {
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 bg-primary/15 text-primary px-4 py-2 mb-6 text-xs uppercase tracking-[0.3em] font-medium">
                 <CalendarCheck className="w-4 h-4" strokeWidth={2} />
-                Call Booked
+                {acf?.badge || "Call Booked"}
               </div>
 
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                Watch This Video<br />Before Our Call
+                {acf?.heading ? acf.heading : (<>Watch This Video<br />Before Our Call</>)}
               </h1>
 
               <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-2xl mx-auto mb-10">
-                You are all set. Take 4 minutes to watch this short walkthrough video.
-                It will help make our upcoming conversation faster, smoother, and much
-                more useful for your planning.
+                {acf?.body || "You are all set. Take 4 minutes to watch this short walkthrough video. It will help make our upcoming conversation faster, smoother, and much more useful for your planning."}
               </p>
 
               {/* Video placeholder */}
@@ -48,10 +46,10 @@ export default function Booked() {
               </div>
 
               <a
-                href="/"
+                href={acf?.buttonLink || "/"}
                 className="inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto h-[45px] px-8"
               >
-                Back to Home
+                {acf?.buttonText || "Back to Home"}
               </a>
             </div>
           </div>

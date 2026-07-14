@@ -13,7 +13,7 @@ interface BuildMetadataOptions {
   description?: string;
   ogType?: 'website' | 'article';
   featuredImage?: string | null;
-  /** Path (e.g. "/buying") used to build a canonical URL when no Yoast canonical exists. */
+  /** Path (e.g. "/buyer") used to build a canonical URL when no Yoast canonical exists. */
   canonicalPath?: string;
 }
 

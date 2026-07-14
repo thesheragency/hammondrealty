@@ -39,8 +39,8 @@ export default function SiteFooter() {
             <ul className="space-y-3 text-sm">
               {[
                 { label: "Home", href: "/" },
-                { label: "Buying", href: "/buying" },
-                { label: "Selling", href: "/selling" },
+                { label: "Buying", href: "/buyer" },
+                { label: "Selling", href: "/seller" },
                 { label: "About", href: "/about" },
               ].map((l) => (
                 <li key={l.label}>
@@ -59,7 +59,7 @@ export default function SiteFooter() {
                 { label: "Home Prep Program", href: "/home-prep-program" },
                 { label: "Home Value Analysis", href: "/home-value-analysis" },
                 { label: "Book a Consultation", href: "/book-consultation" },
-                { label: "Contact Blake", href: "/get-in-touch" },
+                { label: "Contact Blake", href: "/connect" },
               ].map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-foreground/70 hover:text-primary transition-colors">

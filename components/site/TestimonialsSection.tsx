@@ -12,7 +12,12 @@ import {
 } from "@/components/ui/carousel";
 import { GoogleG, Stars } from "@/components/site/GoogleBadges";
 
-const reviews = [
+export interface Testimonial {
+  quote: string;
+  name: string;
+}
+
+const defaultReviews: Testimonial[] = [
   {
     quote:
       "Thoughtful, patient, understanding, and trustworthy. Blake was our 3rd realtor for our recent home sale. He delivered on his expectations for the home and had great communication throughout the whole process. Listened to his expertise, home listed at the right price point, and sold for over asking price, 36 hours after being listed. In Blake we trust! Couldn't have asked for a better person.",
@@ -35,7 +40,12 @@ const reviews = [
   },
 ];
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  testimonials?: Testimonial[];
+}
+
+export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+  const reviews = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
   const [api, setApi] = useState<CarouselApi | undefined>();
   const [index, setIndex] = useState(0);
 

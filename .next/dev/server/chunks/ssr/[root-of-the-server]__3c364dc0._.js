@@ -174,6 +174,8 @@ __turbopack_context__.s([
     ()=>fetchRedirects,
     "fetchYoastGlobalDefaults",
     ()=>fetchYoastGlobalDefaults,
+    "getWpClient",
+    ()=>getWpClient,
     "transformPage",
     ()=>transformPage,
     "transformPost",
@@ -282,8 +284,6 @@ function clearWordPressSessionCache() {
     wpSessionCache = null;
     console.log('[Preview Auth] Session cache cleared');
 }
-// WordPress GraphQL client configuration
-// Auth priority: Bearer token (preview) > Application Password (WP_USER/WP_APPLIC_PASS) > nginx Basic Auth
 const getWpClient = (authToken)=>{
     const wpApiUrl = process.env.WP_API_URL;
     if (!wpApiUrl) {

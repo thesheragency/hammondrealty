@@ -22,7 +22,7 @@ export default function CtaSection({
   body = "Use sharp contract strategies to buy the right property, or leverage our Home Prep Program to maximize your sale price.",
   primaryLabel = "Contact Blake",
   secondaryLabel = "See What Your Home Is Worth",
-  primaryHref = "/get-in-touch",
+  primaryHref = "/connect",
   secondaryHref = "/home-value-analysis",
 }: CtaSectionProps) {
   return (

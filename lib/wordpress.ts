@@ -145,7 +145,7 @@ export function clearWordPressSessionCache(): void {
 
 // WordPress GraphQL client configuration
 // Auth priority: Bearer token (preview) > Application Password (WP_USER/WP_APPLIC_PASS) > nginx Basic Auth
-const getWpClient = (authToken?: string) => {
+export const getWpClient = (authToken?: string) => {
   const wpApiUrl = process.env.WP_API_URL;
   
   if (!wpApiUrl) {

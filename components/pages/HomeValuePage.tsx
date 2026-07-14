@@ -13,11 +13,22 @@ import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import { imgUrl } from "@/lib/wp-acf";
 
 const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg";
 const heroGraphicUrl = "/images/graphic-hero_section_1779377398567.png";
 
-const whatYouGet = [
+const iconMap: Record<string, typeof BadgeCheck> = {
+  BadgeCheck,
+  Video,
+  TrendingUp,
+  Wallet,
+  CalendarRange,
+  LineChart,
+  Compass,
+};
+
+const defaultWhatYouGet = [
   {
     icon: BadgeCheck,
     title: "Expert Analysis",
@@ -35,7 +46,7 @@ const whatYouGet = [
   },
 ];
 
-const howItWorks = [
+const defaultHowItWorks = [
   {
     num: "01",
     title: "Complete The Form",
@@ -53,7 +64,7 @@ const howItWorks = [
   },
 ];
 
-const notSelling = [
+const defaultNotSelling = [
   {
     icon: Wallet,
     title: "Know Your Equity",
@@ -76,7 +87,15 @@ const notSelling = [
   },
 ];
 
-export default function HomeValue() {
+export default function HomeValue({ acf }: { acf?: Record<string, any> | null }) {
+  const mapIcons = (items: any[], defaults: typeof defaultWhatYouGet) =>
+    items.map((item, i) => ({
+      ...item,
+      icon: iconMap[item.icon] || defaults[i % defaults.length]?.icon || BadgeCheck,
+    }));
+  const whatYouGet = acf?.whatYouGet?.length ? mapIcons(acf.whatYouGet, defaultWhatYouGet) : defaultWhatYouGet;
+  const howItWorks: typeof defaultHowItWorks = acf?.howItWorks?.length ? acf.howItWorks : defaultHowItWorks;
+  const notSelling = acf?.notSelling?.length ? mapIcons(acf.notSelling, defaultNotSelling) : defaultNotSelling;
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
@@ -113,7 +132,7 @@ export default function HomeValue() {
         {/* Hero */}
         <section className="relative z-20 bg-foreground text-white">
           <img
-            src={heroBedroomUrl}
+            src={imgUrl(acf?.heroImage, heroBedroomUrl)}
             alt=""
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
@@ -127,18 +146,18 @@ export default function HomeValue() {
               transition={{ duration: 0.6 }}
             >
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-4">
-                Free Home Value Analysis
+                {acf?.heroEyebrow || "Free Home Value Analysis"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 text-white">
-                What Is Your Home Worth?
+                {acf?.heroHeading || "What Is Your Home Worth?"}
               </h1>
-              <p className="text-base md:text-lg text-white/80 mb-6 leading-relaxed max-w-2xl sm:mx-auto">Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation. </p>
+              <p className="text-base md:text-lg text-white/80 mb-6 leading-relaxed max-w-2xl sm:mx-auto">{acf?.heroBody || "Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation. "}</p>
               <div className="flex flex-wrap items-center justify-start sm:justify-center gap-4">
                 <Button
                   asChild
                   className="bg-white text-foreground hover:bg-white/90 border-transparent no-default-hover-elevate no-default-active-elevate rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-6 h-[45px]"
                 >
-                  <a href="#value-form">Get Your Home Value</a>
+                  <a href={acf?.heroCtaLink || "#value-form"}>{acf?.heroCtaText || "Get Your Home Value"}</a>
                 </Button>
               </div>
             </motion.div>
@@ -150,7 +169,7 @@ export default function HomeValue() {
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <img
-                src={heroBedroomUrl}
+                src={imgUrl(acf?.heroImage, heroBedroomUrl)}
                 alt=""
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -174,10 +193,10 @@ export default function HomeValue() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                What You Get
+                {acf?.whatYouGetHeading || "What You Get"}
               </h2>
               <p className="text-foreground/70 leading-relaxed">
-                A clear read on property value, built by hand, not by an algorithm.
+                {acf?.whatYouGetSubtitle || "A clear read on property value, built by hand, not by an algorithm."}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
@@ -221,10 +240,10 @@ export default function HomeValue() {
                   The Process
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl font-bold leading-tight mb-5">
-                  Here Is How It Works
+                  {acf?.howItWorksHeading || "Here Is How It Works"}
                 </h2>
                 <p className="text-foreground/60 leading-relaxed max-w-sm">
-                  Accurate analysis delivered straight to your inbox within 24 hours.
+                  {acf?.howItWorksSubtitle || "Accurate analysis delivered straight to your inbox within 24 hours."}
                 </p>
               </div>
 
@@ -268,14 +287,13 @@ export default function HomeValue() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-5xl min-[1600px]:max-w-[1200px] mx-auto">
               <div className="lg:sticky lg:top-32">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Get Started
+                  {acf?.formEyebrow || "Get Started"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Request Your<br />Custom Valuation
+                  {acf?.formHeading ? acf.formHeading : (<>Request Your<br />Custom Valuation</>)}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed text-lg max-w-md">
-                  Share a few details to receive a personalized written property
-                  report with zero algorithms or guesswork.
+                  {acf?.formBody || "Share a few details to receive a personalized written property report with zero algorithms or guesswork."}
                 </p>
               </div>
 
@@ -286,11 +304,10 @@ export default function HomeValue() {
                     <BadgeCheck className="w-7 h-7" strokeWidth={1.75} />
                   </div>
                   <h3 className="font-sans text-2xl md:text-3xl font-bold mb-3">
-                    Thanks, the details have been received.
+                    {acf?.formSuccessHeading || "Thanks, the details have been received."}
                   </h3>
                   <p className="text-foreground/70 leading-relaxed">
-                    Your personalized home value report and custom video breakdown
-                    will be delivered within one business day.
+                    {acf?.formSuccessBody || "Your personalized home value report and custom video breakdown will be delivered within one business day."}
                   </p>
                 </div>
               ) : (
@@ -384,12 +401,10 @@ export default function HomeValue() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Not Selling Yet? That's Okay.
+                {acf?.notSellingHeading || "Not Selling Yet? That's Okay."}
               </h2>
               <p className="text-foreground/70 leading-relaxed">
-                Tracking property equity is a smart way to plan ahead. Knowing true
-                property value helps build long-term plans with confidence. The
-                smartest homeowners always start tracking market details early.
+                {acf?.notSellingSubtitle || "Tracking property equity is a smart way to plan ahead. Knowing true property value helps build long-term plans with confidence. The smartest homeowners always start tracking market details early."}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
@@ -420,10 +435,11 @@ export default function HomeValue() {
         <TestimonialsSection />
 
         <CtaSection
-          eyebrow="Free Home Value Analysis"
-          heading="Get A Custom Home Value Report Today"
-          body="A free, private property valuation built straight from local market data and delivered directly to your inbox."
-          primaryLabel="Contact Blake"
+          eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}
+          heading={acf?.ctaHeading || "Get A Custom Home Value Report Today"}
+          body={acf?.ctaBody || "A free, private property valuation built straight from local market data and delivered directly to your inbox."}
+          primaryLabel={acf?.ctaPrimaryLabel || "Contact Blake"}
+          {...(acf?.ctaSecondaryLabel ? { secondaryLabel: acf.ctaSecondaryLabel } : {})}
         />
       </main>
       <SiteFooter />

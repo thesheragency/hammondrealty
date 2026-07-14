@@ -7,8 +7,8 @@ import { Menu, X, Phone } from "lucide-react";
 const logoUrl = "/images/logo_1779376344245.png";
 
 const navLinks = [
-  { label: "Buying", href: "/buying" },
-  { label: "Selling", href: "/selling" },
+  { label: "Buying", href: "/buyer" },
+  { label: "Selling", href: "/seller" },
   { label: "Home Prep Program", href: "/home-prep-program" },
   { label: "About", href: "/about" },
   { label: "Home Value Analysis", href: "/home-value-analysis" },
@@ -80,7 +80,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
               916-625-6118
             </a>
             <Link
-              href="/get-in-touch"
+              href="/connect"
               className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-[129px] h-[45px]"
             >
               Contact Blake
@@ -89,7 +89,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
 
           <div className="lg:hidden flex items-center gap-2 justify-self-end">
             <Link
-              href="/get-in-touch"
+              href="/connect"
               className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all px-4 h-[38px]"
             >
               Contact Blake
@@ -120,7 +120,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
               </Link>
             ))}
             <Link
-              href="/get-in-touch"
+              href="/connect"
               onClick={() => setMobileMenuOpen(false)}
               className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 mt-4 w-full h-[45px] rounded-none font-medium text-sm"
             >

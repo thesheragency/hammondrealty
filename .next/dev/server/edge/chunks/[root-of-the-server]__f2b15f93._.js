@@ -27,12 +27,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 // they exist as dedicated app routes and always take priority.
 const PROTECTED_PATHS = new Set([
     '/',
-    '/buying',
-    '/selling',
+    '/buyer',
+    '/seller',
     '/home-prep-program',
     '/about',
     '/home-value-analysis',
-    '/get-in-touch',
+    '/connect',
     '/book-consultation',
     '/booked',
     '/thank-you',

@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { motion, AnimatePresence } from "framer-motion";
+import { imgUrl, imgAlt } from "@/lib/wp-acf";
 
 // Assets
 const logoUrl = "/images/logo_1779376344245.png";
@@ -289,7 +290,7 @@ function ServiceCards({ cards }: { cards: ServiceCard[] }) {
   );
 }
 
-export default function Home() {
+export default function Home({ acf }: { acf?: Record<string, any> | null }) {
   const [processTrack, setProcessTrack] = useState<ProcessTrack>("buying");
   const [activeStep, setActiveStep] = useState(0);
   const testimonials = [
@@ -310,6 +311,108 @@ export default function Home() {
     },
   ];
 
+  const heroGraphic = imgUrl(acf?.heroGraphicImage, heroGraphicUrl);
+  const heroBedroom = imgUrl(acf?.heroBedroomImage, heroBedroomUrl);
+  const heroBedroomAltText = imgAlt(acf?.heroBedroomImage, "Bright modern Sacramento home interior");
+  const mastersClub = imgUrl(acf?.mastersClubImage, mastersClubUrl);
+  const mastersClubAltText =
+    acf?.mastersClubAlt || "Masters Club — Placer County Association of Realtors";
+  const whyImg = imgUrl(acf?.whyImage, blakePortraitUrl);
+  const whyImgAlt = acf?.whyImageAlt || imgAlt(acf?.whyImage, "Blake Hammond");
+
+  const heroTestimonials =
+    acf?.featuredTestimonials?.length
+      ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
+      : testimonials;
+
+  const sectionTestimonials =
+    acf?.featuredTestimonials?.length
+      ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
+      : undefined;
+
+  const stats: { value: number; prefix?: string; suffix?: string; label: string }[] =
+    acf?.stats?.length
+      ? acf.stats.map((s: any) => ({
+          value: Number(s.value) || 0,
+          prefix: s.prefix || undefined,
+          suffix: s.suffix || undefined,
+          label: s.label || "",
+        }))
+      : [
+          { value: 5, suffix: "+", label: "Local Expert" },
+          { value: 40, prefix: "$", suffix: "M+", label: "In Real Estate Sold" },
+          { value: 11, label: "Average Days on Market" },
+          { value: 102, suffix: "%", label: "Average List-to-Sale Ratio" },
+        ];
+
+  const defaultHelpCards: ServiceCard[] = [
+    { title: "Buying", image: buyingHouseUrl, href: "/buyer", desc: "We skip the sales pitches to focus entirely on protecting your contract and getting your offer accepted." },
+    { title: "Selling", image: sellingHouseUrl, href: "/seller", desc: "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program." },
+    { title: "Home Prep Program", image: prepLivingroomUrl, href: "/home-prep-program", desc: "We fund and manage 100% of your home preparation and repairs to drive up your sale price, paying nothing until it's sold." },
+  ];
+  const helpCards: ServiceCard[] = acf?.helpCards?.length
+    ? acf.helpCards.map((c: any, i: number) => ({
+        title: c.title || defaultHelpCards[i]?.title || "",
+        image: imgUrl(c.image, defaultHelpCards[i]?.image || buyingHouseUrl),
+        href: c.href || defaultHelpCards[i]?.href || "#",
+        desc: c.desc || defaultHelpCards[i]?.desc || "",
+      }))
+    : defaultHelpCards;
+
+  const whyIconMap: Record<string, typeof Hammer> = { Hammer, Trophy, ShieldCheck };
+  const defaultWhyBullets = [
+    {
+      icon: Hammer,
+      title: "Home Prep Program",
+      desc: "We handle and fund 100% of your home preparation, repairs, and improvements so you sell for more and pay nothing until closing.",
+    },
+    {
+      icon: Trophy,
+      title: "Record Of Success",
+      desc: "Sold 18 homes that were previously listed by other agents and failed to sell.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "No Comforting Lies",
+      desc: "You get the unfiltered truth and raw market data. I'd rather protect your equity with hard facts than comfort you with a lie.",
+    },
+  ];
+  const whyBullets = acf?.whyBullets?.length
+    ? acf.whyBullets.map((b: any, i: number) => ({
+        icon: whyIconMap[b.icon] || defaultWhyBullets[i]?.icon || Hammer,
+        title: b.title || defaultWhyBullets[i]?.title || "",
+        desc: b.desc || defaultWhyBullets[i]?.desc || "",
+      }))
+    : defaultWhyBullets;
+
+  const mapSteps = (
+    wpSteps: any[] | undefined,
+    defaults: { num: string; title: string; desc: string; image: string }[]
+  ) =>
+    wpSteps?.length
+      ? wpSteps.map((s: any, i: number) => ({
+          num: s.num || defaults[i]?.num || "",
+          title: s.title || defaults[i]?.title || "",
+          desc: s.desc || defaults[i]?.desc || "",
+          image: imgUrl(s.image, defaults[i]?.image || ""),
+        }))
+      : defaults;
+
+  const homeProcessData: typeof processData = {
+    buying: {
+      label: acf?.processBuyingLabel || processData.buying.label,
+      steps: mapSteps(acf?.processBuyingSteps, processData.buying.steps),
+    },
+    selling: {
+      label: acf?.processSellingLabel || processData.selling.label,
+      steps: mapSteps(acf?.processSellingSteps, processData.selling.steps),
+    },
+    preparing: {
+      label: acf?.processPreparingLabel || processData.preparing.label,
+      steps: mapSteps(acf?.processPreparingSteps, processData.preparing.steps),
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
       <SiteHeader />
@@ -318,7 +421,7 @@ export default function Home() {
         <section className="relative bg-muted overflow-hidden">
           {/* Decorative B graphic — aligned to top-left, cut off at the edge */}
           <img
-            src={heroGraphicUrl}
+            src={heroGraphic}
             alt=""
             aria-hidden="true"
             className="block absolute top-0 left-0 -translate-x-1/4 w-[420px] md:w-[520px] lg:w-[640px] h-auto pointer-events-none select-none z-0 opacity-90"
@@ -332,8 +435,8 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <img
-              src={heroBedroomUrl}
-              alt="Bright modern Sacramento home interior"
+              src={heroBedroom}
+              alt={heroBedroomAltText}
               className="object-cover w-full h-full"
             />
           </motion.div>
@@ -356,22 +459,26 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     <img
-                      src={mastersClubUrl}
-                      alt="Masters Club — Placer County Association of Realtors"
+                      src={mastersClub}
+                      alt={mastersClubAltText}
                       className="h-24 w-24 md:h-28 md:w-28 shrink-0"
                     />
                   </motion.div>
                   <h1 className="font-sans text-5xl md:text-6xl lg:text-[3.75rem] font-bold leading-[1.1] tracking-tight mb-6">
-                    Buy With Confidence.<br />Sell For Top Dollar.
+                    {acf?.heroHeading ? (
+                      <span className="whitespace-pre-line">{acf.heroHeading}</span>
+                    ) : (
+                      <>Buy With Confidence.<br />Sell For Top Dollar.</>
+                    )}
                   </h1>
-                  <p className="text-lg md:text-xl text-foreground/80 mb-10 leading-relaxed max-w-xl">Full-service listings, expert negotiation for buyers, and fully funded pre-market home preparation with no upfront costs.</p>
+                  <p className="text-lg md:text-xl text-foreground/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Full-service listings, expert negotiation for buyers, and fully funded pre-market home preparation with no upfront costs."}</p>
 
                   <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                      <Link href="/get-in-touch">Contact Blake</Link>
+                      <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
                     </Button>
-                    <Link href="/home-prep-program" className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                      Home Prep Program
+                    <Link href={acf?.heroSecondaryLink || "/home-prep-program"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
+                      {acf?.heroSecondaryText || "Home Prep Program"}
                       <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
                   </div>
@@ -387,8 +494,8 @@ export default function Home() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden shadow-2xl">
                   <img
-                    src={heroBedroomUrl}
-                    alt="Bright modern Sacramento home interior"
+                    src={heroBedroom}
+                    alt={heroBedroomAltText}
                     className="object-cover w-full h-full"
                   />
                 </div>
@@ -407,12 +514,7 @@ export default function Home() {
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-              {([
-                { value: 5, suffix: "+", label: "Local Expert" },
-                { value: 40, prefix: "$", suffix: "M+", label: "In Real Estate Sold" },
-                { value: 11, label: "Average Days on Market" },
-                { value: 102, suffix: "%", label: "Average List-to-Sale Ratio" },
-              ] as { value: number; prefix?: string; suffix?: string; label: string }[]).map((stat, i) => (
+              {stats.map((stat, i) => (
                 <motion.div
                   key={i}
                   className="flex flex-col items-center justify-center space-y-3"
@@ -444,7 +546,7 @@ export default function Home() {
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-12">
                 <div className="min-w-0 max-w-4xl flex-1">
                   <CarouselContent>
-                    {testimonials.map((testimonial, index) => (
+                    {heroTestimonials.map((testimonial: { quote: string; name: string }, index: number) => (
                       <CarouselItem key={index}>
                         <div className="flex flex-col items-start text-left px-0">
                           <img src={quoteMarkUrl} alt="" className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" />
@@ -483,23 +585,19 @@ export default function Home() {
             
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
               <div className="max-w-2xl">
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">How I Help</p>
+                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight">
-                  Real Estate Shouldn't Feel Overwhelming.
+                  {acf?.helpHeading || "Real Estate Shouldn't Feel Overwhelming."}
                 </h2>
               </div>
               <div className="max-w-md">
                 <p className="text-lg text-foreground/70 leading-relaxed">
-                  Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money.
+                  {acf?.helpBody || "Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money."}
                 </p>
               </div>
             </div>
 
-            <ServiceCards cards={[
-              { title: "Buying", image: buyingHouseUrl, href: "/buying", desc: "We skip the sales pitches to focus entirely on protecting your contract and getting your offer accepted." },
-              { title: "Selling", image: sellingHouseUrl, href: "/selling", desc: "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program." },
-              { title: "Home Prep Program", image: prepLivingroomUrl, href: "/home-prep-program", desc: "We fund and manage 100% of your home preparation and repairs to drive up your sale price, paying nothing until it's sold." }
-            ]} />
+            <ServiceCards cards={helpCards} />
 
           </div>
         </motion.section>
@@ -518,7 +616,7 @@ export default function Home() {
             <AnimatePresence mode="wait">
               <motion.img
                 key={`${processTrack}-${activeStep}`}
-                src={processData[processTrack].steps[activeStep].image}
+                src={homeProcessData[processTrack].steps[activeStep].image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
                 initial={{ opacity: 0, scale: 1.05 }}
@@ -535,15 +633,15 @@ export default function Home() {
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    My Process
+                    {acf?.processHeading || "My Process"}
                   </h2>
                   <p className="text-foreground/70">
-                    A practical roadmap to outpace local market averages.
+                    {acf?.processSubtitle || "A practical roadmap to outpace local market averages."}
                   </p>
                 </div>
 
                 <div className="flex flex-col border divide-y divide-foreground/10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8 sm:border-0 sm:divide-y-0 sm:border-b border-foreground/10">
-                  {(Object.keys(processData) as ProcessTrack[]).map((key) => (
+                  {(Object.keys(homeProcessData) as ProcessTrack[]).map((key) => (
                     <button
                       key={key}
                       onClick={() => {
@@ -556,7 +654,7 @@ export default function Home() {
                           : "text-foreground/60 hover:text-foreground"
                       }`}
                     >
-                      {processData[key].label}
+                      {homeProcessData[key].label}
                       {processTrack === key && (
                         <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-primary" />
                       )}
@@ -565,7 +663,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col items-stretch self-stretch">
-                  {processData[processTrack].steps.map((step, i) => {
+                  {homeProcessData[processTrack].steps.map((step, i) => {
                     const isActive = activeStep === i;
                     return (
                       <button
@@ -607,7 +705,7 @@ export default function Home() {
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${processTrack}-${activeStep}`}
-                        src={processData[processTrack].steps[activeStep].image}
+                        src={homeProcessData[processTrack].steps[activeStep].image}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                         initial={{ opacity: 0 }}
@@ -619,10 +717,10 @@ export default function Home() {
                   </div>
 
                   <Link
-                    href="/get-in-touch"
+                    href={acf?.processCtaLink || "/connect"}
                     className="mt-8 self-start inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] text-sm font-medium"
                   >
-                    Learn More
+                    {acf?.processCtaText || "Learn More"}
                   </Link>
                 </div>
               </div>
@@ -642,8 +740,8 @@ export default function Home() {
           {/* Image - sticks to right edge, full section height */}
           <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <img
-              src={blakePortraitUrl}
-              alt="Blake Hammond"
+              src={whyImg}
+              alt={whyImgAlt}
               className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
             />
           </div>
@@ -652,27 +750,11 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
               <div className="container mx-auto px-4 md:px-8 lg:mx-0 lg:ml-auto lg:max-w-[640px] lg:pl-8 lg:pr-16 xl:pr-24 pt-12 pb-6 lg:py-20">
                 <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] mb-12 text-balance">
-                  Why Homeowners Choose Blake Over The Competition
+                  {acf?.whyHeading || "Why Homeowners Choose Blake Over The Competition"}
                 </h2>
 
                 <div className="space-y-8 mb-12">
-                  {[
-                    {
-                      icon: Hammer,
-                      title: "Home Prep Program",
-                      desc: "We handle and fund 100% of your home preparation, repairs, and improvements so you sell for more and pay nothing until closing.",
-                    },
-                    {
-                      icon: Trophy,
-                      title: "Record Of Success",
-                      desc: "Sold 18 homes that were previously listed by other agents and failed to sell.",
-                    },
-                    {
-                      icon: ShieldCheck,
-                      title: "No Comforting Lies",
-                      desc: "You get the unfiltered truth and raw market data. I'd rather protect your equity with hard facts than comfort you with a lie.",
-                    },
-                  ].map((b) => {
+                  {whyBullets.map((b: { icon: typeof Hammer; title: string; desc: string }) => {
                     const Icon = b.icon;
                     return (
                       <div key={b.title} className="flex items-start gap-4">
@@ -692,10 +774,10 @@ export default function Home() {
 
                 <div className="hidden lg:flex flex-wrap items-center gap-6">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/get-in-touch">Contact Blake</Link>
+                    <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                   </Button>
-                  <a href="/about" className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                    More About Blake
+                  <a href={acf?.whySecondaryLink || "/about"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
+                    {acf?.whySecondaryText || "More About Blake"}
                     <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </a>
                 </div>
@@ -704,8 +786,8 @@ export default function Home() {
               {/* Mobile-only image */}
               <div className="lg:hidden relative aspect-[4/5] bg-background overflow-hidden mx-4 md:mx-8 mt-2">
                 <img
-                  src={blakePortraitUrl}
-                  alt="Blake Hammond"
+                  src={whyImg}
+                  alt={whyImgAlt}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -713,10 +795,10 @@ export default function Home() {
               {/* Mobile-only buttons below the image */}
               <div className="lg:hidden container mx-auto px-4 md:px-8 pt-8 pb-12 flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-6">
                 <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                  <Link href="/get-in-touch">Contact Blake</Link>
+                  <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                 </Button>
-                <a href="/about" className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                  More About Blake
+                <a href={acf?.whySecondaryLink || "/about"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
+                  {acf?.whySecondaryText || "More About Blake"}
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
@@ -725,7 +807,7 @@ export default function Home() {
         </motion.section>
 
         {/* What Our Clients Say */}
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={sectionTestimonials} />
 
         {/* FAQs */}
         <motion.section
@@ -834,7 +916,7 @@ export default function Home() {
                 asChild
                 className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px]"
               >
-                <Link href="/get-in-touch">Contact Blake</Link>
+                <Link href="/connect">Contact Blake</Link>
               </Button>
               <Button
                 asChild
@@ -881,8 +963,8 @@ export default function Home() {
               <ul className="space-y-3 text-sm">
                 {[
                   { label: "Home", href: "/" },
-                  { label: "Buying", href: "/buying" },
-                  { label: "Selling", href: "/selling" },
+                  { label: "Buying", href: "/buyer" },
+                  { label: "Selling", href: "/seller" },
                   { label: "About", href: "/about" },
                 ].map((l) => (
                   <li key={l.label}>
@@ -899,7 +981,7 @@ export default function Home() {
                   { label: "Home Prep Program", href: "/home-prep-program" },
                   { label: "Home Value Analysis", href: "/home-value-analysis" },
                   { label: "Book a Consultation", href: "/book-consultation" },
-                  { label: "Contact Blake", href: "/get-in-touch" },
+                  { label: "Contact Blake", href: "/connect" },
                 ].map((l) => (
                   <li key={l.label}>
                     <Link href={l.href} className="text-foreground/70 hover:text-primary transition-colors">{l.label}</Link>

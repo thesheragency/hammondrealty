@@ -11,6 +11,13 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import { imgUrl } from "@/lib/wp-acf";
+
+const buyIconMap: Record<string, typeof SearchCheck> = {
+  SearchCheck,
+  Lock,
+  Handshake,
+};
 
 const heroGraphicUrl = "/images/graphic-hero_section_1779377398567.png";
 const stepBuying1Url = "/images/step-buying-1-discover.png";
@@ -313,9 +320,36 @@ function ContactForm() {
   );
 }
 
-export default function Buying() {
+export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepImages = [stepBuying1Url, stepBuying2Url, stepBuying3Url];
+
+  const whyBullets = acf?.whyBullets?.length
+    ? acf.whyBullets.map((b: any, i: number) => ({
+        icon: buyIconMap[b.icon] || whyBuyBullets[i]?.icon || SearchCheck,
+        title: b.title,
+        desc: b.desc,
+      }))
+    : whyBuyBullets;
+
+  const tips = acf?.tips?.length
+    ? acf.tips.map((t: any, i: number) => ({
+        title: t.title,
+        desc: t.desc,
+        image: imgUrl(t.image, buyerTips[i]?.image || blakePresentingPropertyUrl),
+      }))
+    : buyerTips;
+
+  const steps = acf?.steps?.length
+    ? acf.steps.map((s: any, i: number) => ({
+        num: s.num || buyingSteps[i]?.num || String(i + 1).padStart(2, "0"),
+        title: s.title,
+        desc: s.desc,
+        image: imgUrl(s.image, buyingSteps[i]?.image || stepBuying1Url),
+      }))
+    : buyingSteps;
+
+  const faqsList: Faq[] = buyingFaqs;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
@@ -342,12 +376,12 @@ export default function Buying() {
               >
                 <div className="relative z-10">
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-6">
-                    Buying with Blake
+                    {acf?.heroEyebrow || "Buying with Blake"}
                   </p>
                   <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                    Beat The Competition<br />To The Property
+                    {acf?.heroHeading ? acf.heroHeading : (<>Beat The Competition<br />To The Property</>)}
                   </h1>
-                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">Write sharp offers and out-negotiate the competition so you get the house you want without overpaying.</p>
+                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
                   <a
                     href="tel:9166256118"
                     className="inline-flex items-center gap-3 text-white font-semibold text-lg hover:text-white/70 transition-colors"
@@ -385,7 +419,7 @@ export default function Buying() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
                 <img
-                  src={buyingBlakeUrl}
+                  src={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
                   alt="Blake Hammond on the podcast — Why Buy With Blake"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -399,13 +433,13 @@ export default function Buying() {
 
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Why Blake
+                  {acf?.whyEyebrow || "Why Blake"}
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Buying With Total Certainty</h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment.</p>
+                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">{acf?.whyHeading || "Buying With Total Certainty"}</h2>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
                 <ul className="space-y-6 mb-10">
-                  {whyBuyBullets.map((b) => {
+                  {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
                       <li key={b.title} className="flex items-start gap-4">
@@ -426,7 +460,7 @@ export default function Buying() {
                 {/* Mobile image — above the CTA buttons */}
                 <div className="lg:hidden relative aspect-[4/3] overflow-hidden bg-muted mb-10">
                   <img
-                    src={buyingBlakeUrl}
+                    src={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
                     alt="Blake Hammond on the podcast — Why Buy With Blake"
                     className="w-full h-full object-cover"
                   />
@@ -440,14 +474,14 @@ export default function Buying() {
 
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/get-in-touch">Contact Blake</Link>
+                    <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                   </Button>
                   <Button
                     asChild
                     variant="outline"
                     className="border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
                   >
-                    <Link href="/home-value-analysis">Free Home Value Analysis</Link>
+                    <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
                   </Button>
                 </div>
               </div>
@@ -467,20 +501,19 @@ export default function Buying() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Buyer Tips
+                  {acf?.tipsEyebrow || "Buyer Tips"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  Taking The Stress<br />Out Of Buying
+                  {acf?.tipsHeading ? acf.tipsHeading : (<>Taking The Stress<br />Out Of Buying</>)}
                 </h2>
               </div>
               <p className="max-w-md text-lg text-foreground/70 leading-relaxed">
-                Setting a few clear ground rules early protects your cash and saves you
-                months of wasted weekend tours.
+                {acf?.tipsSubtitle || "Setting a few clear ground rules early protects your cash and saves you months of wasted weekend tours."}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {buyerTips.map((tip, i) => (
+              {tips.map((tip: any, i: number) => (
                 <motion.div
                   key={tip.title}
                   className="group relative overflow-hidden aspect-[4/3] cursor-pointer"
@@ -522,7 +555,7 @@ export default function Buying() {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeStep}
-                src={buyingSteps[activeStep].image}
+                src={steps[activeStep].image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
                 initial={{ opacity: 0, scale: 1.05 }}
@@ -538,17 +571,17 @@ export default function Buying() {
               <div className="hidden lg:block" />
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
-                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">Home Buying Process</p>
+                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">{acf?.processEyebrow || "Home Buying Process"}</p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    A Clear Path To Closing
+                    {acf?.processHeading || "A Clear Path To Closing"}
                   </h2>
                   <p className="text-foreground/70">
-                    Three distinct steps designed to protect your money and eliminate the guesswork.
+                    {acf?.processSubtitle || "Three distinct steps designed to protect your money and eliminate the guesswork."}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-stretch self-stretch">
-                  {buyingSteps.map((step, i) => {
+                  {steps.map((step: any, i: number) => {
                     const isActive = activeStep === i;
                     return (
                       <button
@@ -590,7 +623,7 @@ export default function Buying() {
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
-                        src={buyingSteps[activeStep].image}
+                        src={steps[activeStep].image}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                         initial={{ opacity: 0 }}
@@ -602,10 +635,10 @@ export default function Buying() {
                   </div>
 
                   <Link
-                    href="/get-in-touch"
+                    href={acf?.processCtaLink || "/connect"}
                     className="mt-8 self-start inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] text-sm font-medium"
                   >
-                    Contact Blake
+                    {acf?.processCtaText || "Contact Blake"}
                   </Link>
                 </div>
               </div>
@@ -616,8 +649,8 @@ export default function Buying() {
         <TestimonialsSection />
 
         <FaqsSection
-          faqs={buyingFaqs}
-          intro="Common questions from buyers. Don't see yours? Get in touch, I am happy to walk you through it."
+          faqs={faqsList}
+          intro={acf?.faqsIntro || "Common questions from buyers. Don't see yours? Get in touch, I am happy to walk you through it."}
         />
 
         <CtaSection />

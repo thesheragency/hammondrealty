@@ -3022,6 +3022,10 @@ body {
   white-space: nowrap;
 }
 
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
 .text-balance {
   text-wrap: balance;
 }

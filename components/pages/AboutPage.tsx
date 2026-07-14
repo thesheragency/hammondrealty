@@ -10,6 +10,7 @@ import SiteFooter from "@/components/site/SiteFooter";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
+import { imgUrl, imgAlt } from "@/lib/wp-acf";
 
 const blakePortraitUrl = "/images/B1B889F6-9C80-4F33-A424-863BFD5EBF72_1779913575853.png";
 const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg";
@@ -112,7 +113,48 @@ const aboutFaqs: Faq[] = [
   },
 ];
 
-export default function About() {
+export default function About({ acf }: { acf?: Record<string, any> | null }) {
+  const heroImg = imgUrl(acf?.heroImage, blakeHeroUrl);
+  const heroImgAlt = imgAlt(acf?.heroImage, "Blake Hammond");
+  const portraitImg = imgUrl(acf?.portraitImage, blakePortraitUrl);
+  const portraitImgAlt = imgAlt(acf?.portraitImage, "Blake Hammond");
+
+  const statsData: typeof stats = acf?.stats?.length
+    ? acf.stats.map((s: any) => ({
+        value: Number(s.value) || 0,
+        prefix: s.prefix || undefined,
+        suffix: s.suffix || undefined,
+        label: s.label || "",
+      }))
+    : stats;
+
+  const valuesIconMap: Record<string, typeof ShieldCheck> = { ShieldCheck, Eye, Puzzle };
+  const valuesData = acf?.values?.length
+    ? acf.values.map((v: any, i: number) => ({
+        icon: valuesIconMap[v.icon] || values[i]?.icon || ShieldCheck,
+        title: v.title || values[i]?.title || "",
+        desc: v.desc || values[i]?.desc || "",
+      }))
+    : values;
+
+  const bioParagraphs: string[] = acf?.bioParagraphs?.length
+    ? acf.bioParagraphs.map((p: any) => p.text)
+    : [];
+
+  const defaultHelpCards = [
+    { title: "Buying", image: buyingHouseUrl, href: "/buyer", desc: "Find properties through unlisted home tracking, contract safeguards, and an intentional search." },
+    { title: "Selling", image: sellingHouseUrl, href: "/seller", desc: "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program." },
+    { title: "Home Prep Selling", image: prepLivingroomUrl, href: "/home-prep-program", desc: "We fund and handle 100% of the cosmetic updates and staging to drive up your sale price. You pay nothing until it is sold." },
+  ];
+  const helpCards = acf?.helpCards?.length
+    ? acf.helpCards.map((c: any, i: number) => ({
+        title: c.title || defaultHelpCards[i]?.title || "",
+        image: imgUrl(c.image, defaultHelpCards[i]?.image || buyingHouseUrl),
+        href: c.href || defaultHelpCards[i]?.href || "#",
+        desc: c.desc || defaultHelpCards[i]?.desc || "",
+      }))
+    : defaultHelpCards;
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
       <SiteHeader variant="solid" />
@@ -127,8 +169,8 @@ export default function About() {
           />
           {/* Blake portrait — right side */}
           <motion.img
-            src={blakeHeroUrl}
-            alt="Blake Hammond"
+            src={heroImg}
+            alt={heroImgAlt}
             className="hidden lg:block absolute bottom-0 right-0 lg:right-32 xl:right-48 2xl:right-64 h-[500px] xl:h-[560px] 2xl:h-[600px] w-auto object-contain object-bottom pointer-events-none select-none z-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -142,18 +184,22 @@ export default function About() {
               transition={{ duration: 0.6 }}
             >
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
-                About Blake
+                {acf?.heroEyebrow || "About Blake"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                I Tell You The Truth, Especially When It's Hard.
+                {acf?.heroHeading || "I Tell You The Truth, Especially When It's Hard."}
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
-                A calm, protective partner who handles the contractors, guides
-                you through complex moves, and uses a 100% funded Home Prep
-                Program to get you the most money for your home.
+                {acf?.heroBody || (
+                  <>
+                    A calm, protective partner who handles the contractors, guides
+                    you through complex moves, and uses a 100% funded Home Prep
+                    Program to get you the most money for your home.
+                  </>
+                )}
               </p>
               <Button asChild className="bg-white text-foreground hover:bg-white/90 border-transparent no-default-hover-elevate no-default-active-elevate rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-6 h-[45px]">
-                <Link href="/get-in-touch">Contact Blake</Link>
+                <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
               </Button>
             </motion.div>
           </div>
@@ -171,43 +217,49 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
               <div className="relative aspect-[4/5] overflow-hidden bg-muted">
                 <img
-                  src={blakePortraitUrl}
-                  alt="Blake Hammond"
+                  src={portraitImg}
+                  alt={portraitImgAlt}
                   className="w-full h-full object-cover object-[center_25%]"
                 />
               </div>
 
               <div>
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
-                  Meet Blake
+                  {acf?.bioEyebrow || "Meet Blake"}
                 </p>
-                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">Built To Guide Families Through Complex Moves</h2>
+                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{acf?.bioHeading || "Built To Guide Families Through Complex Moves"}</h2>
                 <div className="space-y-5 text-foreground/75 text-base md:text-lg leading-relaxed">
-                  <p>
-                    Real estate is about more than property, it is about guiding
-                    families safely through major life changes. Growing up with
-                    two brothers on the autism spectrum instilled an early
-                    understanding of patience, deep empathy, and how to steady
-                    families through difficult transitions.
-                  </p>
-                  <p>
-                    Since 2020, this background has fueled a specialization in
-                    helping homeowners win in complex situations. Whether managing
-                    estate sales, divorce, job relocations, or taking over listings
-                    that failed to sell with previous agents, the focus remains on
-                    resolving challenges where traditional approaches get stuck.
-                    Advanced training under top national sales coaches translates
-                    this proven strategy into top-dollar results.
-                  </p>
-                  <p>
-                    Outside of defending client equity, life centers around family
-                    in a local home shared with a high school sweetheart and wife,
-                    son Daniel, and a cat, Jingles.
-                  </p>
+                  {bioParagraphs.length ? (
+                    bioParagraphs.map((p, i) => <p key={i}>{p}</p>)
+                  ) : (
+                    <>
+                      <p>
+                        Real estate is about more than property, it is about guiding
+                        families safely through major life changes. Growing up with
+                        two brothers on the autism spectrum instilled an early
+                        understanding of patience, deep empathy, and how to steady
+                        families through difficult transitions.
+                      </p>
+                      <p>
+                        Since 2020, this background has fueled a specialization in
+                        helping homeowners win in complex situations. Whether managing
+                        estate sales, divorce, job relocations, or taking over listings
+                        that failed to sell with previous agents, the focus remains on
+                        resolving challenges where traditional approaches get stuck.
+                        Advanced training under top national sales coaches translates
+                        this proven strategy into top-dollar results.
+                      </p>
+                      <p>
+                        Outside of defending client equity, life centers around family
+                        in a local home shared with a high school sweetheart and wife,
+                        son Daniel, and a cat, Jingles.
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="mt-10 flex flex-wrap items-center gap-3 sm:gap-6">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/get-in-touch">Contact Blake</Link>
+                    <Link href={acf?.bioCtaLink || "/connect"}>{acf?.bioCtaText || "Contact Blake"}</Link>
                   </Button>
                 </div>
               </div>
@@ -225,7 +277,7 @@ export default function About() {
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-              {stats.map((stat, i) => (
+              {statsData.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   className="flex flex-col items-center justify-center space-y-3"
@@ -255,15 +307,19 @@ export default function About() {
           <div className="container mx-auto px-4 md:px-8 max-w-5xl min-[1600px]:max-w-[1200px]">
             <div className="mb-14">
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
-                What Blake stands for
+                {acf?.valuesEyebrow || "What Blake stands for"}
               </p>
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Integrity-Driven Service<br />From Start To Finish
+                {acf?.valuesHeading ? (
+                  <span className="whitespace-pre-line">{acf.valuesHeading}</span>
+                ) : (
+                  <>Integrity-Driven Service<br />From Start To Finish</>
+                )}
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-              {values.map((v) => {
+              {valuesData.map((v: { icon: typeof ShieldCheck; title: string; desc: string }) => {
                 const Icon = v.icon;
                 return (
                   <div key={v.title} className="flex flex-col">
@@ -293,24 +349,20 @@ export default function About() {
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
               <div className="max-w-2xl">
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">How I Help</p>
+                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight">
-                  Real Estate Shouldn't Feel Overwhelming.
+                  {acf?.helpHeading || "Real Estate Shouldn't Feel Overwhelming."}
                 </h2>
               </div>
               <div className="max-w-md">
                 <p className="text-lg text-foreground/70 leading-relaxed">
-                  Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money.
+                  {acf?.helpBody || "Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money."}
                 </p>
               </div>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-4 lg:h-[560px]">
-              {[
-                { title: "Buying", image: buyingHouseUrl, href: "/buying", desc: "Find properties through unlisted home tracking, contract safeguards, and an intentional search." },
-                { title: "Selling", image: sellingHouseUrl, href: "/selling", desc: "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program." },
-                { title: "Home Prep Selling", image: prepLivingroomUrl, href: "/home-prep-program", desc: "We fund and handle 100% of the cosmetic updates and staging to drive up your sale price. You pay nothing until it is sold." }
-              ].map((card, i) => (
+              {helpCards.map((card: { title: string; image: string; href: string; desc: string }, i: number) => (
                 <motion.div
                   key={card.title}
                   className="group relative flex flex-col lg:flex-row overflow-hidden bg-background shadow-lg flex-1 lg:hover:flex-[2.2] transition-all duration-700 ease-out h-auto lg:h-full"
@@ -372,7 +424,7 @@ export default function About() {
 
         <FaqsSection
           faqs={aboutFaqs}
-          intro="Common questions about working with Blake. Don't see yours? Get in touch, I'm happy to walk you through it."
+          intro={acf?.faqsIntro || "Common questions about working with Blake. Don't see yours? Get in touch, I'm happy to walk you through it."}
         />
 
         <CtaSection />

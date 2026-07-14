@@ -10,6 +10,7 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import { imgUrl } from "@/lib/wp-acf";
 
 const prepHeroBgUrl = "/images/prep-hero-roseville.jpg";
 const prepHomeAerialUrl = "/images/prep-home-aerial.jpg";
@@ -254,10 +255,12 @@ function BeforeAfterSlider({
 
 function IncludedCarousel({
   controlsRef,
+  cards = includedCards,
 }: {
   controlsRef: React.MutableRefObject<{ prev: () => void; next: () => void } | null>;
+  cards?: { title: string; desc: string; image: string }[];
 }) {
-  const count = includedCards.length;
+  const count = cards.length;
   const GAP = 16;
   const TRANSITION_MS = 650;
 
@@ -266,7 +269,7 @@ function IncludedCarousel({
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerW, setContainerW] = useState(0);
   const [visibleTiles, setVisibleTiles] = useState(3);
-  const items = [...includedCards, ...includedCards, ...includedCards];
+  const items = [...cards, ...cards, ...cards];
 
   useEffect(() => {
     const el = containerRef.current;
@@ -359,9 +362,49 @@ function IncludedCarousel({
   );
 }
 
-export default function HomePrep() {
+export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) {
   const [activeStep, setActiveStep] = useState(0);
   const includedControlsRef = useRef<{ prev: () => void; next: () => void } | null>(null);
+
+  const worries: string[] = acf?.familiarWorries?.length
+    ? acf.familiarWorries.map((w: any) => w.text)
+    : soundFamiliarWorries;
+
+  const why = acf?.whyBullets?.length
+    ? acf.whyBullets.map((b: any) => ({ title: b.title, desc: b.desc }))
+    : whyBullets;
+
+  const steps = acf?.steps?.length
+    ? acf.steps.map((s: any, i: number) => ({
+        num: s.num || prepSteps[i]?.num || String(i + 1).padStart(2, "0"),
+        title: s.title,
+        desc: s.desc,
+        image: imgUrl(s.image, prepSteps[i]?.image || prepHomeAerialUrl),
+      }))
+    : prepSteps;
+
+  const included = acf?.includedCards?.length
+    ? acf.includedCards.map((c: any, i: number) => ({
+        title: c.title,
+        desc: c.desc,
+        image: imgUrl(c.image, includedCards[i]?.image || includedPaintingUrl),
+      }))
+    : includedCards;
+
+  const caseBullets: string[] = acf?.caseBullets?.length
+    ? acf.caseBullets.map((b: any) => b.text)
+    : [
+        "Multiple cash offers received and closed during the first weekend on the market.",
+        "Sold for $75,000 over the as-is property valuation before renovations.",
+        "All without the owner having to lift a finger or spend a dime up front.",
+      ];
+
+  const heroImageUrl = imgUrl(acf?.heroImage, prepHeroBgUrl);
+  const familiarImageUrl = imgUrl(acf?.familiarImage, soundFamiliarUrl);
+  const whyImageUrl = imgUrl(acf?.whyImage, prepHomeAerialUrl);
+  const caseBeforeImageUrl = imgUrl(acf?.caseBeforeImage, prepRosevilleBeforeUrl);
+  const caseAfterImageUrl = imgUrl(acf?.caseAfterImage, prepRosevilleAfterUrl);
+  const faqsList: Faq[] = prepFaqs;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
@@ -370,7 +413,7 @@ export default function HomePrep() {
         {/* Hero */}
         <section className="relative bg-accent text-foreground overflow-hidden">
           <img
-            src={prepHeroBgUrl}
+            src={heroImageUrl}
             alt=""
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
@@ -385,18 +428,18 @@ export default function HomePrep() {
               transition={{ duration: 0.6 }}
             >
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
-                Home Prep Selling Program
+                {acf?.heroEyebrow || "Home Prep Selling Program"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                We Prepare Your Home For Sale. You Pay Nothing Until It's Sold.
+                {acf?.heroHeading || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">We manage and pay for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress.</p>
+              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">{acf?.heroBody || "We manage and pay for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress."}</p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
-                  href="/book-consultation"
+                  href={acf?.heroCtaLink || "/book-consultation"}
                   className="inline-flex items-center justify-center bg-white text-foreground hover:bg-white/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
                 >
-                  Schedule a Home Prep Consultation
+                  {acf?.heroCtaText || "Schedule a Home Prep Consultation"}
                 </Link>
               </div>
             </motion.div>
@@ -414,7 +457,7 @@ export default function HomePrep() {
           {/* Image — full-bleed left half on desktop (flush top, bottom, left) */}
           <div className="hidden lg:block absolute top-0 left-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <img
-              src={soundFamiliarUrl}
+              src={familiarImageUrl}
               alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -426,17 +469,16 @@ export default function HomePrep() {
 
               <div className="pt-6 pb-12 lg:py-28 lg:pl-12 xl:pl-20">
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Sound Familiar?
+                  {acf?.familiarHeading || "Sound Familiar?"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
-                  Getting a home market-ready can easily feel expensive and overwhelming.
+                  {acf?.familiarSubheading || "Getting a home market-ready can easily feel expensive and overwhelming."}
                 </p>
                 <p className="font-sans font-bold text-xl mb-6">
-                  If you are preparing to sell, you might be asking yourself the same
-                  questions we hear every day:
+                  {acf?.familiarBody || "If you are preparing to sell, you might be asking yourself the same questions we hear every day:"}
                 </p>
                 <ul className="space-y-4 mb-10">
-                  {soundFamiliarWorries.map((worry) => (
+                  {worries.map((worry: string) => (
                     <li key={worry} className="text-foreground/90">
                       {worry}
                     </li>
@@ -446,7 +488,7 @@ export default function HomePrep() {
                 {/* Mobile image */}
                 <div className="lg:hidden relative aspect-[4/3] overflow-hidden mb-10">
                   <img
-                    src={soundFamiliarUrl}
+                    src={familiarImageUrl}
                     alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -454,10 +496,10 @@ export default function HomePrep() {
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-5">
                   <Link
-                    href="/book-consultation"
+                    href={acf?.familiarCtaLink || "/book-consultation"}
                     className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]"
                   >
-                    Schedule a Home Prep Consultation
+                    {acf?.familiarCtaText || "Schedule a Home Prep Consultation"}
                   </Link>
                 </div>
               </div>
@@ -477,7 +519,7 @@ export default function HomePrep() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
                 <img
-                  src={prepHomeAerialUrl}
+                  src={whyImageUrl}
                   alt="Aerial view of a prepped Sacramento home — Home Prep Program"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -491,18 +533,16 @@ export default function HomePrep() {
 
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Our Difference
+                  {acf?.whyEyebrow || "Our Difference"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Home Prep Program
+                  {acf?.whyHeading || "Home Prep Program"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
-                  Buyers reward homes that show better than the competition. This turnkey
-                  renovation program quietly removes every friction point without you writing
-                  a check before closing.
+                  {acf?.whyBody || "Buyers reward homes that show better than the competition. This turnkey renovation program quietly removes every friction point without you writing a check before closing."}
                 </p>
                 <ul className="space-y-4 mb-10">
-                  {whyBullets.map((b) => (
+                  {why.map((b: any) => (
                     <li key={b.title} className="flex items-start gap-3">
                       <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
                         <Check className="w-3.5 h-3.5" strokeWidth={3} />
@@ -518,7 +558,7 @@ export default function HomePrep() {
                 {/* Mobile image — above the CTA buttons */}
                 <div className="lg:hidden relative aspect-[4/3] overflow-hidden bg-muted mb-10">
                   <img
-                    src={prepHomeAerialUrl}
+                    src={whyImageUrl}
                     alt="Aerial view of a prepped Sacramento home — Home Prep Program"
                     className="w-full h-full object-cover"
                   />
@@ -531,14 +571,14 @@ export default function HomePrep() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href="/book-consultation">Schedule a Home Prep Consultation</Link>
+                    <Link href={acf?.whyCtaLink || "/book-consultation"}>{acf?.whyCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   <Button
                     asChild
                     variant="outline"
                     className="border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
                   >
-                    <Link href="/home-value-analysis">Free Home Value Analysis</Link>
+                    <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
                   </Button>
                 </div>
               </div>
@@ -560,7 +600,7 @@ export default function HomePrep() {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeStep}
-                src={prepSteps[activeStep].image}
+                src={steps[activeStep].image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
                 initial={{ opacity: 0, scale: 1.05 }}
@@ -576,18 +616,18 @@ export default function HomePrep() {
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
-                    Home Prep Program Process
+                    {acf?.processEyebrow || "Home Prep Program Process"}
                   </p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    100% Funded<br />Renovations
+                    {acf?.processHeading ? acf.processHeading : (<>100% Funded<br />Renovations</>)}
                   </h2>
                   <p className="text-foreground/70">
-                    5 steps to a stress-free, high-profit sale.
+                    {acf?.processSubtitle || "5 steps to a stress-free, high-profit sale."}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-stretch self-stretch">
-                  {prepSteps.map((step, i) => {
+                  {steps.map((step: any, i: number) => {
                     const isActive = activeStep === i;
                     return (
                       <button
@@ -629,7 +669,7 @@ export default function HomePrep() {
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
-                        src={prepSteps[activeStep].image}
+                        src={steps[activeStep].image}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                         initial={{ opacity: 0 }}
@@ -642,7 +682,7 @@ export default function HomePrep() {
 
                   <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                      <Link href="/book-consultation">Schedule a Home Prep Consultation</Link>
+                      <Link href={acf?.processCtaLink || "/book-consultation"}>{acf?.processCtaText || "Schedule a Home Prep Consultation"}</Link>
                     </Button>
                   </div>
                 </div>
@@ -664,10 +704,10 @@ export default function HomePrep() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
               <div className="max-w-4xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  What's Included
+                  {acf?.includedEyebrow || "What's Included"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  We Manage The Contractors<br />& Cover The Costs
+                  {acf?.includedHeading ? acf.includedHeading : (<>We Manage The Contractors<br />& Cover The Costs</>)}
                 </h2>
               </div>
               <div className="hidden md:flex items-center gap-2 shrink-0">
@@ -689,7 +729,7 @@ export default function HomePrep() {
                 </button>
               </div>
             </div>
-            <IncludedCarousel controlsRef={includedControlsRef} />
+            <IncludedCarousel controlsRef={includedControlsRef} cards={included} />
             <div className="flex md:hidden items-center justify-center gap-2 mt-8">
               <button
                 type="button"
@@ -722,24 +762,20 @@ export default function HomePrep() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-center mb-14">
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Before & After Case Study
+                {acf?.caseSectionHeading || "Before & After Case Study"}
               </h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Roseville, CA
+                  {acf?.caseEyebrow || "Roseville, CA"}
                 </p>
                 <h3 className="font-sans text-3xl md:text-4xl font-bold leading-tight mb-6">
-                  Our Home Prep Program Put An Extra<br />$50,000 In Our Client's Pocket
+                  {acf?.caseHeading ? acf.caseHeading : (<>Our Home Prep Program Put An Extra<br />$50,000 In Our Client's Pocket</>)}
                 </h3>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation.</p>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
                 <ul className="space-y-4 mb-10">
-                  {[
-                    "Multiple cash offers received and closed during the first weekend on the market.",
-                    "Sold for $75,000 over the as-is property valuation before renovations.",
-                    "All without the owner having to lift a finger or spend a dime up front.",
-                  ].map((b) => (
+                  {caseBullets.map((b: string) => (
                     <li key={b} className="flex items-start gap-3">
                       <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
                         <Check className="w-3.5 h-3.5" strokeWidth={3} />
@@ -751,23 +787,23 @@ export default function HomePrep() {
                 {/* Mobile slider — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
                   <BeforeAfterSlider
-                    beforeSrc={prepRosevilleBeforeUrl}
-                    afterSrc={prepRosevilleAfterUrl}
+                    beforeSrc={caseBeforeImageUrl}
+                    afterSrc={caseAfterImageUrl}
                     beforeAlt="Roseville living room before prep"
                     afterAlt="Roseville living room after prep and staging"
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href="/book-consultation">Schedule a Home Prep Consultation</Link>
+                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
                 </div>
               </div>
 
               <div className="hidden lg:block">
                 <BeforeAfterSlider
-                  beforeSrc={prepRosevilleBeforeUrl}
-                  afterSrc={prepRosevilleAfterUrl}
+                  beforeSrc={caseBeforeImageUrl}
+                  afterSrc={caseAfterImageUrl}
                   beforeAlt="Roseville living room before prep"
                   afterAlt="Roseville living room after prep and staging"
                 />
@@ -779,8 +815,8 @@ export default function HomePrep() {
         <TestimonialsSection />
 
         <FaqsSection
-          faqs={prepFaqs}
-          intro="Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."
+          faqs={faqsList}
+          intro={acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."}
         />
 
         <CtaSection />

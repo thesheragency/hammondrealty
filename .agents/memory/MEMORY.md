@@ -1,2 +1,3 @@
 - [Tailwind v3 + Turbopack CSS quirks](tailwind-turbopack-quirks.md) — custom compound selectors must live outside @layer utilities; mixed units in `screens` config break min/max variants.
 - [React 19 peer-dep installs](react19-peer-deps.md) — npm installs fail on ERESOLVE (react-day-picker pins React 18); project .npmrc legacy-peer-deps=true is required, and framer-motion must be v12+ for React 19.
+- [WordPress ACF wiring pattern](wp-acf-wiring.md) — designed pages pull ACF via lib/wp-acf.ts with fallbacks; Next data-cache gotcha, \r\n headings need whitespace-pre-line, final slugs are /buyer /seller /connect.

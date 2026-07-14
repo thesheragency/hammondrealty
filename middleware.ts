@@ -11,12 +11,12 @@ type Redirect = {
 // they exist as dedicated app routes and always take priority.
 const PROTECTED_PATHS = new Set([
   '/',
-  '/buying',
-  '/selling',
+  '/buyer',
+  '/seller',
   '/home-prep-program',
   '/about',
   '/home-value-analysis',
-  '/get-in-touch',
+  '/connect',
   '/book-consultation',
   '/booked',
   '/thank-you',

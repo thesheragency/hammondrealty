@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 
-const expectations = [
+const defaultExpectations = [
   {
     title: "A Real Conversation",
     desc: "A quick chat to understand specific family goals and timelines with no pressure and no script.",
@@ -24,7 +24,8 @@ const expectations = [
   },
 ];
 
-export default function BookConsultation() {
+export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
+  const expectations = (acf?.expectations?.length ? acf.expectations : defaultExpectations) as { title: string; desc: string }[];
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -73,16 +74,14 @@ export default function BookConsultation() {
               {/* Left: copy — stays constant */}
               <div className="lg:sticky lg:top-32">
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
-                  Thanks for reaching out
+                  {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
                 <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                  Book A 15 Minute<br />Call With Blake
+                  {acf?.heading ? acf.heading : (<>Book A 15 Minute<br />Call With Blake</>)}
                 </h1>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md mb-8">
-                  Make your move simple and stress-free. Whether you are buying or
-                  selling, this conversation is designed to help you feel confident
-                  every step of the way with straightforward, honest communication.
+                  {acf?.body || "Make your move simple and stress-free. Whether you are buying or selling, this conversation is designed to help you feel confident every step of the way with straightforward, honest communication."}
                 </p>
 
                 <ul className="space-y-4 mb-8">
@@ -104,9 +103,7 @@ export default function BookConsultation() {
                 </ul>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md">
-                  Pick a time that works for you. Consultations happen by phone or
-                  Zoom, depending completely on your preference, and they always
-                  start right on time.
+                  {acf?.body2 || "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time."}
                 </p>
               </div>
 
@@ -224,16 +221,16 @@ export default function BookConsultation() {
                           strokeWidth={1.5}
                         />
                         <h2 className="font-sans text-2xl md:text-3xl font-bold mb-2">
-                          Calendar Embed
+                          {acf?.calendarHeading || "Calendar Embed"}
                         </h2>
                         <p className="text-sm text-foreground/60 max-w-xs mb-6">
-                          Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here.
+                          {acf?.calendarText || "Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here."}
                         </p>
                         <a
-                          href="/booked"
+                          href={acf?.confirmLink || "/booked"}
                           className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto h-[45px] px-6"
                         >
-                          Confirm Booking
+                          {acf?.confirmText || "Confirm Booking"}
                         </a>
                       </div>
                     </motion.div>

@@ -83,9 +83,16 @@ const faqData: Record<Category, { q: string; a: string }[]> = {
   ],
 };
 
-export default function Faqs() {
+export default function Faqs({
+  acf,
+  faqs,
+}: {
+  acf?: Record<string, any> | null;
+  faqs?: { question: string; answer: string }[];
+}) {
   const [active, setActive] = useState<Category>("Buying");
-  const items = faqData[active];
+  const wpItems = faqs?.length ? faqs.map((f) => ({ q: f.question, a: f.answer })) : null;
+  const items = wpItems ?? faqData[active];
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
@@ -103,32 +110,38 @@ export default function Faqs() {
               {/* Heading */}
               <div className="text-center mb-10">
                 <h1 className="font-sans text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                  Frequently Asked Questions
+                  {acf?.heading || "Frequently Asked Questions"}
                 </h1>
                 <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto">
-                  Clear answers to the questions homeowners, buyers, and sellers ask
-                  most when preparing for their next move.
+                  {acf?.intro || (
+                    <>
+                      Clear answers to the questions homeowners, buyers, and sellers ask
+                      most when preparing for their next move.
+                    </>
+                  )}
                 </p>
               </div>
 
               {/* Category pills */}
-              <div className="flex justify-center mb-12">
-                <div className="inline-flex flex-wrap items-center justify-center gap-1 bg-muted rounded-full p-1.5">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setActive(cat)}
-                      className={`px-5 md:px-6 py-2 text-sm font-medium rounded-full transition-all ${
-                        active === cat
-                          ? "bg-background text-foreground shadow-sm"
-                          : "text-foreground/60 hover:text-foreground"
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
+              {!wpItems && (
+                <div className="flex justify-center mb-12">
+                  <div className="inline-flex flex-wrap items-center justify-center gap-1 bg-muted rounded-full p-1.5">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => setActive(cat)}
+                        className={`px-5 md:px-6 py-2 text-sm font-medium rounded-full transition-all ${
+                          active === cat
+                            ? "bg-background text-foreground shadow-sm"
+                            : "text-foreground/60 hover:text-foreground"
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Accordion */}
               <Accordion

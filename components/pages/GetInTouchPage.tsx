@@ -12,10 +12,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import { imgUrl } from "@/lib/wp-acf";
 
 const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg";
 
-export default function GetInTouch() {
+export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }) {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -53,7 +54,7 @@ export default function GetInTouch() {
         {/* Hero with embedded form */}
         <section className="relative bg-foreground text-white overflow-hidden">
           <img
-            src={heroBedroomUrl}
+            src={imgUrl(acf?.heroImage, heroBedroomUrl)}
             alt=""
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
@@ -67,20 +68,16 @@ export default function GetInTouch() {
                 transition={{ duration: 0.6 }}
               >
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-5">
-                  Get in Touch
+                  {acf?.eyebrow || "Get in Touch"}
                 </p>
                 <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6 text-white">
-                  Let's Talk About<br />Your Next Move.
+                  {acf?.heading ? acf.heading : (<>Let's Talk About<br />Your Next Move.</>)}
                 </h1>
                 <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
-                  Whether you are buying, selling, or just exploring the market, every
-                  message receives a personal reply. No call centers, no scripts, and
-                  no generic answers.
+                  {acf?.body || "Whether you are buying, selling, or just exploring the market, every message receives a personal reply. No call centers, no scripts, and no generic answers."}
                 </p>
                 <p className="text-sm md:text-base text-white/60 leading-relaxed max-w-xl mt-5 italic">
-                  P.S. In case you are wondering, yes, the hat says "Make Realtors
-                  Great Again." And no, it is not political. It is a mindset. This
-                  industry is full of mediocrity, and Blake is here to raise the bar.
+                  {acf?.ps || `P.S. In case you are wondering, yes, the hat says "Make Realtors Great Again." And no, it is not political. It is a mindset. This industry is full of mediocrity, and Blake is here to raise the bar.`}
                 </p>
               </motion.div>
 
@@ -96,20 +93,19 @@ export default function GetInTouch() {
                         <Mail className="w-7 h-7" strokeWidth={1.75} />
                       </div>
                       <h2 className="font-sans text-2xl md:text-3xl font-bold mb-3">
-                        Message received.
+                        {acf?.successHeading || "Message received."}
                       </h2>
                       <p className="text-foreground/70 leading-relaxed">
-                        Thanks for reaching out. A personal response will be sent to
-                        your inbox within one business day.
+                        {acf?.successBody || "Thanks for reaching out. A personal response will be sent to your inbox within one business day."}
                       </p>
                     </div>
                   ) : (
                   <>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-3">
-                    Send a Message
+                    {acf?.formEyebrow || "Send a Message"}
                   </p>
                   <h2 className="font-sans text-2xl md:text-3xl font-bold leading-tight mb-6">
-                    Tell Us About Your Move.
+                    {acf?.formHeading || "Tell Us About Your Move."}
                   </h2>
 
                   <form className="space-y-4" onSubmit={handleSubmit}>
@@ -203,17 +199,16 @@ export default function GetInTouch() {
                   <Mail className="w-7 h-7" strokeWidth={1.75} />
                 </div>
                 <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
-                  Email Anytime
+                  {acf?.emailCardTitle || "Email Anytime"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
-                  A direct response will be sent as soon as possible, usually the
-                  same day.
+                  {acf?.emailCardDesc || "A direct response will be sent as soon as possible, usually the same day."}
                 </p>
                 <a
-                  href="mailto:blakehammondre@gmail.com"
+                  href={`mailto:${acf?.email || "blakehammondre@gmail.com"}`}
                   className="font-sans font-semibold text-primary hover:underline break-all"
                 >
-                  blakehammondre@gmail.com
+                  {acf?.email || "blakehammondre@gmail.com"}
                 </a>
               </div>
               <div className="bg-background p-8 md:p-10">
@@ -221,17 +216,16 @@ export default function GetInTouch() {
                   <Phone className="w-7 h-7" strokeWidth={1.75} />
                 </div>
                 <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
-                  Call Or Text
+                  {acf?.phoneCardTitle || "Call Or Text"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
-                  If the line is busy, leave a voicemail or shoot over a text
-                  message for a reply within 24 hours.
+                  {acf?.phoneCardDesc || "If the line is busy, leave a voicemail or shoot over a text message for a reply within 24 hours."}
                 </p>
                 <a
-                  href="tel:9166256118"
+                  href={`tel:${(acf?.phone || "9166256118").replace(/[^0-9+]/g, "")}`}
                   className="font-sans font-semibold text-primary hover:underline"
                 >
-                  (916) 625-6118
+                  {acf?.phone || "(916) 625-6118"}
                 </a>
               </div>
             </div>

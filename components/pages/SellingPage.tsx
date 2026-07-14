@@ -11,6 +11,19 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import { imgUrl } from "@/lib/wp-acf";
+
+const sellIconMap: Record<string, typeof TrendingUp> = {
+  TrendingUp,
+  Shield,
+  MessageSquare,
+  FileCheck,
+  Hammer,
+  Handshake,
+  Lightbulb,
+  BookOpen,
+  DoorOpen,
+};
 
 const heroGraphicUrl = "/images/graphic-hero_section_1779377398567.png";
 const stepSelling1Url = "/images/step-selling-1-strategy.png";
@@ -21,7 +34,7 @@ const zillowLogoUrl = "/images/Zillow_Logo_Primary_RGB_1780067196756.png";
 const blakePresentingUrl = "/images/A7407000-2_1782405532776.jpg";
 const blakeForSaleUrl = "/images/blake-for-sale.jpg";
 const whySellVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
-const sellingHouseUrl = "/images/selling-house.png";
+const sellingHouseUrl = "/images/seller-house.png";
 const prepLivingroomUrl = "/images/prep-livingroom.png";
 const prepLivingroomBeforeUrl = "/images/prep-livingroom-before.png";
 const prepBedroomBeforeUrl = "/images/prep-bedroom-before.jpg";
@@ -437,14 +450,20 @@ function ContactForm() {
   );
 }
 
-function WhySellVideo() {
+function WhySellVideo({
+  videoId = "lFMTIp7BqEg",
+  thumbUrl = whySellVideoThumbUrl,
+}: {
+  videoId?: string;
+  thumbUrl?: string;
+}) {
   const [videoPlaying, setVideoPlaying] = useState(false);
 
   return (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
       {videoPlaying ? (
         <iframe
-          src="https://www.youtube.com/embed/lFMTIp7BqEg?autoplay=1&rel=0"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
           title="Why Sell With Blake"
           className="absolute inset-0 w-full h-full"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -458,7 +477,7 @@ function WhySellVideo() {
           className="absolute inset-0 w-full h-full group cursor-pointer"
         >
           <img
-            src={whySellVideoThumbUrl}
+            src={thumbUrl}
             alt="Blake Hammond on the podcast — Why Sell With Blake"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
@@ -474,8 +493,48 @@ function WhySellVideo() {
   );
 }
 
-export default function Selling() {
+export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
   const [activeStep, setActiveStep] = useState(0);
+
+  const whyBullets = acf?.whyBullets?.length
+    ? acf.whyBullets.map((b: any, i: number) => ({
+        icon: sellIconMap[b.icon] || whySellBullets[i]?.icon || TrendingUp,
+        title: b.title,
+        desc: b.desc,
+      }))
+    : whySellBullets;
+
+  const guarantee = acf?.guaranteeItems?.length
+    ? acf.guaranteeItems.map((g: any, i: number) => ({
+        icon: sellIconMap[g.icon] || guaranteeItems[i]?.icon || MessageSquare,
+        title: g.title,
+        desc: g.desc,
+      }))
+    : guaranteeItems;
+
+  const steps = acf?.steps?.length
+    ? acf.steps.map((s: any, i: number) => ({
+        num: s.num || sellingSteps[i]?.num || String(i + 1).padStart(2, "0"),
+        title: s.title,
+        desc: s.desc,
+        image: imgUrl(s.image, sellingSteps[i]?.image || stepSelling1Url),
+      }))
+    : sellingSteps;
+
+  const prep = acf?.prepBullets?.length
+    ? acf.prepBullets.map((b: any, i: number) => ({
+        num: b.num || prepBullets[i]?.num || String(i + 1).padStart(2, "0"),
+        title: b.title,
+        desc: b.desc,
+      }))
+    : prepBullets;
+
+  const whyVideoImageUrl = imgUrl(acf?.whyVideoImage, whySellVideoThumbUrl);
+  const whyVideoIdVal = acf?.whyVideoId || "lFMTIp7BqEg";
+  const prepBeforeImageUrl = imgUrl(acf?.prepBeforeImage, prepBedroomBeforeUrl);
+  const prepAfterImageUrl = imgUrl(acf?.prepAfterImage, prepBedroomAfterUrl);
+  const zillowImageUrl = imgUrl(acf?.zillowImage, blakePresentingUrl);
+  const faqsList: Faq[] = sellingFaqs;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
@@ -500,15 +559,15 @@ export default function Selling() {
               >
                 <div className="relative z-10">
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-6">
-                    Selling with Blake
+                    {acf?.heroEyebrow || "Selling with Blake"}
                   </p>
                   <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                    Sell Quickly.<br />Make More Money.
+                    {acf?.heroHeading ? acf.heroHeading : (<>Sell Quickly.<br />Make More Money.</>)}
                   </h1>
-                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible.</p>
+                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible."}</p>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                     <Button asChild className="bg-white text-foreground hover:bg-white/90 border-transparent no-default-hover-elevate no-default-active-elevate rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                      <Link href="/get-in-touch">Contact Blake</Link>
+                      <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
                     </Button>
                   </div>
                 </div>
@@ -537,23 +596,22 @@ export default function Selling() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div className="hidden lg:block">
-                <WhySellVideo />
+                <WhySellVideo videoId={whyVideoIdVal} thumbUrl={whyVideoImageUrl} />
               </div>
 
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  Why Sell With Blake
+                  {acf?.whyEyebrow || "Why Sell With Blake"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Maximize Your Equity
+                  {acf?.whyHeading || "Maximize Your Equity"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
-                  Secure the highest return with a partner who prices with precision,
-                  transforms your property, and protects your profit.
+                  {acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."}
                 </p>
 
                 <ul className="space-y-4 mb-10">
-                  {whySellBullets.map((b) => {
+                  {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
                       <li key={b.title} className="flex items-start gap-3">
@@ -572,19 +630,19 @@ export default function Selling() {
 
                 {/* Mobile video — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
-                  <WhySellVideo />
+                  <WhySellVideo videoId={whyVideoIdVal} thumbUrl={whyVideoImageUrl} />
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/get-in-touch">Contact Blake</Link>
+                    <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                   </Button>
                   <Button
                     asChild
                     variant="outline"
                     className="border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
                   >
-                    <Link href="/home-value-analysis">Find Your Home Value</Link>
+                    <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Find Your Home Value"}</Link>
                   </Button>
                 </div>
               </div>
@@ -603,19 +661,18 @@ export default function Selling() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-3xl mx-auto text-left sm:text-center mb-16">
               <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                My Promise
+                {acf?.guaranteeEyebrow || "My Promise"}
               </p>
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                The Hammond Real Estate Guarantee
+                {acf?.guaranteeHeading || "The Hammond Real Estate Guarantee"}
               </h2>
               <p className="text-foreground/70 text-lg leading-relaxed">
-                Four direct standards held on every single property partnership, in writing,
-                from day one.
+                {acf?.guaranteeBody || "Four direct standards held on every single property partnership, in writing, from day one."}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {guaranteeItems.map((item, i) => {
+              {guarantee.map((item: any, i: number) => {
                 const Icon = item.icon;
                 return (
                   <motion.div
@@ -651,7 +708,7 @@ export default function Selling() {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeStep}
-                src={sellingSteps[activeStep].image}
+                src={steps[activeStep].image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
                 initial={{ opacity: 0, scale: 1.05 }}
@@ -667,18 +724,18 @@ export default function Selling() {
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
-                    Home Selling Process
+                    {acf?.processEyebrow || "Home Selling Process"}
                   </p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    Minimize Days On Market
+                    {acf?.processHeading || "Minimize Days On Market"}
                   </h2>
                   <p className="text-foreground/70">
-                    Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant.
+                    {acf?.processSubtitle || "Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant."}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-stretch self-stretch">
-                  {sellingSteps.map((step, i) => {
+                  {steps.map((step: any, i: number) => {
                     const isActive = activeStep === i;
                     return (
                       <button
@@ -720,7 +777,7 @@ export default function Selling() {
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
-                        src={sellingSteps[activeStep].image}
+                        src={steps[activeStep].image}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                         initial={{ opacity: 0 }}
@@ -732,10 +789,10 @@ export default function Selling() {
                   </div>
 
                   <Link
-                    href="/get-in-touch"
+                    href={acf?.processCtaLink || "/connect"}
                     className="mt-8 self-start inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] text-sm font-medium"
                   >
-                    Contact Blake
+                    {acf?.processCtaText || "Contact Blake"}
                   </Link>
                 </div>
               </div>
@@ -756,22 +813,22 @@ export default function Selling() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div className="hidden lg:block">
                 <BeforeAfterSlider
-                  beforeSrc={prepBedroomBeforeUrl}
-                  afterSrc={prepBedroomAfterUrl}
+                  beforeSrc={prepBeforeImageUrl}
+                  afterSrc={prepAfterImageUrl}
                   beforeAlt="Primary bedroom before staging"
                   afterAlt="Primary bedroom after staging"
                 />
               </div>
 
               <div>
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">Elevate Your Market Value & Sell With Less Stress</p>
+                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.prepEyebrow || "Elevate Your Market Value & Sell With Less Stress"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Home Prep Program
+                  {acf?.prepHeading || "Home Prep Program"}
                 </h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar.</p>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."}</p>
 
                 <ul className="space-y-4 mb-10">
-                  {prepBullets.map((b) => (
+                  {prep.map((b: any) => (
                     <li key={b.num} className="flex items-start gap-4">
                       <span className="flex-shrink-0 font-sans font-bold text-primary text-lg leading-snug">
                         {b.num}
@@ -788,8 +845,8 @@ export default function Selling() {
                 {/* Mobile slider — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
                   <BeforeAfterSlider
-                    beforeSrc={prepBedroomBeforeUrl}
-                    afterSrc={prepBedroomAfterUrl}
+                    beforeSrc={prepBeforeImageUrl}
+                    afterSrc={prepAfterImageUrl}
                     beforeAlt="Primary bedroom before staging"
                     afterAlt="Primary bedroom after staging"
                   />
@@ -797,7 +854,7 @@ export default function Selling() {
 
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/home-prep-program">Learn More</Link>
+                    <Link href={acf?.prepCtaLink || "/home-prep-program"}>{acf?.prepCtaText || "Learn More"}</Link>
                   </Button>
                 </div>
               </div>
@@ -822,37 +879,37 @@ export default function Selling() {
                   className="h-6 md:h-8 w-auto mb-8"
                 />
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Zillow Showcase Drives 75% More Views
+                  {acf?.zillowHeading || "Zillow Showcase Drives 75% More Views"}
                 </h2>
                 <p className="text-foreground/70 text-lg leading-relaxed mb-10">
-                  As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing.
+                  {acf?.zillowBody || "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing."}
                 </p>
                 {/* Mobile image — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
                   <img
-                    src={blakePresentingUrl}
+                    src={zillowImageUrl}
                     alt="Blake Hammond, Sacramento-area real estate agent"
                     className="w-full h-full object-cover object-top aspect-[4/3]"
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href="/get-in-touch">Contact Blake</Link>
+                    <Link href={acf?.zillowCtaLink || "/connect"}>{acf?.zillowCtaText || "Contact Blake"}</Link>
                   </Button>
                   <a
-                    href="https://www.zillow.com/profile/blakehammondre"
+                    href={acf?.zillowSecondaryLink || "https://www.zillow.com/profile/blakehammondre"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center border border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium text-sm w-full sm:w-auto px-6 h-[45px] transition-colors"
                   >
-                    View On Zillow
+                    {acf?.zillowSecondaryText || "View On Zillow"}
                   </a>
                 </div>
               </div>
 
               <div className="relative hidden lg:block">
                 <img
-                  src={blakePresentingUrl}
+                  src={zillowImageUrl}
                   alt="Blake Hammond, Sacramento-area real estate agent"
                   className="w-full h-full object-cover object-top aspect-[4/3]"
                 />
@@ -864,8 +921,8 @@ export default function Selling() {
         <TestimonialsSection />
 
         <FaqsSection
-          faqs={sellingFaqs}
-          intro="Common questions from home sellers. Don't see yours? Get in touch, I am happy to walk you through it."
+          faqs={faqsList}
+          intro={acf?.faqsIntro || "Common questions from home sellers. Don't see yours? Get in touch, I am happy to walk you through it."}
         />
 
         <CtaSection secondaryLabel="" />
