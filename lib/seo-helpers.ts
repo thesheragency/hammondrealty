@@ -28,21 +28,24 @@ export async function buildMetadata({
   const globalDefaults = await fetchYoastGlobalDefaults();
   const fallbackImage = validUrl(featuredImage) || validUrl(globalDefaults.defaultImage);
 
+  const resolvedTitle = seo?.title || title;
+  const resolvedDescription = seo?.metaDesc || description || '';
+
   const ogImage = validUrl(seo?.opengraphImage) || fallbackImage;
   const twImage = validUrl(seo?.twitterImage) || fallbackImage;
   const hasImage = !!(ogImage || twImage);
 
   return {
-    title: seo?.title || title,
-    description: seo?.metaDesc || description || '',
+    title: resolvedTitle,
+    description: resolvedDescription,
     ...(seo?.canonical
       ? { alternates: { canonical: seo.canonical } }
       : canonicalPath
         ? { alternates: { canonical: canonicalPath } }
         : {}),
     openGraph: {
-      title: seo?.opengraphTitle || title,
-      description: seo?.opengraphDescription || description || '',
+      title: seo?.opengraphTitle || resolvedTitle,
+      description: seo?.opengraphDescription || resolvedDescription,
       type: ogType,
       ...(ogImage ? { images: [ogImage] } : {}),
       ...(seo?.opengraphSiteName || globalDefaults.siteName
@@ -51,8 +54,8 @@ export async function buildMetadata({
     },
     twitter: {
       card: hasImage ? 'summary_large_image' : 'summary',
-      title: seo?.twitterTitle || title,
-      description: seo?.twitterDescription || description || '',
+      title: seo?.twitterTitle || resolvedTitle,
+      description: seo?.twitterDescription || resolvedDescription,
       ...(twImage ? { images: [twImage] } : {}),
     },
   };
