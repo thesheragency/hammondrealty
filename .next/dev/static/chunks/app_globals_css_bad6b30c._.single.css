@@ -1335,10 +1335,6 @@ body {
   margin-bottom: .25rem;
 }
 
-.mb-1\.5 {
-  margin-bottom: .375rem;
-}
-
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -1838,10 +1834,6 @@ body {
   width: 1280px;
 }
 
-.w-\[129px\] {
-  width: 129px;
-}
-
 .w-\[1px\] {
   width: 1px;
 }
@@ -1902,6 +1894,10 @@ body {
   min-width: 2.25rem;
 }
 
+.min-w-\[129px\] {
+  min-width: 129px;
+}
+
 .min-w-\[12rem\] {
   min-width: 12rem;
 }
@@ -1912,10 +1908,6 @@ body {
 
 .min-w-\[var\(--radix-select-trigger-width\)\] {
   min-width: var(--radix-select-trigger-width);
-}
-
-.min-w-\[129px\] {
-  min-width: 129px;
 }
 
 .max-w-2xl {
@@ -2643,10 +2635,6 @@ body {
   border-color: hsl(var(--foreground) / .2);
 }
 
-.border-foreground\/30 {
-  border-color: hsl(var(--foreground) / .3);
-}
-
 .border-green-200 {
   --tw-border-opacity: 1;
   border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
@@ -2673,11 +2661,6 @@ body {
 .border-red-200 {
   --tw-border-opacity: 1;
   border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
-}
-
-.border-red-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
 .border-secondary-border {
@@ -3751,10 +3734,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.accent-primary {
-  accent-color: hsl(var(--primary) / 1);
-}
-
 .opacity-0 {
   opacity: 0;
 }
@@ -4741,11 +4720,6 @@ html {
   background-color: hsl(var(--sidebar-border) / var(--tw-bg-opacity, 1));
 }
 
-.focus\:border-primary:focus {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--primary) / var(--tw-border-opacity, 1));
-}
-
 .focus\:bg-accent:focus {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--accent) / var(--tw-bg-opacity, 1));
@@ -4795,20 +4769,9 @@ html {
   --tw-ring-offset-width: 2px;
 }
 
-.focus-visible\:border-primary:focus-visible {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--primary) / var(--tw-border-opacity, 1));
-}
-
 .focus-visible\:outline-none:focus-visible {
   outline-offset: 2px;
   outline: 2px solid #0000;
-}
-
-.focus-visible\:ring-0:focus-visible {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
 .focus-visible\:ring-1:focus-visible {
@@ -5150,11 +5113,6 @@ html {
 
 .data-\[panel-group-direction\=vertical\]\:flex-col[data-panel-group-direction="vertical"] {
   flex-direction: column;
-}
-
-.data-\[state\=checked\]\:border-primary[data-state="checked"] {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--primary) / var(--tw-border-opacity, 1));
 }
 
 .data-\[active\=true\]\:bg-sidebar-accent[data-active="true"] {
