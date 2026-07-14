@@ -1,13 +1,63 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, CalendarDays, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+
+const DEFAULT_CALENDLY_URL =
+  "https://calendly.com/blakehammondre/real-estate-consult-with-blake";
+
+function CalendlyEmbed({ url, name, email }: { url: string; name: string; email: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const params = new URLSearchParams();
+  if (name) params.set("name", name);
+  if (email) params.set("email", email);
+  const embedUrl = params.toString() ? `${url}?${params.toString()}` : url;
+
+  useEffect(() => {
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    );
+    const init = () => {
+      const w = window as any;
+      if (w.Calendly && containerRef.current) {
+        containerRef.current.innerHTML = "";
+        w.Calendly.initInlineWidget({
+          url: embedUrl,
+          parentElement: containerRef.current,
+        });
+      }
+    };
+    if (existing) {
+      if ((window as any).Calendly) {
+        init();
+      } else {
+        existing.addEventListener("load", init, { once: true });
+      }
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      script.addEventListener("load", init, { once: true });
+      document.body.appendChild(script);
+    }
+  }, [embedUrl]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="calendly-inline-widget w-full"
+      style={{ minWidth: 320, height: 700 }}
+      data-testid="embed-calendly"
+    />
+  );
+}
 
 const defaultExpectations = [
   {
@@ -220,27 +270,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         </p>
                       </div>
 
-                      <div className="bg-muted aspect-square lg:aspect-auto lg:min-h-[560px] flex flex-col items-center justify-center text-center p-8">
-                        <p className="font-sans text-xs uppercase tracking-[0.25em] text-primary mb-4">
-                          Step 2 of 2
-                        </p>
-                        <CalendarDays
-                          className="w-10 h-10 text-foreground/40 mb-4"
-                          strokeWidth={1.5}
-                        />
-                        <h2 className="font-sans text-2xl md:text-3xl font-bold mb-2">
-                          {acf?.calendarHeading || "Calendar Embed"}
-                        </h2>
-                        <p className="text-sm text-foreground/60 max-w-xs mb-6">
-                          {acf?.calendarText || "Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here."}
-                        </p>
-                        <a
-                          href={acf?.confirmLink || "/booked"}
-                          className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto h-[45px] px-6"
-                        >
-                          {acf?.confirmText || "Confirm Booking"}
-                        </a>
-                      </div>
+                      <CalendlyEmbed
+                        url={acf?.calendlyUrl || DEFAULT_CALENDLY_URL}
+                        name={form.name}
+                        email={form.email}
+                      />
                     </motion.div>
                   )}
                 </AnimatePresence>
