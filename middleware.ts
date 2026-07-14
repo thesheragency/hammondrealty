@@ -7,6 +7,25 @@ type Redirect = {
   type: 301 | 302;
 };
 
+// Frontend-owned static routes. WordPress redirects must never hijack these —
+// they exist as dedicated app routes and always take priority.
+const PROTECTED_PATHS = new Set([
+  '/',
+  '/buying',
+  '/selling',
+  '/home-prep-program',
+  '/about',
+  '/home-value-analysis',
+  '/get-in-touch',
+  '/book-consultation',
+  '/booked',
+  '/thank-you',
+  '/faqs',
+  '/privacy-policy',
+  '/blog',
+  '/style-guide',
+]);
+
 let redirectsCache: Redirect[] = [];
 let lastFetch = 0;
 const CACHE_DURATION_MS = 300000; // 5 minutes
@@ -87,6 +106,12 @@ async function getRedirects(): Promise<Redirect[]> {
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
+
+  // Never apply WordPress redirects to routes the frontend owns
+  if (PROTECTED_PATHS.has(path.replace(/\/$/, '') || '/')) {
+    return NextResponse.next();
+  }
+
   const redirects = await getRedirects();
 
   // Check for exact match or match without trailing slash

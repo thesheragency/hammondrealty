@@ -23,6 +23,24 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$api$2f$server$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/esm/api/server.js [middleware-edge] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/esm/server/web/exports/index.js [middleware-edge] (ecmascript)");
 ;
+// Frontend-owned static routes. WordPress redirects must never hijack these —
+// they exist as dedicated app routes and always take priority.
+const PROTECTED_PATHS = new Set([
+    '/',
+    '/buying',
+    '/selling',
+    '/home-prep-program',
+    '/about',
+    '/home-value-analysis',
+    '/get-in-touch',
+    '/book-consultation',
+    '/booked',
+    '/thank-you',
+    '/faqs',
+    '/privacy-policy',
+    '/blog',
+    '/style-guide'
+]);
 let redirectsCache = [];
 let lastFetch = 0;
 const CACHE_DURATION_MS = 300000; // 5 minutes
@@ -87,6 +105,10 @@ async function getRedirects() {
 }
 async function middleware(request) {
     const path = request.nextUrl.pathname;
+    // Never apply WordPress redirects to routes the frontend owns
+    if (PROTECTED_PATHS.has(path.replace(/\/$/, '') || '/')) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].next();
+    }
     const redirects = await getRedirects();
     // Check for exact match or match without trailing slash
     const match = redirects.find((r)=>r.origin === path || r.origin === path.replace(/\/$/, '') || r.origin + '/' === path);
