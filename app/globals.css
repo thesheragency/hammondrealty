@@ -3,53 +3,72 @@
 @tailwind utilities;
 
 :root {
-  --color-brand: 217 91% 35%;
-  --color-brand-foreground: 0 0% 98%;
-  --color-accent: 24 95% 53%;
-  --color-accent-foreground: 0 0% 100%;
+  --color-brand: 95 12% 62%;
+  --color-brand-foreground: 0 0% 0%;
+  --color-accent: 95 12% 62%;
+  --color-accent-foreground: 0 0% 0%;
 
-  --font-heading: Inter, system-ui, sans-serif;
-  --font-body: Inter, system-ui, sans-serif;
-  --font-mono: 'Fira Code', Menlo, monospace;
+  --font-heading: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-mono: Menlo, monospace;
+
+  --button-outline: rgba(0, 0, 0, .10);
+  --badge-outline: rgba(0, 0, 0, .05);
+  --opaque-button-border-intensity: -8;
+  --elevate-1: rgba(0, 0, 0, .03);
+  --elevate-2: rgba(0, 0, 0, .08);
 
   --background: 0 0% 100%;
-  --foreground: 0 0% 9%;
-  --border: 0 0% 89%;
-  --card: 0 0% 98%;
-  --card-foreground: 0 0% 9%;
-  --card-border: 0 0% 94%;
-  --popover: 0 0% 94%;
-  --popover-foreground: 0 0% 9%;
+  --foreground: 0 0% 0%;
+  --border: 0 0% 90%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --card-border: 0 0% 90%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
   --popover-border: 0 0% 90%;
   --primary: var(--color-brand);
   --primary-foreground: var(--color-brand-foreground);
-  --secondary: 0 0% 90%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 92%;
+  --secondary: 0 0% 97%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 0 0% 97%;
   --muted-foreground: 0 0% 35%;
-  --accent: 217 8% 91%;
-  --accent-foreground: 0 0% 9%;
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-foreground);
   --destructive: 0 84% 37%;
-  --destructive-foreground: 0 0% 98%;
-  --input: 0 0% 75%;
-  --ring: 217 91% 35%;
-  --chart-1: 217 91% 35%;
-  --chart-2: 142 76% 36%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 49%;
-  --chart-5: 27 87% 47%;
-  --font-sans: var(--font-body);
-  --font-serif: Georgia, serif;
+  --destructive-foreground: 0 0% 100%;
+  --input: 0 0% 90%;
+  --ring: 95 12% 42%;
+  --chart-1: 95 12% 62%;
+  --chart-2: 95 12% 42%;
+  --chart-3: 0 0% 60%;
+  --chart-4: 0 0% 40%;
+  --chart-5: 0 0% 20%;
+  --font-serif: var(--font-playfair, 'Playfair Display'), Georgia, serif;
   --radius: .5rem;
 
-  --sidebar: 0 0% 96%;
-  --sidebar-foreground: 0 0% 9%;
-  --sidebar-border: 0 0% 92%;
-  --sidebar-primary: 217 91% 35%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 0 0% 92%;
-  --sidebar-accent-foreground: 0 0% 9%;
-  --sidebar-ring: 217 91% 35%;
+  /* Automatically computed borders for opaque buttons */
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+
+  --sidebar: 0 0% 97%;
+  --sidebar-foreground: 0 0% 0%;
+  --sidebar-border: 0 0% 90%;
+  --sidebar-primary: 95 12% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 95 12% 62%;
+  --sidebar-accent-foreground: 0 0% 0%;
+  --sidebar-ring: 95 12% 62%;
 
   /* Form styling variables - customize per project */
   --form-field-spacing: 1rem;
@@ -65,10 +84,16 @@
 }
 
 .dark {
-  --color-brand: 217 91% 55%;
-  --color-brand-foreground: 0 0% 98%;
-  --color-accent: 24 95% 58%;
-  --color-accent-foreground: 0 0% 100%;
+  --color-brand: 95 12% 62%;
+  --color-brand-foreground: 0 0% 0%;
+  --color-accent: 95 12% 62%;
+  --color-accent-foreground: 0 0% 0%;
+
+  --button-outline: rgba(255, 255, 255, .10);
+  --badge-outline: rgba(255, 255, 255, .05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255, 255, 255, .04);
+  --elevate-2: rgba(255, 255, 255, .09);
 
   --background: 0 0% 9%;
   --foreground: 0 0% 98%;
@@ -90,26 +115,51 @@
   --destructive: 0 84% 37%;
   --destructive-foreground: 0 0% 98%;
   --input: 0 0% 30%;
-  --ring: 217 91% 60%;
-  --chart-1: 217 91% 65%;
-  --chart-2: 142 76% 64%;
-  --chart-3: 197 37% 76%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
+  --ring: 95 12% 72%;
+  --chart-1: 95 12% 62%;
+  --chart-2: 95 12% 72%;
+  --chart-3: 0 0% 60%;
+  --chart-4: 0 0% 70%;
+  --chart-5: 0 0% 85%;
 
   --sidebar: 0 0% 13%;
   --sidebar-foreground: 0 0% 98%;
   --sidebar-border: 0 0% 17%;
-  --sidebar-primary: 217 91% 60%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 0 0% 16%;
+  --sidebar-primary: 95 12% 62%;
+  --sidebar-primary-foreground: 0 0% 0%;
+  --sidebar-accent: 95 12% 42%;
   --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-ring: 217 91% 60%;
+  --sidebar-ring: 95 12% 62%;
 
   /* Form styling variables - dark mode */
   --form-input-bg: 0 0% 12%;
   --form-input-border: 0 0% 25%;
   --form-placeholder: 0 0% 50%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Tablets (768–1279px): with `lg` raised to 1280px, let the container fill
+   the viewport like it does at 800px instead of capping at 768px. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* Widescreen: let content grow up to 1920px while keeping a small margin */
+@media (min-width: 1600px) {
+  .container {
+    max-width: min(96%, 1920px);
+  }
 }
 
 @layer base {
@@ -191,19 +241,67 @@
   }
 }
 
+/* Elevate system (outside @layer so Tailwind doesn't generate variants for it) */
+.no-default-hover-elevate {}
+.no-default-active-elevate {}
+
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
+
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
+
+  /* Does not work on elements with overflow:hidden! */
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
+  }
+
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
+
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
+
+  .border.hover-elevate:not(.no-default-hover-elevate)::after,
+  .border.active-elevate:not(.no-default-active-elevate)::after,
+  .border.hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .border.active-elevate-2:not(.no-default-active-elevate)::after {
+    inset: -1px;
+  }
+
 @layer utilities {
-  .hover-elevate {
-    @apply transition-colors duration-150;
-  }
-
-  .hover-elevate:hover {
-    @apply bg-accent/50;
-  }
-
-  .active-elevate-2:active {
-    @apply bg-accent;
-  }
-
   /* Typography - Headings */
   .text-h1 {
     font-family: var(--font-heading);

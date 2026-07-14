@@ -1,5 +1,5 @@
-import { Header } from './Header';
-import { Footer } from './Footer';
+import SiteHeader from '@/components/site/SiteHeader';
+import SiteFooter from '@/components/site/SiteFooter';
 import { PreviewBanner } from '@/components/preview/PreviewBanner';
 
 interface LayoutProps {
@@ -11,11 +11,11 @@ export function Layout({ children, isPreview = false }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {isPreview && <PreviewBanner />}
-      <Header />
+      <SiteHeader />
       <main className="flex-1">
         {children}
       </main>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

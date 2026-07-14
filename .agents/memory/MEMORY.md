@@ -1,0 +1,2 @@
+- [Tailwind v3 + Turbopack CSS quirks](tailwind-turbopack-quirks.md) — custom compound selectors must live outside @layer utilities; mixed units in `screens` config break min/max variants.
+- [React 19 peer-dep installs](react19-peer-deps.md) — npm installs fail on ERESOLVE (react-day-picker pins React 18); project .npmrc legacy-peer-deps=true is required, and framer-motion must be v12+ for React 19.

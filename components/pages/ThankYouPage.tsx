@@ -1,0 +1,44 @@
+"use client";
+
+import { motion } from "framer-motion";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
+
+export default function ThankYou() {
+  return (
+    <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
+      <SiteHeader variant="solid" />
+
+      <main className="flex-1 flex items-center justify-center">
+        <motion.section
+          className="w-full py-20 md:py-32"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
+                Thank You.
+              </h1>
+
+              <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-md mx-auto mb-10">
+                Your submission has been received. A personal response will be sent to
+                your inbox shortly to discuss your property goals.
+              </p>
+
+              <a
+                href="/"
+                className="inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto h-[45px] px-8"
+              >
+                Back To Home
+              </a>
+            </div>
+          </div>
+        </motion.section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}

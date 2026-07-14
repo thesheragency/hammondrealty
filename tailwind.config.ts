@@ -10,6 +10,11 @@ export default {
   ],
   theme: {
     extend: {
+      /* Tablets up to 1279px share the stacked layout; desktop (`lg:`)
+         layouts only kick in at 1280px and up, per the design system. */
+      screens: {
+        lg: "1280px",
+      },
       borderRadius: {
         lg: ".5625rem", /* 9px */
         md: ".375rem", /* 6px */

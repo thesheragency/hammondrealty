@@ -13,6 +13,8 @@ interface BuildMetadataOptions {
   description?: string;
   ogType?: 'website' | 'article';
   featuredImage?: string | null;
+  /** Path (e.g. "/buying") used to build a canonical URL when no Yoast canonical exists. */
+  canonicalPath?: string;
 }
 
 export async function buildMetadata({
@@ -21,6 +23,7 @@ export async function buildMetadata({
   description,
   ogType = 'website',
   featuredImage,
+  canonicalPath,
 }: BuildMetadataOptions): Promise<Metadata> {
   const globalDefaults = await fetchYoastGlobalDefaults();
   const fallbackImage = validUrl(featuredImage) || validUrl(globalDefaults.defaultImage);
@@ -32,7 +35,11 @@ export async function buildMetadata({
   return {
     title: seo?.title || title,
     description: seo?.metaDesc || description || '',
-    ...(seo?.canonical ? { alternates: { canonical: seo.canonical } } : {}),
+    ...(seo?.canonical
+      ? { alternates: { canonical: seo.canonical } }
+      : canonicalPath
+        ? { alternates: { canonical: canonicalPath } }
+        : {}),
     openGraph: {
       title: seo?.opengraphTitle || title,
       description: seo?.opengraphDescription || description || '',

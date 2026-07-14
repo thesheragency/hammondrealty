@@ -1,6 +1,8 @@
 # Headless WordPress Boilerplate
 
 ## Overview
+The frontend now implements the **Blake Hammond Real Estate** design: 13 static marketing pages (`components/pages/*Page.tsx`, client components) with shared site chrome in `components/site/` (SiteHeader, SiteFooter, CtaSection, FaqsSection, TestimonialsSection, GoogleBadges). Static app routes (`app/buying`, `app/selling`, etc.) are thin server wrappers that provide SEO metadata via `buildMetadata` and render the page components. WordPress-driven routes (`app/blog`, `app/[slug]`) use `components/layout/Layout.tsx`, which renders the same SiteHeader/SiteFooter. Design tokens (sage-green brand `95 12% 62%`, Inter + Playfair Display via next/font, elevate interaction system, `lg` breakpoint raised to 1280px) live in `app/globals.css` + `tailwind.config.ts`; `/style-guide` is the visual source of truth. Static images are served from `public/images/`.
+
 This project delivers a high-performance, SEO-friendly headless WordPress solution using Next.js App Router with direct WordPress GraphQL fetching and Next.js ISR (Incremental Static Regeneration) caching. It supports WordPress's default "Posts" content type with full taxonomy support. The aim is to provide a robust and scalable foundation for decoupled WordPress sites, emphasizing developer experience and efficient content delivery.
 
 ## User Preferences

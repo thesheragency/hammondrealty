@@ -108,6 +108,19 @@ export default function StyleGuide() {
         <Section title="Typography">
           <div className="space-y-8">
             <div>
+              <h3 className="text-h6 mb-4 text-muted-foreground">Brand Fonts</h3>
+              <div className="space-y-4">
+                <div className="border-b pb-4">
+                  <span className="text-small text-muted-foreground block mb-2">Sans — Inter (--font-sans, default)</span>
+                  <p className="font-sans text-2xl" data-testid="font-sample-sans">The quick brown fox jumps over the lazy dog</p>
+                </div>
+                <div className="border-b pb-4">
+                  <span className="text-small text-muted-foreground block mb-2">Serif — Playfair Display (--font-serif, accent use)</span>
+                  <p className="font-serif text-2xl italic" data-testid="font-sample-serif">The quick brown fox jumps over the lazy dog</p>
+                </div>
+              </div>
+            </div>
+            <div>
               <h3 className="text-h6 mb-6 text-muted-foreground">Headings</h3>
               <div className="space-y-6">
                 <div className="border-b pb-4">
