@@ -254,9 +254,23 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         throw new Error(data.error || 'Submission failed');
       }
 
+      const defaultConfirmation =
+        form?.confirmations?.find((c) => c.isDefault) || form?.confirmations?.[0];
+      const redirectUrl =
+        defaultConfirmation?.type?.toUpperCase() === 'REDIRECT' && defaultConfirmation.url
+          ? defaultConfirmation.url
+          : undefined;
+
+      if (redirectUrl && !onSuccess) {
+        if (redirectUrl.startsWith('/') || /^https?:/i.test(redirectUrl)) {
+          window.location.assign(redirectUrl);
+          return;
+        }
+      }
+
       setSubmitted(true);
       setConfirmationMessage(data.confirmation_message || 'Thank you for your submission.');
-      onSuccess?.({ message: data.confirmation_message });
+      onSuccess?.({ message: data.confirmation_message, url: redirectUrl });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Submission failed';
       setError(message);

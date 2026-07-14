@@ -2241,6 +2241,7 @@ __turbopack_context__.s([
     ()=>Selling
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
@@ -2267,6 +2268,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$acf$2e$ts__$5b$
 ;
 var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature(), _s2 = __turbopack_context__.k.signature(), _s3 = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -2478,7 +2480,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = "Before", afterAlt
                 className: "absolute inset-0 w-full h-full object-cover pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 215,
+                lineNumber: 216,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2486,7 +2488,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = "Before", afterAlt
                 children: "Before"
             }, void 0, false, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 222,
+                lineNumber: 223,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2505,7 +2507,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = "Before", afterAlt
                         }
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 231,
+                        lineNumber: 232,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2513,13 +2515,13 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = "Before", afterAlt
                         children: "After"
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 239,
+                        lineNumber: 240,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 227,
+                lineNumber: 228,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2539,28 +2541,28 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = "Before", afterAlt
                             d: "M8 5l-6 7 6 7V5zm8 0v14l6-7-6-7z"
                         }, void 0, false, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 251,
+                            lineNumber: 252,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 250,
+                        lineNumber: 251,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 249,
+                    lineNumber: 250,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 245,
+                lineNumber: 246,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/pages/SellingPage.tsx",
-        lineNumber: 202,
+        lineNumber: 203,
         columnNumber: 5
     }, this);
 }
@@ -2569,6 +2571,7 @@ _c = BeforeAfterSlider;
 function ContactForm() {
     _s1();
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     if (submitted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "bg-white p-8 md:p-10 shadow-2xl w-full text-center py-12",
@@ -2580,12 +2583,12 @@ function ContactForm() {
                         strokeWidth: 1.75
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 266,
+                        lineNumber: 268,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 265,
+                    lineNumber: 267,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2593,7 +2596,7 @@ function ContactForm() {
                     children: "Message Received."
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 268,
+                    lineNumber: 270,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2601,13 +2604,13 @@ function ContactForm() {
                     children: "Thanks for reaching out. A personal response will be sent to your inbox within one business day."
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 269,
+                    lineNumber: 271,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/pages/SellingPage.tsx",
-            lineNumber: 264,
+            lineNumber: 266,
             columnNumber: 7
         }, this);
     }
@@ -2616,19 +2619,29 @@ function ContactForm() {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GravityFormClient$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GravityFormClient"], {
             formId: 4,
             className: "space-y-4",
-            onSuccess: ()=>setSubmitted(true)
+            onSuccess: (c)=>{
+                if (c.url) {
+                    router.push(c.url);
+                } else {
+                    setSubmitted(true);
+                }
+            }
         }, void 0, false, {
             fileName: "[project]/components/pages/SellingPage.tsx",
-            lineNumber: 279,
+            lineNumber: 281,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/pages/SellingPage.tsx",
-        lineNumber: 278,
+        lineNumber: 280,
         columnNumber: 5
     }, this);
 }
-_s1(ContactForm, "S6ipnhtDax9I0+B/fnlVz3+f6e8=");
+_s1(ContactForm, "BZgYKciE+qvnVlqFesrSsaUU8Ns=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c1 = ContactForm;
 function WhySellVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whySellVideoThumbUrl }) {
     _s2();
@@ -2643,7 +2656,7 @@ function WhySellVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whySellVideoThumbUrl
             allowFullScreen: true
         }, void 0, false, {
             fileName: "[project]/components/pages/SellingPage.tsx",
-            lineNumber: 300,
+            lineNumber: 302,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
             type: "button",
@@ -2657,14 +2670,14 @@ function WhySellVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whySellVideoThumbUrl
                     className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 314,
+                    lineNumber: 316,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors"
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 319,
+                    lineNumber: 321,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2675,28 +2688,28 @@ function WhySellVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whySellVideoThumbUrl
                             className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                         }, void 0, false, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 322,
+                            lineNumber: 324,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 321,
+                        lineNumber: 323,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/pages/SellingPage.tsx",
-                    lineNumber: 320,
+                    lineNumber: 322,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/pages/SellingPage.tsx",
-            lineNumber: 308,
+            lineNumber: 310,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/pages/SellingPage.tsx",
-        lineNumber: 298,
+        lineNumber: 300,
         columnNumber: 5
     }, this);
 }
@@ -2739,7 +2752,7 @@ function Selling({ acf }) {
                 variant: "solid"
             }, void 0, false, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 376,
+                lineNumber: 378,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2754,7 +2767,7 @@ function Selling({ acf }) {
                                 className: "absolute top-0 right-0 translate-x-1/4 w-full lg:w-[1280px] h-auto pointer-events-none select-none z-0 opacity-10 lg:opacity-20"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 380,
+                                lineNumber: 382,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2781,7 +2794,7 @@ function Selling({ acf }) {
                                                         children: acf?.heroEyebrow || "Selling with Blake"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 398,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2791,7 +2804,7 @@ function Selling({ acf }) {
                                                                 "Sell Quickly.",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                    lineNumber: 400,
+                                                                    lineNumber: 402,
                                                                     columnNumber: 75
                                                                 }, this),
                                                                 "Make More Money."
@@ -2799,7 +2812,7 @@ function Selling({ acf }) {
                                                         }, void 0, true)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 399,
+                                                        lineNumber: 401,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2807,7 +2820,7 @@ function Selling({ acf }) {
                                                         children: acf?.heroBody || "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible."
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 404,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2820,28 +2833,28 @@ function Selling({ acf }) {
                                                                 children: acf?.heroCtaText || "Contact Blake"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 405,
+                                                                lineNumber: 407,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 404,
+                                                            lineNumber: 406,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 403,
+                                                        lineNumber: 405,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 397,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 389,
+                                            lineNumber: 391,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2858,29 +2871,29 @@ function Selling({ acf }) {
                                             },
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ContactForm, {}, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 417,
+                                                lineNumber: 419,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 411,
+                                            lineNumber: 413,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                    lineNumber: 388,
+                                    lineNumber: 390,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 387,
+                                lineNumber: 389,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 379,
+                        lineNumber: 381,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2913,12 +2926,12 @@ function Selling({ acf }) {
                                             thumbUrl: whyVideoImageUrl
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 434,
+                                            lineNumber: 436,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 433,
+                                        lineNumber: 435,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2928,7 +2941,7 @@ function Selling({ acf }) {
                                                 children: acf?.whyEyebrow || "Why Sell With Blake"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 438,
+                                                lineNumber: 440,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2936,7 +2949,7 @@ function Selling({ acf }) {
                                                 children: acf?.whyHeading || "Maximize Your Equity"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 441,
+                                                lineNumber: 443,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2944,7 +2957,7 @@ function Selling({ acf }) {
                                                 children: acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 444,
+                                                lineNumber: 446,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2961,12 +2974,12 @@ function Selling({ acf }) {
                                                                     strokeWidth: 2.5
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                    lineNumber: 454,
+                                                                    lineNumber: 456,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 453,
+                                                                lineNumber: 455,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2977,31 +2990,31 @@ function Selling({ acf }) {
                                                                         children: b.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                        lineNumber: 457,
+                                                                        lineNumber: 459,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                        lineNumber: 458,
+                                                                        lineNumber: 460,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     b.desc
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 456,
+                                                                lineNumber: 458,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, b.title, true, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 452,
+                                                        lineNumber: 454,
                                                         columnNumber: 23
                                                     }, this);
                                                 })
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 448,
+                                                lineNumber: 450,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3011,12 +3024,12 @@ function Selling({ acf }) {
                                                     thumbUrl: whyVideoImageUrl
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 468,
+                                                    lineNumber: 470,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 467,
+                                                lineNumber: 469,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3030,12 +3043,12 @@ function Selling({ acf }) {
                                                             children: acf?.whyCtaText || "Contact Blake"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 473,
+                                                            lineNumber: 475,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 472,
+                                                        lineNumber: 474,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3047,40 +3060,40 @@ function Selling({ acf }) {
                                                             children: acf?.whySecondaryText || "Find Your Home Value"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 480,
+                                                            lineNumber: 482,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 475,
+                                                        lineNumber: 477,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 471,
+                                                lineNumber: 473,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 437,
+                                        lineNumber: 439,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 432,
+                                lineNumber: 434,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 431,
+                            lineNumber: 433,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 424,
+                        lineNumber: 426,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3112,7 +3125,7 @@ function Selling({ acf }) {
                                             children: acf?.guaranteeEyebrow || "My Promise"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 498,
+                                            lineNumber: 500,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3120,7 +3133,7 @@ function Selling({ acf }) {
                                             children: acf?.guaranteeHeading || "The Hammond Real Estate Guarantee"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 501,
+                                            lineNumber: 503,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3128,13 +3141,13 @@ function Selling({ acf }) {
                                             children: acf?.guaranteeBody || "Four direct standards held on every single property partnership, in writing, from day one."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 504,
+                                            lineNumber: 506,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                    lineNumber: 497,
+                                    lineNumber: 499,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3166,12 +3179,12 @@ function Selling({ acf }) {
                                                         strokeWidth: 2
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 522,
+                                                        lineNumber: 524,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 521,
+                                                    lineNumber: 523,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -3179,7 +3192,7 @@ function Selling({ acf }) {
                                                     children: item.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 524,
+                                                    lineNumber: 526,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3187,30 +3200,30 @@ function Selling({ acf }) {
                                                     children: item.desc
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 525,
+                                                    lineNumber: 527,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, item.title, true, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 513,
+                                            lineNumber: 515,
                                             columnNumber: 19
                                         }, this);
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                    lineNumber: 509,
+                                    lineNumber: 511,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 496,
+                            lineNumber: 498,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 489,
+                        lineNumber: 491,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3257,17 +3270,17 @@ function Selling({ acf }) {
                                         }
                                     }, activeStep, false, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 544,
+                                        lineNumber: 546,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                    lineNumber: 543,
+                                    lineNumber: 545,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 542,
+                                lineNumber: 544,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3285,7 +3298,7 @@ function Selling({ acf }) {
                                                             children: acf?.processEyebrow || "Home Selling Process"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 561,
+                                                            lineNumber: 563,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3293,7 +3306,7 @@ function Selling({ acf }) {
                                                             children: acf?.processHeading || "Minimize Days On Market"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 564,
+                                                            lineNumber: 566,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3301,13 +3314,13 @@ function Selling({ acf }) {
                                                             children: acf?.processSubtitle || "Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 567,
+                                                            lineNumber: 569,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 560,
+                                                    lineNumber: 562,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3326,7 +3339,7 @@ function Selling({ acf }) {
                                                                             children: step.num
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                            lineNumber: 584,
+                                                                            lineNumber: 586,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3337,7 +3350,7 @@ function Selling({ acf }) {
                                                                                     children: step.title
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                                    lineNumber: 588,
+                                                                                    lineNumber: 590,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -3362,29 +3375,29 @@ function Selling({ acf }) {
                                                                                         children: step.desc
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                                        lineNumber: 593,
+                                                                                        lineNumber: 595,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                                    lineNumber: 591,
+                                                                                    lineNumber: 593,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                            lineNumber: 587,
+                                                                            lineNumber: 589,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                    lineNumber: 583,
+                                                                    lineNumber: 585,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, step.title, false, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 576,
+                                                                lineNumber: 578,
                                                                 columnNumber: 23
                                                             }, this);
                                                         }),
@@ -3410,17 +3423,17 @@ function Selling({ acf }) {
                                                                     }
                                                                 }, `m-${activeStep}`, false, {
                                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                    lineNumber: 613,
+                                                                    lineNumber: 615,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 612,
+                                                                lineNumber: 614,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 611,
+                                                            lineNumber: 613,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3429,43 +3442,43 @@ function Selling({ acf }) {
                                                             children: acf?.processCtaText || "Contact Blake"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 626,
+                                                            lineNumber: 628,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 572,
+                                                    lineNumber: 574,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 559,
+                                            lineNumber: 561,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "hidden lg:block"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 634,
+                                            lineNumber: 636,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                    lineNumber: 558,
+                                    lineNumber: 560,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 557,
+                                lineNumber: 559,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 534,
+                        lineNumber: 536,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3500,12 +3513,12 @@ function Selling({ acf }) {
                                             afterAlt: "Primary bedroom after staging"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 650,
+                                            lineNumber: 652,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 649,
+                                        lineNumber: 651,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3515,7 +3528,7 @@ function Selling({ acf }) {
                                                 children: acf?.prepEyebrow || "Elevate Your Market Value & Sell With Less Stress"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 659,
+                                                lineNumber: 661,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3523,7 +3536,7 @@ function Selling({ acf }) {
                                                 children: acf?.prepHeading || "Home Prep Program"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 660,
+                                                lineNumber: 662,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3531,7 +3544,7 @@ function Selling({ acf }) {
                                                 children: acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 663,
+                                                lineNumber: 665,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -3544,7 +3557,7 @@ function Selling({ acf }) {
                                                                 children: b.num
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 668,
+                                                                lineNumber: 670,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3555,30 +3568,30 @@ function Selling({ acf }) {
                                                                         children: b.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                        lineNumber: 672,
+                                                                        lineNumber: 674,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                        lineNumber: 673,
+                                                                        lineNumber: 675,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     b.desc
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                                lineNumber: 671,
+                                                                lineNumber: 673,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, b.num, true, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 667,
+                                                        lineNumber: 669,
                                                         columnNumber: 21
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 665,
+                                                lineNumber: 667,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3590,12 +3603,12 @@ function Selling({ acf }) {
                                                     afterAlt: "Primary bedroom after staging"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 682,
+                                                    lineNumber: 684,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 681,
+                                                lineNumber: 683,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3608,39 +3621,39 @@ function Selling({ acf }) {
                                                         children: acf?.prepCtaText || "Learn More"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 692,
+                                                        lineNumber: 694,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 691,
+                                                    lineNumber: 693,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 690,
+                                                lineNumber: 692,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 658,
+                                        lineNumber: 660,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 648,
+                                lineNumber: 650,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 647,
+                            lineNumber: 649,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 640,
+                        lineNumber: 642,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3675,7 +3688,7 @@ function Selling({ acf }) {
                                                 className: "h-6 md:h-8 w-auto mb-8"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 711,
+                                                lineNumber: 713,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3683,7 +3696,7 @@ function Selling({ acf }) {
                                                 children: acf?.zillowHeading || "Zillow Showcase Drives 75% More Views"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 716,
+                                                lineNumber: 718,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3691,7 +3704,7 @@ function Selling({ acf }) {
                                                 children: acf?.zillowBody || "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 719,
+                                                lineNumber: 721,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3702,12 +3715,12 @@ function Selling({ acf }) {
                                                     className: "w-full h-full object-cover object-top aspect-[4/3]"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/SellingPage.tsx",
-                                                    lineNumber: 724,
+                                                    lineNumber: 726,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 723,
+                                                lineNumber: 725,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3721,12 +3734,12 @@ function Selling({ acf }) {
                                                             children: acf?.zillowCtaText || "Contact Blake"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                                            lineNumber: 732,
+                                                            lineNumber: 734,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 731,
+                                                        lineNumber: 733,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3737,19 +3750,19 @@ function Selling({ acf }) {
                                                         children: acf?.zillowSecondaryText || "View On Zillow"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                                        lineNumber: 734,
+                                                        lineNumber: 736,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                                lineNumber: 730,
+                                                lineNumber: 732,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 710,
+                                        lineNumber: 712,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3760,33 +3773,33 @@ function Selling({ acf }) {
                                             className: "w-full h-full object-cover object-top aspect-[4/3]"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/SellingPage.tsx",
-                                            lineNumber: 746,
+                                            lineNumber: 748,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/SellingPage.tsx",
-                                        lineNumber: 745,
+                                        lineNumber: 747,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/SellingPage.tsx",
-                                lineNumber: 709,
+                                lineNumber: 711,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/SellingPage.tsx",
-                            lineNumber: 708,
+                            lineNumber: 710,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 701,
+                        lineNumber: 703,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$TestimonialsSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 756,
+                        lineNumber: 758,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$FaqsSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3794,31 +3807,31 @@ function Selling({ acf }) {
                         intro: acf?.faqsIntro || "Common questions from home sellers. Don't see yours? Get in touch, I am happy to walk you through it."
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 758,
+                        lineNumber: 760,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$CtaSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         secondaryLabel: ""
                     }, void 0, false, {
                         fileName: "[project]/components/pages/SellingPage.tsx",
-                        lineNumber: 763,
+                        lineNumber: 765,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 377,
+                lineNumber: 379,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/SellingPage.tsx",
-                lineNumber: 765,
+                lineNumber: 767,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/pages/SellingPage.tsx",
-        lineNumber: 375,
+        lineNumber: 377,
         columnNumber: 5
     }, this);
 }

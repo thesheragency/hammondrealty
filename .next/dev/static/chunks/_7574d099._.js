@@ -2241,6 +2241,7 @@ __turbopack_context__.s([
     ()=>Buying
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
@@ -2262,6 +2263,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$acf$2e$ts__$5b$
 ;
 var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -2384,6 +2386,7 @@ const buyingFaqs = [
 function ContactForm() {
     _s();
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     if (submitted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "bg-white p-8 md:p-10 shadow-2xl w-full text-center py-12",
@@ -2395,12 +2398,12 @@ function ContactForm() {
                         strokeWidth: 1.75
                     }, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 136,
+                        lineNumber: 138,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                    lineNumber: 135,
+                    lineNumber: 137,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2408,7 +2411,7 @@ function ContactForm() {
                     children: "Message Received."
                 }, void 0, false, {
                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                    lineNumber: 138,
+                    lineNumber: 140,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2416,13 +2419,13 @@ function ContactForm() {
                     children: "Thanks for reaching out. A personal response will be sent to your inbox within one business day."
                 }, void 0, false, {
                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                    lineNumber: 139,
+                    lineNumber: 141,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/pages/BuyingPage.tsx",
-            lineNumber: 134,
+            lineNumber: 136,
             columnNumber: 7
         }, this);
     }
@@ -2431,19 +2434,29 @@ function ContactForm() {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GravityFormClient$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GravityFormClient"], {
             formId: 3,
             className: "space-y-4",
-            onSuccess: ()=>setSubmitted(true)
+            onSuccess: (c)=>{
+                if (c.url) {
+                    router.push(c.url);
+                } else {
+                    setSubmitted(true);
+                }
+            }
         }, void 0, false, {
             fileName: "[project]/components/pages/BuyingPage.tsx",
-            lineNumber: 149,
+            lineNumber: 151,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/pages/BuyingPage.tsx",
-        lineNumber: 148,
+        lineNumber: 150,
         columnNumber: 5
     }, this);
 }
-_s(ContactForm, "S6ipnhtDax9I0+B/fnlVz3+f6e8=");
+_s(ContactForm, "BZgYKciE+qvnVlqFesrSsaUU8Ns=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c = ContactForm;
 function Buying({ acf }) {
     _s1();
@@ -2477,7 +2490,7 @@ function Buying({ acf }) {
                 variant: "solid"
             }, void 0, false, {
                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                lineNumber: 191,
+                lineNumber: 193,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2492,7 +2505,7 @@ function Buying({ acf }) {
                                 className: "absolute top-0 right-0 translate-x-1/4 w-full lg:w-[1280px] h-auto pointer-events-none select-none z-0 opacity-10 lg:opacity-20"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                lineNumber: 196,
+                                lineNumber: 198,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2519,7 +2532,7 @@ function Buying({ acf }) {
                                                         children: acf?.heroEyebrow || "Buying with Blake"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 213,
+                                                        lineNumber: 215,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2529,7 +2542,7 @@ function Buying({ acf }) {
                                                                 "Beat The Competition",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                    lineNumber: 217,
+                                                                    lineNumber: 219,
                                                                     columnNumber: 82
                                                                 }, this),
                                                                 "To The Property"
@@ -2537,7 +2550,7 @@ function Buying({ acf }) {
                                                         }, void 0, true)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 216,
+                                                        lineNumber: 218,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2545,7 +2558,7 @@ function Buying({ acf }) {
                                                         children: acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 219,
+                                                        lineNumber: 221,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -2558,30 +2571,30 @@ function Buying({ acf }) {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                    lineNumber: 225,
+                                                                    lineNumber: 227,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 224,
+                                                                lineNumber: 226,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "916-625-6118"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 220,
+                                                        lineNumber: 222,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 214,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 208,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2598,29 +2611,29 @@ function Buying({ acf }) {
                                             },
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ContactForm, {}, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 239,
+                                                lineNumber: 241,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 233,
+                                            lineNumber: 235,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                    lineNumber: 204,
+                                    lineNumber: 206,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                lineNumber: 203,
+                                lineNumber: 205,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 194,
+                        lineNumber: 196,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2655,14 +2668,14 @@ function Buying({ acf }) {
                                                 className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 256,
+                                                lineNumber: 258,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 261,
+                                                lineNumber: 263,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2673,23 +2686,23 @@ function Buying({ acf }) {
                                                         className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 264,
+                                                        lineNumber: 266,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 263,
+                                                    lineNumber: 265,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 262,
+                                                lineNumber: 264,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                        lineNumber: 255,
+                                        lineNumber: 257,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2699,7 +2712,7 @@ function Buying({ acf }) {
                                                 children: acf?.whyEyebrow || "Why Blake"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 270,
+                                                lineNumber: 272,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2707,7 +2720,7 @@ function Buying({ acf }) {
                                                 children: acf?.whyHeading || "Buying With Total Certainty"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 273,
+                                                lineNumber: 275,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2715,7 +2728,7 @@ function Buying({ acf }) {
                                                 children: acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 274,
+                                                lineNumber: 276,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2732,12 +2745,12 @@ function Buying({ acf }) {
                                                                     strokeWidth: 1.75
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 284,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 281,
+                                                                lineNumber: 283,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2748,7 +2761,7 @@ function Buying({ acf }) {
                                                                         children: b.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                        lineNumber: 285,
+                                                                        lineNumber: 287,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2756,25 +2769,25 @@ function Buying({ acf }) {
                                                                         children: b.desc
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                        lineNumber: 288,
+                                                                        lineNumber: 290,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 284,
+                                                                lineNumber: 286,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, b.title, true, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 280,
+                                                        lineNumber: 282,
                                                         columnNumber: 23
                                                     }, this);
                                                 })
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 276,
+                                                lineNumber: 278,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2786,14 +2799,14 @@ function Buying({ acf }) {
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 297,
+                                                        lineNumber: 299,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "absolute inset-0 bg-foreground/20"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 302,
+                                                        lineNumber: 304,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2804,23 +2817,23 @@ function Buying({ acf }) {
                                                                 className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 305,
+                                                                lineNumber: 307,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 306,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 303,
+                                                        lineNumber: 305,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 296,
+                                                lineNumber: 298,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2834,12 +2847,12 @@ function Buying({ acf }) {
                                                             children: acf?.whyCtaText || "Contact Blake"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 312,
+                                                            lineNumber: 314,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 311,
+                                                        lineNumber: 313,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2851,40 +2864,40 @@ function Buying({ acf }) {
                                                             children: acf?.whySecondaryText || "Free Home Value Analysis"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 319,
+                                                            lineNumber: 321,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 316,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                lineNumber: 310,
+                                                lineNumber: 312,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                        lineNumber: 269,
+                                        lineNumber: 271,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                lineNumber: 254,
+                                lineNumber: 256,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                            lineNumber: 253,
+                            lineNumber: 255,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 246,
+                        lineNumber: 248,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2918,7 +2931,7 @@ function Buying({ acf }) {
                                                     children: acf?.tipsEyebrow || "Buyer Tips"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 338,
+                                                    lineNumber: 340,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2928,7 +2941,7 @@ function Buying({ acf }) {
                                                             "Taking The Stress",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 344,
                                                                 columnNumber: 77
                                                             }, this),
                                                             "Out Of Buying"
@@ -2936,13 +2949,13 @@ function Buying({ acf }) {
                                                     }, void 0, true)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 343,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 337,
+                                            lineNumber: 339,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2950,13 +2963,13 @@ function Buying({ acf }) {
                                             children: acf?.tipsSubtitle || "Setting a few clear ground rules early protects your cash and saves you months of wasted weekend tours."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 345,
+                                            lineNumber: 347,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                    lineNumber: 336,
+                                    lineNumber: 338,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2985,21 +2998,21 @@ function Buying({ acf }) {
                                                     className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 360,
+                                                    lineNumber: 362,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "absolute inset-0 transition-colors duration-500 bg-foreground/55 group-hover:bg-primary/90"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 365,
+                                                    lineNumber: 367,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 366,
+                                                    lineNumber: 368,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3010,7 +3023,7 @@ function Buying({ acf }) {
                                                             children: tip.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 370,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3018,35 +3031,35 @@ function Buying({ acf }) {
                                                             children: tip.desc
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 369,
+                                                            lineNumber: 371,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 367,
+                                                    lineNumber: 369,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, tip.title, true, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 352,
+                                            lineNumber: 354,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                    lineNumber: 350,
+                                    lineNumber: 352,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                            lineNumber: 335,
+                            lineNumber: 337,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 328,
+                        lineNumber: 330,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -3093,17 +3106,17 @@ function Buying({ acf }) {
                                         }
                                     }, activeStep, false, {
                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                        lineNumber: 391,
+                                        lineNumber: 393,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                    lineNumber: 390,
+                                    lineNumber: 392,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                lineNumber: 389,
+                                lineNumber: 391,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3115,7 +3128,7 @@ function Buying({ acf }) {
                                             className: "hidden lg:block"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 406,
+                                            lineNumber: 408,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3128,7 +3141,7 @@ function Buying({ acf }) {
                                                             children: acf?.processEyebrow || "Home Buying Process"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 409,
+                                                            lineNumber: 411,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3136,7 +3149,7 @@ function Buying({ acf }) {
                                                             children: acf?.processHeading || "A Clear Path To Closing"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 410,
+                                                            lineNumber: 412,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3144,13 +3157,13 @@ function Buying({ acf }) {
                                                             children: acf?.processSubtitle || "Three distinct steps designed to protect your money and eliminate the guesswork."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 413,
+                                                            lineNumber: 415,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 408,
+                                                    lineNumber: 410,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3169,7 +3182,7 @@ function Buying({ acf }) {
                                                                             children: step.num
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                            lineNumber: 430,
+                                                                            lineNumber: 432,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3180,7 +3193,7 @@ function Buying({ acf }) {
                                                                                     children: step.title
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                                    lineNumber: 434,
+                                                                                    lineNumber: 436,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -3205,29 +3218,29 @@ function Buying({ acf }) {
                                                                                         children: step.desc
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                                        lineNumber: 439,
+                                                                                        lineNumber: 441,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                                    lineNumber: 437,
+                                                                                    lineNumber: 439,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                            lineNumber: 433,
+                                                                            lineNumber: 435,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                    lineNumber: 429,
+                                                                    lineNumber: 431,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, step.title, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 422,
+                                                                lineNumber: 424,
                                                                 columnNumber: 23
                                                             }, this);
                                                         }),
@@ -3253,17 +3266,17 @@ function Buying({ acf }) {
                                                                     }
                                                                 }, `m-${activeStep}`, false, {
                                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                    lineNumber: 459,
+                                                                    lineNumber: 461,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                                lineNumber: 458,
+                                                                lineNumber: 460,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 457,
+                                                            lineNumber: 459,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3272,41 +3285,41 @@ function Buying({ acf }) {
                                                             children: acf?.processCtaText || "Contact Blake"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                            lineNumber: 472,
+                                                            lineNumber: 474,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                                    lineNumber: 418,
+                                                    lineNumber: 420,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/BuyingPage.tsx",
-                                            lineNumber: 407,
+                                            lineNumber: 409,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/BuyingPage.tsx",
-                                    lineNumber: 405,
+                                    lineNumber: 407,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                                lineNumber: 404,
+                                lineNumber: 406,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 380,
+                        lineNumber: 382,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$TestimonialsSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 484,
+                        lineNumber: 486,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$FaqsSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3314,29 +3327,29 @@ function Buying({ acf }) {
                         intro: acf?.faqsIntro || "Common questions from buyers. Don't see yours? Get in touch, I am happy to walk you through it."
                     }, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 486,
+                        lineNumber: 488,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$CtaSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/BuyingPage.tsx",
-                        lineNumber: 491,
+                        lineNumber: 493,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                lineNumber: 192,
+                lineNumber: 194,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/BuyingPage.tsx",
-                lineNumber: 493,
+                lineNumber: 495,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/pages/BuyingPage.tsx",
-        lineNumber: 190,
+        lineNumber: 192,
         columnNumber: 5
     }, this);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -258,6 +259,7 @@ function BeforeAfterSlider({
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   if (submitted) {
     return (
@@ -279,7 +281,7 @@ function ContactForm() {
       <GravityFormClient
         formId={4}
         className="space-y-4"
-        onSuccess={() => setSubmitted(true)}
+        onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
       />
     </div>
   );

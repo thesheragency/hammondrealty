@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, BadgeCheck, Video, TrendingUp, Wallet, CalendarRange, LineChart, Compass } from "lucide-react";
@@ -93,6 +94,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
   const howItWorks: typeof defaultHowItWorks = acf?.howItWorks?.length ? acf.howItWorks : defaultHowItWorks;
   const notSelling = acf?.notSelling?.length ? mapIcons(acf.notSelling, defaultNotSelling) : defaultNotSelling;
   const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
@@ -283,7 +285,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                 <GravityFormClient
                   formId={2}
                   className="space-y-5"
-                  onSuccess={() => setSubmitted(true)}
+                  onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
                 />
               )}
               </div>

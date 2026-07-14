@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
@@ -12,6 +13,7 @@ const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_177938
 
 export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }) {
   const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
@@ -78,7 +80,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   <GravityFormClient
                     formId={1}
                     className="space-y-4"
-                    onSuccess={() => setSubmitted(true)}
+                    onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
                   />
                   </>
                   )}

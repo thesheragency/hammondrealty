@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -128,6 +129,7 @@ const buyingFaqs: Faq[] = [
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   if (submitted) {
     return (
@@ -149,7 +151,7 @@ function ContactForm() {
       <GravityFormClient
         formId={3}
         className="space-y-4"
-        onSuccess={() => setSubmitted(true)}
+        onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
       />
     </div>
   );

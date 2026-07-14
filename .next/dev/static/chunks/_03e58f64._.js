@@ -1917,6 +1917,7 @@ __turbopack_context__.s([
     ()=>HomeValue
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Play$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/play.js [app-client] (ecmascript) <export default as Play>");
@@ -1937,6 +1938,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$acf$2e$ts__$5b$
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -2024,6 +2026,7 @@ function HomeValue({ acf }) {
     const howItWorks = acf?.howItWorks?.length ? acf.howItWorks : defaultHowItWorks;
     const notSelling = acf?.notSelling?.length ? mapIcons(acf.notSelling, defaultNotSelling) : defaultNotSelling;
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-background font-sans text-foreground overflow-x-clip",
         children: [
@@ -2031,7 +2034,7 @@ function HomeValue({ acf }) {
                 variant: "solid"
             }, void 0, false, {
                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                lineNumber: 99,
+                lineNumber: 101,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2046,7 +2049,7 @@ function HomeValue({ acf }) {
                                 className: "pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                lineNumber: 103,
+                                lineNumber: 105,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2054,7 +2057,7 @@ function HomeValue({ acf }) {
                                 "aria-hidden": "true"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                lineNumber: 109,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2077,7 +2080,7 @@ function HomeValue({ acf }) {
                                                 children: acf?.heroEyebrow || "Free Home Value Analysis"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 117,
+                                                lineNumber: 119,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2085,7 +2088,7 @@ function HomeValue({ acf }) {
                                                 children: acf?.heroHeading || "What Is Your Home Worth?"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 120,
+                                                lineNumber: 122,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2093,7 +2096,7 @@ function HomeValue({ acf }) {
                                                 children: acf?.heroBody || "Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation. "
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 123,
+                                                lineNumber: 125,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2106,23 +2109,23 @@ function HomeValue({ acf }) {
                                                         children: acf?.heroCtaText || "Get Your Home Value"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 129,
+                                                        lineNumber: 131,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 125,
+                                                    lineNumber: 127,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 124,
+                                                lineNumber: 126,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 111,
+                                        lineNumber: 113,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2144,7 +2147,7 @@ function HomeValue({ acf }) {
                                                 className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 140,
+                                                lineNumber: 142,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2155,35 +2158,35 @@ function HomeValue({ acf }) {
                                                         className: "w-7 h-7 text-foreground fill-foreground translate-x-0.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 147,
+                                                        lineNumber: 149,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 148,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 145,
+                                                lineNumber: 147,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 134,
+                                        lineNumber: 136,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                lineNumber: 110,
+                                lineNumber: 112,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 102,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2215,7 +2218,7 @@ function HomeValue({ acf }) {
                                             children: acf?.whatYouGetHeading || "What You Get"
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 164,
+                                            lineNumber: 166,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2223,13 +2226,13 @@ function HomeValue({ acf }) {
                                             children: acf?.whatYouGetSubtitle || "A clear read on property value, built by hand, not by an algorithm."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 169,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                    lineNumber: 163,
+                                    lineNumber: 165,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2259,12 +2262,12 @@ function HomeValue({ acf }) {
                                                         strokeWidth: 1.75
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 184,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 181,
+                                                    lineNumber: 183,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2272,7 +2275,7 @@ function HomeValue({ acf }) {
                                                     children: item.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 186,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2280,29 +2283,29 @@ function HomeValue({ acf }) {
                                                     children: item.desc
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 189,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, item.title, true, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 173,
+                                            lineNumber: 175,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                    lineNumber: 171,
+                                    lineNumber: 173,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                            lineNumber: 162,
+                            lineNumber: 164,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 155,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2336,7 +2339,7 @@ function HomeValue({ acf }) {
                                                 children: "The Process"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 208,
+                                                lineNumber: 210,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2344,7 +2347,7 @@ function HomeValue({ acf }) {
                                                 children: acf?.howItWorksHeading || "Here Is How It Works"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 213,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2352,13 +2355,13 @@ function HomeValue({ acf }) {
                                                 children: acf?.howItWorksSubtitle || "Accurate analysis delivered straight to your inbox within 24 hours."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 214,
+                                                lineNumber: 216,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 209,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2386,7 +2389,7 @@ function HomeValue({ acf }) {
                                                         children: step.num
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 230,
+                                                        lineNumber: 232,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2394,7 +2397,7 @@ function HomeValue({ acf }) {
                                                         children: step.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 233,
+                                                        lineNumber: 235,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2402,34 +2405,34 @@ function HomeValue({ acf }) {
                                                         children: step.desc
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 238,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, step.title, true, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 222,
+                                                lineNumber: 224,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 222,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                lineNumber: 205,
+                                lineNumber: 207,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                            lineNumber: 204,
+                            lineNumber: 206,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 197,
+                        lineNumber: 199,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2464,7 +2467,7 @@ function HomeValue({ acf }) {
                                                 children: acf?.formEyebrow || "Get Started"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 258,
+                                                lineNumber: 260,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2474,7 +2477,7 @@ function HomeValue({ acf }) {
                                                         "Request Your",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                            lineNumber: 262,
+                                                            lineNumber: 264,
                                                             columnNumber: 72
                                                         }, this),
                                                         "Custom Valuation"
@@ -2482,7 +2485,7 @@ function HomeValue({ acf }) {
                                                 }, void 0, true)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 261,
+                                                lineNumber: 263,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2490,13 +2493,13 @@ function HomeValue({ acf }) {
                                                 children: acf?.formBody || "Share a few details to receive a personalized written property report with zero algorithms or guesswork."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                lineNumber: 264,
+                                                lineNumber: 266,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 259,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2511,12 +2514,12 @@ function HomeValue({ acf }) {
                                                         strokeWidth: 1.75
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 275,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 272,
+                                                    lineNumber: 274,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2524,7 +2527,7 @@ function HomeValue({ acf }) {
                                                     children: acf?.formSuccessHeading || "Thanks, the details have been received."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 275,
+                                                    lineNumber: 277,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2532,42 +2535,48 @@ function HomeValue({ acf }) {
                                                     children: acf?.formSuccessBody || "Your personalized home value report and custom video breakdown will be delivered within one business day."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 278,
+                                                    lineNumber: 280,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 271,
+                                            lineNumber: 273,
                                             columnNumber: 17
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GravityFormClient$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GravityFormClient"], {
                                             formId: 2,
                                             className: "space-y-5",
-                                            onSuccess: ()=>setSubmitted(true)
+                                            onSuccess: (c)=>{
+                                                if (c.url) {
+                                                    router.push(c.url);
+                                                } else {
+                                                    setSubmitted(true);
+                                                }
+                                            }
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 283,
+                                            lineNumber: 285,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                        lineNumber: 269,
+                                        lineNumber: 271,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                lineNumber: 256,
+                                lineNumber: 258,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                            lineNumber: 255,
+                            lineNumber: 257,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 247,
+                        lineNumber: 249,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -2599,7 +2608,7 @@ function HomeValue({ acf }) {
                                             children: acf?.notSellingHeading || "Not Selling Yet? That's Okay."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 304,
+                                            lineNumber: 306,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2607,13 +2616,13 @@ function HomeValue({ acf }) {
                                             children: acf?.notSellingSubtitle || "Tracking property equity is a smart way to plan ahead. Knowing true property value helps build long-term plans with confidence. The smartest homeowners always start tracking market details early."
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 307,
+                                            lineNumber: 309,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                    lineNumber: 303,
+                                    lineNumber: 305,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2643,12 +2652,12 @@ function HomeValue({ acf }) {
                                                         strokeWidth: 1.75
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                        lineNumber: 322,
+                                                        lineNumber: 324,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 321,
+                                                    lineNumber: 323,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2656,7 +2665,7 @@ function HomeValue({ acf }) {
                                                     children: item.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 324,
+                                                    lineNumber: 326,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2664,34 +2673,34 @@ function HomeValue({ acf }) {
                                                     children: item.desc
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 329,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, item.title, true, {
                                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                            lineNumber: 313,
+                                            lineNumber: 315,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/components/pages/HomeValuePage.tsx",
-                                    lineNumber: 311,
+                                    lineNumber: 313,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/pages/HomeValuePage.tsx",
-                            lineNumber: 302,
+                            lineNumber: 304,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 295,
+                        lineNumber: 297,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$TestimonialsSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 336,
+                        lineNumber: 338,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$CtaSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2704,28 +2713,32 @@ function HomeValue({ acf }) {
                         } : {}
                     }, void 0, false, {
                         fileName: "[project]/components/pages/HomeValuePage.tsx",
-                        lineNumber: 338,
+                        lineNumber: 340,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                lineNumber: 100,
+                lineNumber: 102,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/HomeValuePage.tsx",
-                lineNumber: 346,
+                lineNumber: 348,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/pages/HomeValuePage.tsx",
-        lineNumber: 98,
+        lineNumber: 100,
         columnNumber: 5
     }, this);
 }
-_s(HomeValue, "S6ipnhtDax9I0+B/fnlVz3+f6e8=");
+_s(HomeValue, "BZgYKciE+qvnVlqFesrSsaUU8Ns=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c = HomeValue;
 var _c;
 __turbopack_context__.k.register(_c, "HomeValue");

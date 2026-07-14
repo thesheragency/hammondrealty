@@ -973,7 +973,7 @@ function GetInTouch({ acf }) {
                 variant: "solid"
             }, void 0, false, {
                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                lineNumber: 18,
+                lineNumber: 19,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -989,7 +989,7 @@ function GetInTouch({ acf }) {
                                 className: "pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                lineNumber: 23,
+                                lineNumber: 24,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -997,7 +997,7 @@ function GetInTouch({ acf }) {
                                 "aria-hidden": "true"
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                lineNumber: 29,
+                                lineNumber: 30,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1021,7 +1021,7 @@ function GetInTouch({ acf }) {
                                                     children: acf?.eyebrow || "Get in Touch"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 37,
+                                                    lineNumber: 38,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -1031,7 +1031,7 @@ function GetInTouch({ acf }) {
                                                             "Let's Talk About",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                                lineNumber: 41,
+                                                                lineNumber: 42,
                                                                 columnNumber: 68
                                                             }, this),
                                                             "Your Next Move."
@@ -1039,7 +1039,7 @@ function GetInTouch({ acf }) {
                                                     }, void 0, true)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 40,
+                                                    lineNumber: 41,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1047,7 +1047,7 @@ function GetInTouch({ acf }) {
                                                     children: acf?.body || "Whether you are buying, selling, or just exploring the market, every message receives a personal reply. No call centers, no scripts, and no generic answers."
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 43,
+                                                    lineNumber: 44,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1055,13 +1055,13 @@ function GetInTouch({ acf }) {
                                                     children: acf?.ps || `P.S. In case you are wondering, yes, the hat says "Make Realtors Great Again." And no, it is not political. It is a mindset. This industry is full of mediocrity, and Blake is here to raise the bar.`
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 46,
+                                                    lineNumber: 47,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                            lineNumber: 32,
+                                            lineNumber: 33,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1088,12 +1088,12 @@ function GetInTouch({ acf }) {
                                                                 strokeWidth: 1.75
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                                lineNumber: 60,
+                                                                lineNumber: 61,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 59,
+                                                            lineNumber: 60,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1101,7 +1101,7 @@ function GetInTouch({ acf }) {
                                                             children: acf?.successHeading || "Message received."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 62,
+                                                            lineNumber: 63,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1109,13 +1109,13 @@ function GetInTouch({ acf }) {
                                                             children: acf?.successBody || "Thanks for reaching out. A personal response will be sent to your inbox within one business day."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 65,
+                                                            lineNumber: 66,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 59,
                                                     columnNumber: 21
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                     children: [
@@ -1124,7 +1124,7 @@ function GetInTouch({ acf }) {
                                                             children: acf?.formEyebrow || "Send a Message"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 71,
+                                                            lineNumber: 72,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1132,45 +1132,51 @@ function GetInTouch({ acf }) {
                                                             children: acf?.formHeading || "Tell Us About Your Move."
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 74,
+                                                            lineNumber: 75,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GravityFormClient$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["GravityFormClient"], {
                                                             formId: 1,
                                                             className: "space-y-4",
-                                                            onSuccess: ()=>setSubmitted(true)
+                                                            onSuccess: (c)=>{
+                                                                if (c.url) {
+                                                                    router.push(c.url);
+                                                                } else {
+                                                                    setSubmitted(true);
+                                                                }
+                                                            }
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                            lineNumber: 78,
+                                                            lineNumber: 79,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 56,
+                                                lineNumber: 57,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                            lineNumber: 51,
+                                            lineNumber: 52,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                    lineNumber: 31,
+                                    lineNumber: 32,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                lineNumber: 30,
+                                lineNumber: 31,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                        lineNumber: 22,
+                        lineNumber: 23,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1190,12 +1196,12 @@ function GetInTouch({ acf }) {
                                                     strokeWidth: 1.75
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 97,
+                                                    lineNumber: 98,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 96,
+                                                lineNumber: 97,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1203,7 +1209,7 @@ function GetInTouch({ acf }) {
                                                 children: acf?.emailCardTitle || "Email Anytime"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 99,
+                                                lineNumber: 100,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1211,7 +1217,7 @@ function GetInTouch({ acf }) {
                                                 children: acf?.emailCardDesc || "A direct response will be sent as soon as possible, usually the same day."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 102,
+                                                lineNumber: 103,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1220,13 +1226,13 @@ function GetInTouch({ acf }) {
                                                 children: acf?.email || "blakehammondre@gmail.com"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 105,
+                                                lineNumber: 106,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                        lineNumber: 95,
+                                        lineNumber: 96,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1239,12 +1245,12 @@ function GetInTouch({ acf }) {
                                                     strokeWidth: 1.75
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                    lineNumber: 114,
+                                                    lineNumber: 115,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 113,
+                                                lineNumber: 114,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1252,7 +1258,7 @@ function GetInTouch({ acf }) {
                                                 children: acf?.phoneCardTitle || "Call Or Text"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 116,
+                                                lineNumber: 117,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1260,7 +1266,7 @@ function GetInTouch({ acf }) {
                                                 children: acf?.phoneCardDesc || "If the line is busy, leave a voicemail or shoot over a text message for a reply within 24 hours."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 119,
+                                                lineNumber: 120,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1269,46 +1275,46 @@ function GetInTouch({ acf }) {
                                                 children: acf?.phone || "(916) 625-6118"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                                lineNumber: 122,
+                                                lineNumber: 123,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 113,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                                lineNumber: 94,
+                                lineNumber: 95,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                            lineNumber: 93,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                        lineNumber: 92,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                lineNumber: 20,
+                lineNumber: 21,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteFooter$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/components/pages/GetInTouchPage.tsx",
-                lineNumber: 134,
+                lineNumber: 135,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/pages/GetInTouchPage.tsx",
-        lineNumber: 17,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 }
