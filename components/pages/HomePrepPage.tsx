@@ -14,22 +14,22 @@ import { imgUrl } from "@/lib/wp-acf";
 
 const prepHeroBgUrl = "/images/prep-hero-roseville.jpg";
 const prepHomeAerialUrl = "/images/prep-home-aerial.jpg";
-const stepPreparing1Url = "/images/Screenshot_2026-06-25_at_1.31.22_PM_1782405091798.png";
+const stepPreparing1Url = "/images/step-preparing-1.webp";
 const stepPreparing2Url = "/images/step-preparing-2-updates.png";
 const stepPreparing3Url = "/images/step-preparing-3-launch.png";
 const stepPreparing4Url = "/images/step-preparing-4-funding.png";
 const stepPreparing5Url = "/images/step-preparing-5-staging.png";
-const prepLivingroomUrl = "/images/staged_living_room_1782405230307.jpg";
+const prepLivingroomUrl = "/images/staging-living-room.webp";
 const prepLivingroomBeforeUrl = "/images/prep-livingroom-before.png";
 const prepRosevilleBeforeUrl = "/images/prep-roseville-before.jpg";
 const prepRosevilleAfterUrl = "/images/prep-roseville-after.jpg";
 const soundFamiliarUrl = "/images/sound-familiar-stressed-seller.png";
-const includedPaintingUrl = "/images/Screenshot_2026-06-25_at_1.32.22_PM_1782405143958.png";
-const includedLandscapingUrl = "/images/included-landscaping.png";
-const includedRepairsUrl = "/images/included-repairs.png";
-const includedDeepCleaningUrl = "/images/included-deep-cleaning.png";
-const includedJunkHaulingUrl = "/images/included-junk-hauling.png";
-const includedEstateSalesUrl = "/images/included-estate-sales.png";
+const includedPaintingUrl = "/images/included-painting.webp";
+const includedLandscapingUrl = "/images/included-landscaping.webp";
+const includedRepairsUrl = "/images/included-repairs.webp";
+const includedDeepCleaningUrl = "/images/included-deep-cleaning.webp";
+const includedJunkHaulingUrl = "/images/included-junk-hauling.webp";
+const includedEstateSalesUrl = "/images/included-estate-sales.webp";
 
 const soundFamiliarWorries = [
   "\"Which repairs are actually worth doing?\"",
@@ -262,14 +262,14 @@ function IncludedCarousel({
 }) {
   const count = cards.length;
   const GAP = 16;
-  const TRANSITION_MS = 650;
+  const SETTLE_MS = 700;
+  const BUFFER = 2;
 
-  const [visualIndex, setVisualIndex] = useState(count);
+  const [visualIndex, setVisualIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerW, setContainerW] = useState(0);
   const [visibleTiles, setVisibleTiles] = useState(3);
-  const items = [...cards, ...cards, ...cards];
 
   useEffect(() => {
     const el = containerRef.current;
@@ -286,15 +286,16 @@ function IncludedCarousel({
   }, []);
 
   useEffect(() => {
-    if (visualIndex >= count && visualIndex < count * 2) return;
-    const normalized = ((visualIndex % count) + count) % count + count;
+    if (visualIndex === 0) return;
+    const normalized = ((visualIndex % count) + count) % count;
+    if (normalized === visualIndex) return;
     const timer = setTimeout(() => {
       setAnimate(false);
       setVisualIndex(normalized);
       requestAnimationFrame(() =>
         requestAnimationFrame(() => setAnimate(true)),
       );
-    }, TRANSITION_MS);
+    }, SETTLE_MS);
     return () => clearTimeout(timer);
   }, [visualIndex, count]);
 
@@ -314,6 +315,9 @@ function IncludedCarousel({
     };
   }, [controlsRef, prev, next]);
 
+  const renderStart = visualIndex - BUFFER;
+  const renderEnd = visualIndex + visibleTiles - 1 + BUFFER;
+
   return (
     <div ref={containerRef} className="relative overflow-x-clip">
       {/* Invisible placeholder gives the container its natural height */}
@@ -326,8 +330,7 @@ function IncludedCarousel({
       </div>
 
       <motion.div
-        className="absolute top-0 left-0 flex"
-        style={{ gap: `${GAP}px` }}
+        className="absolute top-0 left-0"
         animate={{ x: trackX }}
         transition={
           animate
@@ -335,28 +338,39 @@ function IncludedCarousel({
             : { duration: 0 }
         }
       >
-        {items.map((card, j) => (
-          <div
-            key={j}
-            className="group relative flex-none aspect-[4/5] overflow-hidden bg-muted shadow-lg"
-            style={{ width: tileW || undefined }}
-          >
-            <img
-              src={card.image}
-              alt={card.title}
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent md:from-black/75 md:via-black/20 pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
-              <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2 drop-shadow-md">
-                {card.title}
-              </h3>
-              <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm">
-                {card.desc}
-              </p>
+        {Array.from({ length: renderEnd - renderStart + 1 }, (_, i) => {
+          const pos = renderStart + i;
+          const cardIndex = ((pos % count) + count) % count;
+          const card = cards[cardIndex];
+          const isVisible = pos >= visualIndex && pos < visualIndex + visibleTiles;
+          return (
+            <div
+              key={pos}
+              className="group absolute top-0 aspect-[4/5] overflow-hidden bg-muted shadow-lg"
+              style={{
+                left: pos * (tileW + GAP),
+                width: tileW || undefined,
+              }}
+            >
+              <img
+                src={card.image}
+                alt={card.title}
+                loading={isVisible ? "eager" : "lazy"}
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent md:from-black/75 md:via-black/20 pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
+                <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2 drop-shadow-md">
+                  {card.title}
+                </h3>
+                <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm">
+                  {card.desc}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </motion.div>
     </div>
   );
