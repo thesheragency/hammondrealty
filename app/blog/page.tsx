@@ -7,8 +7,9 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
-    title: 'Blog | WordPress Headless CMS',
-    description: 'Browse all blog posts from WordPress.',
+    title: 'Sacramento Real Estate Insights & Advice | Blake Hammond Real Estate',
+    description: 'Explore expert Sacramento real estate articles from Blake Hammond — covering buyer and seller strategies, home-prep tips, neighborhood guides, and local market updates.',
+    canonicalPath: '/blog',
   });
 }
 
