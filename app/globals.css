@@ -173,13 +173,13 @@ html {
 }
 
 @layer components {
-  /* Gravity Forms field styling - customize per project */
+  /* Gravity Forms field styling - flat design matching site forms */
   .gf-form {
-    /* Container styling applied via Card component */
+    /* Page templates provide the white container box */
   }
 
   .gf-field {
-    margin-bottom: var(--form-field-spacing);
+    margin-bottom: 0;
   }
 
   .gf-label {
@@ -190,11 +190,24 @@ html {
     color: hsl(var(--foreground));
   }
 
+  /* !important needed: shadcn inputs carry Tailwind utility classes (h-9,
+     rounded-md, px-3, focus-visible:ring-*) that are emitted in the utilities
+     layer, which otherwise wins the cascade over these component-layer rules. */
   .gf-input,
   .gf-textarea,
   .gf-select {
-    background-color: hsl(var(--form-input-bg));
-    border-color: hsl(var(--form-input-border));
+    background-color: hsl(var(--form-input-bg)) !important;
+    border-color: hsl(var(--foreground) / 0.15) !important;
+    border-radius: 0 !important;
+    height: 2.75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .gf-textarea {
+    height: auto !important;
+    min-height: 6rem !important;
+    resize: none !important;
   }
 
   .gf-input::placeholder,
@@ -203,9 +216,16 @@ html {
   }
 
   .gf-input:focus,
+  .gf-input:focus-visible,
   .gf-textarea:focus,
-  .gf-select:focus {
-    --tw-ring-color: hsl(var(--form-input-focus-ring));
+  .gf-textarea:focus-visible,
+  .gf-select:focus,
+  .gf-select:focus-visible {
+    --tw-ring-offset-width: 0px;
+    --tw-ring-color: transparent;
+    box-shadow: none !important;
+    outline: none !important;
+    border-color: hsl(var(--primary)) !important;
   }
 
   .gf-radio-group,

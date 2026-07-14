@@ -14,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Loader2, ChevronLeft, ChevronRight, AlertCircle, Upload, Calendar, Clock } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -807,37 +806,37 @@ onChange={(e) => {
 
   if (loading) {
     return (
-      <Card className={className}>
-        <CardContent className="flex items-center justify-center py-12">
+      <div className={className}>
+        <div className="flex items-center justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   if (error && !form) {
     return (
-      <Card className={className}>
-        <CardContent className="py-12">
+      <div className={className}>
+        <div className="py-12">
           <div className="text-center text-destructive">
             <AlertCircle className="h-8 w-8 mx-auto mb-2" />
             <p>{error}</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   if (submitted) {
     return (
-      <Card className={className}>
-        <CardContent className="py-12">
+      <div className={className}>
+        <div className="py-12">
           <div
             className="text-center"
             dangerouslySetInnerHTML={{ __html: confirmationMessage || 'Thank you!' }}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
@@ -849,26 +848,21 @@ onChange={(e) => {
   const progress = isMultiPage ? (currentPage / totalPages) * 100 : 100;
 
   return (
-    <Card className={`gf-form ${className || ''}`} data-testid={`form-gravity-${formId}`}>
-      <CardHeader>
-        <CardTitle>{form.title}</CardTitle>
-        {form.description && <CardDescription>{decodeHtmlEntities(form.description)}</CardDescription>}
-        {isMultiPage && (
-          <div className="mt-4">
-            <div className="flex justify-between text-sm text-muted-foreground mb-2">
-              <span>
-                {form.pagination?.pageNames?.[currentPage - 1] || `Page ${currentPage}`}
-              </span>
-              <span>
-                {currentPage} of {totalPages}
-              </span>
-            </div>
-            <Progress value={progress} className="h-2" />
+    <div className={`gf-form ${className || ''}`} data-testid={`form-gravity-${formId}`}>
+      {isMultiPage && (
+        <div className="mb-6">
+          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+            <span>
+              {form.pagination?.pageNames?.[currentPage - 1] || `Page ${currentPage}`}
+            </span>
+            <span>
+              {currentPage} of {totalPages}
+            </span>
           </div>
-        )}
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+          <Progress value={progress} className="h-2" />
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
           <div
             className="gf-honeypot"
             style={{ position: 'absolute', left: '-9999px' }}
@@ -908,36 +902,44 @@ onChange={(e) => {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4 pt-4">
+          <div className="flex items-center justify-between gap-4 pt-2">
             {isMultiPage && currentPage > 1 ? (
               <Button
                 type="button"
                 variant="outline"
+                className="rounded-none font-medium text-sm h-[45px]"
                 onClick={handlePrevPage}
                 data-testid="button-gf-prev"
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Previous
               </Button>
-            ) : (
-              <div />
-            )}
+            ) : null}
 
             {isMultiPage && !isLastPage ? (
-              <Button type="button" onClick={handleNextPage} data-testid="button-gf-next">
+              <Button
+                type="button"
+                className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 h-[45px] ml-auto"
+                onClick={handleNextPage}
+                data-testid="button-gf-next"
+              >
                 Next
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             ) : (
-              <Button type="submit" disabled={submitting} data-testid="button-gf-submit">
+              <Button
+                type="submit"
+                disabled={submitting}
+                className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
+                data-testid="button-gf-submit"
+              >
                 {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                 {form.submitButton?.text || 'Submit'}
               </Button>
             )}
           </div>
         </form>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
 
