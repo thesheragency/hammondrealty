@@ -3,10 +3,15 @@
   "/api/forms/submit-rest/route": "app/api/forms/submit-rest/route.js",
   "/api/forms/submit/route": "app/api/forms/submit/route.js",
   "/api/revalidate/route": "app/api/revalidate/route.js",
+  "/book-consultation/page": "app/book-consultation/page.js",
+  "/booked/page": "app/booked/page.js",
   "/buyer/page": "app/buyer/page.js",
   "/connect/page": "app/connect/page.js",
+  "/faqs/page": "app/faqs/page.js",
+  "/home-prep-program/page": "app/home-prep-program/page.js",
   "/home-value-analysis/page": "app/home-value-analysis/page.js",
   "/page": "app/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js",
   "/seller/page": "app/seller/page.js",
   "/thank-you/page": "app/thank-you/page.js"
 }
