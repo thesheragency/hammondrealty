@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
 import GetInTouchPage from '@/components/pages/GetInTouchPage';
 import { fetchGetInTouchAcf } from '@/lib/wp-acf';
+import JsonLd from '@/components/seo/JsonLd';
+import { localBusinessJsonLd } from '@/lib/structured-data';
 
 export const revalidate = 300;
 
@@ -15,5 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const acf = await fetchGetInTouchAcf();
-  return <GetInTouchPage acf={acf} />;
+  return (
+    <>
+      <JsonLd data={localBusinessJsonLd()} />
+      <GetInTouchPage acf={acf} />
+    </>
+  );
 }

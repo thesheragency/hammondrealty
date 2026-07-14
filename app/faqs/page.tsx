@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
 import { fetchFaqsAcf, fetchFaqs } from '@/lib/wp-acf';
 import FaqsPage from '@/components/pages/FaqsPage';
+import JsonLd from '@/components/seo/JsonLd';
+import { localBusinessJsonLd, faqPageJsonLd, staticFaqItems } from '@/lib/structured-data';
 
 export const revalidate = 300;
 
@@ -15,5 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const [acf, faqs] = await Promise.all([fetchFaqsAcf(), fetchFaqs()]);
-  return <FaqsPage acf={acf} faqs={faqs} />;
+  const faqItems = faqs?.length
+    ? faqs.map((f) => ({ question: f.question, answer: f.answer }))
+    : staticFaqItems;
+  return (
+    <>
+      <JsonLd data={localBusinessJsonLd()} />
+      <JsonLd data={faqPageJsonLd(faqItems)} />
+      <FaqsPage acf={acf} faqs={faqs} />
+    </>
+  );
 }
