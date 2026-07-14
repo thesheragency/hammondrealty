@@ -959,7 +959,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             </div>
 
             <div className="lg:col-span-2">
-              <h4 className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Quick Links</h4>
+              <p className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Quick Links</p>
               <ul className="space-y-3 text-sm">
                 {[
                   { label: "Home", href: "/" },
@@ -975,7 +975,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             </div>
 
             <div className="lg:col-span-2">
-              <h4 className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Services</h4>
+              <p className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Services</p>
               <ul className="space-y-3 text-sm">
                 {[
                   { label: "Home Prep Program", href: "/home-prep-program" },
@@ -991,7 +991,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             </div>
 
             <div className="lg:col-span-3">
-              <h4 className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Contact</h4>
+              <p className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Contact</p>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-3 text-foreground/80">
                   <span className="w-9 h-9 shrink-0 flex items-center justify-center bg-primary text-white">

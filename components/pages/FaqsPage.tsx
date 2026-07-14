@@ -144,6 +144,7 @@ export default function Faqs({
               )}
 
               {/* Accordion */}
+              <h2 className="sr-only">Questions and Answers</h2>
               <Accordion
                 type="single"
                 collapsible
