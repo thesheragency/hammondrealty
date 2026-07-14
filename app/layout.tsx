@@ -4,6 +4,8 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ClientToaster } from "@/components/ui/client-toaster";
 import { GlobalHeadScripts, GlobalBodyScripts } from "@/components/scripts/GlobalScripts";
+import { SiteMenusProvider } from "@/components/site/SiteMenusProvider";
+import { fetchSiteMenus } from "@/lib/wp-menus";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,11 +29,12 @@ export const metadata: Metadata = {
     "Blake Hammond Real Estate — modern, high-touch service for buyers, sellers, and homeowners in the greater Sacramento region.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const menus = await fetchSiteMenus();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -40,7 +43,7 @@ export default function RootLayout({
         </Suspense>
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}>
-        {children}
+        <SiteMenusProvider menus={menus}>{children}</SiteMenusProvider>
         <Suspense fallback={null}>
           <GlobalBodyScripts />
         </Suspense>

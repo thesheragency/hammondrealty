@@ -999,6 +999,86 @@ async function GlobalScripts() {
     }, void 0, true);
 }
 }),
+"[project]/lib/wp-menus.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "fetchSiteMenus",
+    ()=>fetchSiteMenus
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wp-auth.ts [app-rsc] (ecmascript)");
+;
+const MENUS_QUERY = `
+  query SiteMenus {
+    headerNav: menus(where: { location: HEADER_NAVIGATION }) {
+      nodes { menuItems(first: 30, where: { parentDatabaseId: 0 }) { nodes { label path url } } }
+    }
+    headerCtas: menus(where: { location: HEADER_CTAS }) {
+      nodes { menuItems(first: 10, where: { parentDatabaseId: 0 }) { nodes { label path url } } }
+    }
+    footerNav: menus(where: { location: FOOTER_NAVIGATION }) {
+      nodes { menuItems(first: 30, where: { parentDatabaseId: 0 }) { nodes { label path url } } }
+    }
+    footerServices: menus(where: { location: FOOTER_SERVICES }) {
+      nodes { menuItems(first: 30, where: { parentDatabaseId: 0 }) { nodes { label path url } } }
+    }
+    footerSocial: menus(where: { location: FOOTER_SOCIAL }) {
+      nodes { menuItems(first: 10, where: { parentDatabaseId: 0 }) { nodes { label path url } } }
+    }
+  }
+`;
+function toItems(node) {
+    const items = node?.nodes?.[0]?.menuItems?.nodes;
+    if (!items || items.length === 0) return null;
+    const mapped = items.map((i)=>({
+            label: i.label || "",
+            href: i.path || i.url || "#"
+        })).filter((i)=>i.label);
+    return mapped.length > 0 ? mapped : null;
+}
+const EMPTY_MENUS = {
+    headerNav: null,
+    headerCtas: null,
+    footerNav: null,
+    footerServices: null,
+    footerSocial: null
+};
+async function fetchSiteMenus() {
+    const endpoint = process.env.WP_API_URL;
+    if (!endpoint) return EMPTY_MENUS;
+    try {
+        const res = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$auth$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getWpAuthHeaders"])()
+            },
+            body: JSON.stringify({
+                query: MENUS_QUERY
+            }),
+            next: {
+                revalidate: 60,
+                tags: [
+                    "wp-content"
+                ]
+            }
+        });
+        if (!res.ok) return EMPTY_MENUS;
+        const json = await res.json();
+        const d = json?.data;
+        if (!d) return EMPTY_MENUS;
+        return {
+            headerNav: toItems(d.headerNav),
+            headerCtas: toItems(d.headerCtas),
+            footerNav: toItems(d.footerNav),
+            footerServices: toItems(d.footerServices),
+            footerSocial: toItems(d.footerSocial)
+        };
+    } catch  {
+        return EMPTY_MENUS;
+    }
+}
+}),
 "[project]/app/layout.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1014,6 +1094,8 @@ var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$i
 var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$playfair_display_4235cde5$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[next]/internal/font/google/playfair_display_4235cde5.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$client$2d$toaster$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/client-toaster.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$scripts$2f$GlobalScripts$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/scripts/GlobalScripts.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$menus$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wp-menus.ts [app-rsc] (ecmascript)");
+;
 ;
 ;
 ;
@@ -1031,7 +1113,8 @@ const metadata = {
     title: "Blake Hammond Real Estate",
     description: "Blake Hammond Real Estate — modern, high-touch service for buyers, sellers, and homeowners in the greater Sacramento region."
 };
-function RootLayout({ children }) {
+async function RootLayout({ children }) {
+    const menus = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wp$2d$menus$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchSiteMenus"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
         lang: "en",
         suppressHydrationWarning: true,
@@ -1041,17 +1124,17 @@ function RootLayout({ children }) {
                     fallback: null,
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$scripts$2f$GlobalScripts$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GlobalHeadScripts"], {}, void 0, false, {
                         fileName: "[project]/app/layout.tsx",
-                        lineNumber: 41,
+                        lineNumber: 42,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 40,
+                    lineNumber: 41,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/layout.tsx",
-                lineNumber: 39,
+                lineNumber: 40,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
@@ -1062,33 +1145,33 @@ function RootLayout({ children }) {
                         fallback: null,
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$scripts$2f$GlobalScripts$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["GlobalBodyScripts"], {}, void 0, false, {
                             fileName: "[project]/app/layout.tsx",
-                            lineNumber: 47,
+                            lineNumber: 48,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/layout.tsx",
-                        lineNumber: 46,
+                        lineNumber: 47,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$client$2d$toaster$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ClientToaster"], {}, void 0, false, {
                         fileName: "[project]/app/layout.tsx",
-                        lineNumber: 49,
+                        lineNumber: 50,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/layout.tsx",
-                lineNumber: 44,
+                lineNumber: 45,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/layout.tsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__3c364dc0._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__8c6b86ef._.js.map

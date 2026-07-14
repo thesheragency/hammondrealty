@@ -31,14 +31,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-ssr] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/phone.js [app-ssr] (ecmascript) <export default as Phone>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteMenusProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/site/SiteMenusProvider.tsx [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
 ;
 ;
 ;
+;
 const logoUrl = "/images/logo_1779376344245.png";
-const navLinks = [
+const fallbackNavLinks = [
     {
         label: "Buying",
         href: "/buyer"
@@ -60,10 +62,23 @@ const navLinks = [
         href: "/home-value-analysis"
     }
 ];
+const fallbackPhone = {
+    label: "916-625-6118",
+    href: "tel:916-625-6118"
+};
+const fallbackCta = {
+    label: "Contact Blake",
+    href: "/connect"
+};
 function SiteHeader({ variant = "transparent" }) {
     const [isScrolled, setIsScrolled] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [mobileMenuOpen, setMobileMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const location = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePathname"])();
+    const menus = (0, __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$site$2f$SiteMenusProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSiteMenus"])();
+    const navLinks = menus.headerNav ?? fallbackNavLinks;
+    const ctaItems = menus.headerCtas ?? [];
+    const phoneCta = ctaItems.find((i)=>i.href.startsWith("tel:")) ?? fallbackPhone;
+    const contactCta = ctaItems.find((i)=>!i.href.startsWith("tel:")) ?? fallbackCta;
     const isActive = (href)=>location === href;
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const handleScroll = ()=>setIsScrolled(window.scrollY > 20);
@@ -88,12 +103,12 @@ function SiteHeader({ variant = "transparent" }) {
                                     className: "h-4 md:h-5 w-auto"
                                 }, void 0, false, {
                                     fileName: "[project]/components/site/SiteHeader.tsx",
-                                    lineNumber: 46,
+                                    lineNumber: 56,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                lineNumber: 45,
+                                lineNumber: 55,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -105,7 +120,7 @@ function SiteHeader({ variant = "transparent" }) {
                                         children: link.label
                                     }, link.label, false, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 52,
+                                        lineNumber: 62,
                                         columnNumber: 17
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                         href: link.href,
@@ -113,19 +128,19 @@ function SiteHeader({ variant = "transparent" }) {
                                         children: link.label
                                     }, link.label, false, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 63,
+                                        lineNumber: 73,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                lineNumber: 49,
+                                lineNumber: 59,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "hidden lg:flex items-center gap-5 justify-self-end",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                        href: "tel:916-625-6118",
+                                        href: phoneCta.href,
                                         className: "inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium text-foreground/80 hover:text-primary transition-colors",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"], {
@@ -133,41 +148,41 @@ function SiteHeader({ variant = "transparent" }) {
                                                 strokeWidth: 2
                                             }, void 0, false, {
                                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                                lineNumber: 79,
+                                                lineNumber: 89,
                                                 columnNumber: 15
                                             }, this),
-                                            "916-625-6118"
+                                            phoneCta.label
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 85,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/connect",
-                                        className: "inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-[129px] h-[45px]",
-                                        children: "Contact Blake"
+                                        href: contactCta.href,
+                                        className: "inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 min-w-[129px] px-4 h-[45px]",
+                                        children: contactCta.label
                                     }, void 0, false, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 82,
+                                        lineNumber: 92,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                lineNumber: 74,
+                                lineNumber: 84,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "lg:hidden flex items-center gap-2 justify-self-end",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/connect",
+                                        href: contactCta.href,
                                         className: "inline-flex items-center justify-center whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all px-4 h-[38px]",
-                                        children: "Contact Blake"
+                                        children: contactCta.label
                                     }, void 0, false, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 101,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -178,30 +193,30 @@ function SiteHeader({ variant = "transparent" }) {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/components/site/SiteHeader.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 112,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/components/site/SiteHeader.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 112,
                                             columnNumber: 61
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/site/SiteHeader.tsx",
-                                        lineNumber: 97,
+                                        lineNumber: 107,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                lineNumber: 90,
+                                lineNumber: 100,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/site/SiteHeader.tsx",
-                        lineNumber: 44,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this),
                     mobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -215,33 +230,33 @@ function SiteHeader({ variant = "transparent" }) {
                                     children: link.label
                                 }, link.label, false, {
                                     fileName: "[project]/components/site/SiteHeader.tsx",
-                                    lineNumber: 110,
+                                    lineNumber: 120,
                                     columnNumber: 15
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/connect",
+                                href: contactCta.href,
                                 onClick: ()=>setMobileMenuOpen(false),
                                 className: "inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 mt-4 w-full h-[45px] rounded-none font-medium text-sm",
-                                children: "Contact Blake"
+                                children: contactCta.label
                             }, void 0, false, {
                                 fileName: "[project]/components/site/SiteHeader.tsx",
-                                lineNumber: 122,
+                                lineNumber: 132,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/site/SiteHeader.tsx",
-                        lineNumber: 108,
+                        lineNumber: 118,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/site/SiteHeader.tsx",
-                lineNumber: 39,
+                lineNumber: 49,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                href: "tel:916-625-6118",
+                href: phoneCta.href,
                 className: "lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-2 bg-primary text-primary-foreground h-14 font-medium text-base shadow-[0_-2px_12px_rgba(0,0,0,0.12)]",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"], {
@@ -249,14 +264,15 @@ function SiteHeader({ variant = "transparent" }) {
                         strokeWidth: 2
                     }, void 0, false, {
                         fileName: "[project]/components/site/SiteHeader.tsx",
-                        lineNumber: 138,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, this),
-                    "Call 916-625-6118"
+                    "Call ",
+                    phoneCta.label
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/site/SiteHeader.tsx",
-                lineNumber: 134,
+                lineNumber: 144,
                 columnNumber: 7
             }, this)
         ]

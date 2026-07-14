@@ -2,13 +2,31 @@
 
 import { Phone, MapPin, Mail } from "lucide-react";
 import Link from "next/link";
+import { useSiteMenus } from "@/components/site/SiteMenusProvider";
 const logoUrl = "/images/logo_1779376344245.png";
 const mastersClubUrl = "/images/Mask_group_1780678370076.png";
 const buyingHouseUrl = "/images/765ef0b1-a99d-4496-b398-582c961f2f01_1782404925125.jpg";
 const sellingHouseUrl = "/images/fancy_home_1782404943463.jpg";
 const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg";
 
+const fallbackQuickLinks = [
+  { label: "Home", href: "/" },
+  { label: "Buying", href: "/buyer" },
+  { label: "Selling", href: "/seller" },
+  { label: "About", href: "/about" },
+];
+
+const fallbackServices = [
+  { label: "Home Prep Program", href: "/home-prep-program" },
+  { label: "Home Value Analysis", href: "/home-value-analysis" },
+  { label: "Book a Consultation", href: "/book-consultation" },
+  { label: "Contact Blake", href: "/connect" },
+];
+
 export default function SiteFooter() {
+  const menus = useSiteMenus();
+  const quickLinks = menus.footerNav ?? fallbackQuickLinks;
+  const services = menus.footerServices ?? fallbackServices;
   return (
     <footer className="relative overflow-hidden bg-muted text-foreground">
       <div className="grid grid-cols-3 h-32 md:h-40">
@@ -37,12 +55,7 @@ export default function SiteFooter() {
           <div className="lg:col-span-2">
             <h4 className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Quick Links</h4>
             <ul className="space-y-3 text-sm">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Buying", href: "/buyer" },
-                { label: "Selling", href: "/seller" },
-                { label: "About", href: "/about" },
-              ].map((l) => (
+              {quickLinks.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-foreground/70 hover:text-primary transition-colors">
                     {l.label}
@@ -55,12 +68,7 @@ export default function SiteFooter() {
           <div className="lg:col-span-2">
             <h4 className="font-bold mb-6 tracking-[0.2em] text-xs uppercase text-primary">Services</h4>
             <ul className="space-y-3 text-sm">
-              {[
-                { label: "Home Prep Program", href: "/home-prep-program" },
-                { label: "Home Value Analysis", href: "/home-value-analysis" },
-                { label: "Book a Consultation", href: "/book-consultation" },
-                { label: "Contact Blake", href: "/connect" },
-              ].map((l) => (
+              {services.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-foreground/70 hover:text-primary transition-colors">
                     {l.label}

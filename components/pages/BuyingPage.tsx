@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, SearchCheck, Lock, Handshake, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatPhone } from "@/lib/utils";
+import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
@@ -126,76 +126,8 @@ const buyingFaqs: Faq[] = [
   },
 ];
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_RE = /^[+()\-.\s\d]{7,20}$/;
-
-type ContactFormErrors = Partial<
-  Record<"name" | "email" | "phone" | "message" | "agree", string>
->;
-
 function ContactForm() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    agree: false,
-  });
-  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-
-  const validate = (): ContactFormErrors => {
-    const next: ContactFormErrors = {};
-    if (!form.name.trim()) next.name = "Please enter your name.";
-    if (!form.email.trim()) next.email = "Please enter your email.";
-    else if (!EMAIL_RE.test(form.email.trim()))
-      next.email = "Please enter a valid email address.";
-    if (!form.phone.trim()) next.phone = "Please enter your phone number.";
-    else if (
-      !PHONE_RE.test(form.phone.trim()) ||
-      form.phone.replace(/\D/g, "").length < 7
-    )
-      next.phone = "Please enter a valid phone number.";
-    if (!form.message.trim()) next.message = "Please enter a message.";
-    if (!form.agree) next.agree = "Please agree to be contacted.";
-    return next;
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const next = validate();
-    setErrors(next);
-    if (Object.keys(next).length === 0) {
-      try {
-        await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            subject: "Buying Inquiry – Blake Hammond RE",
-            Name: form.name,
-            Email: form.email,
-            Phone: form.phone,
-            Message: form.message,
-          }),
-        });
-      } catch {
-        // show success regardless
-      }
-      setSubmitted(true);
-    }
-  };
-
-  const clearError = (field: keyof ContactFormErrors) =>
-    setErrors((prev) => {
-      if (!prev[field]) return prev;
-      const { [field]: _removed, ...rest } = prev;
-      return rest;
-    });
-
-  const inputClass = (field: keyof ContactFormErrors) =>
-    `w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary transition-colors ${
-      errors[field] ? "border-red-500" : "border-foreground/15"
-    }`;
 
   if (submitted) {
     return (
@@ -213,110 +145,13 @@ function ContactForm() {
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={handleSubmit}
-      className="bg-white p-8 md:p-10 shadow-2xl space-y-4 w-full"
-    >
-      <div>
-        <label className="block text-sm font-medium mb-1.5" htmlFor="name">Full Name</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Full Name"
-          value={form.name}
-          onChange={(e) => {
-            setForm({ ...form, name: e.target.value });
-            clearError("name");
-          }}
-          aria-invalid={!!errors.name}
-          className={inputClass("name")}
-        />
-        {errors.name && (
-          <p className="mt-1 text-xs text-red-600">{errors.name}</p>
-        )}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1.5" htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => {
-              setForm({ ...form, email: e.target.value });
-              clearError("email");
-            }}
-            aria-invalid={!!errors.email}
-            className={inputClass("email")}
-          />
-          {errors.email && (
-            <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1.5" htmlFor="phone">Phone Number</label>
-          <input
-            id="phone"
-            type="tel"
-            placeholder="Phone Number"
-            value={form.phone}
-            onChange={(e) => {
-              setForm({ ...form, phone: formatPhone(e.target.value) });
-              clearError("phone");
-            }}
-            aria-invalid={!!errors.phone}
-            className={inputClass("phone")}
-          />
-          {errors.phone && (
-            <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
-          )}
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1.5" htmlFor="message">Message</label>
-        <textarea
-          id="message"
-          rows={4}
-          placeholder="Message"
-          value={form.message}
-          onChange={(e) => {
-            setForm({ ...form, message: e.target.value });
-            clearError("message");
-          }}
-          aria-invalid={!!errors.message}
-          className={`${inputClass("message")} resize-none`}
-        />
-        {errors.message && (
-          <p className="mt-1 text-xs text-red-600">{errors.message}</p>
-        )}
-      </div>
-      <div>
-        <label className="flex items-start gap-2 text-xs text-foreground/60 leading-relaxed">
-          <input
-            type="checkbox"
-            checked={form.agree}
-            onChange={(e) => {
-              setForm({ ...form, agree: e.target.checked });
-              clearError("agree");
-            }}
-            aria-invalid={!!errors.agree}
-            className="mt-0.5 accent-primary"
-          />
-          <span>I agree to be contacted by Blake Hammond Real Estate.</span>
-        </label>
-        {errors.agree && (
-          <p className="mt-1 text-xs text-red-600">{errors.agree}</p>
-        )}
-      </div>
-      <Button
-        type="submit"
-        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
-      >
-        Submit
-      </Button>
-    </form>
+    <div className="bg-white p-8 md:p-10 shadow-2xl w-full">
+      <GravityFormClient
+        formId={3}
+        className="space-y-4"
+        onSuccess={() => setSubmitted(true)}
+      />
+    </div>
   );
 }
 

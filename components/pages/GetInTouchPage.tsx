@@ -1,15 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { formatPhone } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import { imgUrl } from "@/lib/wp-acf";
@@ -18,33 +12,6 @@ const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_177938
 
 export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }) {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    agree: false,
-  });
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "Get In Touch – Blake Hammond RE",
-          Name: form.name,
-          Email: form.email,
-          Phone: form.phone,
-          Message: form.message,
-        }),
-      });
-    } catch {
-      // show success regardless so UX is not blocked
-    }
-    setSubmitted(true);
-  };
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
@@ -108,80 +75,11 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                     {acf?.formHeading || "Tell Us About Your Move."}
                   </h2>
 
-                  <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div>
-                          <Label htmlFor="name" className="block text-sm font-medium mb-1.5">Name</Label>
-                          <Input
-                            id="name"
-                            required
-                            placeholder="Name"
-                            value={form.name}
-                            onChange={(e) => setForm({ ...form, name: e.target.value })}
-                            className="rounded-none h-11 px-4 bg-white border-foreground/15 focus-visible:ring-0 focus-visible:border-primary"
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="email" className="block text-sm font-medium mb-1.5">Email</Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              required
-                              placeholder="Email"
-                              value={form.email}
-                              onChange={(e) => setForm({ ...form, email: e.target.value })}
-                              className="rounded-none h-11 px-4 bg-white border-foreground/15 focus-visible:ring-0 focus-visible:border-primary"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="phone" className="block text-sm font-medium mb-1.5">Phone Number</Label>
-                            <Input
-                              id="phone"
-                              type="tel"
-                              required
-                              placeholder="Phone Number"
-                              value={form.phone}
-                              onChange={(e) => setForm({ ...form, phone: formatPhone(e.target.value) })}
-                              className="rounded-none h-11 px-4 bg-white border-foreground/15 focus-visible:ring-0 focus-visible:border-primary"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <Label htmlFor="message" className="block text-sm font-medium mb-1.5">How can I help you?</Label>
-                          <Textarea
-                            id="message"
-                            required
-                            rows={4}
-                            placeholder="How can I help you?"
-                            value={form.message}
-                            onChange={(e) => setForm({ ...form, message: e.target.value })}
-                            className="rounded-none px-4 bg-white border-foreground/15 focus-visible:ring-0 focus-visible:border-primary resize-none"
-                          />
-                        </div>
-
-                        <div className="flex items-start gap-3 pt-1">
-                          <Checkbox
-                            id="agree"
-                            required
-                            checked={form.agree}
-                            onCheckedChange={(checked) => setForm({ ...form, agree: checked === true })}
-                            className="mt-0.5 rounded-none border-foreground/30 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-                          />
-                          <Label htmlFor="agree" className="text-xs text-foreground/60 leading-relaxed font-normal cursor-pointer">
-                            I accept the{" "}
-                            <Link href="/privacy-policy" className="underline hover:text-primary">Privacy Policy</Link>.
-                          </Label>
-                        </div>
-
-                        <Button
-                          type="submit"
-                          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
-                        >
-                          Submit
-                        </Button>
-                  </form>
+                  <GravityFormClient
+                    formId={1}
+                    className="space-y-4"
+                    onSuccess={() => setSubmitted(true)}
+                  />
                   </>
                   )}
                 </div>

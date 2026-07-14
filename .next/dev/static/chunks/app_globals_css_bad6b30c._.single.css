@@ -1914,6 +1914,10 @@ body {
   min-width: var(--radix-select-trigger-width);
 }
 
+.min-w-\[129px\] {
+  min-width: 129px;
+}
+
 .max-w-2xl {
   max-width: 42rem;
 }
