@@ -10,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Thank You | Blake Hammond Real Estate',
     description: "Thanks for reaching out — Blake will get back to you shortly.",
     canonicalPath: '/thank-you',
+    robots: { index: false, follow: true },
   });
 }
 

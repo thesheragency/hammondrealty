@@ -15,6 +15,8 @@ interface BuildMetadataOptions {
   featuredImage?: string | null;
   /** Path (e.g. "/buyer") used to build a canonical URL when no Yoast canonical exists. */
   canonicalPath?: string;
+  /** Override the default robots directive. Use e.g. { index: false, follow: true } for utility pages. */
+  robots?: Metadata['robots'];
 }
 
 export async function buildMetadata({
@@ -24,6 +26,7 @@ export async function buildMetadata({
   ogType = 'website',
   featuredImage,
   canonicalPath,
+  robots,
 }: BuildMetadataOptions): Promise<Metadata> {
   const globalDefaults = await fetchYoastGlobalDefaults();
   const fallbackImage = validUrl(featuredImage) || validUrl(globalDefaults.defaultImage);
@@ -38,6 +41,7 @@ export async function buildMetadata({
   return {
     title: resolvedTitle,
     description: resolvedDescription,
+    ...(robots !== undefined ? { robots } : {}),
     ...(seo?.canonical
       ? { alternates: { canonical: seo.canonical } }
       : canonicalPath

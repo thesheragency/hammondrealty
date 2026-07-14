@@ -10,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Consultation Booked | Blake Hammond Real Estate',
     description: "Your consultation is booked. Here is what happens next.",
     canonicalPath: '/booked',
+    robots: { index: false, follow: true },
   });
 }
 
