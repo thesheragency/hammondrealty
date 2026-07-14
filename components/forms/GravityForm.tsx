@@ -297,9 +297,10 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     const renderLabel = () => (
       <Label htmlFor={`field_${id}`} className="gf-label">
         {field.label}
-        {field.isRequired && <span className="text-destructive ml-1">*</span>}
       </Label>
     );
+
+    const placeholderText = field.placeholder || field.label;
 
     const renderDescription = () =>
       field.description && (
@@ -337,7 +338,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             <Input
               {...commonProps}
               type={field.type === 'PHONE' ? 'tel' : field.type === 'WEBSITE' ? 'url' : 'text'}
-              placeholder={field.placeholder}
+              placeholder={placeholderText}
+              required={field.isRequired}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
               onBlur={() => validateFieldOnBlur(field)}
@@ -353,7 +355,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             {renderLabel()}
             <Textarea
               {...commonProps}
-              placeholder={field.placeholder}
+              placeholder={placeholderText}
+              required={field.isRequired}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
               onBlur={() => validateFieldOnBlur(field)}
@@ -370,7 +373,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             <Input
               {...commonProps}
               type="email"
-              placeholder={field.placeholder}
+              placeholder={placeholderText}
+              required={field.isRequired}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
               onBlur={() => validateFieldOnBlur(field)}
@@ -386,7 +390,8 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             <Input
               {...commonProps}
               type="number"
-              placeholder={field.placeholder}
+              placeholder={placeholderText}
+              required={field.isRequired}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
               onBlur={() => validateFieldOnBlur(field)}
@@ -449,7 +454,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
       case 'MULTI_CHOICE':
         return wrapField(
           <>
-            {renderLabel()}
+            {(field.choices?.length ?? 0) > 1 && renderLabel()}
             <div className="gf-checkbox-group">
               {field.choices?.map((choice: GfChoice, idx: number) => {
                 const checked = Array.isArray(value) && value.includes(choice.value || choice.text);
