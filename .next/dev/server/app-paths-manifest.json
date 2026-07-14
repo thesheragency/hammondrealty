@@ -1,6 +1,7 @@
 {
   "/[slug]/page": "app/[slug]/page.js",
   "/about/page": "app/about/page.js",
+  "/api/revalidate/route": "app/api/revalidate/route.js",
   "/buying/page": "app/buying/page.js",
   "/get-in-touch/page": "app/get-in-touch/page.js",
   "/home-prep-program/page": "app/home-prep-program/page.js",
