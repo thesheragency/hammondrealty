@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { proxyWordPressFile, getFrontendUrl } from '@/lib/seo-proxy';
+import { proxyWordPressFile, getFrontendUrl, generateFallbackUrlset } from '@/lib/seo-proxy';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,9 +14,11 @@ export async function GET(
   const result = await proxyWordPressFile(sitemapPath, frontendUrl);
 
   if (!result) {
-    return new NextResponse('Sitemap not found', {
-      status: 404,
-      headers: { 'Content-Type': 'text/plain' },
+    return new NextResponse(generateFallbackUrlset(frontendUrl), {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Cache-Control': 'public, max-age=300',
+      },
     });
   }
 
