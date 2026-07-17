@@ -447,7 +447,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
 
               {/* Hero Content */}
               <motion.div
-                className="flex-1 max-w-2xl relative"
+                className="w-full lg:w-1/2 lg:flex-none max-w-2xl lg:pr-20 relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}

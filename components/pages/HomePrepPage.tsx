@@ -360,12 +360,12 @@ function IncludedCarousel({
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent md:from-black/75 md:via-black/20 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
                 <h3 className="font-sans text-2xl font-bold mb-2 drop-shadow-md">
                   {card.title}
                 </h3>
-                <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm">
+                <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm drop-shadow">
                   {card.desc}
                 </p>
               </div>
