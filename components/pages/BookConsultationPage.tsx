@@ -101,7 +101,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
 
               {/* Left: copy — stays constant */}
               <div className="lg:sticky lg:top-32">
@@ -162,7 +162,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       <p className="font-sans text-xs uppercase tracking-[0.25em] text-primary mb-2">
                         Step 1 of 2
                       </p>
-                      <h3 className="text-h3 font-bold mb-1">
+                      <h3 className="font-sans text-xl font-bold mb-1">
                         A Little About You
                       </h3>
                       <p className="text-sm text-foreground/60 mb-8">

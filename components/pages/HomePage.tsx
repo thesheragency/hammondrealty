@@ -246,7 +246,7 @@ function ServiceCards({ cards }: { cards: ServiceCard[] }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
             <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <h3 className="text-h3 font-bold drop-shadow-md">{card.title}</h3>
+              <h3 className="font-sans text-4xl font-bold drop-shadow-md">{card.title}</h3>
             </div>
           </Link>
 
@@ -443,7 +443,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
           </motion.div>
 
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24 lg:pb-0 lg:min-h-[640px]">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
               {/* Hero Content */}
               <motion.div
@@ -584,7 +584,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
         >
           <div className="container mx-auto px-4 md:px-8">
             
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-8">
               <div className="max-w-2xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="text-h2 font-bold leading-tight">
@@ -631,9 +631,9 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="hidden lg:block" />
-              <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
+              <div className="flex flex-col pt-6 pb-4 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
-                  <h2 className="text-h2 font-bold leading-tight mb-3">
+                  <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
                     {tc(acf?.processHeading) || "My Process"}
                   </h2>
                   <p className="text-foreground/70">
@@ -679,7 +679,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                             {step.num}
                           </span>
                           <div className="flex-1 pt-2">
-                            <h3 className="text-h3 font-bold mb-2">
+                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
                               {step.title}
                             </h3>
                             <AnimatePresence initial={false}>
@@ -702,7 +702,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                   })}
 
                   {/* Mobile image */}
-                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-8">
+                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${processTrack}-${activeStep}`}
@@ -749,12 +749,12 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
 
           <div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-              <div className="container mx-auto px-4 md:px-8 lg:mx-0 lg:ml-auto lg:max-w-[640px] lg:pl-8 lg:pr-16 xl:pr-24 pt-12 pb-6 lg:py-20">
+              <div className="container mx-auto px-4 md:px-8 lg:mx-0 lg:ml-auto lg:max-w-[640px] lg:pl-8 lg:pr-16 xl:pr-24 pt-12 pb-2 lg:py-20">
                 <h2 className="text-h2 font-bold leading-[1.1] mb-12 text-balance">
                   {tc(acf?.whyHeading) || "Why Homeowners Choose Blake Over The Competition"}
                 </h2>
 
-                <div className="space-y-8 mb-12">
+                <div className="space-y-8 mb-0 lg:mb-12">
                   {whyBullets.map((b: { icon: typeof Hammer; title: string; desc: string }) => {
                     const Icon = b.icon;
                     return (
@@ -825,7 +825,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] opacity-[0.07] z-0"
           />
           <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-20">
               <div className="lg:col-span-4">
                 <h2 className="text-h2 font-bold mb-6">
                   Frequently Asked Questions
@@ -857,7 +857,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                   </div>
                   {/* Invisible sizer: reserves the height of the tallest open state so
                       opening/closing an accordion never shifts the content below. */}
-                  <div aria-hidden="true" className="col-start-1 row-start-1 invisible pointer-events-none">
+                  <div aria-hidden="true" className="col-start-1 row-start-1 invisible pointer-events-none hidden lg:block">
                     {faqs.map((f, i) => (
                       <div key={i} className="flex items-center justify-between gap-4 py-6 border-b">
                         <span className="text-left font-sans text-lg md:text-xl font-bold">{f.q}</span>

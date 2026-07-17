@@ -163,7 +163,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
+            <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-8 md:mb-16">
               <h2 className="text-h2 font-bold leading-tight mb-6">
                 {tc(acf?.whatYouGetHeading) || tc("What You Get")}
               </h2>
@@ -175,7 +175,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
               {whatYouGet.map((item, i) => (
                 <motion.div
                   key={item.title}
-                  className="text-left sm:text-center px-4"
+                  className="text-left sm:text-center sm:px-4"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -187,7 +187,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-foreground/70 leading-relaxed max-w-xs sm:mx-auto">
+                  <p className="text-foreground/70 leading-relaxed sm:max-w-xs sm:mx-auto">
                     {item.desc}
                   </p>
                 </motion.div>
@@ -205,7 +205,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-start">
               {/* Left: heading */}
               <div className="lg:sticky lg:top-32">
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
@@ -256,7 +256,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-5xl min-[1600px]:max-w-[1200px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center max-w-5xl min-[1600px]:max-w-[1200px] mx-auto">
               <div className="lg:sticky lg:top-32">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.formEyebrow || "Get Started"}
@@ -275,7 +275,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
                     <BadgeCheck className="w-7 h-7" strokeWidth={1.75} />
                   </div>
-                  <h3 className="text-h3 font-bold mb-3">
+                  <h3 className="font-sans text-xl font-bold mb-3">
                     {tc(acf?.formSuccessHeading) || "Thanks, The Details Have Been Received."}
                   </h3>
                   <p className="text-foreground/70 leading-relaxed">
@@ -303,7 +303,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
+            <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-8 md:mb-16">
               <h2 className="text-h2 font-bold leading-tight mb-6">
                 {tc(acf?.notSellingHeading) || tc("Not Selling Yet? That's Okay.")}
               </h2>
@@ -315,7 +315,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
               {notSelling.map((item, i) => (
                 <motion.div
                   key={item.title}
-                  className="text-left sm:text-center px-4"
+                  className="text-left sm:text-center sm:px-4"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -327,7 +327,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-foreground/70 leading-relaxed max-w-xs sm:mx-auto">
+                  <p className="text-foreground/70 leading-relaxed sm:max-w-xs sm:mx-auto">
                     {item.desc}
                   </p>
                 </motion.div>

@@ -45,7 +45,7 @@ export default function SiteFooter() {
       <div className="relative container mx-auto px-4 md:px-8 pt-20 pb-24 lg:pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
           <div className="lg:col-span-3 flex flex-col items-center md:items-start">
-            <img src={logoUrl} alt="Blake Hammond Real Estate" className="h-8 md:h-6 w-auto mb-6" />
+            <Link href="/"><img src={logoUrl} alt="Blake Hammond Real Estate" className="h-8 md:h-6 w-auto mb-6" /></Link>
             <p className="text-foreground/60 text-sm leading-relaxed max-w-sm text-center md:text-left">
               A trusted real estate partner delivering modern, high-touch service for
               buyers, sellers, and homeowners preparing for their next move.

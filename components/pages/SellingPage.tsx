@@ -432,7 +432,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               <div className="hidden lg:block">
                 <WhySellVideo videoId={whyVideoIdVal} thumbUrl={whyVideoImageUrl} />
               </div>
@@ -448,7 +448,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   {acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."}
                 </p>
 
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-4 lg:mb-10">
                   {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
@@ -497,7 +497,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="max-w-3xl mx-auto text-left sm:text-center mb-16">
+            <div className="max-w-3xl mx-auto text-left sm:text-center mb-8 md:mb-16">
               <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                 {acf?.guaranteeEyebrow || "My Promise"}
               </p>
@@ -559,7 +559,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
+              <div className="flex flex-col pt-6 pb-4 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                     {acf?.processEyebrow || "Home Selling Process"}
@@ -588,7 +588,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                             {step.num}
                           </span>
                           <div className="flex-1 pt-2">
-                            <h3 className="text-h3 font-bold mb-2">
+                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
                               {step.title}
                             </h3>
                             <AnimatePresence initial={false}>
@@ -611,7 +611,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   })}
 
                   {/* Mobile image */}
-                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-8">
+                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
@@ -648,7 +648,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               <div className="hidden lg:block">
                 <BeforeAfterSlider
                   beforeSrc={prepBeforeImageUrl}
@@ -665,7 +665,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."}</p>
 
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-4 lg:mb-10">
                   {prep.map((b: any) => (
                     <li key={b.num} className="flex items-start gap-4">
                       <span className="flex-shrink-0 font-sans font-bold text-primary text-lg leading-snug">
@@ -690,17 +690,17 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   />
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.prepCtaLink || "/home-prep-program"}>{acf?.prepCtaText || "Learn More"}</Link>
                   </Button>
                   {acf?.prepPhoneText && (
-                    <a
-                      href={acf?.prepPhoneLink || "#"}
-                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
-                    >
-                      Or call {acf.prepPhoneText}
-                    </a>
+                    <>
+                      <span className="text-sm text-foreground/50 text-center">or</span>
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
+                        <a href={acf?.prepPhoneLink || "#"}>{acf.prepPhoneText}</a>
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>
@@ -717,7 +717,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
               <div className="lg:max-w-xl">
                 <img
                   src={zillowLogoUrl}
@@ -727,7 +727,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 <h2 className="text-h2 font-bold leading-tight mb-6">
                   {tc(acf?.zillowHeading) || "Zillow Showcase Drives 75% More Views"}
                 </h2>
-                <p className="text-foreground/70 text-lg leading-relaxed mb-10">
+                <p className="text-foreground/70 text-lg leading-relaxed mb-4 lg:mb-10">
                   {acf?.zillowBody || "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing."}
                 </p>
                 {/* Mobile image — above the CTA buttons */}

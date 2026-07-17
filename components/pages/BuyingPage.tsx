@@ -138,7 +138,7 @@ function ContactForm() {
         <div className="w-12 h-12 mx-auto mb-5 flex items-center justify-center bg-primary text-primary-foreground">
           <Mail className="w-6 h-6" strokeWidth={1.75} />
         </div>
-        <h3 className="text-h3 font-bold mb-2">Message Received.</h3>
+        <h3 className="font-sans text-xl font-bold mb-2">Message Received.</h3>
         <p className="text-sm text-foreground/70 leading-relaxed">
           Thanks for reaching out. A personal response will be sent to your
           inbox within one business day.
@@ -254,7 +254,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
                 <img
                   src={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
@@ -276,7 +276,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 <h2 className="text-h2 font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
-                <ul className="space-y-6 mb-10">
+                <ul className="space-y-6 mb-4 lg:mb-10">
                   {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
@@ -336,7 +336,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-8">
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.tipsEyebrow || "Buyer Tips"}
@@ -368,7 +368,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   <div className="absolute inset-0 transition-colors duration-500 bg-foreground/55 group-hover:bg-primary/90" />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
-                    <h3 className="text-h3 font-bold mb-2">{tip.title}</h3>
+                    <h3 className="font-sans text-2xl font-bold mb-2">{tip.title}</h3>
                     <p className="text-sm leading-relaxed transition-all duration-500 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40">
                       {tip.desc}
                     </p>
@@ -407,7 +407,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="hidden lg:block" />
-              <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
+              <div className="flex flex-col pt-6 pb-4 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">{acf?.processEyebrow || "Home Buying Process"}</p>
                   <h2 className="text-h2 font-bold leading-tight mb-3">
@@ -434,7 +434,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                             {step.num}
                           </span>
                           <div className="flex-1 pt-2">
-                            <h3 className="text-h3 font-bold mb-2">
+                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
                               {step.title}
                             </h3>
                             <AnimatePresence initial={false}>
@@ -457,7 +457,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   })}
 
                   {/* Mobile image */}
-                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-8">
+                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}

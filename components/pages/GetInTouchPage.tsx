@@ -31,7 +31,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
           />
           <div className="absolute inset-0 bg-foreground/60" aria-hidden="true" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-16 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -62,7 +62,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                       <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
                         <Mail className="w-7 h-7" strokeWidth={1.75} />
                       </div>
-                      <h3 className="text-h3 font-bold mb-3">
+                      <h3 className="font-sans text-xl font-bold mb-3">
                         {tc(acf?.successHeading) || "Message Received."}
                       </h3>
                       <p className="text-foreground/70 leading-relaxed">
@@ -74,7 +74,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-3">
                     {acf?.formEyebrow || "Send a Message"}
                   </p>
-                  <h3 className="text-h3 font-bold leading-tight mb-6">
+                  <h3 className="font-sans text-xl font-bold leading-tight mb-6">
                     {tc(acf?.formHeading) || "Tell Us About Your Move."}
                   </h3>
 

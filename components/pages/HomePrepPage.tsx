@@ -362,7 +362,7 @@ function IncludedCarousel({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent md:from-black/75 md:via-black/20 pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
-                <h3 className="text-h3 font-bold mb-2 drop-shadow-md">
+                <h3 className="font-sans text-2xl font-bold mb-2 drop-shadow-md">
                   {card.title}
                 </h3>
                 <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm">
@@ -482,7 +482,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="hidden lg:block" />
 
-              <div className="pt-6 pb-12 lg:py-28 lg:pl-12 xl:pl-20">
+              <div className="pt-6 pb-4 lg:py-28 lg:pl-12 xl:pl-20">
                 <h2 className="text-h2 font-bold leading-tight mb-6">
                   {tc(acf?.familiarHeading) || "Sound Familiar?"}
                 </h2>
@@ -492,7 +492,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                 <p className="font-sans font-bold text-xl mb-6">
                   {acf?.familiarBody || "If you are preparing to sell, you might be asking yourself the same questions we hear every day:"}
                 </p>
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-4 lg:mb-10">
                   {worries.map((worry: string) => (
                     <li key={worry} className="text-foreground/90">
                       {worry}
@@ -509,7 +509,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
                   <Link
                     href={acf?.familiarCtaLink || "/book-consultation"}
                     className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]"
@@ -517,12 +517,12 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                     {acf?.familiarCtaText || "Schedule a Home Prep Consultation"}
                   </Link>
                   {acf?.familiarPhoneText && (
-                    <a
-                      href={acf?.familiarPhoneLink || "#"}
-                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
-                    >
-                      Or call {acf.familiarPhoneText}
-                    </a>
+                    <>
+                      <span className="text-sm text-foreground/50 text-center">or</span>
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
+                        <a href={acf?.familiarPhoneLink || "#"}>{acf.familiarPhoneText}</a>
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>
@@ -539,7 +539,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
                 <img
                   src={whyImageUrl}
@@ -564,7 +564,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
                   {acf?.whyBody || "Buyers reward homes that show better than the competition. This turnkey renovation program quietly removes every friction point without you writing a check before closing."}
                 </p>
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-4 lg:mb-10">
                   {why.map((b: any) => (
                     <li key={b.title} className="flex items-start gap-3">
                       <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
@@ -636,7 +636,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
+              <div className="flex flex-col pt-6 pb-4 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                     {acf?.processEyebrow || "Home Prep Program Process"}
@@ -665,7 +665,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                             {step.num}
                           </span>
                           <div className="flex-1 pt-2">
-                            <h3 className="text-h3 font-bold mb-2">
+                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
                               {step.title}
                             </h3>
                             <AnimatePresence initial={false}>
@@ -688,7 +688,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   })}
 
                   {/* Mobile image */}
-                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-8">
+                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
@@ -792,12 +792,12 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="text-center mb-14">
+            <div className="text-left md:text-center mb-8 md:mb-14">
               <h2 className="text-h2 font-bold leading-tight">
                 {tc(acf?.caseSectionHeading) || "Before & After Case Study"}
               </h2>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.caseEyebrow || "Roseville, CA"}
@@ -806,7 +806,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   {acf?.caseHeading ? tc(acf.caseHeading) : (<>Our Home Prep Program Put an Extra<br />$50,000 in Our Client's Pocket</>)}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-4 lg:mb-10">
                   {caseBullets.map((b: string) => (
                     <li key={b} className="flex items-start gap-3">
                       <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
@@ -825,17 +825,17 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                     afterAlt="Roseville living room after prep and staging"
                   />
                 </div>
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
                     <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   {acf?.casePhoneText && (
-                    <a
-                      href={acf?.casePhoneLink || "#"}
-                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
-                    >
-                      Or call {acf.casePhoneText}
-                    </a>
+                    <>
+                      <span className="text-sm text-foreground/50 text-center">or</span>
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
+                        <a href={acf?.casePhoneLink || "#"}>{acf.casePhoneText}</a>
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>

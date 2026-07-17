@@ -48,7 +48,7 @@ export default function FaqsSection({
 }: FaqsSectionProps) {
   return (
     <motion.section
-      className="relative overflow-hidden bg-muted py-12 md:py-32"
+      className="relative overflow-hidden bg-muted pt-12 pb-4 md:py-32"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
@@ -61,7 +61,7 @@ export default function FaqsSection({
         className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] opacity-[0.07] z-0"
       />
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-20">
           <div className="lg:col-span-4">
             <h2 className="text-h2 font-bold mb-6">Frequently Asked Questions</h2>
             <p className="text-foreground/70 leading-relaxed">{intro}</p>
@@ -85,7 +85,7 @@ export default function FaqsSection({
               </div>
               {/* Invisible sizer: reserves the height of the tallest open state so
                   opening/closing an accordion never shifts the content below. */}
-              <div aria-hidden="true" className="col-start-1 row-start-1 invisible pointer-events-none">
+              <div aria-hidden="true" className="col-start-1 row-start-1 invisible pointer-events-none hidden lg:block">
                 {faqs.map((f, i) => (
                   <div key={i} className="flex items-center justify-between gap-4 py-6 border-b">
                     <span className="text-left font-sans text-lg md:text-xl font-bold">{f.q}</span>

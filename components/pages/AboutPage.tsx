@@ -215,7 +215,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
               <div className="relative aspect-[4/5] overflow-hidden bg-muted">
                 <img
                   src={portraitImg}
@@ -348,7 +348,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
         >
           <div className="container mx-auto px-4 md:px-8">
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-8">
               <div className="max-w-2xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="text-h2 font-bold leading-tight">
@@ -383,7 +383,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
                     {/* Title */}
                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                      <h3 className="text-h3 font-bold drop-shadow-md">{card.title}</h3>
+                      <h3 className="font-sans text-4xl font-bold drop-shadow-md">{card.title}</h3>
                     </div>
                   </div>
 

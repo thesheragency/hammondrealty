@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
@@ -25,6 +25,7 @@ interface SiteHeaderProps {
 export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const location = usePathname();
   const menus = useSiteMenus();
 
@@ -41,12 +42,24 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
+
   const solid = variant === "solid" || isScrolled;
 
   return (
     <>
       {/* Header */}
       <header
+        ref={headerRef}
         className={`sticky top-0 z-50 transition-all duration-300 ${
           solid ? "bg-muted/95 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"
         }`}
