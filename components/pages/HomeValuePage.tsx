@@ -120,7 +120,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-4">
                 {acf?.heroEyebrow || "Free Home Value Analysis"}
               </p>
-              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 text-white">
+              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-4 text-white">
                 {tc(acf?.heroHeading) || tc("What Is Your Home Worth?")}
               </h1>
               <p className="text-base md:text-lg text-white/80 mb-6 leading-relaxed max-w-2xl sm:mx-auto">{acf?.heroBody || "Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation. "}</p>
@@ -164,8 +164,8 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
-              <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                {tc(acf?.whatYouGetHeading) || "What You Get"}
+              <h2 className="text-h2 font-bold leading-tight mb-6">
+                {tc(acf?.whatYouGetHeading) || tc("What You Get")}
               </h2>
               <p className="text-foreground/70 leading-relaxed">
                 {acf?.whatYouGetSubtitle || "A clear read on property value, built by hand, not by an algorithm."}
@@ -211,7 +211,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   The Process
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl font-bold leading-tight mb-5">
+                <h2 className="text-h2 font-bold leading-tight mb-5">
                   {tc(acf?.howItWorksHeading) || tc("Here Is How It Works")}
                 </h2>
                 <p className="text-foreground/60 leading-relaxed max-w-sm">
@@ -261,7 +261,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.formEyebrow || "Get Started"}
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h2 className="text-h2 font-bold leading-tight mb-6">
                   {acf?.formHeading ? tc(acf.formHeading) : (<>Request Your<br />Custom Valuation</>)}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed text-lg max-w-md">
@@ -275,7 +275,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
                     <BadgeCheck className="w-7 h-7" strokeWidth={1.75} />
                   </div>
-                  <h3 className="font-sans text-2xl md:text-3xl font-bold mb-3">
+                  <h3 className="text-h3 font-bold mb-3">
                     {tc(acf?.formSuccessHeading) || "Thanks, The Details Have Been Received."}
                   </h3>
                   <p className="text-foreground/70 leading-relaxed">
@@ -304,8 +304,8 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-left sm:text-center max-w-2xl sm:mx-auto mb-16">
-              <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                {tc(acf?.notSellingHeading) || "Not Selling Yet? That's Okay."}
+              <h2 className="text-h2 font-bold leading-tight mb-6">
+                {tc(acf?.notSellingHeading) || tc("Not Selling Yet? That's Okay.")}
               </h2>
               <p className="text-foreground/70 leading-relaxed">
                 {acf?.notSellingSubtitle || "Tracking property equity is a smart way to plan ahead. Knowing true property value helps build long-term plans with confidence. The smartest homeowners always start tracking market details early."}

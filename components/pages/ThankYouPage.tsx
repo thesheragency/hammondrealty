@@ -19,7 +19,7 @@ export default function ThankYou({ acf }: { acf?: Record<string, any> | null }) 
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-2xl mx-auto text-center">
-              <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
+              <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
                 {tc(acf?.heading) || "Thank You."}
               </h1>
 

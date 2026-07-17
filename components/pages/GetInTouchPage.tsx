@@ -40,7 +40,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-5">
                   {acf?.eyebrow || "Get in Touch"}
                 </p>
-                <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6 text-white">
+                <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6 text-white">
                   {acf?.heading ? tc(acf.heading) : (<>Let's Talk About<br />Your Next Move.</>)}
                 </h1>
                 <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
@@ -62,9 +62,9 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                       <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
                         <Mail className="w-7 h-7" strokeWidth={1.75} />
                       </div>
-                      <h2 className="font-sans text-2xl md:text-3xl font-bold mb-3">
+                      <h3 className="text-h3 font-bold mb-3">
                         {tc(acf?.successHeading) || "Message Received."}
-                      </h2>
+                      </h3>
                       <p className="text-foreground/70 leading-relaxed">
                         {acf?.successBody || "Thanks for reaching out. A personal response will be sent to your inbox within one business day."}
                       </p>
@@ -74,9 +74,9 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-3">
                     {acf?.formEyebrow || "Send a Message"}
                   </p>
-                  <h2 className="font-sans text-2xl md:text-3xl font-bold leading-tight mb-6">
+                  <h3 className="text-h3 font-bold leading-tight mb-6">
                     {tc(acf?.formHeading) || "Tell Us About Your Move."}
-                  </h2>
+                  </h3>
 
                   <GravityFormClient
                     formId={1}
@@ -99,7 +99,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary/10 text-primary">
                   <Mail className="w-7 h-7" strokeWidth={1.75} />
                 </div>
-                <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
+                <h3 className="text-h3 font-bold mb-3">
                   {tc(acf?.emailCardTitle) || "Email Anytime"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
@@ -116,7 +116,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary/10 text-primary">
                   <Phone className="w-7 h-7" strokeWidth={1.75} />
                 </div>
-                <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
+                <h3 className="text-h3 font-bold mb-3">
                   {tc(acf?.phoneCardTitle) || "Call or Text"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">

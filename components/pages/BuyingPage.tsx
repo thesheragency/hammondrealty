@@ -138,7 +138,7 @@ function ContactForm() {
         <div className="w-12 h-12 mx-auto mb-5 flex items-center justify-center bg-primary text-primary-foreground">
           <Mail className="w-6 h-6" strokeWidth={1.75} />
         </div>
-        <h3 className="font-sans text-xl font-bold mb-2">Message Received.</h3>
+        <h3 className="text-h3 font-bold mb-2">Message Received.</h3>
         <p className="text-sm text-foreground/70 leading-relaxed">
           Thanks for reaching out. A personal response will be sent to your
           inbox within one business day.
@@ -216,7 +216,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-6">
                     {acf?.heroEyebrow || "Buying with Blake"}
                   </p>
-                  <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
+                  <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
                     {acf?.heroHeading ? tc(acf.heroHeading) : (<>Beat The Competition<br />To The Property</>)}
                   </h1>
                   <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
@@ -273,7 +273,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.whyEyebrow || "Why Blake"}
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
+                <h2 className="text-h2 font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
                 <ul className="space-y-6 mb-10">
@@ -341,7 +341,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.tipsEyebrow || "Buyer Tips"}
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <h2 className="text-h2 font-bold leading-tight">
                   {acf?.tipsHeading ? tc(acf.tipsHeading) : (<>Taking The Stress<br />Out Of Buying</>)}
                 </h2>
               </div>
@@ -368,7 +368,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   <div className="absolute inset-0 transition-colors duration-500 bg-foreground/55 group-hover:bg-primary/90" />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
-                    <h3 className="font-sans text-xl md:text-2xl font-bold mb-2">{tip.title}</h3>
+                    <h3 className="text-h3 font-bold mb-2">{tip.title}</h3>
                     <p className="text-sm leading-relaxed transition-all duration-500 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40">
                       {tip.desc}
                     </p>
@@ -410,7 +410,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">{acf?.processEyebrow || "Home Buying Process"}</p>
-                  <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
+                  <h2 className="text-h2 font-bold leading-tight mb-3">
                     {tc(acf?.processHeading) || "A Clear Path to Closing"}
                   </h2>
                   <p className="text-foreground/70">
@@ -434,7 +434,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                             {step.num}
                           </span>
                           <div className="flex-1 pt-2">
-                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
+                            <h3 className="text-h3 font-bold mb-2">
                               {step.title}
                             </h3>
                             <AnimatePresence initial={false}>

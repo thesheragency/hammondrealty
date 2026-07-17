@@ -110,7 +110,7 @@ export default function Faqs({
             <div className="max-w-3xl mx-auto">
               {/* Heading */}
               <div className="text-center mb-10">
-                <h1 className="font-sans text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
+                <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
                   {tc(acf?.heading) || "Frequently Asked Questions"}
                 </h1>
                 <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto">

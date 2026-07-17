@@ -187,7 +187,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
                 {acf?.heroEyebrow || "About Blake"}
               </p>
-              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
+              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
                 {tc(acf?.heroHeading) || "I Tell You The Truth, Especially When It's Hard."}
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
@@ -228,7 +228,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.bioEyebrow || "Meet Blake"}
                 </p>
-                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{tc(acf?.bioHeading) || "Built To Guide Families Through Complex Moves"}</h2>
+                <h2 className="text-h2 font-bold leading-tight mb-6">{tc(acf?.bioHeading) || "Built To Guide Families Through Complex Moves"}</h2>
                 <div className="space-y-5 text-foreground/75 text-base md:text-lg leading-relaxed">
                   {bioParagraphs.length ? (
                     bioParagraphs.map((p, i) => <p key={i}>{p}</p>)
@@ -310,7 +310,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                 {acf?.valuesEyebrow || "What Blake stands for"}
               </p>
-              <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h2 className="text-h2 font-bold leading-tight">
                 {acf?.valuesHeading ? (
                   <span className="whitespace-pre-line">{tc(acf.valuesHeading)}</span>
                 ) : (
@@ -351,7 +351,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
               <div className="max-w-2xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight">
+                <h2 className="text-h2 font-bold leading-tight">
                   {tc(acf?.helpHeading) || "Real Estate Shouldn't Feel Overwhelming."}
                 </h2>
               </div>
@@ -383,7 +383,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
                     {/* Title */}
                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                      <h3 className="font-sans text-4xl font-bold drop-shadow-md">{card.title}</h3>
+                      <h3 className="text-h3 font-bold drop-shadow-md">{card.title}</h3>
                     </div>
                   </div>
 

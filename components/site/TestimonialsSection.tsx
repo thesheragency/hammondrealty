@@ -69,7 +69,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col items-start text-left sm:items-center sm:text-center mb-16">
-          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Trusted By Homeowners</h2>
+          <h2 className="text-h2 font-bold mb-4">Trusted By Homeowners</h2>
           <p className="text-foreground/70 leading-relaxed mb-8 max-w-xl">
             Rated 5 out of 5 stars based on verified client feedback.
           </p>

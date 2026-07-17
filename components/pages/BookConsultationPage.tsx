@@ -108,7 +108,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
-                <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
+                <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
                   {acf?.heading ? tc(acf.heading) : (<>Book A 15 Minute<br />Call With Blake</>)}
                 </h1>
 
@@ -162,9 +162,9 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       <p className="font-sans text-xs uppercase tracking-[0.25em] text-primary mb-2">
                         Step 1 of 2
                       </p>
-                      <h2 className="font-sans text-2xl md:text-3xl font-bold mb-1">
+                      <h3 className="text-h3 font-bold mb-1">
                         A Little About You
-                      </h2>
+                      </h3>
                       <p className="text-sm text-foreground/60 mb-8">
                         Fill this out and we will get you straight to the calendar.
                       </p>

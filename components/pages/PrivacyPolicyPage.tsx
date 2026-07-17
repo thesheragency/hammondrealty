@@ -21,14 +21,14 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
               <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                 Privacy Policy
               </p>
-              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
+              <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
                 Your Privacy Matters.
               </h1>
               <p className="text-foreground/60 text-sm mb-12">Effective Date: April 10, 2025</p>
 
               {content ? (
                 <div
-                  className="wp-legal-content text-foreground/80 leading-relaxed space-y-6 [&_h2]:font-sans [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mb-4 [&_h2]:mt-10 [&_h3]:font-sans [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-foreground [&_h3]:mb-3 [&_h3]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary [&_strong]:text-foreground"
+                  className="wp-legal-content text-foreground/80 leading-relaxed space-y-6 [&_h2]:font-sans [&_h2]:text-h2 [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mb-4 [&_h2]:mt-10 [&_h3]:font-sans [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-foreground [&_h3]:mb-3 [&_h3]:mt-8 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary [&_strong]:text-foreground"
                   dangerouslySetInnerHTML={{ __html: content }}
                 />
               ) : (
@@ -39,7 +39,7 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
                 </p>
 
                 <section>
-                  <h2 className="font-sans text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-h2 font-bold text-foreground mb-4">
                     Information We Collect
                   </h2>
                   <p className="mb-4">
@@ -54,7 +54,7 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
                 </section>
 
                 <section>
-                  <h2 className="font-sans text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-h2 font-bold text-foreground mb-4">
                     How We Use Your Information
                   </h2>
                   <p className="mb-4">We use the information you provide to:</p>
@@ -66,7 +66,7 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
                 </section>
 
                 <section>
-                  <h2 className="font-sans text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-h2 font-bold text-foreground mb-4">
                     SMS Consent
                   </h2>
                   <p className="mb-4">
@@ -84,7 +84,7 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
                 </section>
 
                 <section>
-                  <h2 className="font-sans text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-h2 font-bold text-foreground mb-4">
                     Data Protection
                   </h2>
                   <p>
@@ -94,7 +94,7 @@ export default function PrivacyPolicy({ content }: { content?: string | null }) 
                 </section>
 
                 <section>
-                  <h2 className="font-sans text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-h2 font-bold text-foreground mb-4">
                     Contact Us
                   </h2>
                   <p className="mb-4">

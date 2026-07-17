@@ -63,7 +63,7 @@ export default function FaqsSection({
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           <div className="lg:col-span-4">
-            <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-h2 font-bold mb-6">Frequently Asked Questions</h2>
             <p className="text-foreground/70 leading-relaxed">{intro}</p>
           </div>
 

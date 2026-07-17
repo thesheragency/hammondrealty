@@ -25,7 +25,7 @@ export default function Booked({ acf }: { acf?: Record<string, any> | null }) {
                 {acf?.badge || "Call Booked"}
               </div>
 
-              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
+              <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
                 {acf?.heading ? tc(acf.heading) : (<>Watch This Video<br />Before Our Call</>)}
               </h1>
 
