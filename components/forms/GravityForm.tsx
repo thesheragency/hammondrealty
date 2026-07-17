@@ -22,6 +22,7 @@ import { format, parse } from 'date-fns';
 import type { GfForm, GfFormField, GfChoice } from '@/lib/gf/queries';
 import { evaluateConditionalLogic, type FormValues } from '@/lib/gf/conditionalLogic';
 import { validateField, validateAllFields } from '@/lib/gf/validation';
+import { formatPhone } from '@/lib/utils';
 
 function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
@@ -326,7 +327,6 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     switch (field.type) {
       case 'TEXT':
       case 'WEBSITE':
-      case 'PHONE':
       case 'POST_TITLE':
       case 'POST_EXCERPT':
       case 'POST_TAGS':
@@ -337,11 +337,29 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             {renderLabel()}
             <Input
               {...commonProps}
-              type={field.type === 'PHONE' ? 'tel' : field.type === 'WEBSITE' ? 'url' : 'text'}
+              type={field.type === 'WEBSITE' ? 'url' : 'text'}
               placeholder={placeholderText}
               required={field.isRequired}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
+              onBlur={() => validateFieldOnBlur(field)}
+              maxLength={field.maxLength}
+              className="gf-input"
+            />
+          </>
+        );
+
+      case 'PHONE':
+        return wrapField(
+          <>
+            {renderLabel()}
+            <Input
+              {...commonProps}
+              type="tel"
+              placeholder={placeholderText}
+              required={field.isRequired}
+              value={(value as string) || ''}
+              onChange={(e) => updateFieldValue(id, formatPhone(e.target.value))}
               onBlur={() => validateFieldOnBlur(field)}
               maxLength={field.maxLength}
               className="gf-input"
