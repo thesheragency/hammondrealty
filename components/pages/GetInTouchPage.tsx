@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { tc } from "@/lib/title-case";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
@@ -40,7 +41,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   {acf?.eyebrow || "Get in Touch"}
                 </p>
                 <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6 text-white">
-                  {acf?.heading ? acf.heading : (<>Let's Talk About<br />Your Next Move.</>)}
+                  {acf?.heading ? tc(acf.heading) : (<>Let's Talk About<br />Your Next Move.</>)}
                 </h1>
                 <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
                   {acf?.body || "Whether you are buying, selling, or just exploring the market, every message receives a personal reply. No call centers, no scripts, and no generic answers."}
@@ -62,7 +63,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                         <Mail className="w-7 h-7" strokeWidth={1.75} />
                       </div>
                       <h2 className="font-sans text-2xl md:text-3xl font-bold mb-3">
-                        {acf?.successHeading || "Message received."}
+                        {tc(acf?.successHeading) || "Message Received."}
                       </h2>
                       <p className="text-foreground/70 leading-relaxed">
                         {acf?.successBody || "Thanks for reaching out. A personal response will be sent to your inbox within one business day."}
@@ -74,7 +75,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                     {acf?.formEyebrow || "Send a Message"}
                   </p>
                   <h2 className="font-sans text-2xl md:text-3xl font-bold leading-tight mb-6">
-                    {acf?.formHeading || "Tell Us About Your Move."}
+                    {tc(acf?.formHeading) || "Tell Us About Your Move."}
                   </h2>
 
                   <GravityFormClient
@@ -99,7 +100,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   <Mail className="w-7 h-7" strokeWidth={1.75} />
                 </div>
                 <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
-                  {acf?.emailCardTitle || "Email Anytime"}
+                  {tc(acf?.emailCardTitle) || "Email Anytime"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
                   {acf?.emailCardDesc || "A direct response will be sent as soon as possible, usually the same day."}
@@ -116,7 +117,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                   <Phone className="w-7 h-7" strokeWidth={1.75} />
                 </div>
                 <h3 className="font-sans text-xl md:text-2xl font-bold mb-3">
-                  {acf?.phoneCardTitle || "Call Or Text"}
+                  {tc(acf?.phoneCardTitle) || "Call or Text"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
                   {acf?.phoneCardDesc || "If the line is busy, leave a voicemail or shoot over a text message for a reply within 24 hours."}

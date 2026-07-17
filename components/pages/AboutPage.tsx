@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { tc } from "@/lib/title-case";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShieldCheck, Eye, Puzzle, ArrowRight } from "lucide-react";
@@ -187,7 +188,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                 {acf?.heroEyebrow || "About Blake"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                {acf?.heroHeading || "I Tell You The Truth, Especially When It's Hard."}
+                {tc(acf?.heroHeading) || "I Tell You The Truth, Especially When It's Hard."}
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
                 {acf?.heroBody || (
@@ -227,7 +228,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.bioEyebrow || "Meet Blake"}
                 </p>
-                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{acf?.bioHeading || "Built To Guide Families Through Complex Moves"}</h2>
+                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{tc(acf?.bioHeading) || "Built to Guide Families Through Complex Moves"}</h2>
                 <div className="space-y-5 text-foreground/75 text-base md:text-lg leading-relaxed">
                   {bioParagraphs.length ? (
                     bioParagraphs.map((p, i) => <p key={i}>{p}</p>)
@@ -311,7 +312,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
               </p>
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 {acf?.valuesHeading ? (
-                  <span className="whitespace-pre-line">{acf.valuesHeading}</span>
+                  <span className="whitespace-pre-line">{tc(acf.valuesHeading)}</span>
                 ) : (
                   <>Integrity-Driven Service<br />From Start To Finish</>
                 )}
@@ -351,7 +352,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
               <div className="max-w-2xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight">
-                  {acf?.helpHeading || "Real Estate Shouldn't Feel Overwhelming."}
+                  {tc(acf?.helpHeading) || "Real Estate Shouldn't Feel Overwhelming."}
                 </h2>
               </div>
               <div className="max-w-md">

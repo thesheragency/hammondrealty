@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { tc } from "@/lib/title-case";
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -399,7 +400,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                     {acf?.heroEyebrow || "Selling with Blake"}
                   </p>
                   <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                    {acf?.heroHeading ? acf.heroHeading : (<>Sell Quickly.<br />Make More Money.</>)}
+                    {acf?.heroHeading ? tc(acf.heroHeading) : (<>Sell Quickly.<br />Make More Money.</>)}
                   </h1>
                   <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible."}</p>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-6">
@@ -441,7 +442,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   {acf?.whyEyebrow || "Why Sell With Blake"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {acf?.whyHeading || "Maximize Your Equity"}
+                  {tc(acf?.whyHeading) || "Maximize Your Equity"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
                   {acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."}
@@ -501,7 +502,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 {acf?.guaranteeEyebrow || "My Promise"}
               </p>
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                {acf?.guaranteeHeading || "The Hammond Real Estate Guarantee"}
+                {tc(acf?.guaranteeHeading) || "The Hammond Real Estate Guarantee"}
               </h2>
               <p className="text-foreground/70 text-lg leading-relaxed">
                 {acf?.guaranteeBody || "Four direct standards held on every single property partnership, in writing, from day one."}
@@ -564,7 +565,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                     {acf?.processEyebrow || "Home Selling Process"}
                   </p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    {acf?.processHeading || "Minimize Days On Market"}
+                    {tc(acf?.processHeading) || "Minimize Days on Market"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant."}
@@ -660,7 +661,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.prepEyebrow || "Elevate Your Market Value & Sell With Less Stress"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {acf?.prepHeading || "Home Prep Program"}
+                  {tc(acf?.prepHeading) || "Home Prep Program"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."}</p>
 
@@ -724,7 +725,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   className="h-6 md:h-8 w-auto mb-8"
                 />
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {acf?.zillowHeading || "Zillow Showcase Drives 75% More Views"}
+                  {tc(acf?.zillowHeading) || "Zillow Showcase Drives 75% More Views"}
                 </h2>
                 <p className="text-foreground/70 text-lg leading-relaxed mb-10">
                   {acf?.zillowBody || "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing."}

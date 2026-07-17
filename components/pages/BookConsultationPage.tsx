@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -108,7 +109,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
                 <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                  {acf?.heading ? acf.heading : (<>Book A 15 Minute<br />Call With Blake</>)}
+                  {acf?.heading ? tc(acf.heading) : (<>Book a 15 Minute<br />Call With Blake</>)}
                 </h1>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md mb-8">
@@ -162,7 +163,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         Step 1 of 2
                       </p>
                       <h2 className="font-sans text-2xl md:text-3xl font-bold mb-1">
-                        A little about you
+                        A Little About You
                       </h2>
                       <p className="text-sm text-foreground/60 mb-8">
                         Fill this out and we will get you straight to the calendar.

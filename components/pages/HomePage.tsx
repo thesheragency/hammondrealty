@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { tc } from "@/lib/title-case";
 import Link from "next/link";
 import { ChevronRight, ChevronLeft, ArrowRight, Phone, MapPin, Hammer, Trophy, ShieldCheck, Mail } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -466,7 +467,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                   </motion.div>
                   <h1 className="font-sans text-5xl md:text-6xl lg:text-[3.75rem] font-bold leading-[1.1] tracking-tight mb-6">
                     {acf?.heroHeading ? (
-                      <span className="whitespace-pre-line">{acf.heroHeading}</span>
+                      <span className="whitespace-pre-line">{tc(acf.heroHeading)}</span>
                     ) : (
                       <>Buy With Confidence.<br />Sell For Top Dollar.</>
                     )}
@@ -587,7 +588,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
               <div className="max-w-2xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.helpEyebrow || "How I Help"}</p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight">
-                  {acf?.helpHeading || "Real Estate Shouldn't Feel Overwhelming."}
+                  {tc(acf?.helpHeading) || "Real Estate Shouldn't Feel Overwhelming."}
                 </h2>
               </div>
               <div className="max-w-md">
@@ -633,7 +634,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
               <div className="flex flex-col pt-6 pb-10 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto">
                 <div>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    {acf?.processHeading || "My Process"}
+                    {tc(acf?.processHeading) || "My Process"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "A practical roadmap to outpace local market averages."}
@@ -750,7 +751,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
               <div className="container mx-auto px-4 md:px-8 lg:mx-0 lg:ml-auto lg:max-w-[640px] lg:pl-8 lg:pr-16 xl:pr-24 pt-12 pb-6 lg:py-20">
                 <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] mb-12 text-balance">
-                  {acf?.whyHeading || "Why Homeowners Choose Blake Over The Competition"}
+                  {tc(acf?.whyHeading) || "Why Homeowners Choose Blake Over the Competition"}
                 </h2>
 
                 <div className="space-y-8 mb-12">
@@ -908,7 +909,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
               Let's talk
             </p>
             <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Don't Miscalculate The Market
+              Don't Miscalculate the Market
             </h2>
             <p className="text-white/70 max-w-xl sm:mx-auto mb-10 leading-relaxed">Use sharp contract strategies to buy the right property, or leverage our Home Prep Program to maximize your sale price.</p>
             <div className="flex flex-wrap items-center justify-start sm:justify-center gap-4">

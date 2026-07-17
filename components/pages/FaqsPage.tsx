@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { tc } from "@/lib/title-case";
 import { motion } from "framer-motion";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -110,7 +111,7 @@ export default function Faqs({
               {/* Heading */}
               <div className="text-center mb-10">
                 <h1 className="font-sans text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                  {acf?.heading || "Frequently Asked Questions"}
+                  {tc(acf?.heading) || "Frequently Asked Questions"}
                 </h1>
                 <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto">
                   {acf?.intro || (

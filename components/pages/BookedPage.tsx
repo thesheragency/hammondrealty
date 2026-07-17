@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tc } from "@/lib/title-case";
 import { Play, CalendarCheck } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -25,7 +26,7 @@ export default function Booked({ acf }: { acf?: Record<string, any> | null }) {
               </div>
 
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                {acf?.heading ? acf.heading : (<>Watch This Video<br />Before Our Call</>)}
+                {acf?.heading ? tc(acf.heading) : (<>Watch This Video<br />Before Our Call</>)}
               </h1>
 
               <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-2xl mx-auto mb-10">

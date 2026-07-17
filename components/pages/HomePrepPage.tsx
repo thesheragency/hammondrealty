@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
@@ -445,7 +446,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                 {acf?.heroEyebrow || "Home Prep Selling Program"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                {acf?.heroHeading || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
+                {tc(acf?.heroHeading) || "We Prepare Your Home for Sale. You Pay Nothing Until It's Sold."}
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">{acf?.heroBody || "We manage and pay for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress."}</p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -483,7 +484,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
 
               <div className="pt-6 pb-12 lg:py-28 lg:pl-12 xl:pl-20">
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {acf?.familiarHeading || "Sound Familiar?"}
+                  {tc(acf?.familiarHeading) || "Sound Familiar?"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
                   {acf?.familiarSubheading || "Getting a home market-ready can easily feel expensive and overwhelming."}
@@ -558,7 +559,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   {acf?.whyEyebrow || "Our Difference"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {acf?.whyHeading || "Home Prep Program"}
+                  {tc(acf?.whyHeading) || "Home Prep Program"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
                   {acf?.whyBody || "Buyers reward homes that show better than the competition. This turnkey renovation program quietly removes every friction point without you writing a check before closing."}
@@ -641,7 +642,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                     {acf?.processEyebrow || "Home Prep Program Process"}
                   </p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    {acf?.processHeading ? acf.processHeading : (<>100% Funded<br />Renovations</>)}
+                    {acf?.processHeading ? tc(acf.processHeading) : (<>100% Funded<br />Renovations</>)}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "5 steps to a stress-free, high-profit sale."}
@@ -738,7 +739,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   {acf?.includedEyebrow || "What's Included"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  {acf?.includedHeading ? acf.includedHeading : (<>We Manage The Contractors<br />& Cover The Costs</>)}
+                  {acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)}
                 </h2>
               </div>
               <div className="hidden md:flex items-center gap-2 shrink-0">
@@ -793,7 +794,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-center mb-14">
               <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                {acf?.caseSectionHeading || "Before & After Case Study"}
+                {tc(acf?.caseSectionHeading) || "Before & After Case Study"}
               </h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -802,7 +803,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
                   {acf?.caseEyebrow || "Roseville, CA"}
                 </p>
                 <h3 className="font-sans text-3xl md:text-4xl font-bold leading-tight mb-6">
-                  {acf?.caseHeading ? acf.caseHeading : (<>Our Home Prep Program Put An Extra<br />$50,000 In Our Client's Pocket</>)}
+                  {acf?.caseHeading ? tc(acf.caseHeading) : (<>Our Home Prep Program Put an Extra<br />$50,000 in Our Client's Pocket</>)}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
                 <ul className="space-y-4 mb-10">

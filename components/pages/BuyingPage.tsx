@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { tc } from "@/lib/title-case";
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -216,7 +217,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                     {acf?.heroEyebrow || "Buying with Blake"}
                   </p>
                   <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                    {acf?.heroHeading ? acf.heroHeading : (<>Beat The Competition<br />To The Property</>)}
+                    {acf?.heroHeading ? tc(acf.heroHeading) : (<>Beat the Competition<br />to the Property</>)}
                   </h1>
                   <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
                   <a
@@ -272,7 +273,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.whyEyebrow || "Why Blake"}
                 </p>
-                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">{acf?.whyHeading || "Buying With Total Certainty"}</h2>
+                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
                 <ul className="space-y-6 mb-10">
@@ -341,7 +342,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   {acf?.tipsEyebrow || "Buyer Tips"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  {acf?.tipsHeading ? acf.tipsHeading : (<>Taking The Stress<br />Out Of Buying</>)}
+                  {acf?.tipsHeading ? tc(acf.tipsHeading) : (<>Taking the Stress<br />Out of Buying</>)}
                 </h2>
               </div>
               <p className="max-w-md text-lg text-foreground/70 leading-relaxed">
@@ -410,7 +411,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">{acf?.processEyebrow || "Home Buying Process"}</p>
                   <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-                    {acf?.processHeading || "A Clear Path To Closing"}
+                    {tc(acf?.processHeading) || "A Clear Path to Closing"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "Three distinct steps designed to protect your money and eliminate the guesswork."}

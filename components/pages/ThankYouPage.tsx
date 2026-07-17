@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tc } from "@/lib/title-case";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 
@@ -19,7 +20,7 @@ export default function ThankYou({ acf }: { acf?: Record<string, any> | null }) 
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
-                {acf?.heading || "Thank You."}
+                {tc(acf?.heading) || "Thank You."}
               </h1>
 
               <p className="text-foreground/70 leading-relaxed text-base md:text-lg max-w-md mx-auto mb-10">
