@@ -92,13 +92,13 @@ const sellingSteps = [
     num: "01",
     title: "Free Consultation",
     desc: "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
-    image: blakePresentingUrl,
+    image: "/images/step-consultation-audit.png",
   },
   {
     num: "02",
     title: "Prepare Your Home For Sale",
     desc: "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
-    image: prepLivingroomUrl,
+    image: "/images/step-prepare-home-for-sale.png",
   },
   {
     num: "03",

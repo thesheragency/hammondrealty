@@ -64,19 +64,19 @@ const prepSteps = [
     num: "01",
     title: "Consultation & Audit",
     desc: "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
-    image: prepHomeAerialUrl,
+    image: "/images/step-consultation-audit.png",
   },
   {
     num: "02",
     title: "Upfront Renovation Funding",
     desc: "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
-    image: prepRosevilleBeforeUrl,
+    image: "/images/step-upfront-renovation-funding.jpg",
   },
   {
     num: "03",
     title: "Project Management",
     desc: "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
-    image: stepPreparing2Url,
+    image: "/images/step-project-management.png",
   },
   {
     num: "04",
