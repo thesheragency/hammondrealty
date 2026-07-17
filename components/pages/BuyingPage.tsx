@@ -217,7 +217,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                     {acf?.heroEyebrow || "Buying with Blake"}
                   </p>
                   <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white">
-                    {acf?.heroHeading ? tc(acf.heroHeading) : (<>Beat the Competition<br />to the Property</>)}
+                    {acf?.heroHeading ? tc(acf.heroHeading) : (<>Beat The Competition<br />To The Property</>)}
                   </h1>
                   <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
                   <a
@@ -342,7 +342,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   {acf?.tipsEyebrow || "Buyer Tips"}
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  {acf?.tipsHeading ? tc(acf.tipsHeading) : (<>Taking the Stress<br />Out of Buying</>)}
+                  {acf?.tipsHeading ? tc(acf.tipsHeading) : (<>Taking The Stress<br />Out Of Buying</>)}
                 </h2>
               </div>
               <p className="max-w-md text-lg text-foreground/70 leading-relaxed">

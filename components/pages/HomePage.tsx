@@ -369,7 +369,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
     },
     {
       icon: Trophy,
-      title: "Record Of Success",
+      title: "Record of Success",
       desc: "Sold 18 homes that were previously listed by other agents and failed to sell.",
     },
     {

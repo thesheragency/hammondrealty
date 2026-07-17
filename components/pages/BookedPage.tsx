@@ -56,7 +56,7 @@ export default function Booked({ acf }: { acf?: Record<string, any> | null }) {
                 href={acf?.buttonLink || "/"}
                 className="inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto h-[45px] px-8"
               >
-                {acf?.buttonText || "Back to Home"}
+                {acf?.buttonText || "Back To Home"}
               </a>
             </div>
           </div>

@@ -109,7 +109,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
                 <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">
-                  {acf?.heading ? tc(acf.heading) : (<>Book a 15 Minute<br />Call With Blake</>)}
+                  {acf?.heading ? tc(acf.heading) : (<>Book A 15 Minute<br />Call With Blake</>)}
                 </h1>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md mb-8">

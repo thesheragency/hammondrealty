@@ -19,7 +19,7 @@ const fallbackQuickLinks = [
 const fallbackServices = [
   { label: "Home Prep Program", href: "/home-prep-program" },
   { label: "Home Value Analysis", href: "/home-value-analysis" },
-  { label: "Book a Consultation", href: "/book-consultation" },
+  { label: "Book A Consultation", href: "/book-consultation" },
   { label: "Contact Blake", href: "/connect" },
 ];
 

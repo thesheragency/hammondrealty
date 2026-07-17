@@ -228,7 +228,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.bioEyebrow || "Meet Blake"}
                 </p>
-                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{tc(acf?.bioHeading) || "Built to Guide Families Through Complex Moves"}</h2>
+                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">{tc(acf?.bioHeading) || "Built To Guide Families Through Complex Moves"}</h2>
                 <div className="space-y-5 text-foreground/75 text-base md:text-lg leading-relaxed">
                   {bioParagraphs.length ? (
                     bioParagraphs.map((p, i) => <p key={i}>{p}</p>)

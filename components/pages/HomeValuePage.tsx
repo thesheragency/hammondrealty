@@ -121,7 +121,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                 {acf?.heroEyebrow || "Free Home Value Analysis"}
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 text-white">
-                {tc(acf?.heroHeading) || "What Is Your Home Worth?"}
+                {tc(acf?.heroHeading) || tc("What Is Your Home Worth?")}
               </h1>
               <p className="text-base md:text-lg text-white/80 mb-6 leading-relaxed max-w-2xl sm:mx-auto">{acf?.heroBody || "Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation. "}</p>
               <div className="flex flex-wrap items-center justify-start sm:justify-center gap-4">
@@ -212,7 +212,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   The Process
                 </p>
                 <h2 className="font-sans text-4xl md:text-5xl font-bold leading-tight mb-5">
-                  {tc(acf?.howItWorksHeading) || "Here Is How It Works"}
+                  {tc(acf?.howItWorksHeading) || tc("Here Is How It Works")}
                 </h2>
                 <p className="text-foreground/60 leading-relaxed max-w-sm">
                   {acf?.howItWorksSubtitle || "Accurate analysis delivered straight to your inbox within 24 hours."}
@@ -276,7 +276,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                     <BadgeCheck className="w-7 h-7" strokeWidth={1.75} />
                   </div>
                   <h3 className="font-sans text-2xl md:text-3xl font-bold mb-3">
-                    {tc(acf?.formSuccessHeading) || "Thanks, the Details Have Been Received."}
+                    {tc(acf?.formSuccessHeading) || "Thanks, The Details Have Been Received."}
                   </h3>
                   <p className="text-foreground/70 leading-relaxed">
                     {acf?.formSuccessBody || "Your personalized home value report and custom video breakdown will be delivered within one business day."}
@@ -340,7 +340,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
 
         <CtaSection
           eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}
-          heading={tc(acf?.ctaHeading) || "Get A Custom Home Value Report Today"}
+          heading={tc(acf?.ctaHeading) || tc("Get A Custom Home Value Report Today")}
           body={acf?.ctaBody || "A free, private property valuation built straight from local market data and delivered directly to your inbox."}
           primaryLabel={acf?.ctaPrimaryLabel || "Contact Blake"}
           {...(acf?.ctaSecondaryLabel ? { secondaryLabel: acf.ctaSecondaryLabel } : {})}

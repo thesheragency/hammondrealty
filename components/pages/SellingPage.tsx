@@ -748,7 +748,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center border border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium text-sm w-full sm:w-auto px-6 h-[45px] transition-colors"
                   >
-                    {acf?.zillowSecondaryText || "View On Zillow"}
+                    {acf?.zillowSecondaryText || "View on Zillow"}
                   </a>
                 </div>
               </div>
