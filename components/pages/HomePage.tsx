@@ -463,7 +463,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                   </h1>
                   <p className="text-lg md:text-xl text-foreground/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Full-service listings, expert negotiation for buyers, and fully funded pre-market home preparation with no upfront costs."}</p>
 
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                       <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
                     </Button>
