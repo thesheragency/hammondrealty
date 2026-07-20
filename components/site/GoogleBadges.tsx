@@ -2,6 +2,25 @@
 
 import { Star } from "lucide-react";
 
+export function ZillowZ({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="8" fill="#006AFF" />
+      <text
+        x="24"
+        y="35"
+        textAnchor="middle"
+        fill="white"
+        fontSize="28"
+        fontWeight="900"
+        fontFamily="Arial Black, Arial, sans-serif"
+      >
+        Z
+      </text>
+    </svg>
+  );
+}
+
 export function GoogleG({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden>
