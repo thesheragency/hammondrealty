@@ -378,13 +378,13 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="relative z-10">
-                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-6">
+                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-foreground/60 mb-6">
                     {acf?.heroEyebrow || "Selling with Blake"}
                   </p>
-                  <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
+                  <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-foreground">
                     {acf?.heroHeading ? tc(acf.heroHeading) : (<>Sell Quickly.<br />Make More Money.</>)}
                   </h1>
-                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible."}</p>
+                  <p className="text-lg md:text-xl text-foreground/70 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible."}</p>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                     <Button asChild className="bg-white text-foreground hover:bg-white/90 border-transparent no-default-hover-elevate no-default-active-elevate rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                       <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
