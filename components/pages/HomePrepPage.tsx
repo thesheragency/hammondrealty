@@ -216,28 +216,30 @@ function BeforeAfterSlider({
         updateFromClientX(e.touches[0].clientX);
       }}
     >
+      {/* After image (base — right side) */}
       <img
-        src={beforeSrc}
-        alt={beforeAlt}
+        src={afterSrc}
+        alt={afterAlt}
         draggable={false}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <span className="absolute top-4 right-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
-        Before
+        After
       </span>
+      {/* Before image (clipped from left) */}
       <div
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={{ width: `${position}%` }}
       >
         <img
-          src={afterSrc}
-          alt={afterAlt}
+          src={beforeSrc}
+          alt={beforeAlt}
           draggable={false}
           className="absolute inset-0 h-full w-auto max-w-none object-cover pointer-events-none"
           style={{ width: containerRef.current?.offsetWidth ?? "100%" }}
         />
         <span className="absolute top-4 left-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
-          After
+          Before
         </span>
       </div>
       <div
