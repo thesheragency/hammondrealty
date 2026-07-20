@@ -548,7 +548,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                     {acf?.processEyebrow || "Home Selling Process"}
                   </p>
                   <h2 className="text-h2 font-bold leading-tight mb-3">
-                    {tc(acf?.processHeading) || "Minimize Days on Market"}
+                    {tc(acf?.processHeading) || "Sell Your Home as Quickly as Possible"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant."}
