@@ -970,6 +970,17 @@ onChange={(e) => {
               </Button>
             )}
           </div>
+
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            By submitting this form you agree to our{' '}
+            <a
+              href="/privacy-policy"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              Privacy Policy
+            </a>
+            .
+          </p>
         </form>
     </div>
   );
