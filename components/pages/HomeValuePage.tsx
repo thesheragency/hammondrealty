@@ -261,7 +261,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
                   {acf?.formEyebrow || "Get Started"}
                 </p>
                 <h2 className="text-h2 font-bold leading-tight mb-6">
-                  {acf?.formHeading ? tc(acf.formHeading) : (<>Request Your<br />Custom Valuation</>)}
+                  {acf?.formHeading ? tc(acf.formHeading) : "Find Out What Your Home Is Worth"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed text-lg max-w-md">
                   {acf?.formBody || "Share a few details to receive a personalized written property report with zero algorithms or guesswork."}
