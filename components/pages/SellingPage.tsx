@@ -531,6 +531,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 src={steps[activeStep].image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "50% 10%" }}
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
@@ -593,13 +594,14 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   })}
 
                   {/* Mobile image */}
-                  <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
+                  <div className="lg:hidden relative aspect-[4/5] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={`m-${activeStep}`}
                         src={steps[activeStep].image}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
+                        style={{ objectPosition: "50% 10%" }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
