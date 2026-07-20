@@ -645,7 +645,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
               <div>
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">{acf?.prepEyebrow || "Elevate Your Market Value & Sell With Less Stress"}</p>
                 <h2 className="text-h2 font-bold leading-tight mb-6">
-                  {tc(acf?.prepHeading) || "Home Prep Program"}
+                  {tc(acf?.prepHeading) || "Make Your Home as Valuable as Possible"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."}</p>
 
