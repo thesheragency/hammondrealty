@@ -328,7 +328,8 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           heading={tc(acf?.ctaHeading) || <>Get A Custom Home Value<br />Report Today</>}
           body={acf?.ctaBody || "A free, private property valuation built straight from local market data and delivered directly to your inbox."}
           primaryLabel={acf?.ctaPrimaryLabel || "Contact Blake"}
-          {...(acf?.ctaSecondaryLabel ? { secondaryLabel: acf.ctaSecondaryLabel } : {})}
+          secondaryLabel={acf?.ctaSecondaryLabel || "See What Your Home Is Worth"}
+          secondaryHref={acf?.ctaSecondaryHref || "#value-form"}
         />
       </main>
       <SiteFooter />
