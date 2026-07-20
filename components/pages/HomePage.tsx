@@ -454,7 +454,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
               >
                 <div className="relative z-10">
                   <motion.div
-                    className="mb-8 flex items-center gap-4"
+                    className="mb-8 hidden lg:flex items-center gap-4"
                     initial={{ opacity: 0, scale: 0.85 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
@@ -498,6 +498,14 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                     src={heroBedroom}
                     alt={heroBedroomAltText}
                     className="object-cover w-full h-full"
+                  />
+                  <motion.img
+                    src={mastersClub}
+                    alt={mastersClubAltText}
+                    className="absolute bottom-4 right-4 h-20 w-20 drop-shadow-lg"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                   />
                 </div>
               </motion.div>
