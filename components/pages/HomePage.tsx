@@ -9,13 +9,6 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import { Stars } from "@/components/site/GoogleBadges";
 import { Button } from "@/components/ui/button";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -547,34 +540,14 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <Carousel className="w-full" opts={{ loop: true }}>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-12">
-                <div className="min-w-0 max-w-4xl flex-1">
-                  <CarouselContent>
-                    {heroTestimonials.map((testimonial: { quote: string; name: string }, index: number) => (
-                      <CarouselItem key={index}>
-                        <div className="flex flex-col items-start text-left px-0">
-                          <img src={quoteMarkUrl} alt="" className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" />
-                          <Stars className="w-6 h-6 mb-6" label="Rated 5 out of 5 stars" />
-                          <p className="font-sans text-2xl md:text-4xl leading-relaxed font-bold mb-12">
-                            "{testimonial.quote}"
-                          </p>
-                          <div className="flex items-center gap-4">
-                            <div className="text-left">
-                              <p className="font-semibold text-lg">{testimonial.name}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </div>
-                <div className="flex items-center gap-1 md:pt-24 shrink-0">
-                  <CarouselPrevious className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
-                  <CarouselNext className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
-                </div>
-              </div>
-            </Carousel>
+            <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-0">
+              <img src={quoteMarkUrl} alt="" className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" />
+              <Stars className="w-6 h-6 mb-6" label="Rated 5 out of 5 stars" />
+              <p className="font-sans text-2xl md:text-4xl leading-relaxed font-bold mb-12">
+                "{heroTestimonials[0].quote}"
+              </p>
+              <p className="font-semibold text-lg">{heroTestimonials[0].name}</p>
+            </div>
           </div>
         </motion.section>
 

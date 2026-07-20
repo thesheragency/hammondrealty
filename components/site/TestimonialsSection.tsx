@@ -1,6 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { GoogleG, Stars } from "@/components/site/GoogleBadges";
 
 export interface Testimonial {
@@ -37,7 +46,18 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const reviews = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
-  const review = reviews[0];
+  const [api, setApi] = useState<CarouselApi | undefined>();
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    setIndex(api.selectedScrollSnap());
+    const onSelect = () => setIndex(api.selectedScrollSnap());
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   return (
     <motion.section
@@ -48,7 +68,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
       transition={{ duration: 0.9, ease: "easeOut" }}
     >
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex flex-col items-center text-center mb-8 md:mb-16">
+        <div className="flex flex-col items-start text-left sm:items-center sm:text-center mb-8 md:mb-16">
           <h2 className="text-h2 font-bold mb-4">Trusted By Homeowners</h2>
           <p className="text-foreground/70 leading-relaxed mb-8 max-w-xl">
             Rated 5 out of 5 stars based on verified client feedback.
@@ -67,19 +87,33 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto">
-          <div className="flex flex-col border border-foreground/10 bg-background p-8 text-center">
-            <div className="flex items-center justify-center mb-5">
-              <Stars className="w-4 h-4" />
-            </div>
-            <p className="text-foreground/80 text-base leading-relaxed mb-8 flex-1">
-              "{review.quote}"
-            </p>
-            <div className="flex items-center justify-center pt-5 border-t border-foreground/10">
-              <p className="font-sans text-sm font-bold leading-tight">{review.name}</p>
-            </div>
+        <Carousel className="w-full" opts={{ align: "start", loop: true }} setApi={setApi}>
+          <CarouselContent className="-ml-4">
+            {reviews.map((r, i) => (
+              <CarouselItem
+                key={i}
+                className="pl-4 basis-[88%] sm:basis-[60%] lg:basis-1/3"
+              >
+                <div className="flex flex-col h-full border border-foreground/10 bg-background p-8">
+                  <div className="flex items-center justify-between mb-5">
+                    <Stars className="w-4 h-4" />
+                    <GoogleG className="w-6 h-6" />
+                  </div>
+                  <p className="text-foreground/80 text-base leading-relaxed mb-8 flex-1">
+                    "{r.quote}"
+                  </p>
+                  <div className="flex items-center gap-3 pt-5 border-t border-foreground/10">
+                    <p className="font-sans text-sm font-bold leading-tight">{r.name}</p>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex justify-center gap-2 mt-12">
+            <CarouselPrevious className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
+            <CarouselNext className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
           </div>
-        </div>
+        </Carousel>
       </div>
     </motion.section>
   );
