@@ -184,13 +184,13 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
+              <p className="font-sans text-xs uppercase tracking-[0.3em] text-foreground/60 mb-6">
                 {acf?.heroEyebrow || "About Blake"}
               </p>
-              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
+              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-foreground">
                 {tc(acf?.heroHeading) || "I Tell You The Truth, Especially When It's Hard."}
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
+              <p className="text-lg md:text-xl text-foreground/70 mb-10 leading-relaxed max-w-xl">
                 {acf?.heroBody || (
                   <>
                     A calm, protective partner who handles the contractors, guides
