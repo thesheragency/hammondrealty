@@ -27,9 +27,21 @@ const defaultReviews: Testimonial[] = [
   },
   {
     quote:
+      "Highly HIGHLY recommend Blake. He made the home buying process go as smooth as it could. We had a lot of unique things pop up in our home buying process and Blake was always there to help us navigate. He was incredibly responsive, knowledgeable, and truly had our best interests at heart every step of the way.",
+    name: "Joe Silva",
+    source: "zillow",
+  },
+  {
+    quote:
       "Excellent experience with Blake. He was friendly, supportive throughout the process, provided clear recommendations, and worked with us to accommodate two busy professionals! The house sold extremely quickly and his marketing and staging were wonderfully done. So appreciate him and would recommend him.",
     name: "Christine Smith",
     source: "google",
+  },
+  {
+    quote:
+      "Blake Hammond was absolutely incredible to work with while buying our home in Lincoln. From our very first meeting to the day we closed, he demonstrated unparalleled professionalism and expertise. It did take us several months to find our perfect home, and Blake was so patient and dedicated throughout the entire journey. We could not have asked for a better agent.",
+    name: "Marc McDougal",
+    source: "zillow",
   },
   {
     quote:
@@ -39,21 +51,15 @@ const defaultReviews: Testimonial[] = [
   },
   {
     quote:
-      "Blake did a wonderful job for us and got our house sold on the very first day it was listed. We could not be any happier with his help. We highly recommend him because we know he will take really good care of you.",
-    name: "Tim Tingey",
-    source: "google",
-  },
-  {
-    quote:
-      "Highly HIGHLY recommend Blake. He made the home buying process go as smooth as it could. We had a lot of unique things pop up in our home buying process and Blake was always there to help us navigate. He was incredibly responsive, knowledgeable, and truly had our best interests at heart every step of the way.",
-    name: "Joe Silva",
-    source: "zillow",
-  },
-  {
-    quote:
       "Blake Hammond is absolutely incredible to work with. He is an energetic and knowledgeable professional who truly listens to his clients' needs. We were particularly impressed by his market expertise and his ability to negotiate on our behalf. We would absolutely work with Blake again.",
     name: "Chase Bonslett",
     source: "zillow",
+  },
+  {
+    quote:
+      "Blake did a wonderful job for us and got our house sold on the very first day it was listed. We could not be any happier with his help. We highly recommend him because we know he will take really good care of you.",
+    name: "Tim Tingey",
+    source: "google",
   },
   {
     quote:
@@ -65,6 +71,12 @@ const defaultReviews: Testimonial[] = [
     quote:
       "Blake is a trusted and seasoned professional with a keen sense of what works well in the marketplace. When we hired Blake, we committed to listening to his astute input on pricing and presentation — and it paid off. Our home sold quickly and above expectations. A true professional in every sense.",
     name: "R. Meisenbach",
+    source: "zillow",
+  },
+  {
+    quote:
+      "Blake did an amazing job helping me find the right home that was the perfect fit for me! He made the whole process very smooth. I would highly recommend using him!",
+    name: "Gavin Hollmer",
     source: "zillow",
   },
 ];
