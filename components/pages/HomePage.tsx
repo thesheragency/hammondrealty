@@ -440,6 +440,14 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
               alt={heroBedroomAltText}
               className="object-cover w-full h-full"
             />
+            <motion.img
+              src={mastersClub}
+              alt={mastersClubAltText}
+              className="absolute bottom-6 left-6 h-24 w-24 drop-shadow-lg z-10"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            />
           </motion.div>
 
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24 lg:pb-0 lg:min-h-[640px]">
@@ -453,18 +461,6 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="relative z-10">
-                  <motion.div
-                    className="mb-8 hidden lg:flex items-center gap-4"
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                  >
-                    <img
-                      src={mastersClub}
-                      alt={mastersClubAltText}
-                      className="h-24 w-24 md:h-28 md:w-28 shrink-0"
-                    />
-                  </motion.div>
                   <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6">
                     {acf?.heroHeading ? (
                       <span className="whitespace-pre-line">{tc(acf.heroHeading)}</span>
