@@ -69,7 +69,7 @@ const guaranteeItems = [
   {
     icon: MessageSquare,
     title: "Proactive Communication",
-    desc: "Enjoy structured weekly updates and rapid same-day responses so you always know exactly where your transaction stands.",
+    desc: "Enjoy structured weekly updates and rapid same-day responses so you always know exactly where your transaction\u00a0stands.",
   },
   {
     icon: Lightbulb,
@@ -79,12 +79,12 @@ const guaranteeItems = [
   {
     icon: BookOpen,
     title: "Plain English Service",
-    desc: "Complex paperwork and transaction logistics are translated into everyday language, keeping your path clear and stress-free.",
+    desc: "Complex paperwork and transaction logistics are translated into everyday language, keeping your path clear and\u00a0stress-free.",
   },
   {
     icon: DoorOpen,
     title: "Easy-Exit Listing Agreement",
-    desc: "Professional service is earned every single week. If commitments are not met, you can cancel the agreement at any time.",
+    desc: "Professional service is earned every single week. If commitments are not met, you can cancel the agreement at any\u00a0time.",
   },
 ];
 
@@ -316,7 +316,7 @@ function WhySellVideo({
         >
           <img
             src={thumbUrl}
-            alt="Blake Hammond on the podcast — Why Sell With Blake"
+            alt="Why Sell With Blake — video preview"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
@@ -504,7 +504,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
               <h2 className="text-h2 font-bold leading-tight mb-6">
                 {tc(acf?.guaranteeHeading) || "The Hammond Real Estate Guarantee"}
               </h2>
-              <p className="text-foreground/70 text-lg leading-relaxed">
+              <p className="text-foreground/70 text-lg leading-relaxed text-pretty">
                 {acf?.guaranteeBody || "Four direct standards held on every single property partnership, in writing, from day one."}
               </p>
             </div>
@@ -525,7 +525,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
                     </div>
                     <h3 className="font-sans text-xl font-bold mb-3">{item.title}</h3>
-                    <p className="text-foreground/70 leading-relaxed text-sm">{item.desc}</p>
+                    <p className="text-foreground/70 leading-relaxed text-sm text-pretty">{item.desc}</p>
                   </motion.div>
                 );
               })}

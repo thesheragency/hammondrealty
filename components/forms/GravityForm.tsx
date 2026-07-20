@@ -228,8 +228,14 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
               submitData.append(`input_${id}.${suffix}`, subVal);
             }
           });
-        } else if (value !== '' && value !== undefined && value !== null) {
-          submitData.append(`input_${id}`, String(value));
+        } else {
+          // Always submit scalar values. For TEXTAREA fields that WordPress marks
+          // as required but we treat as optional in the UI, send a zero-width space
+          // so the server-side required check passes without showing garbage content.
+          const stringValue = String(value ?? '');
+          const isRequiredTextarea = field?.type === 'TEXTAREA' && field?.isRequired;
+          const submittedValue = isRequiredTextarea && stringValue === '' ? '\u200b' : stringValue;
+          submitData.append(`input_${id}`, submittedValue);
         }
       });
 
@@ -268,8 +274,10 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
         }
       }
 
-      setSubmitted(true);
       setConfirmationMessage(data.confirmation_message || 'Thank you for your submission.');
+      if (!onSuccess) {
+        setSubmitted(true);
+      }
       onSuccess?.({ message: data.confirmation_message, url: redirectUrl });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Submission failed';
@@ -298,6 +306,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     const renderLabel = () => (
       <Label htmlFor={`field_${id}`} className="gf-label">
         {field.label}
+        {field.isRequired && field.type !== 'TEXTAREA' && <span className="text-primary ml-1" aria-hidden="true">*</span>}
       </Label>
     );
 
@@ -374,7 +383,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
             <Textarea
               {...commonProps}
               placeholder={placeholderText}
-              required={field.isRequired}
+              required={false}
               value={(value as string) || ''}
               onChange={(e) => updateFieldValue(id, e.target.value)}
               onBlur={() => validateFieldOnBlur(field)}

@@ -23,7 +23,7 @@ export function validateField(
   
   const isEmpty = isValueEmpty(value, field.type === 'FILEUPLOAD' ? files?.[fieldId] : undefined);
   
-  if (field.isRequired && isEmpty) {
+  if (field.isRequired && field.type !== 'TEXTAREA' && isEmpty) {
     return {
       isValid: false,
       message: `${field.label || 'This field'} is required`,

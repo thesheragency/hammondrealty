@@ -73,7 +73,7 @@ export default function FaqsSection({
                 <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
                   {faqs.map((f, i) => (
                     <AccordionItem key={i} value={`item-${i}`} className="border-b border-foreground/15">
-                      <AccordionTrigger className="text-left font-sans text-lg md:text-xl font-bold py-6 hover:no-underline">
+                      <AccordionTrigger className="text-left font-sans text-lg md:text-xl font-bold py-6 hover:no-underline gap-4">
                         {f.q}
                       </AccordionTrigger>
                       <AccordionContent className="text-foreground/70 leading-relaxed pb-6 text-base">

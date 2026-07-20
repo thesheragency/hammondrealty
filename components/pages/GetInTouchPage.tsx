@@ -96,10 +96,10 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl min-[1600px]:max-w-[1100px] mx-auto">
               <div className="bg-background p-8 md:p-10">
-                <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary/10 text-primary">
+                <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary text-white">
                   <Mail className="w-7 h-7" strokeWidth={1.75} />
                 </div>
-                <h3 className="text-h3 font-bold mb-3">
+                <h3 className="font-sans text-xl font-bold mb-3">
                   {tc(acf?.emailCardTitle) || "Email Anytime"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
@@ -107,16 +107,16 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 </p>
                 <a
                   href={`mailto:${acf?.email || "blakehammondre@gmail.com"}`}
-                  className="font-sans font-semibold text-primary hover:underline break-all"
+                  className="font-sans font-semibold text-foreground hover:text-primary transition-colors break-all"
                 >
                   {acf?.email || "blakehammondre@gmail.com"}
                 </a>
               </div>
               <div className="bg-background p-8 md:p-10">
-                <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary/10 text-primary">
+                <div className="w-14 h-14 mb-6 flex items-center justify-center bg-primary text-white">
                   <Phone className="w-7 h-7" strokeWidth={1.75} />
                 </div>
-                <h3 className="text-h3 font-bold mb-3">
+                <h3 className="font-sans text-xl font-bold mb-3">
                   {tc(acf?.phoneCardTitle) || "Call or Text"}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-5">
@@ -124,7 +124,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 </p>
                 <a
                   href={`tel:${(acf?.phone || "9166256118").replace(/[^0-9+]/g, "")}`}
-                  className="font-sans font-semibold text-primary hover:underline"
+                  className="font-sans font-semibold text-foreground hover:text-primary transition-colors"
                 >
                   {acf?.phone || "(916) 625-6118"}
                 </a>
