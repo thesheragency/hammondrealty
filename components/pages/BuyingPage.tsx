@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { tc } from "@/lib/title-case";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, SearchCheck, Lock, Handshake, Mail, Phone } from "lucide-react";
@@ -158,6 +158,61 @@ function ContactForm() {
   );
 }
 
+function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; thumbSrc: string; thumbAlt: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const showIframe = videoId && (inView || clicked);
+  const iframeSrc = videoId
+    ? `https://www.youtube.com/embed/${videoId}?autoplay=1${clicked ? "" : "&mute=1"}&rel=0&modestbranding=1&playsinline=1`
+    : null;
+
+  return (
+    <div ref={containerRef} className="relative aspect-[4/3] overflow-hidden bg-muted">
+      {showIframe ? (
+        <iframe
+          key={clicked ? "clicked" : "auto"}
+          src={iframeSrc!}
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+          title="Why Buy With Blake"
+        />
+      ) : (
+        <>
+          <img
+            src={thumbSrc}
+            alt={thumbAlt}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-foreground/20" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <button
+              onClick={() => setClicked(true)}
+              aria-label="Play video"
+              className="w-20 h-20 rounded-full bg-white/90 hover:bg-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+            >
+              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepImages = [stepBuying1Url, stepBuying2Url, stepBuying3Url];
@@ -255,18 +310,12 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
-                <img
-                  src={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
-                  alt="Blake Hammond on the podcast — Why Buy With Blake"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              <div className="hidden lg:block">
+                <WhyVideo
+                  videoId={acf?.whyVideoId}
+                  thumbSrc={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
+                  thumbAlt="Blake Hammond on the podcast — Why Buy With Blake"
                 />
-                <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                    <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-                  </div>
-                </div>
               </div>
 
               <div>
@@ -295,19 +344,13 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   })}
                 </ul>
 
-                {/* Mobile image — above the CTA buttons */}
-                <div className="lg:hidden relative aspect-[4/3] overflow-hidden bg-muted mb-10">
-                  <img
-                    src={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
-                    alt="Blake Hammond on the podcast — Why Buy With Blake"
-                    className="w-full h-full object-cover"
+                {/* Mobile video — above the CTA buttons */}
+                <div className="lg:hidden mb-10">
+                  <WhyVideo
+                    videoId={acf?.whyVideoId}
+                    thumbSrc={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
+                    thumbAlt="Blake Hammond on the podcast — Why Buy With Blake"
                   />
-                  <div className="absolute inset-0 bg-foreground/20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                      <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-                    </div>
-                  </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
