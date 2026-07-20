@@ -8,6 +8,7 @@ import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 
@@ -66,6 +67,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     address: "",
     notes: "",
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -221,24 +223,34 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           />
                         </div>
 
+                        <div className="flex items-start gap-3">
+                          <Checkbox
+                            id="book-privacy-accept"
+                            checked={privacyAccepted}
+                            onCheckedChange={(v) => setPrivacyAccepted(!!v)}
+                            className="mt-0.5"
+                            data-testid="checkbox-privacy-accept"
+                          />
+                          <Label htmlFor="book-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+                            I accept the{' '}
+                            <a
+                              href="/privacy-policy"
+                              className="underline underline-offset-2 hover:text-foreground transition-colors"
+                            >
+                              Privacy Policy
+                            </a>
+                            .
+                          </Label>
+                        </div>
+
                         <Button
                           type="submit"
+                          disabled={!privacyAccepted}
                           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
                         >
                           Continue to Booking
                           <ArrowRight className="w-4 h-4" strokeWidth={2} />
                         </Button>
-
-                        <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                          By submitting this form you agree to our{' '}
-                          <a
-                            href="/privacy-policy"
-                            className="underline underline-offset-2 hover:text-foreground transition-colors"
-                          >
-                            Privacy Policy
-                          </a>
-                          .
-                        </p>
                       </form>
                     </motion.div>
                 </AnimatePresence>

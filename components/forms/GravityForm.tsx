@@ -59,6 +59,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [honeypot, setHoneypot] = useState('');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   useEffect(() => {
     async function fetchForm() {
@@ -961,7 +962,7 @@ onChange={(e) => {
             ) : (
               <Button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || !privacyAccepted}
                 className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
                 data-testid="button-gf-submit"
               >
@@ -971,16 +972,25 @@ onChange={(e) => {
             )}
           </div>
 
-          <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            By submitting this form you agree to our{' '}
-            <a
-              href="/privacy-policy"
-              className="underline underline-offset-2 hover:text-foreground transition-colors"
-            >
-              Privacy Policy
-            </a>
-            .
-          </p>
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="gf-privacy-accept"
+              checked={privacyAccepted}
+              onCheckedChange={(v) => setPrivacyAccepted(!!v)}
+              className="mt-0.5"
+              data-testid="checkbox-privacy-accept"
+            />
+            <Label htmlFor="gf-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+              I accept the{' '}
+              <a
+                href="/privacy-policy"
+                className="underline underline-offset-2 hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </a>
+              .
+            </Label>
+          </div>
         </form>
     </div>
   );
