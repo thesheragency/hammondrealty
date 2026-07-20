@@ -325,7 +325,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
 
         <CtaSection
           eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}
-          heading={tc(acf?.ctaHeading) || <>Get A Custom Home Value<br />Report Today</>}
+          heading="What Is Your Home Worth in 2026?"
           body={acf?.ctaBody || "A free, private property valuation built straight from local market data and delivered directly to your inbox."}
           primaryLabel={acf?.ctaPrimaryLabel || "Contact Blake"}
           secondaryLabel={acf?.ctaSecondaryLabel || "See What Your Home Is Worth"}
