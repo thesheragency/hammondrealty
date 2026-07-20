@@ -42,13 +42,6 @@ export default function ThankYou({ acf }: { acf?: Record<string, any> | null }) 
                     {acf?.buttonText || "Back To Home"}
                   </Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-8 h-[45px]"
-                >
-                  <Link href="/connect">Contact Blake</Link>
-                </Button>
               </div>
             </div>
           </div>
