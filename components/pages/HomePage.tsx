@@ -467,10 +467,11 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                       <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
                     </Button>
-                    <Link href={acf?.heroSecondaryLink || "/home-prep-program"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                      {acf?.heroSecondaryText || "Home Prep Program"}
-                      <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    <Button asChild variant="outline" className="rounded-none font-medium text-sm border-foreground text-foreground bg-transparent no-default-hover-elevate no-default-active-elevate w-full sm:w-auto h-[45px] px-6">
+                      <Link href={acf?.heroSecondaryLink || "/home-prep-program"}>
+                        {acf?.heroSecondaryText || "Home Prep Program"}
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </motion.div>
