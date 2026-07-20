@@ -717,7 +717,8 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                   <img
                     src={zillowImageUrl}
                     alt="Blake Hammond, Sacramento-area real estate agent"
-                    className="w-full h-full object-cover object-top aspect-[4/3]"
+                    className="w-full object-cover aspect-[4/5]"
+                    style={{ objectPosition: "50% 15%" }}
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -739,7 +740,8 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
                 <img
                   src={zillowImageUrl}
                   alt="Blake Hammond, Sacramento-area real estate agent"
-                  className="w-full h-full object-cover object-top aspect-[4/3]"
+                  className="w-full h-full object-cover aspect-[4/3]"
+                  style={{ objectPosition: "50% 15%" }}
                 />
               </div>
             </div>
