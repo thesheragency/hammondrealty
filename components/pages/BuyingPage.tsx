@@ -344,7 +344,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                   <Button
                     asChild
                     variant="outline"
-                    className="border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+                    className="border-foreground text-foreground bg-transparent hover:bg-black hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
                   >
                     <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
                   </Button>

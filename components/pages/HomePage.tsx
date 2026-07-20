@@ -467,7 +467,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                       <Link href={acf?.heroCtaLink || "/connect"}>{acf?.heroCtaText || "Contact Blake"}</Link>
                     </Button>
-                    <Button asChild variant="outline" className="rounded-none font-medium text-sm border-foreground text-foreground bg-transparent no-default-hover-elevate no-default-active-elevate w-full sm:w-auto h-[45px] px-6">
+                    <Button asChild variant="outline" className="rounded-none font-medium text-sm border-foreground text-foreground bg-transparent hover:bg-black hover:text-white transition-colors w-full sm:w-auto h-[45px] px-6">
                       <Link href={acf?.heroSecondaryLink || "/home-prep-program"}>
                         {acf?.heroSecondaryText || "Home Prep Program"}
                       </Link>
