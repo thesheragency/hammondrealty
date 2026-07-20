@@ -214,31 +214,66 @@ function CountUp({
 type ServiceCard = { title: string; image: string; href: string; desc: string };
 
 function ServiceCards({ cards }: { cards: ServiceCard[] }) {
+  const [hovered, setHovered] = useState<number | null>(null);
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
+    <div className="flex flex-col lg:flex-row gap-4 lg:h-[560px]">
       {cards.map((card, i) => (
         <motion.div
           key={card.title}
-          className="flex flex-col flex-1 overflow-hidden bg-background shadow-lg"
+          className="relative flex flex-col lg:flex-row overflow-hidden bg-background shadow-lg flex-1 h-auto lg:h-full"
+          style={{ flex: hovered === i ? "2.2 1 0%" : "1 1 0%", transition: "flex 0.7s cubic-bezier(0.4,0,0.2,1)" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: i * 0.2 }}
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
         >
           {/* Image */}
-          <Link href={card.href} className="relative h-[280px] lg:h-[360px] overflow-hidden block">
+          <Link href={card.href} className="relative h-[320px] lg:h-auto lg:flex-1 min-w-0 overflow-hidden block">
             <img
               src={card.image}
               alt={card.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-1000"
+              style={{ transform: hovered === i ? "scale(1.05)" : "scale(1)" }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+              <h3 className="font-sans text-4xl font-bold drop-shadow-md">{card.title}</h3>
+            </div>
           </Link>
 
-          {/* Description */}
-          <div className="bg-primary text-primary-foreground p-6 lg:p-8 flex flex-col gap-4">
-            <h3 className="font-sans text-2xl lg:text-3xl font-bold">{card.title}</h3>
-            <p className="text-sm lg:text-base leading-relaxed opacity-90">{card.desc}</p>
-            <Link href={card.href} className="mt-2 inline-flex items-center text-sm font-semibold tracking-wide">
+          {/* Desktop description panel — fades in/out via AnimatePresence */}
+          <div
+            className="hidden lg:block bg-primary text-primary-foreground overflow-hidden"
+            style={{ width: hovered === i ? "360px" : "0px", transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)", flexShrink: 0 }}
+          >
+            <AnimatePresence>
+              {hovered === i && (
+                <motion.div
+                  className="w-[360px] p-10 h-full flex flex-col justify-between"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                >
+                  <p className="text-base leading-relaxed">{card.desc}</p>
+                  <Link
+                    href={card.href}
+                    className="self-start mt-8 inline-flex items-center text-sm font-semibold tracking-wide transition-all hover:gap-1"
+                  >
+                    Learn more
+                    <ArrowRight className="ml-3 w-4 h-4" />
+                  </Link>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile description */}
+          <div className="lg:hidden bg-primary text-primary-foreground p-6">
+            <p className="text-sm leading-relaxed">{card.desc}</p>
+            <Link href={card.href} className="mt-4 inline-flex items-center text-sm font-semibold tracking-wide">
               Learn more
               <ArrowRight className="ml-3 w-4 h-4" />
             </Link>
@@ -408,7 +443,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             />
           </motion.div>
 
-          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-10 md:pt-16 pb-10 md:pb-16 lg:pb-0 lg:min-h-[640px]">
+          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24 lg:pb-0 lg:min-h-[640px]">
             <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
               {/* Hero Content */}
