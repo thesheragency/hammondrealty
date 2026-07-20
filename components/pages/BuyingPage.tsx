@@ -252,18 +252,18 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="relative z-10">
-                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/70 mb-6">
+                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-foreground/60 mb-6">
                     {acf?.heroEyebrow || "Buying with Blake"}
                   </p>
-                  <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
+                  <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-foreground">
                     {acf?.heroHeading ? tc(acf.heroHeading) : (<>Beat The Competition<br />To The Property</>)}
                   </h1>
-                  <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
+                  <p className="text-lg md:text-xl text-foreground/70 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
                   <a
                     href="tel:9166256118"
-                    className="inline-flex items-center gap-3 text-white font-semibold text-lg hover:text-white/70 transition-colors"
+                    className="inline-flex items-center gap-3 text-foreground font-semibold text-lg hover:text-foreground/70 transition-colors"
                   >
-                    <span className="inline-flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-10 h-10 bg-foreground/10 rounded-full">
                       <Phone className="w-4 h-4" />
                     </span>
                     916-625-6118
