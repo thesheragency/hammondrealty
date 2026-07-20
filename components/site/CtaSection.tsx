@@ -8,7 +8,7 @@ const heroGraphicUrl = "/images/graphic-hero_section_1779377398567.png";
 
 interface CtaSectionProps {
   eyebrow?: string;
-  heading?: string;
+  heading?: React.ReactNode;
   body?: string;
   primaryLabel?: string;
   secondaryLabel?: string;
