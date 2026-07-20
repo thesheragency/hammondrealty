@@ -450,7 +450,7 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
             />
           </motion.div>
 
-          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-0 md:pb-12 lg:pb-0 lg:min-h-[640px]">
+          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24 lg:pb-0 lg:min-h-[640px]">
             <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
               {/* Hero Content */}
@@ -495,10 +495,13 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
                     alt={heroBedroomAltText}
                     className="object-cover w-full h-full"
                   />
-                  <img
+                  <motion.img
                     src={mastersClub}
                     alt={mastersClubAltText}
-                    className="absolute bottom-3 right-3 h-16 w-16 drop-shadow-lg z-10"
+                    className="absolute bottom-4 right-4 h-20 w-20 drop-shadow-lg"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                   />
                 </div>
               </motion.div>
