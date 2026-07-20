@@ -912,13 +912,12 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
         {/* Property thumbnail strip */}
         <div className="grid grid-cols-3 h-32 md:h-40">
           {[buyingHouseUrl, sellingHouseUrl, prepLivingroomUrl].map((src, i) => (
-            <div key={i} className="relative overflow-hidden group">
+            <div key={i} className="relative overflow-hidden">
               <img
                 src={src}
                 alt=""
-                className="w-full h-full object-cover opacity-60 transition-all duration-700 group-hover:opacity-100 group-hover:scale-105"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-foreground/40 transition-opacity duration-700 group-hover:opacity-0" />
             </div>
           ))}
         </div>
