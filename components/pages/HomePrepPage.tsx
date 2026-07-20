@@ -433,8 +433,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/70 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-foreground/45 md:bg-transparent md:bg-gradient-to-r md:from-foreground/30 md:to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/50 to-foreground/20 pointer-events-none" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-20 md:pt-28 pb-20 md:pb-28">
             <motion.div
               className="max-w-3xl"
