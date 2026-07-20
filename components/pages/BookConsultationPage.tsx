@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
@@ -57,8 +58,8 @@ const defaultExpectations = [
 ];
 
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
+  const router = useRouter();
   const expectations = (acf?.expectations?.length ? acf.expectations : defaultExpectations) as { title: string; desc: string }[];
-  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -81,12 +82,9 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
         }),
       });
     } catch {
-      // show success regardless
+      // redirect regardless
     }
-    setSubmitted(true);
-    setTimeout(() => {
-      document.getElementById("calendar")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    router.push("/thank-you/book-consultation");
   };
 
   return (
@@ -147,10 +145,9 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 )}
               </div>
 
-              {/* Right: form → then calendar */}
+              {/* Right: form */}
               <div>
                 <AnimatePresence mode="wait">
-                  {!submitted ? (
                     <motion.div
                       key="form"
                       initial={{ opacity: 0, y: 16 }}
@@ -159,14 +156,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="bg-muted p-8 md:p-10"
                     >
-                      <p className="font-sans text-xs uppercase tracking-[0.25em] text-primary mb-2">
-                        Step 1 of 2
-                      </p>
                       <h3 className="font-sans text-xl font-bold mb-1">
                         A Little About You
                       </h3>
                       <p className="text-sm text-foreground/60 mb-8">
-                        Fill this out and we will get you straight to the calendar.
+                        Fill this out and Blake will be in touch to confirm your consultation.
                       </p>
 
                       <form onSubmit={handleSubmit} className="space-y-5">
@@ -236,29 +230,6 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         </Button>
                       </form>
                     </motion.div>
-                  ) : (
-                    <motion.div
-                      key="calendar"
-                      id="calendar"
-                      className="scroll-mt-32"
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                    >
-                      <div className="bg-primary/10 border-l-4 border-primary px-5 py-4 mb-6">
-                        <p className="text-sm font-medium text-foreground">
-                          Thanks, {form.name.split(" ")[0] || "there"}! Now pick a time that works for you.
-                        </p>
-                      </div>
-
-                      <CalendlyEmbed
-                        url={acf?.calendlyUrl || DEFAULT_CALENDLY_URL}
-                        name={form.name}
-                        email={form.email}
-                      />
-                    </motion.div>
-                  )}
                 </AnimatePresence>
               </div>
 

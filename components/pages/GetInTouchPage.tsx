@@ -13,7 +13,6 @@ import { imgUrl } from "@/lib/wp-acf";
 const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg";
 
 export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }) {
-  const [submitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   return (
@@ -57,34 +56,17 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
               >
                 <div className="bg-background text-foreground p-8 md:p-10 shadow-2xl">
-                  {submitted ? (
-                    <div className="text-center py-8">
-                      <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
-                        <Mail className="w-7 h-7" strokeWidth={1.75} />
-                      </div>
-                      <h3 className="font-sans text-xl font-bold mb-3">
-                        {tc(acf?.successHeading) || "Message Received."}
-                      </h3>
-                      <p className="text-foreground/70 leading-relaxed">
-                        {acf?.successBody || "Thanks for reaching out. A personal response will be sent to your inbox within one business day."}
-                      </p>
-                    </div>
-                  ) : (
-                  <>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-3">
                     {acf?.formEyebrow || "Send a Message"}
                   </p>
                   <h3 className="font-sans text-xl font-bold leading-tight mb-6">
                     {tc(acf?.formHeading) || "Tell Us About Your Move."}
                   </h3>
-
                   <GravityFormClient
                     formId={1}
                     className="space-y-4"
-                    onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
+                    onSuccess={(c) => { router.push(c.url || '/thank-you/contact'); }}
                   />
-                  </>
-                  )}
                 </div>
               </motion.div>
             </div>

@@ -94,7 +94,6 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
   const whatYouGet = acf?.whatYouGet?.length ? mapIcons(acf.whatYouGet, defaultWhatYouGet) : defaultWhatYouGet;
   const howItWorks: typeof defaultHowItWorks = acf?.howItWorks?.length ? acf.howItWorks : defaultHowItWorks;
   const notSelling = acf?.notSelling?.length ? mapIcons(acf.notSelling, defaultNotSelling) : defaultNotSelling;
-  const [submitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   return (
@@ -270,25 +269,11 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
               </div>
 
               <div className="bg-background p-8 md:p-10 shadow-2xl">
-              {submitted ? (
-                <div className="text-center py-10">
-                  <div className="w-14 h-14 mx-auto mb-6 flex items-center justify-center bg-primary text-primary-foreground">
-                    <BadgeCheck className="w-7 h-7" strokeWidth={1.75} />
-                  </div>
-                  <h3 className="font-sans text-xl font-bold mb-3">
-                    {tc(acf?.formSuccessHeading) || "Thanks, The Details Have Been Received."}
-                  </h3>
-                  <p className="text-foreground/70 leading-relaxed">
-                    {acf?.formSuccessBody || "Your personalized home value report and custom video breakdown will be delivered within one business day."}
-                  </p>
-                </div>
-              ) : (
                 <GravityFormClient
                   formId={2}
                   className="space-y-5"
-                  onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
+                  onSuccess={(c) => { router.push(c.url || '/thank-you/home-value'); }}
                 />
-              )}
               </div>
             </div>
           </div>

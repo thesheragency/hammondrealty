@@ -129,30 +129,14 @@ const buyingFaqs: Faq[] = [
 ];
 
 function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
   const router = useRouter();
-
-  if (submitted) {
-    return (
-      <div className="bg-white p-8 md:p-10 shadow-2xl w-full text-center py-12">
-        <div className="w-12 h-12 mx-auto mb-5 flex items-center justify-center bg-primary text-primary-foreground">
-          <Mail className="w-6 h-6" strokeWidth={1.75} />
-        </div>
-        <h3 className="font-sans text-xl font-bold mb-2">Message Received.</h3>
-        <p className="text-sm text-foreground/70 leading-relaxed">
-          Thanks for reaching out. A personal response will be sent to your
-          inbox within one business day.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white p-8 md:p-10 shadow-2xl w-full">
       <GravityFormClient
         formId={3}
         className="space-y-4"
-        onSuccess={(c) => { if (c.url) { router.push(c.url); } else { setSubmitted(true); } }}
+        onSuccess={(c) => { router.push(c.url || '/thank-you/buying'); }}
       />
     </div>
   );
