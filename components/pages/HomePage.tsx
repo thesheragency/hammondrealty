@@ -284,7 +284,7 @@ function ServiceCards({ cards }: { cards: ServiceCard[] }) {
   );
 }
 
-export default function Home({ acf }: { acf?: Record<string, any> | null }) {
+export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any> | null; wpTestimonials?: { quote: string; name: string; source?: 'google' | 'zillow' }[] }) {
   const [processTrack, setProcessTrack] = useState<ProcessTrack>("buying");
   const [activeStep, setActiveStep] = useState(0);
   const testimonials = [
@@ -321,7 +321,9 @@ export default function Home({ acf }: { acf?: Record<string, any> | null }) {
 
   const sectionTestimonials = acf?.featuredTestimonials?.length
     ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
-    : undefined;
+    : wpTestimonials && wpTestimonials.length > 0
+      ? wpTestimonials
+      : undefined;
 
   const stats: { value: number; prefix?: string; suffix?: string; label: string }[] =
     acf?.stats?.length
