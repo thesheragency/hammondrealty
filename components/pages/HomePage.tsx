@@ -314,15 +314,16 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
   const whyImg = imgUrl(acf?.whyImage, blakePortraitUrl);
   const whyImgAlt = acf?.whyImageAlt || imgAlt(acf?.whyImage, "Blake Hammond");
 
-  const heroTestimonials =
-    acf?.featuredTestimonials?.length
+  const heroTestimonials = wpTestimonials && wpTestimonials.length > 0
+    ? wpTestimonials.slice(0, 3)
+    : acf?.featuredTestimonials?.length
       ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
       : testimonials;
 
-  const sectionTestimonials = acf?.featuredTestimonials?.length
-    ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
-    : wpTestimonials && wpTestimonials.length > 0
-      ? wpTestimonials
+  const sectionTestimonials = wpTestimonials && wpTestimonials.length > 0
+    ? wpTestimonials
+    : acf?.featuredTestimonials?.length
+      ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
       : undefined;
 
   const stats: { value: number; prefix?: string; suffix?: string; label: string }[] =
