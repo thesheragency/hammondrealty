@@ -1,47 +1,14 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { tc } from "@/lib/title-case";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import Script from "next/script";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import { tc } from "@/lib/title-case";
 
-const DEFAULT_CALENDLY_URL =
+const CALENDLY_URL =
   "https://calendly.com/blakehammondre/real-estate-consult-with-blake";
-
-function CalendlyEmbed({ url, name, email }: { url: string; name: string; email: string }) {
-  const [embedSrc, setEmbedSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams({
-      embed_domain: window.location.hostname,
-      embed_type: "Inline",
-    });
-    if (name) params.set("name", name);
-    if (email) params.set("email", email);
-    setEmbedSrc(`${url}?${params.toString()}`);
-  }, [url, name, email]);
-
-  if (!embedSrc) {
-    return <div className="w-full bg-muted" style={{ minWidth: 320, height: 700 }} />;
-  }
-
-  return (
-    <iframe
-      src={embedSrc}
-      title="Schedule a call with Blake"
-      className="w-full border-0"
-      style={{ minWidth: 320, height: 700 }}
-      data-testid="embed-calendly"
-    />
-  );
-}
 
 const defaultExpectations = [
   {
@@ -59,39 +26,16 @@ const defaultExpectations = [
 ];
 
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
-  const router = useRouter();
   const expectations = (acf?.expectations?.length ? acf.expectations : defaultExpectations) as { title: string; desc: string }[];
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    address: "",
-    notes: "",
-  });
-  const [privacyAccepted, setPrivacyAccepted] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "Book Consultation – Blake Hammond RE",
-          Name: form.name,
-          Email: form.email,
-          Address: form.address,
-          Notes: form.notes,
-        }),
-      });
-    } catch {
-      // redirect regardless
-    }
-    router.push("/thank-you/book-consultation");
-  };
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
+
+      <Script
+        src="https://assets.calendly.com/assets/external/widget.js"
+        strategy="lazyOnload"
+      />
 
       <main className="flex-1">
         <motion.section
@@ -103,7 +47,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
 
-              {/* Left: copy — stays constant */}
+              {/* Left: copy */}
               <div className="lg:sticky lg:top-32">
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.eyebrow || "Thanks for reaching out"}
@@ -137,123 +81,16 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md">
                   {acf?.body2 || "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time."}
                 </p>
-                {acf?.scheduleText && (
-                  <a
-                    href={acf?.scheduleLink || "#"}
-                    className="mt-8 inline-flex items-center justify-center bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 px-8 h-[45px]"
-                  >
-                    {acf.scheduleText}
-                  </a>
-                )}
               </div>
 
-              {/* Right: form */}
-              <div>
-                <AnimatePresence mode="wait">
-                    <motion.div
-                      key="form"
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -16 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="bg-muted p-8 md:p-10"
-                    >
-                      <h3 className="font-sans text-xl font-bold mb-1">
-                        A Little About You
-                      </h3>
-                      <p className="text-sm text-foreground/60 mb-8">
-                        Fill this out and Blake will be in touch to confirm your consultation.
-                      </p>
-
-                      <form onSubmit={handleSubmit} className="space-y-5">
-                        <div className="space-y-1.5">
-                          <Label htmlFor="name" className="text-sm font-medium">
-                            Name
-                          </Label>
-                          <Input
-                            id="name"
-                            required
-                            placeholder="Your full name"
-                            value={form.name}
-                            onChange={(e) => setForm({ ...form, name: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label htmlFor="email" className="text-sm font-medium">
-                            Email
-                          </Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            required
-                            placeholder="you@example.com"
-                            value={form.email}
-                            onChange={(e) => setForm({ ...form, email: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label htmlFor="address" className="text-sm font-medium">
-                            Address{" "}
-                            <span className="text-foreground/40 font-normal">(optional)</span>
-                          </Label>
-                          <Input
-                            id="address"
-                            placeholder="Property or home address"
-                            value={form.address}
-                            onChange={(e) => setForm({ ...form, address: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label htmlFor="notes" className="text-sm font-medium">
-                            Anything you would like me to know
-                          </Label>
-                          <textarea
-                            id="notes"
-                            rows={4}
-                            placeholder="Share any details about your situation, goals, or questions..."
-                            value={form.notes}
-                            onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                            className="w-full rounded-none bg-white border border-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary px-3 py-2.5 text-sm resize-none"
-                          />
-                        </div>
-
-                        <div className="flex items-start gap-3">
-                          <Checkbox
-                            id="book-privacy-accept"
-                            checked={privacyAccepted}
-                            onCheckedChange={(v) => setPrivacyAccepted(!!v)}
-                            className="mt-0.5"
-                            data-testid="checkbox-privacy-accept"
-                          />
-                          <Label htmlFor="book-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
-                            I accept the{' '}
-                            <a
-                              href="/privacy-policy"
-                              className="underline underline-offset-2 hover:text-foreground transition-colors"
-                            >
-                              Privacy Policy
-                            </a>
-                            .
-                          </Label>
-                        </div>
-
-                        <Button
-                          type="submit"
-                          disabled={!privacyAccepted}
-                          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
-                        >
-                          Continue to Booking
-                          <ArrowRight className="w-4 h-4" strokeWidth={2} />
-                        </Button>
-                      </form>
-                    </motion.div>
-                </AnimatePresence>
+              {/* Right: Calendly embed */}
+              <div className="w-full">
+                <div
+                  className="calendly-inline-widget w-full"
+                  data-url={CALENDLY_URL}
+                  style={{ minWidth: 320, height: 700 }}
+                  data-testid="embed-calendly"
+                />
               </div>
 
             </div>
