@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
-import { fetchSellingAcf, fetchTestimonials } from '@/lib/wp-acf';
+import { fetchSellingAcf } from '@/lib/wp-acf';
 import SellingPage from '@/components/pages/SellingPage';
 
 export const revalidate = 300;
@@ -14,6 +14,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [acf, wpTestimonials] = await Promise.all([fetchSellingAcf(), fetchTestimonials()]);
-  return <SellingPage acf={acf} testimonials={wpTestimonials.length > 0 ? wpTestimonials : undefined} />;
+  const acf = await fetchSellingAcf();
+  const testimonials = acf?.featuredTestimonials?.length
+    ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
+    : undefined;
+  return <SellingPage acf={acf} testimonials={testimonials} />;
 }
