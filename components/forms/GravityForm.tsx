@@ -83,12 +83,30 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     fetchForm();
   }, [formId]);
 
+  // Returns true for single-choice "I agree to be contacted" checkboxes from WordPress
+  // that we want to hide from the UI (our own Privacy Policy checkbox replaces them).
+  const isHiddenConsentField = (field: GfFormField) => {
+    if (field.type !== 'CHECKBOX' && field.type !== 'CONSENT') return false;
+    const choiceTexts = field.choices?.map((c) => c.text.toLowerCase()) ?? [];
+    const label = (field.label ?? '').toLowerCase();
+    return (
+      choiceTexts.some((t) => t.includes('agree') || t.includes('contacted')) ||
+      label.includes('agree to be contacted') ||
+      label.includes('consent')
+    );
+  };
+
   const initializeFormValues = (formData: GfForm) => {
     const values: Record<string, FieldValue> = {};
     formData.formFields.nodes.forEach((field) => {
       const id = field.databaseId.toString();
       if (field.type === 'CHECKBOX' || field.type === 'MULTISELECT' || field.type === 'MULTI_CHOICE') {
-        values[id] = [];
+        // Pre-check hidden consent fields so WordPress validation still passes
+        if (isHiddenConsentField(field)) {
+          values[id] = field.choices?.map((c) => c.value || c.text) ?? [];
+        } else {
+          values[id] = [];
+        }
       } else if (field.type === 'NAME' || field.type === 'ADDRESS') {
         values[id] = {};
       } else if (field.type === 'TIME') {
@@ -293,6 +311,7 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     if (!isFieldVisible(field)) return null;
     if (field.type === 'PAGE') return null;
     if (field.displayOnly && field.type !== 'HTML' && field.type !== 'SECTION') return null;
+    if (isHiddenConsentField(field)) return null;
 
     const id = field.databaseId.toString();
     const value = formValues[id];
@@ -812,6 +831,9 @@ onChange={(e) => {
             </div>
           </>
         );
+
+      case 'CONSENT':
+        return null;
 
       case 'HIDDEN':
         return (
