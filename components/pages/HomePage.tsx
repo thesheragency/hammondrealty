@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { tc } from "@/lib/title-case";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, ArrowRight, Phone, MapPin, Hammer, Trophy, ShieldCheck, Mail } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowRight, Phone, MapPin, Hammer, Trophy, ShieldCheck, Mail, Play } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import { Stars } from "@/components/site/GoogleBadges";
@@ -42,6 +42,43 @@ const buyingHouseUrl = "/images/765ef0b1-a99d-4496-b398-582c961f2f01_17824049251
 const sellingHouseUrl = "/images/fancy_home_1782404943463.jpg";
 const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg";
 const stagedLivingRoomUrl = "/images/staged_living_room_1782405230307.jpg";
+const whyVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
+
+function WhyVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whyVideoThumbUrl }: { videoId?: string; thumbUrl?: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      {playing ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+          title="Why Choose Blake Hammond"
+          className="absolute inset-0 w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          aria-label="Play video: Why Choose Blake Hammond"
+          className="absolute inset-0 w-full h-full group cursor-pointer"
+        >
+          <img
+            src={thumbUrl}
+            alt="Why Choose Blake Hammond — video preview"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
+            </div>
+          </div>
+        </button>
+      )}
+    </div>
+  );
+}
 
 type ProcessTrack = "buying" | "selling" | "preparing";
 
@@ -712,29 +749,30 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         {/* Why Owners Love Working With Blake */}
         <motion.section
           id="about"
-          className="relative bg-muted overflow-hidden lg:min-h-[720px]"
+          className="bg-muted py-12 md:py-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          {/* Image - sticks to right edge, full section height */}
-          <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
-            <img
-              src={whyImg}
-              alt={whyImgAlt}
-              className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
-            />
-          </div>
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
 
-          <div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-              <div className="container mx-auto px-4 md:px-8 lg:mx-0 lg:ml-auto lg:max-w-[640px] lg:pl-8 lg:pr-16 xl:pr-24 pt-12 pb-2 lg:py-20">
-                <h2 className="text-h2 font-bold leading-[1.1] mb-12 text-balance">
+              {/* Video — desktop left column */}
+              <div className="hidden lg:block">
+                <WhyVideo
+                  videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
+                  thumbUrl={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                />
+              </div>
+
+              {/* Text content */}
+              <div>
+                <h2 className="text-h2 font-bold leading-[1.1] mb-10 text-balance">
                   {tc(acf?.whyHeading) || "Why Homeowners Choose Blake Over The Competition"}
                 </h2>
 
-                <div className="space-y-8 mb-0 lg:mb-12">
+                <div className="space-y-6 mb-0 lg:mb-10">
                   {whyBullets.map((b: { icon: typeof Hammer; title: string; desc: string }) => {
                     const Icon = b.icon;
                     return (
@@ -743,7 +781,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                           <Icon className="w-5 h-5" strokeWidth={1.75} />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-sans text-xl md:text-2xl font-bold mb-2">
+                          <h3 className="font-sans text-xl md:text-2xl font-bold mb-1">
                             {b.title}
                           </h3>
                           <p className="text-foreground/70 leading-relaxed text-pretty">{b.desc}</p>
@@ -753,7 +791,15 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                   })}
                 </div>
 
-                <div className="hidden lg:flex flex-wrap items-center gap-6">
+                {/* Mobile video — between bullets and CTAs */}
+                <div className="lg:hidden my-8">
+                  <WhyVideo
+                    videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
+                    thumbUrl={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                   </Button>
@@ -764,25 +810,6 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                 </div>
               </div>
 
-              {/* Mobile-only image */}
-              <div className="lg:hidden relative aspect-[4/5] bg-background overflow-hidden mx-4 md:mx-8 mt-2">
-                <img
-                  src={whyImg}
-                  alt={whyImgAlt}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Mobile-only buttons below the image */}
-              <div className="lg:hidden container mx-auto px-4 md:px-8 pt-8 pb-12 flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-6">
-                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                  <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
-                </Button>
-                <a href={acf?.whySecondaryLink || "/about"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                  {acf?.whySecondaryText || "More About Blake"}
-                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
             </div>
           </div>
         </motion.section>
