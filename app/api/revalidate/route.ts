@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
 
     if (type === 'all') {
       revalidatePath('/', 'layout');
-      revalidateTag('wp-content');
+      revalidateTag('wp-content', 'max');
       revalidatedPaths.push('/ (entire site)');
     }
 
