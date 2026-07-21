@@ -36,27 +36,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const [step, setStep] = useState<"form" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "Book Consultation – Blake Hammond RE",
-          Name: form.name,
-          Email: form.email,
-          Phone: form.phone,
-          Notes: form.notes,
-        }),
-      });
-    } catch {
-      // proceed to calendar regardless
-    }
-    setSubmitting(false);
     setStep("calendar");
   };
 
@@ -209,11 +190,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                         <Button
                           type="submit"
-                          disabled={!privacyAccepted || submitting}
+                          disabled={!privacyAccepted}
                           className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
                           data-testid="button-bc-submit"
                         >
-                          {submitting ? "Sending…" : "Continue to Booking"}
+                          Continue to Booking
                         </Button>
                       </form>
                     </motion.div>
