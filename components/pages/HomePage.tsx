@@ -815,7 +815,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         </motion.section>
 
         {/* What Our Clients Say */}
-        <TestimonialsSection testimonials={sectionTestimonials} />
+        <TestimonialsSection />
 
         {/* FAQs */}
         <motion.section
