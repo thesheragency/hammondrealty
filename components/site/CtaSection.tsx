@@ -59,8 +59,8 @@ export default function CtaSection({
           {secondaryLabel && (
             <Button
               asChild
-              variant="outline"
-              className="border-white text-white bg-transparent hover:bg-white hover:text-foreground no-default-hover-elevate no-default-active-elevate rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+              variant="ghost"
+              className="border border-white text-white bg-transparent hover:bg-white hover:text-foreground no-default-hover-elevate no-default-active-elevate rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
             >
               <Link href={secondaryHref}>{secondaryLabel}</Link>
             </Button>

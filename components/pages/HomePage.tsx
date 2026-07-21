@@ -928,8 +928,8 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
               </Button>
               <Button
                 asChild
-                variant="outline"
-                className="border-white text-white bg-transparent hover:bg-white hover:text-foreground no-default-hover-elevate no-default-active-elevate rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+                variant="ghost"
+                className="border border-white text-white bg-transparent hover:bg-white hover:text-foreground no-default-hover-elevate no-default-active-elevate rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
               >
                 <Link href="/home-value-analysis">See What Your Home Is Worth</Link>
               </Button>
