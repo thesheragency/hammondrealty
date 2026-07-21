@@ -36,8 +36,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const [step, setStep] = useState<"form" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      return;
+    }
     setStep("calendar");
   };
 
@@ -172,25 +178,32 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           />
                         </div>
 
-                        <div className="flex items-start gap-3">
-                          <Checkbox
-                            id="bc-privacy"
-                            checked={privacyAccepted}
-                            onCheckedChange={(v) => setPrivacyAccepted(!!v)}
-                            className="mt-0.5"
-                            data-testid="checkbox-bc-privacy"
-                          />
-                          <Label htmlFor="bc-privacy" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
-                            I accept the{' '}
-                            <a href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground transition-colors">
-                              Privacy Policy
-                            </a>.
-                          </Label>
+                        <div className="space-y-1">
+                          <div className="flex items-start gap-3">
+                            <Checkbox
+                              id="bc-privacy"
+                              checked={privacyAccepted}
+                              onCheckedChange={(v) => {
+                                setPrivacyAccepted(!!v);
+                                if (v) setPrivacyError(false);
+                              }}
+                              className={`mt-0.5 ${privacyError ? 'border-destructive' : ''}`}
+                              data-testid="checkbox-bc-privacy"
+                            />
+                            <Label htmlFor="bc-privacy" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+                              I accept the{' '}
+                              <a href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground transition-colors">
+                                Privacy Policy
+                              </a>.
+                            </Label>
+                          </div>
+                          {privacyError && (
+                            <p className="text-xs text-destructive pl-7">Please accept the Privacy Policy to continue.</p>
+                          )}
                         </div>
 
                         <Button
                           type="submit"
-                          disabled={!privacyAccepted}
                           className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
                           data-testid="button-bc-submit"
                         >
