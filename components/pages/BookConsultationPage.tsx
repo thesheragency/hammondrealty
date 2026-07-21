@@ -1,8 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import Script from "next/script";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import { tc } from "@/lib/title-case";
@@ -28,14 +33,46 @@ const defaultExpectations = [
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
   const expectations = (acf?.expectations?.length ? acf.expectations : defaultExpectations) as { title: string; desc: string }[];
 
+  const [step, setStep] = useState<"form" | "calendar">("form");
+  const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: "Book Consultation – Blake Hammond RE",
+          Name: form.name,
+          Email: form.email,
+          Phone: form.phone,
+          Notes: form.notes,
+        }),
+      });
+    } catch {
+      // proceed to calendar regardless
+    }
+    setSubmitting(false);
+    setStep("calendar");
+  };
+
+  // Build Calendly URL with pre-filled name + email
+  const calendlyUrl = `${CALENDLY_URL}?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}`;
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
 
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-      />
+      {step === "calendar" && (
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="afterInteractive"
+        />
+      )}
 
       <main className="flex-1">
         <motion.section
@@ -47,7 +84,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
 
-              {/* Left: copy */}
+              {/* Left: copy — stays constant */}
               <div className="lg:sticky lg:top-32">
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.eyebrow || "Thanks for reaching out"}
@@ -67,12 +104,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         <Check className="w-3.5 h-3.5" strokeWidth={3} />
                       </span>
                       <div>
-                        <p className="font-sans font-semibold text-base leading-snug">
-                          {item.title}
-                        </p>
-                        <p className="text-sm text-foreground/70 leading-relaxed mt-0.5">
-                          {item.desc}
-                        </p>
+                        <p className="font-sans font-semibold text-base leading-snug">{item.title}</p>
+                        <p className="text-sm text-foreground/70 leading-relaxed mt-0.5">{item.desc}</p>
                       </div>
                     </li>
                   ))}
@@ -83,14 +116,124 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 </p>
               </div>
 
-              {/* Right: Calendly embed */}
+              {/* Right: form → calendar */}
               <div className="w-full">
-                <div
-                  className="calendly-inline-widget w-full"
-                  data-url={CALENDLY_URL}
-                  style={{ minWidth: 320, height: 700 }}
-                  data-testid="embed-calendly"
-                />
+                <AnimatePresence mode="wait">
+                  {step === "form" ? (
+                    <motion.div
+                      key="form"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -16 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="bg-muted p-8 md:p-10"
+                    >
+                      <h3 className="font-sans text-xl font-bold mb-1">A Little About You</h3>
+                      <p className="text-sm text-foreground/60 mb-8">
+                        Fill this out and we will open the calendar so you can pick a time.
+                      </p>
+
+                      <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="space-y-1.5">
+                          <Label htmlFor="bc-name" className="text-sm font-medium">Name</Label>
+                          <Input
+                            id="bc-name"
+                            required
+                            placeholder="Your full name"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            data-testid="input-bc-name"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <Label htmlFor="bc-email" className="text-sm font-medium">Email</Label>
+                          <Input
+                            id="bc-email"
+                            type="email"
+                            required
+                            placeholder="you@example.com"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            data-testid="input-bc-email"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <Label htmlFor="bc-phone" className="text-sm font-medium">
+                            Phone <span className="text-foreground/40 font-normal">(optional)</span>
+                          </Label>
+                          <Input
+                            id="bc-phone"
+                            type="tel"
+                            placeholder="(916) 555-0100"
+                            value={form.phone}
+                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            data-testid="input-bc-phone"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <Label htmlFor="bc-notes" className="text-sm font-medium">
+                            Anything you would like me to know
+                          </Label>
+                          <textarea
+                            id="bc-notes"
+                            rows={4}
+                            placeholder="Share any details about your situation, goals, or questions..."
+                            value={form.notes}
+                            onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                            className="w-full rounded-none bg-white border border-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary px-3 py-2.5 text-sm resize-none"
+                            data-testid="textarea-bc-notes"
+                          />
+                        </div>
+
+                        <div className="flex items-start gap-3">
+                          <Checkbox
+                            id="bc-privacy"
+                            checked={privacyAccepted}
+                            onCheckedChange={(v) => setPrivacyAccepted(!!v)}
+                            className="mt-0.5"
+                            data-testid="checkbox-bc-privacy"
+                          />
+                          <Label htmlFor="bc-privacy" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+                            I accept the{' '}
+                            <a href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground transition-colors">
+                              Privacy Policy
+                            </a>.
+                          </Label>
+                        </div>
+
+                        <Button
+                          type="submit"
+                          disabled={!privacyAccepted || submitting}
+                          className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
+                          data-testid="button-bc-submit"
+                        >
+                          {submitting ? "Sending…" : "Continue to Booking"}
+                        </Button>
+                      </form>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="calendar"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="w-full"
+                    >
+                      <div
+                        className="calendly-inline-widget w-full"
+                        data-url={calendlyUrl}
+                        style={{ minWidth: 320, height: 700 }}
+                        data-testid="embed-calendly"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
             </div>
