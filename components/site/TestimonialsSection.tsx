@@ -207,22 +207,22 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                 key={i}
                 className="pl-4 basis-[88%] sm:basis-[60%] lg:basis-1/3"
               >
-                <div className="flex flex-col h-full border border-foreground/10 bg-background p-8">
-                  <div className="flex items-center justify-between mb-5">
+                <div className="flex flex-col h-full border border-foreground/10 bg-background p-5 sm:p-8">
+                  <div className="flex items-center justify-between mb-4 sm:mb-5">
                     <Stars className="w-4 h-4" />
                     <SourceLogo source={r.source} />
                   </div>
-                  <p className="text-foreground/80 text-base leading-relaxed mb-8 flex-1">
+                  <p className="text-foreground/80 text-base leading-relaxed mb-5 sm:mb-8 flex-1">
                     "{r.quote}"
                   </p>
-                  <div className="flex items-center gap-3 pt-5 border-t border-foreground/10">
+                  <div className="flex items-center gap-3 pt-4 sm:pt-5 border-t border-foreground/10">
                     <p className="font-sans text-sm font-bold leading-tight">{r.name}</p>
                   </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-center gap-6 mt-12">
+          <div className="flex justify-center gap-6 mt-8 md:mt-12">
             <button
               onClick={scrollPrev}
               aria-label="Previous testimonial"
