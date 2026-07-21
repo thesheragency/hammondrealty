@@ -321,7 +321,7 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
           </div>
         </motion.section>
 
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection />
 
         <CtaSection
           eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}

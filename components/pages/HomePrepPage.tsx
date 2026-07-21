@@ -853,7 +853,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           </div>
         </motion.section>
 
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection />
 
         <FaqsSection
           faqs={faqsList}

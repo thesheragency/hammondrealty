@@ -750,7 +750,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
           </div>
         </motion.section>
 
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection />
 
         <FaqsSection
           faqs={faqsList}

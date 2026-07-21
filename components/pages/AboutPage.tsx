@@ -421,7 +421,7 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
           </div>
         </motion.section>
 
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection />
 
         <FaqsSection
           faqs={aboutFaqs}
