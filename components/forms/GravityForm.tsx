@@ -90,9 +90,13 @@ export function GravityForm({ formId, className, onSuccess, onError }: GravityFo
     const choiceTexts = field.choices?.map((c) => c.text.toLowerCase()) ?? [];
     const label = (field.label ?? '').toLowerCase();
     return (
-      choiceTexts.some((t) => t.includes('agree') || t.includes('contacted')) ||
+      choiceTexts.some((t) =>
+        t.includes('agree') || t.includes('contacted') || t.includes('privacy') || t.includes('accept')
+      ) ||
       label.includes('agree to be contacted') ||
-      label.includes('consent')
+      label.includes('consent') ||
+      label.includes('privacy') ||
+      label.includes('accept')
     );
   };
 
@@ -957,6 +961,28 @@ onChange={(e) => {
             </div>
           )}
 
+          {(!isMultiPage || isLastPage) && (
+            <div className="flex items-start gap-3 pt-2">
+              <Checkbox
+                id="gf-privacy-accept"
+                checked={privacyAccepted}
+                onCheckedChange={(v) => setPrivacyAccepted(!!v)}
+                className="mt-0.5"
+                data-testid="checkbox-privacy-accept"
+              />
+              <Label htmlFor="gf-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+                I accept the{' '}
+                <a
+                  href="/privacy-policy"
+                  className="underline underline-offset-2 hover:text-foreground transition-colors"
+                >
+                  Privacy Policy
+                </a>
+                .
+              </Label>
+            </div>
+          )}
+
           <div className="flex items-center justify-between gap-4 pt-2">
             {isMultiPage && currentPage > 1 ? (
               <Button
@@ -982,36 +1008,15 @@ onChange={(e) => {
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             ) : (
-              <>
-                <div className="flex items-start gap-3">
-                  <Checkbox
-                    id="gf-privacy-accept"
-                    checked={privacyAccepted}
-                    onCheckedChange={(v) => setPrivacyAccepted(!!v)}
-                    className="mt-0.5"
-                    data-testid="checkbox-privacy-accept"
-                  />
-                  <Label htmlFor="gf-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
-                    I accept the{' '}
-                    <a
-                      href="/privacy-policy"
-                      className="underline underline-offset-2 hover:text-foreground transition-colors"
-                    >
-                      Privacy Policy
-                    </a>
-                    .
-                  </Label>
-                </div>
-                <Button
-                  type="submit"
-                  disabled={submitting || !privacyAccepted}
-                  className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
-                  data-testid="button-gf-submit"
-                >
-                  {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                  {form.submitButton?.text || 'Submit'}
-                </Button>
-              </>
+              <Button
+                type="submit"
+                disabled={submitting || !privacyAccepted}
+                className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
+                data-testid="button-gf-submit"
+              >
+                {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                {form.submitButton?.text || 'Submit'}
+              </Button>
             )}
           </div>
         </form>
