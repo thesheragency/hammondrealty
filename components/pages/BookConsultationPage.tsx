@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import Script from "next/script";
@@ -37,6 +37,10 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
+  const [scriptReady, setScriptReady] = useState(false);
+  const calendlyRef = useRef<HTMLDivElement>(null);
+
+  const calendlyUrl = `${CALENDLY_URL}?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}`;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -47,19 +51,54 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     setStep("calendar");
   };
 
-  // Build Calendly URL with pre-filled name + email
-  const calendlyUrl = `${CALENDLY_URL}?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}`;
+  // Initialize the Calendly widget once both the div is mounted and the script is ready
+  useEffect(() => {
+    if (step !== "calendar") return;
+    if (!calendlyRef.current) return;
+
+    const tryInit = () => {
+      const win = window as any;
+      if (win.Calendly) {
+        // Clear any previous widget in the container
+        if (calendlyRef.current) {
+          calendlyRef.current.innerHTML = "";
+        }
+        win.Calendly.initInlineWidget({
+          url: calendlyUrl,
+          parentElement: calendlyRef.current,
+          prefill: {
+            name: form.name,
+            email: form.email,
+          },
+        });
+      }
+    };
+
+    // If script is already loaded, init immediately; otherwise wait for onReady
+    if ((window as any).Calendly) {
+      tryInit();
+    } else {
+      // Poll briefly in case the script finishes loading just after this effect runs
+      const interval = setInterval(() => {
+        if ((window as any).Calendly) {
+          clearInterval(interval);
+          tryInit();
+        }
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [step, scriptReady, calendlyUrl]);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
 
-      {step === "calendar" && (
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
-      )}
+      {/* Always load the Calendly script so it is ready when the calendar step mounts */}
+      <Script
+        src="https://assets.calendly.com/assets/external/widget.js"
+        strategy="afterInteractive"
+        onReady={() => setScriptReady(true)}
+      />
 
       <main className="flex-1">
         <motion.section
@@ -214,14 +253,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                   ) : (
                     <motion.div
                       key="calendar"
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
                       className="w-full"
                     >
                       <div
-                        className="calendly-inline-widget w-full"
-                        data-url={calendlyUrl}
+                        ref={calendlyRef}
+                        className="w-full"
                         style={{ minWidth: 320, height: 700 }}
                         data-testid="embed-calendly"
                       />
