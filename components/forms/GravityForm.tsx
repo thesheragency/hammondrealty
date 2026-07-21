@@ -921,7 +921,7 @@ onChange={(e) => {
           <Progress value={progress} className="h-2" />
         </div>
       )}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
           <div
             className="gf-honeypot"
             style={{ position: 'absolute', left: '-9999px' }}
@@ -962,7 +962,7 @@ onChange={(e) => {
           )}
 
           {(!isMultiPage || isLastPage) && (
-            <div className="flex items-start gap-3 pt-2">
+            <div className="flex items-start gap-3">
               <Checkbox
                 id="gf-privacy-accept"
                 checked={privacyAccepted}
@@ -983,7 +983,7 @@ onChange={(e) => {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4 pt-2">
+          <div className="flex items-center justify-between gap-4">
             {isMultiPage && currentPage > 1 ? (
               <Button
                 type="button"
