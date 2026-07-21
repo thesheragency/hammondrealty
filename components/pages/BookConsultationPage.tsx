@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
-import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,10 +36,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
-  const [scriptReady, setScriptReady] = useState(false);
-  const calendlyRef = useRef<HTMLDivElement>(null);
-
-  const calendlyUrl = `${CALENDLY_URL}?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}`;
+  const rightPanelRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -51,54 +47,26 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     setStep("calendar");
   };
 
-  // Initialize the Calendly widget once both the div is mounted and the script is ready
+  // Scroll the calendar panel into view after transitioning
   useEffect(() => {
-    if (step !== "calendar") return;
-    if (!calendlyRef.current) return;
-
-    const tryInit = () => {
-      const win = window as any;
-      if (win.Calendly) {
-        // Clear any previous widget in the container
-        if (calendlyRef.current) {
-          calendlyRef.current.innerHTML = "";
-        }
-        win.Calendly.initInlineWidget({
-          url: calendlyUrl,
-          parentElement: calendlyRef.current,
-          prefill: {
-            name: form.name,
-            email: form.email,
-          },
-        });
-      }
-    };
-
-    // If script is already loaded, init immediately; otherwise wait for onReady
-    if ((window as any).Calendly) {
-      tryInit();
-    } else {
-      // Poll briefly in case the script finishes loading just after this effect runs
-      const interval = setInterval(() => {
-        if ((window as any).Calendly) {
-          clearInterval(interval);
-          tryInit();
-        }
+    if (step === "calendar" && rightPanelRef.current) {
+      setTimeout(() => {
+        rightPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
-      return () => clearInterval(interval);
     }
-  }, [step, scriptReady, calendlyUrl]);
+  }, [step]);
+
+  const params = new URLSearchParams({
+    embed_type: "Inline",
+    hide_gdpr_banner: "1",
+    name: form.name,
+    email: form.email,
+  });
+  const calendlyIframeSrc = `${CALENDLY_URL}?${params.toString()}`;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
       <SiteHeader variant="solid" />
-
-      {/* Always load the Calendly script so it is ready when the calendar step mounts */}
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
-        onReady={() => setScriptReady(true)}
-      />
 
       <main className="flex-1">
         <motion.section
@@ -110,8 +78,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
 
-              {/* Left: copy — stays constant */}
-              <div className="lg:sticky lg:top-32">
+              {/* Left: copy — order-2 on mobile so form appears first */}
+              <div className="order-2 lg:order-1 lg:sticky lg:top-32">
                 <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
@@ -142,8 +110,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 </p>
               </div>
 
-              {/* Right: form → calendar */}
-              <div className="w-full">
+              {/* Right: form → calendar — order-1 on mobile so it appears first */}
+              <div ref={rightPanelRef} className="order-1 lg:order-2 w-full">
                 <AnimatePresence mode="wait">
                   {step === "form" ? (
                     <motion.div
@@ -258,11 +226,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="w-full"
                     >
-                      <div
-                        ref={calendlyRef}
-                        className="w-full"
-                        style={{ minWidth: 320, height: 700 }}
+                      <iframe
+                        src={calendlyIframeSrc}
+                        width="100%"
+                        height="700"
+                        frameBorder="0"
+                        title="Schedule a consultation with Blake Hammond"
                         data-testid="embed-calendly"
+                        style={{ border: "none", minWidth: 320 }}
                       />
                     </motion.div>
                   )}
