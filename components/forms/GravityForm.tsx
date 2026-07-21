@@ -982,36 +982,37 @@ onChange={(e) => {
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             ) : (
-              <Button
-                type="submit"
-                disabled={submitting || !privacyAccepted}
-                className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
-                data-testid="button-gf-submit"
-              >
-                {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                {form.submitButton?.text || 'Submit'}
-              </Button>
+              <>
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="gf-privacy-accept"
+                    checked={privacyAccepted}
+                    onCheckedChange={(v) => setPrivacyAccepted(!!v)}
+                    className="mt-0.5"
+                    data-testid="checkbox-privacy-accept"
+                  />
+                  <Label htmlFor="gf-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
+                    I accept the{' '}
+                    <a
+                      href="/privacy-policy"
+                      className="underline underline-offset-2 hover:text-foreground transition-colors"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
+                  </Label>
+                </div>
+                <Button
+                  type="submit"
+                  disabled={submitting || !privacyAccepted}
+                  className="bg-primary text-primary-foreground rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full h-[45px]"
+                  data-testid="button-gf-submit"
+                >
+                  {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  {form.submitButton?.text || 'Submit'}
+                </Button>
+              </>
             )}
-          </div>
-
-          <div className="flex items-start gap-3">
-            <Checkbox
-              id="gf-privacy-accept"
-              checked={privacyAccepted}
-              onCheckedChange={(v) => setPrivacyAccepted(!!v)}
-              className="mt-0.5"
-              data-testid="checkbox-privacy-accept"
-            />
-            <Label htmlFor="gf-privacy-accept" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
-              I accept the{' '}
-              <a
-                href="/privacy-policy"
-                className="underline underline-offset-2 hover:text-foreground transition-colors"
-              >
-                Privacy Policy
-              </a>
-              .
-            </Label>
           </div>
         </form>
     </div>
