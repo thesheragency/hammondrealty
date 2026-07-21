@@ -143,8 +143,19 @@ function SourceLogo({ source }: { source?: "google" | "zillow" }) {
   return <GoogleG className="w-6 h-6" />;
 }
 
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
-  const reviews = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
+  const [reviews] = useState<Testimonial[]>(() =>
+    shuffle(testimonials && testimonials.length > 0 ? testimonials : defaultReviews)
+  );
   const [api, setApi] = useState<CarouselApi | undefined>();
   const [index, setIndex] = useState(0);
 
