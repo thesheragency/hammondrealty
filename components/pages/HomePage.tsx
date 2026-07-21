@@ -584,9 +584,9 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
               <img src={quoteMarkUrl} alt="" className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" />
               <Stars className="w-6 h-6 mb-6" label="Rated 5 out of 5 stars" />
               <p className="font-sans text-2xl md:text-4xl leading-relaxed font-bold mb-12">
-                "{heroTestimonials[0].quote}"
+                "Blake did an amazing job helping me find the right home that was the perfect fit for me! He made the whole process very smooth. I would highly recommend using him!"
               </p>
-              <p className="font-semibold text-lg">{heroTestimonials[0].name}</p>
+              <p className="font-semibold text-lg">Gavin Hollmer</p>
             </div>
           </div>
         </motion.section>
