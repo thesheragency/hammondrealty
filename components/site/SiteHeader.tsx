@@ -70,30 +70,20 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
           </Link>
 
           <nav className="hidden lg:flex items-center justify-center gap-8">
-            {navLinks.map((link) =>
-              link.href.startsWith("/") && !link.href.includes("#") ? (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                  className={`relative text-sm font-medium transition-colors pb-1 ${
-                    isActive(link.href)
-                      ? "text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground after:rounded-full"
-                      : "text-foreground/70 hover:text-foreground"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              )
-            )}
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`relative text-sm font-medium transition-colors pb-1 ${
+                  isActive(link.href)
+                    ? "text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground after:rounded-full"
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
           <div className="hidden lg:flex items-center gap-5 justify-self-end">
@@ -104,21 +94,21 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
               <Phone className="w-4 h-4" strokeWidth={2} />
               {phoneCta.label}
             </a>
-            <Link
+            <a
               href={contactCta.href}
               className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 min-w-[129px] px-4 h-[45px]"
             >
               {contactCta.label}
-            </Link>
+            </a>
           </div>
 
           <div className="lg:hidden flex items-center gap-2 justify-self-end">
-            <Link
+            <a
               href={contactCta.href}
               className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all px-4 h-[38px]"
             >
               {contactCta.label}
-            </Link>
+            </a>
             <button
               className="p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -132,7 +122,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 border-t border-border flex flex-col px-4 gap-4">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.label}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
@@ -141,18 +131,16 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
                     ? "text-foreground border-l-2 border-l-foreground"
                     : "text-foreground/70"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
-            <Link
+            <a
               href={contactCta.href}
-              onClick={() => setMobileMenuOpen(false)}
               className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 mt-4 w-full h-[45px] rounded-none font-medium text-sm"
             >
               {contactCta.label}
-            </Link>
+            </a>
           </div>
         )}
       </header>
