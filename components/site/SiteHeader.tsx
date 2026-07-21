@@ -76,8 +76,10 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
                   key={link.label}
                   href={link.href}
                   aria-current={isActive(link.href) ? "page" : undefined}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    isActive(link.href) ? "text-primary" : "text-foreground/80"
+                  className={`relative text-sm font-medium transition-colors pb-1 ${
+                    isActive(link.href)
+                      ? "text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground after:rounded-full"
+                      : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   {link.label}
@@ -86,7 +88,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                  className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
                 >
                   {link.label}
                 </a>
@@ -134,8 +136,10 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
                 key={link.label}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`text-base font-medium py-2 border-b border-border/50 ${
-                  isActive(link.href) ? "text-primary" : ""
+                className={`text-base font-medium py-2 border-b border-border/50 pl-3 transition-colors ${
+                  isActive(link.href)
+                    ? "text-foreground border-l-2 border-l-foreground"
+                    : "text-foreground/70"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
