@@ -460,7 +460,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                   <Button
                     asChild
                     variant="outline"
-                    className="border-foreground text-foreground bg-transparent hover:bg-black hover:text-white rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+                    className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
                   >
                     <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Find Your Home Value"}</Link>
                   </Button>
@@ -731,7 +731,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                     href={acf?.zillowSecondaryLink || "https://www.zillow.com/profile/blakehammondre"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center border border-foreground text-foreground bg-transparent hover:bg-black hover:text-white rounded-none font-medium text-sm w-full sm:w-auto px-6 h-[45px] transition-colors"
+                    className="inline-flex items-center justify-center border border-foreground text-foreground bg-transparent hover:bg-accent/50 hover:text-accent-foreground rounded-none font-medium text-sm w-full sm:w-auto px-6 h-[45px] transition-colors"
                   >
                     {acf?.zillowSecondaryText || "View on Zillow"}
                   </a>
