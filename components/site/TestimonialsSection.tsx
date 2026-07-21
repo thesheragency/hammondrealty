@@ -153,10 +153,14 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
-  const [reviews] = useState<Testimonial[]>(() =>
-    shuffle(testimonials && testimonials.length > 0 ? testimonials : defaultReviews)
-  );
+  const base = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
+  const [reviews, setReviews] = useState<Testimonial[]>(base);
   const [api, setApi] = useState<CarouselApi | undefined>();
+
+  useEffect(() => {
+    setReviews(shuffle(base));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [index, setIndex] = useState(0);
 
   const scrollPrev = useCallback(() => api?.scrollPrev(), [api]);
