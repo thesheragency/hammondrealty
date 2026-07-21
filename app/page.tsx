@@ -5,7 +5,7 @@ import HomePage from '@/components/pages/HomePage';
 import JsonLd from '@/components/seo/JsonLd';
 import { localBusinessJsonLd } from '@/lib/structured-data';
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

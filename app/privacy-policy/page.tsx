@@ -3,6 +3,8 @@ import { buildMetadata } from '@/lib/seo-helpers';
 import PrivacyPolicyPage from '@/components/pages/PrivacyPolicyPage';
 import { getWpAuthHeaders } from '@/lib/wp-auth';
 
+export const revalidate = 1800;
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: 'Privacy Policy | Blake Hammond Real Estate',
@@ -21,7 +23,7 @@ async function fetchPrivacyPolicyContent(): Promise<string | null> {
       body: JSON.stringify({
         query: `{ page(id: "privacy-policy", idType: URI) { content } }`,
       }),
-      next: { revalidate: 60, tags: ['wp-content'] },
+      next: { revalidate: 1800, tags: ['wp-content'] },
     });
     if (!res.ok) return null;
     const json = await res.json();

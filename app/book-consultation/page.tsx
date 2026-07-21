@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/seo-helpers';
 import BookConsultationPage from '@/components/pages/BookConsultationPage';
 import { fetchBookConsultationAcf } from '@/lib/wp-acf';
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

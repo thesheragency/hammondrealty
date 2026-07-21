@@ -5,7 +5,7 @@ import FaqsPage from '@/components/pages/FaqsPage';
 import JsonLd from '@/components/seo/JsonLd';
 import { localBusinessJsonLd, faqPageJsonLd, staticFaqItems } from '@/lib/structured-data';
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

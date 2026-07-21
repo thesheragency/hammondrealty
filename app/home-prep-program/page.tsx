@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/seo-helpers';
 import { fetchHomePrepAcf, fetchTestimonials } from '@/lib/wp-acf';
 import HomePrepPage from '@/components/pages/HomePrepPage';
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

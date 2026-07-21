@@ -79,7 +79,7 @@ export async function fetchSiteMenus(): Promise<SiteMenus> {
         ...getWpAuthHeaders(),
       },
       body: JSON.stringify({ query: MENUS_QUERY }),
-      next: { revalidate: 60, tags: ["wp-content"] },
+      next: { revalidate: 1800, tags: ["wp-content"] },
     });
     if (!res.ok) return EMPTY_MENUS;
     const json = await res.json();

@@ -10,6 +10,8 @@ import { fetchPostBySlug, fetchPostPreviewBySlug, fetchPostPreview, fetchPostPre
 import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
+export const revalidate = 1800;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ preview?: string; token?: string; id?: string; previewId?: string }>;

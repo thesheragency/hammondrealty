@@ -16,6 +16,8 @@ import {
   type PageTemplateInfo,
 } from '@/modules/landing-builder';
 
+export const revalidate = 1800;
+
 type TemplateRenderFn = (props: {
   templateInfo: PageTemplateInfo;
   isPreview: boolean;

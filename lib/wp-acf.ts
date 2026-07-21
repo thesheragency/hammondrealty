@@ -11,9 +11,10 @@ export function imgAlt(img: WpImage | undefined, fallback: string): string {
   return img?.node?.altText || fallback;
 }
 
-// Short data-cache TTL so WordPress edits show up quickly; the /api/revalidate
-// webhook purges pages instantly in production.
-const ACF_REVALIDATE_SECONDS = 60;
+// 30-minute data-cache TTL for ISR — WordPress is fetched at most once per 30
+// minutes per page. The /api/revalidate webhook purges pages instantly when
+// content changes in WordPress, so the TTL is only a safety net.
+const ACF_REVALIDATE_SECONDS = 1800;
 
 async function gqlFetch(query: string, variables?: Record<string, unknown>): Promise<any> {
   const wpApiUrl = process.env.WP_API_URL;

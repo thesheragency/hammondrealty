@@ -5,6 +5,8 @@ import { YoastSchema } from '@/components/seo/YoastSchema';
 import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
+export const revalidate = 1800;
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: 'Sacramento Real Estate Insights & Advice | Blake Hammond Real Estate',
