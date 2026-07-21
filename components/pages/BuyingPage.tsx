@@ -197,7 +197,7 @@ function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; th
   );
 }
 
-export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
+export default function Buying({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepImages = [stepBuying1Url, stepBuying2Url, stepBuying3Url];
 
@@ -511,7 +511,7 @@ export default function Buying({ acf }: { acf?: Record<string, any> | null }) {
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
 
         <FaqsSection
           faqs={faqsList}

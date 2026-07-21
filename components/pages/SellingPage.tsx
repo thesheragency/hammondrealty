@@ -313,7 +313,7 @@ function WhySellVideo({
   );
 }
 
-export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
+export default function Selling({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const [activeStep, setActiveStep] = useState(0);
 
   const whyBullets = acf?.whyBullets?.length
@@ -750,7 +750,7 @@ export default function Selling({ acf }: { acf?: Record<string, any> | null }) {
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
 
         <FaqsSection
           faqs={faqsList}

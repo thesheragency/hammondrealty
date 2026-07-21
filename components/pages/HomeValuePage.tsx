@@ -85,7 +85,7 @@ const defaultNotSelling = [
   },
 ];
 
-export default function HomeValue({ acf }: { acf?: Record<string, any> | null }) {
+export default function HomeValue({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const mapIcons = (items: any[], defaults: typeof defaultWhatYouGet) =>
     items.map((item, i) => ({
       ...item,
@@ -321,7 +321,7 @@ export default function HomeValue({ acf }: { acf?: Record<string, any> | null })
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
 
         <CtaSection
           eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}

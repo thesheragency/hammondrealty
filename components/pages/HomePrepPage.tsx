@@ -379,7 +379,7 @@ function IncludedCarousel({
   );
 }
 
-export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) {
+export default function HomePrep({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const [activeStep, setActiveStep] = useState(0);
   const includedControlsRef = useRef<{ prev: () => void; next: () => void } | null>(null);
 
@@ -853,7 +853,7 @@ export default function HomePrep({ acf }: { acf?: Record<string, any> | null }) 
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
 
         <FaqsSection
           faqs={faqsList}

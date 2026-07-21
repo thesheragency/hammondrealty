@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
-import { fetchAboutAcf } from '@/lib/wp-acf';
+import { fetchAboutAcf, fetchTestimonials } from '@/lib/wp-acf';
 import AboutPage from '@/components/pages/AboutPage';
 import JsonLd from '@/components/seo/JsonLd';
 import { localBusinessJsonLd } from '@/lib/structured-data';
@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const acf = await fetchAboutAcf();
+  const [acf, wpTestimonials] = await Promise.all([fetchAboutAcf(), fetchTestimonials()]);
   return (
     <>
       <JsonLd data={localBusinessJsonLd()} />
-      <AboutPage acf={acf} />
+      <AboutPage acf={acf} testimonials={wpTestimonials.length > 0 ? wpTestimonials : undefined} />
     </>
   );
 }

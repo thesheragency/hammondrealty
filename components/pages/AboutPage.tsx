@@ -114,7 +114,7 @@ const aboutFaqs: Faq[] = [
   },
 ];
 
-export default function About({ acf }: { acf?: Record<string, any> | null }) {
+export default function About({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const heroImg = imgUrl(acf?.heroImage, blakeHeroUrl);
   const heroImgAlt = imgAlt(acf?.heroImage, "Blake Hammond");
   const portraitImg = imgUrl(acf?.portraitImage, blakePortraitUrl);
@@ -421,7 +421,7 @@ export default function About({ acf }: { acf?: Record<string, any> | null }) {
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
 
         <FaqsSection
           faqs={aboutFaqs}
