@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -86,6 +86,7 @@ export async function POST(request: NextRequest) {
 
     if (type === 'all') {
       revalidatePath('/', 'layout');
+      revalidateTag('wp-content');
       revalidatedPaths.push('/ (entire site)');
     }
 
