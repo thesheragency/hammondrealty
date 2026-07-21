@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
@@ -95,6 +94,9 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
   const [api, setApi] = useState<CarouselApi | undefined>();
   const [index, setIndex] = useState(0);
 
+  const scrollPrev = useCallback(() => api?.scrollPrev(), [api]);
+  const scrollNext = useCallback(() => api?.scrollNext(), [api]);
+
   useEffect(() => {
     if (!api) return;
     setIndex(api.selectedScrollSnap());
@@ -166,9 +168,21 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-center gap-2 mt-12">
-            <CarouselPrevious className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
-            <CarouselNext className="static left-auto right-auto top-auto translate-y-0 border-0 bg-transparent shadow-none rounded-none text-foreground hover:text-primary hover:bg-muted disabled:opacity-100 transition-colors h-12 w-12 [&_svg]:!h-8 [&_svg]:!w-8" />
+          <div className="flex justify-center gap-6 mt-12">
+            <button
+              onClick={scrollPrev}
+              aria-label="Previous testimonial"
+              className="flex items-center justify-center h-12 w-12 text-foreground hover:text-foreground/60 transition-colors"
+            >
+              <ArrowLeft className="h-7 w-7" strokeWidth={1.5} />
+            </button>
+            <button
+              onClick={scrollNext}
+              aria-label="Next testimonial"
+              className="flex items-center justify-center h-12 w-12 text-foreground hover:text-foreground/60 transition-colors"
+            >
+              <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
+            </button>
           </div>
         </Carousel>
       </div>
