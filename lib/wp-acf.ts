@@ -89,40 +89,58 @@ export async function fetchFaqs(): Promise<WpFaq[]> {
 
 export type WpTestimonial = { name: string; quote: string; source?: 'google' | 'zillow' };
 
-function normalizeSource(val?: string | null): 'google' | 'zillow' | undefined {
+function normalizeSource(val?: string | string[] | null): 'google' | 'zillow' | undefined {
   if (!val) return undefined;
-  const lower = val.toLowerCase();
+  const str = Array.isArray(val) ? val[0] : val;
+  if (!str) return undefined;
+  const lower = str.toLowerCase();
   if (lower.includes('zillow')) return 'zillow';
   if (lower.includes('google')) return 'google';
   return undefined;
 }
 
 export async function fetchTestimonials(): Promise<WpTestimonial[]> {
-  // Primary: query ACF fields on the testimonials CPT
+  // Field group: testimonialFields  Sub-fields: reviewerName, quote, platform (array), rating
   try {
-    const query = `{ testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) { nodes { testimonialFields { quote reviewerName sourcePlatform } menuOrder } } }`;
+    const query = `{
+      testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+        nodes {
+          testimonialFields { reviewerName quote platform rating }
+          menuOrder
+        }
+      }
+    }`;
     const data = await gqlFetch(query);
     const nodes = data?.testimonials?.nodes ?? [];
     const results: WpTestimonial[] = nodes
       .map((n: any) => ({
-        name: n.testimonialFields?.reviewerName || '',
-        quote: n.testimonialFields?.quote || '',
-        source: normalizeSource(n.testimonialFields?.sourcePlatform),
+        name:   n.testimonialFields?.reviewerName || '',
+        quote:  n.testimonialFields?.quote        || '',
+        source: normalizeSource(n.testimonialFields?.platform),
       }))
       .filter((t: WpTestimonial) => t.name && t.quote);
-    return results;
-  } catch {
-    // ACF field group name mismatch — fall back to native title/content
+    if (results.length > 0) return results;
+  } catch (error) {
+    console.error('[wp-acf] fetchTestimonials ACF query failed:', error);
   }
+
+  // Fallback: native title + content (for testimonials stored without ACF)
   try {
-    const query = `{ testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) { nodes { title content menuOrder } } }`;
+    const query = `{
+      testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+        nodes { title content menuOrder }
+      }
+    }`;
     const data = await gqlFetch(query);
     const nodes = data?.testimonials?.nodes ?? [];
     return nodes
-      .map((n: any) => ({ name: n.title || '', quote: (n.content || '').replace(/<[^>]+>/g, '').trim() }))
+      .map((n: any) => ({
+        name:  n.title || '',
+        quote: (n.content || '').replace(/<[^>]+>/g, '').trim(),
+      }))
       .filter((t: WpTestimonial) => t.name && t.quote);
   } catch (error) {
-    console.error('[wp-acf] Failed to fetch testimonials:', error);
+    console.error('[wp-acf] fetchTestimonials native fallback failed:', error);
     return [];
   }
 }
