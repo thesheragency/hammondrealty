@@ -482,7 +482,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
             />
           </motion.div>
 
-          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24 lg:pb-0 lg:min-h-[640px]">
+          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24">
             <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
               {/* Hero Content */}
