@@ -518,12 +518,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     {"Schedule a Home Prep Consultation"}
                   </Link>
                   {acf?.familiarPhoneText && (
-                    <>
+                    <div className="hidden sm:contents">
                       <span className="text-sm text-foreground/50 text-center">or</span>
-                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-auto font-medium text-sm">
                         <a href={acf?.familiarPhoneLink || "#"}>{acf.familiarPhoneText}</a>
                       </Button>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
@@ -831,12 +831,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     <Link href="/book-consultation">{"Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   {acf?.casePhoneText && (
-                    <>
+                    <div className="hidden sm:contents">
                       <span className="text-sm text-foreground/50 text-center">or</span>
-                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-auto font-medium text-sm">
                         <a href={acf?.casePhoneLink || "#"}>{acf.casePhoneText}</a>
                       </Button>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
