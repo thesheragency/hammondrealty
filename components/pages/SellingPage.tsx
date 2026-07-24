@@ -675,17 +675,12 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href={acf?.prepCtaLink || "/home-prep-program"}>{acf?.prepCtaText || "Learn More"}</Link>
+                  <Button asChild variant="outline" className="rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
+                    <Link href="/home-prep-program">Learn More</Link>
                   </Button>
-                  {acf?.prepPhoneText && (
-                    <>
-                      <span className="text-sm text-foreground/50 text-center">or</span>
-                      <Button variant="outline" asChild className="rounded-none h-[45px] w-full sm:w-auto font-medium text-sm">
-                        <a href={acf?.prepPhoneLink || "#"}>{acf.prepPhoneText}</a>
-                      </Button>
-                    </>
-                  )}
+                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
+                    <Link href="/book-consultation">Schedule a Home Prep Consultation</Link>
+                  </Button>
                 </div>
               </div>
             </div>
