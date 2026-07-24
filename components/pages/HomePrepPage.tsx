@@ -455,7 +455,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   href={acf?.heroCtaLink || "/book-consultation"}
                   className="inline-flex items-center justify-center bg-white text-foreground hover:bg-white/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
                 >
-                  {acf?.heroCtaText || "Schedule a Home Prep Consultation"}
+                  {"Schedule a Home Prep Consultation"}
                 </Link>
               </div>
             </motion.div>
@@ -515,7 +515,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     href={acf?.familiarCtaLink || "/book-consultation"}
                     className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]"
                   >
-                    {acf?.familiarCtaText || "Schedule a Home Prep Consultation"}
+                    {"Schedule a Home Prep Consultation"}
                   </Link>
                   {acf?.familiarPhoneText && (
                     <>
@@ -595,7 +595,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href={acf?.whyCtaLink || "/book-consultation"}>{acf?.whyCtaText || "Schedule a Home Prep Consultation"}</Link>
+                    <Link href={acf?.whyCtaLink || "/book-consultation"}>{"Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   <Button
                     asChild
@@ -706,7 +706,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
                   <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                      <Link href={acf?.processCtaLink || "/book-consultation"}>{acf?.processCtaText || "Schedule a Home Prep Consultation"}</Link>
+                      <Link href={acf?.processCtaLink || "/book-consultation"}>{"Schedule a Home Prep Consultation"}</Link>
                     </Button>
                     {acf?.processSecondaryText && (
                       <Button
@@ -828,7 +828,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </div>
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
+                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{"Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   {acf?.casePhoneText && (
                     <>
