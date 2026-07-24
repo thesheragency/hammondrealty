@@ -293,23 +293,14 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-              <div className="hidden lg:block">
-                <WhyVideo
-                  videoId={acf?.whyVideoId}
-                  thumbSrc={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
-                  thumbAlt="Blake Hammond on the podcast — Why Buy With Blake"
-                />
-              </div>
-
-              <div>
+            <div className="max-w-3xl">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.whyEyebrow || "Why Blake"}
                 </p>
                 <h2 className="text-h2 font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
                 <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
-                <ul className="space-y-6 mb-4 lg:mb-10">
+                <ul className="space-y-6 mb-10">
                   {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
@@ -328,15 +319,6 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                   })}
                 </ul>
 
-                {/* Mobile video — above the CTA buttons */}
-                <div className="lg:hidden mb-10">
-                  <WhyVideo
-                    videoId={acf?.whyVideoId}
-                    thumbSrc={imgUrl(acf?.whyVideoImage, buyingBlakeUrl)}
-                    thumbAlt="Blake Hammond on the podcast — Why Buy With Blake"
-                  />
-                </div>
-
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
@@ -349,7 +331,6 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                     <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
                   </Button>
                 </div>
-              </div>
             </div>
           </div>
         </motion.section>
