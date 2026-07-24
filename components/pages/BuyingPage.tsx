@@ -5,7 +5,7 @@ import { tc } from "@/lib/title-case";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, SearchCheck, Lock, Handshake, Mail, Phone } from "lucide-react";
+import { Play, Eye, BarChart2, Handshake, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -15,9 +15,9 @@ import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
 import { imgUrl } from "@/lib/wp-acf";
 
-const buyIconMap: Record<string, typeof SearchCheck> = {
-  SearchCheck,
-  Lock,
+const buyIconMap: Record<string, typeof Eye> = {
+  Eye,
+  BarChart2,
   Handshake,
 };
 
@@ -35,12 +35,12 @@ const testimonialCoupleUrl = "/images/testimonial-couple.png";
 
 const whyBuyBullets = [
   {
-    icon: SearchCheck,
+    icon: Eye,
     title: "No Property Fluff",
     desc: "I point out hidden red flags, bad layouts, and neighborhood downsides so you know exactly what you're walking into.",
   },
   {
-    icon: Lock,
+    icon: BarChart2,
     title: "Unfiltered Market Data",
     desc: "I show you the actual sales numbers instead of just the list price so you always know the true value before you make an offer.",
   },
