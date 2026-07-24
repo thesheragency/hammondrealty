@@ -16,21 +16,21 @@ const CALENDLY_URL =
 
 const defaultExpectations = [
   {
-    title: "A Real Conversation",
-    desc: "A quick chat to understand specific family goals and timelines with no pressure and no script.",
+    title: "See What's Worth Doing",
+    desc: "We'll identify the repairs, updates, cleaning, landscaping, or staging that could make the biggest difference—and what you can skip.",
   },
   {
-    title: "Honest Market Context",
-    desc: "Clear property data on where active market buyers are right now and what that means for your equity.",
+    title: "Learn How the Home Prep Program Works",
+    desc: "See how we can coordinate and front the cost of preparing your home for sale, with nothing due until closing.",
   },
   {
-    title: "A Clear Next Step",
-    desc: "Walk away from the conversation with a simple roadmap, whether a move is planned in 30 days or 12 months.",
+    title: "Get a Clear Game Plan",
+    desc: "Whether you're ready to sell soon or just exploring your options, you'll leave knowing what I'd recommend and what your next steps could look like.",
   },
 ];
 
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
-  const expectations = (acf?.expectations?.length ? acf.expectations : defaultExpectations) as { title: string; desc: string }[];
+  const expectations = defaultExpectations;
 
   const [step, setStep] = useState<"form" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
@@ -84,11 +84,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
                 <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
-                  {acf?.heading ? tc(acf.heading) : (<>Book A 15 Minute<br />Call With Blake</>)}
+                  Book a 15-Minute Call With Blake
                 </h1>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md mb-8">
-                  {acf?.body || "Make your move simple and stress-free. Whether you are buying or selling, this conversation is designed to help you feel confident every step of the way with straightforward, honest communication."}
+                  Thinking about selling, but not sure what your home needs before it hits the market? We'll talk through your property, your goals, and what—if anything—would be worth doing before you sell.
                 </p>
 
                 <ul className="space-y-4 mb-8">
@@ -106,7 +106,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 </ul>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md">
-                  {acf?.body2 || "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time."}
+                  No pressure and no obligation. Pick a time that works for you and we'll spend about 15 minutes talking through your home and what you're trying to accomplish.
                 </p>
               </div>
 
