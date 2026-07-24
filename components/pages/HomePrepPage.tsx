@@ -860,7 +860,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           intro={acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."}
         />
 
-        <CtaSection />
+        <CtaSection
+          primaryLabel="Schedule a Home Prep Consultation"
+          primaryHref="/book-consultation"
+          secondaryLabel="Call Now"
+          secondaryHref="tel:9166256118"
+        />
       </main>
       <SiteFooter />
     </div>
