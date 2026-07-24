@@ -449,7 +449,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
                 {tc(acf?.heroHeading) || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">{acf?.heroBody || "We manage and pay for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress."}</p>
+              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">{acf?.heroBody || "We manage and front the money for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress."}</p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href={acf?.heroCtaLink || "/book-consultation"}
