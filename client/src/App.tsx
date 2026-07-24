@@ -10,7 +10,6 @@ import { GlobalScripts } from "@/components/scripts/GlobalScripts";
 const Home = lazy(() => import("@/pages/home"));
 const Blog = lazy(() => import("@/pages/blog"));
 const BlogPost = lazy(() => import("@/pages/blog-post"));
-const StyleGuide = lazy(() => import("@/pages/style-guide"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function PageLoader() {
@@ -28,7 +27,6 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogPost} />
-        <Route path="/style-guide" component={StyleGuide} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

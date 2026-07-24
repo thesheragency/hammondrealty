@@ -5,7 +5,7 @@ import { tc } from "@/lib/title-case";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Eye, BarChart2, Handshake, Mail, Phone } from "lucide-react";
+import { Play, Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
