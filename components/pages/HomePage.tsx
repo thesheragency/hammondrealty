@@ -487,7 +487,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
 
               {/* Hero Content */}
               <motion.div
-                className="w-full lg:w-1/2 lg:flex-none max-w-2xl lg:pr-20 relative"
+                className="w-full lg:w-[58%] lg:flex-none relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
