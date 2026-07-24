@@ -705,14 +705,14 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   </div>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-                    <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
+                    <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-auto px-7 h-[45px]">
                       <Link href={acf?.processCtaLink || "/book-consultation"}>{"Schedule a Home Prep Consultation"}</Link>
                     </Button>
                     {acf?.processSecondaryText && (
                       <Button
                         asChild
                         variant="outline"
-                        className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+                        className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-auto h-[45px]"
                       >
                         <Link href={acf?.processSecondaryLink || "#"}>{acf.processSecondaryText}</Link>
                       </Button>
