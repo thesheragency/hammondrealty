@@ -52,7 +52,7 @@ export default function CtaSection({
         <div className="flex flex-wrap items-center justify-start sm:justify-center gap-4">
           <Button
             asChild
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px]"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
           >
             <Link href={primaryHref}>{primaryLabel}</Link>
           </Button>
