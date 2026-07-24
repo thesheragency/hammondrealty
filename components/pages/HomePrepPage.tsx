@@ -850,6 +850,22 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 />
               </div>
             </div>
+
+            {/* Additional before/afters */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 mt-12 lg:mt-16">
+              <BeforeAfterSlider
+                beforeSrc="/images/prep-livingroom2-before.png"
+                afterSrc="/images/prep-livingroom2-after.png"
+                beforeAlt="Living room before home prep"
+                afterAlt="Living room after home prep"
+              />
+              <BeforeAfterSlider
+                beforeSrc="/images/prep-dining-before.png"
+                afterSrc="/images/prep-dining-after.png"
+                beforeAlt="Dining nook before home prep"
+                afterAlt="Dining nook after home prep"
+              />
+            </div>
           </div>
         </motion.section>
 
