@@ -256,6 +256,57 @@ function BeforeAfterSlider({
   );
 }
 
+function BeforeAfterCarousel({
+  slides,
+}: {
+  slides: { beforeSrc: string; afterSrc: string; beforeAlt?: string; afterAlt?: string }[];
+}) {
+  const [index, setIndex] = useState(0);
+  const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
+  const next = () => setIndex((i) => (i + 1) % slides.length);
+  const slide = slides[index];
+  return (
+    <div className="relative">
+      <BeforeAfterSlider
+        beforeSrc={slide.beforeSrc}
+        afterSrc={slide.afterSrc}
+        beforeAlt={slide.beforeAlt}
+        afterAlt={slide.afterAlt}
+      />
+      {/* Nav controls */}
+      <div className="flex items-center justify-between mt-4">
+        <button
+          type="button"
+          onClick={prev}
+          aria-label="Previous photo"
+          className="w-10 h-10 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
+        >
+          <ArrowLeft className="w-6 h-6" />
+        </button>
+        <div className="flex items-center gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setIndex(i)}
+              aria-label={`Photo ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-colors ${i === index ? "bg-primary" : "bg-foreground/25 hover:bg-foreground/50"}`}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Next photo"
+          className="w-10 h-10 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
+        >
+          <ArrowRight className="w-6 h-6" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function IncludedCarousel({
   controlsRef,
   cards = includedCards,
@@ -421,6 +472,11 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
   const whyImageUrl = imgUrl(acf?.whyImage, prepHomeAerialUrl);
   const caseBeforeImageUrl = imgUrl(acf?.caseBeforeImage, prepRosevilleBeforeUrl);
   const caseAfterImageUrl = imgUrl(acf?.caseAfterImage, prepRosevilleAfterUrl);
+  const caseSlides = [
+    { beforeSrc: caseBeforeImageUrl, afterSrc: caseAfterImageUrl, beforeAlt: "Roseville living room before prep", afterAlt: "Roseville living room after prep and staging" },
+    { beforeSrc: "/images/prep-livingroom2-before.png", afterSrc: "/images/prep-livingroom2-after.png", beforeAlt: "Living room before home prep", afterAlt: "Living room after home prep" },
+    { beforeSrc: "/images/prep-dining-before.png", afterSrc: "/images/prep-dining-after.png", beforeAlt: "Dining nook before home prep", afterAlt: "Dining nook after home prep" },
+  ];
   const faqsList: Faq[] = prepFaqs;
 
   return (
@@ -817,14 +873,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     </li>
                   ))}
                 </ul>
-                {/* Mobile slider — above the CTA buttons */}
+                {/* Mobile carousel — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
-                  <BeforeAfterSlider
-                    beforeSrc={caseBeforeImageUrl}
-                    afterSrc={caseAfterImageUrl}
-                    beforeAlt="Roseville living room before prep"
-                    afterAlt="Roseville living room after prep and staging"
-                  />
+                  <BeforeAfterCarousel slides={caseSlides} />
                 </div>
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
@@ -842,29 +893,8 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               </div>
 
               <div className="hidden lg:block">
-                <BeforeAfterSlider
-                  beforeSrc={caseBeforeImageUrl}
-                  afterSrc={caseAfterImageUrl}
-                  beforeAlt="Roseville living room before prep"
-                  afterAlt="Roseville living room after prep and staging"
-                />
+                <BeforeAfterCarousel slides={caseSlides} />
               </div>
-            </div>
-
-            {/* Additional before/afters */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 mt-12 lg:mt-16">
-              <BeforeAfterSlider
-                beforeSrc="/images/prep-livingroom2-before.png"
-                afterSrc="/images/prep-livingroom2-after.png"
-                beforeAlt="Living room before home prep"
-                afterAlt="Living room after home prep"
-              />
-              <BeforeAfterSlider
-                beforeSrc="/images/prep-dining-before.png"
-                afterSrc="/images/prep-dining-after.png"
-                beforeAlt="Dining nook before home prep"
-                afterAlt="Dining nook after home prep"
-              />
             </div>
           </div>
         </motion.section>
