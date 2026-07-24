@@ -33,7 +33,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const expectations = defaultExpectations;
 
   const [step, setStep] = useState<"form" | "calendar">("form");
-  const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
   const rightPanelRef = useRef<HTMLDivElement>(null);
@@ -167,6 +167,20 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                             onChange={(e) => setForm({ ...form, phone: e.target.value })}
                             className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
                             data-testid="input-bc-phone"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <Label htmlFor="bc-address" className="text-sm font-medium">
+                            Property Address <span className="text-foreground/40 font-normal">(optional)</span>
+                          </Label>
+                          <Input
+                            id="bc-address"
+                            placeholder="123 Main St, Sacramento, CA"
+                            value={form.address}
+                            onChange={(e) => setForm({ ...form, address: e.target.value })}
+                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            data-testid="input-bc-address"
                           />
                         </div>
 
