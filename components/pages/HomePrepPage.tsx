@@ -699,7 +699,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     {acf?.processEyebrow || "Home Prep Program Process"}
                   </p>
                   <h2 className="text-h2 font-bold leading-tight mb-3">
-                    {acf?.processHeading ? tc(acf.processHeading) : (<>100% Funded<br />Renovations</>)}
+                    {"How the Home Prep Program Works"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "5 steps to a stress-free, high-profit sale."}
