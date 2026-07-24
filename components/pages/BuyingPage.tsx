@@ -292,34 +292,33 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="max-w-3xl">
+          <div className="container mx-auto px-4 md:px-8 text-center">
                 <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
                   {acf?.whyEyebrow || "Why Blake"}
                 </p>
                 <h2 className="text-h2 font-bold leading-tight mb-6">{tc(acf?.whyHeading) || "Buying With Total Certainty"}</h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
+                <p className="text-foreground/70 leading-relaxed mb-12 text-lg max-w-2xl mx-auto">{acf?.whyBody || "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment."}</p>
 
-                <ul className="space-y-6 mb-10">
+                <ul className="flex flex-col sm:flex-row gap-8 mb-12 justify-center">
                   {whyBullets.map((b: any) => {
                     const Icon = b.icon;
                     return (
-                      <li key={b.title} className="flex items-start gap-4">
-                        <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary text-white">
-                          <Icon className="w-5 h-5" strokeWidth={1.75} />
+                      <li key={b.title} className="flex flex-col items-center gap-4 flex-1 max-w-xs mx-auto sm:mx-0">
+                        <span className="w-12 h-12 flex items-center justify-center bg-primary text-white shrink-0">
+                          <Icon className="w-6 h-6" strokeWidth={1.75} />
                         </span>
-                        <div className="flex-1">
-                          <h3 className="font-sans text-lg md:text-xl font-bold mb-1">
+                        <div>
+                          <h3 className="font-sans text-lg font-bold mb-2">
                             {b.title}
                           </h3>
-                          <p className="text-foreground/70 leading-relaxed">{b.desc}</p>
+                          <p className="text-foreground/70 leading-relaxed text-sm">{b.desc}</p>
                         </div>
                       </li>
                     );
                   })}
                 </ul>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
                   </Button>
@@ -331,7 +330,6 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                     <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
                   </Button>
                 </div>
-            </div>
           </div>
         </motion.section>
 
