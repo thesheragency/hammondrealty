@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const credentials = Buffer.from(`${apiKey}:`).toString("base64");
 
     const payload = {
-      source: "Blake Hammond Website - Connect Form",
+      source: (body.source as string) || "Blake Hammond Website - Connect Form",
       type: "General Inquiry",
       message,
       person: {
