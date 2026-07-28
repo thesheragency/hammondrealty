@@ -32,24 +32,40 @@ const defaultExpectations = [
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
   const expectations = defaultExpectations;
 
-  const [step, setStep] = useState<"form" | "calendar">("form");
+  const [step, setStep] = useState<"form" | "success" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", notes: "" });
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!privacyAccepted) {
       setPrivacyError(true);
       return;
     }
-    setStep("calendar");
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("submission_failed");
+      setStep("success");
+    } catch {
+      setSubmitError("Something went wrong. Please try again or call us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  // Scroll the calendar panel into view after transitioning
+  // Scroll the right panel into view after transitioning
   useEffect(() => {
-    if (step === "calendar" && rightPanelRef.current) {
+    if ((step === "calendar" || step === "success") && rightPanelRef.current) {
       setTimeout(() => {
         rightPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
@@ -223,14 +239,51 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           )}
                         </div>
 
+                        {submitError && (
+                          <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 px-4 py-3">
+                            {submitError}
+                          </p>
+                        )}
+
                         <Button
                           type="submit"
-                          className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
+                          disabled={submitting}
+                          className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
                           data-testid="button-bc-submit"
                         >
-                          Continue to Booking
+                          {submitting ? "Sending…" : "Continue to Booking"}
                         </Button>
                       </form>
+                    </motion.div>
+                  ) : step === "success" ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -16 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="bg-muted p-8 md:p-10"
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <span className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                          <Check className="w-5 h-5" strokeWidth={3} />
+                        </span>
+                        <h3 className="font-sans text-xl font-bold leading-snug">
+                          Message Sent!
+                        </h3>
+                      </div>
+                      <p className="text-foreground/70 leading-relaxed text-base mb-8">
+                        Thank you! Your message has been sent to Blake Hammond Real Estate. Blake will be in touch shortly.
+                      </p>
+                      <p className="text-foreground/70 leading-relaxed text-base mb-8">
+                        Ready to pick a time right now? You can book a 15-minute call below.
+                      </p>
+                      <Button
+                        onClick={() => setStep("calendar")}
+                        className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
+                      >
+                        Book a Time on the Calendar
+                      </Button>
                     </motion.div>
                   ) : (
                     <motion.div
