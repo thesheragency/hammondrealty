@@ -656,13 +656,6 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
                     <Link href="/book-consultation">{"Schedule a Home Prep Consultation"}</Link>
                   </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
-                  >
-                    <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Free Home Value Analysis"}</Link>
-                  </Button>
                 </div>
               </div>
             </div>
