@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { Play, ArrowRight, ArrowLeft, Check, ArrowUp } from "lucide-react";
 import Link from "next/link";
 import Script from "next/script";
 import { Button } from "@/components/ui/button";
@@ -599,15 +599,23 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               {/* Desktop Vimeo embed */}
-              <div className="hidden lg:block w-full" style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                <iframe
-                  src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                  title="Home Prep Program WEB"
-                />
+              <div className="hidden lg:block w-full group">
+                <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                  <iframe
+                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                    title="Home Prep Program WEB"
+                  />
+                  {/* Blocks iframe hover until the wrapper is hovered — hides Vimeo controls at rest */}
+                  <div className="absolute inset-0 group-hover:pointer-events-none" />
+                </div>
+                <p className="mt-3 flex items-center gap-1.5 text-sm text-foreground/50 font-medium">
+                  <ArrowUp className="w-4 h-4 shrink-0" />
+                  About the Home Prep Program
+                </p>
               </div>
 
               <div>
@@ -635,15 +643,22 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   ))}
                 </ul>
                 {/* Mobile Vimeo embed — above the CTA buttons */}
-                <div className="lg:hidden w-full mb-10" style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                  <iframe
-                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                    title="Home Prep Program WEB"
-                  />
+                <div className="lg:hidden w-full mb-10 group">
+                  <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                    <iframe
+                      src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                      title="Home Prep Program WEB"
+                    />
+                    <div className="absolute inset-0 group-hover:pointer-events-none" />
+                  </div>
+                  <p className="mt-3 flex items-center gap-1.5 text-sm text-foreground/50 font-medium">
+                    <ArrowUp className="w-4 h-4 shrink-0" />
+                    About the Home Prep Program
+                  </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
