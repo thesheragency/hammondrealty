@@ -414,50 +414,45 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-              <div>
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  {acf?.whyEyebrow || "Why Sell With Blake"}
-                </p>
-                <h2 className="text-h2 font-bold leading-tight mb-6">
-                  {tc(acf?.whyHeading) || "Maximize Your Equity"}
-                </h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
-                  {acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."}
-                </p>
+          <div className="container mx-auto px-4 md:px-8 text-center">
+            <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
+              {acf?.whyEyebrow || "Why Sell With Blake"}
+            </p>
+            <h2 className="text-h2 font-bold leading-tight mb-6">
+              {tc(acf?.whyHeading) || "Maximize Your Equity"}
+            </h2>
+            <p className="text-foreground/70 leading-relaxed mb-12 text-lg max-w-2xl mx-auto">
+              {acf?.whyBody || "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit."}
+            </p>
 
-                <ul className="space-y-4 mb-4 lg:mb-10">
-                  {whyBullets.map((b: any) => {
-                    const Icon = b.icon;
-                    return (
-                      <li key={b.title} className="flex items-start gap-3">
-                        <span className="flex-shrink-0 w-6 h-6 mt-0.5 flex items-center justify-center bg-primary text-white">
-                          <Icon className="w-3.5 h-3.5" strokeWidth={2.5} />
-                        </span>
-                        <span className="text-foreground/80 leading-relaxed">
-                          <span className="font-bold text-foreground">{b.title}</span>
-                          <br />
-                          {b.desc}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
+            <ul className="flex flex-col sm:flex-row gap-8 mb-12 justify-center">
+              {whyBullets.map((b: any) => {
+                const Icon = b.icon;
+                return (
+                  <li key={b.title} className="flex flex-col items-center gap-4 flex-1 max-w-xs mx-auto sm:mx-0">
+                    <span className="w-12 h-12 flex items-center justify-center bg-primary text-white shrink-0">
+                      <Icon className="w-6 h-6" strokeWidth={1.75} />
+                    </span>
+                    <div>
+                      <h3 className="font-sans text-lg font-bold mb-2">{b.title}</h3>
+                      <p className="text-foreground/70 leading-relaxed text-sm">{b.desc}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
-                  >
-                    <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Find Your Home Value"}</Link>
-                  </Button>
-                </div>
-              </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
+                <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="border-foreground text-foreground bg-transparent rounded-none font-medium px-6 w-full sm:w-auto h-[45px]"
+              >
+                <Link href={acf?.whySecondaryLink || "/home-value-analysis"}>{acf?.whySecondaryText || "Find Your Home Value"}</Link>
+              </Button>
             </div>
           </div>
         </motion.section>
