@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, ArrowRight, ArrowLeft, Check, ArrowUp } from "lucide-react";
+import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
 import Script from "next/script";
 import { Button } from "@/components/ui/button";
@@ -600,6 +600,30 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               {/* Desktop Vimeo embed */}
               <div className="hidden lg:block w-full group">
+                {/* Playful label above the video */}
+                <div className="flex flex-col items-end mb-1 pr-1">
+                  <span className="text-sm italic text-foreground/50 font-medium leading-none">
+                    About the Home Prep Program
+                  </span>
+                  <svg
+                    width="110" height="72" viewBox="0 0 110 72"
+                    fill="none" aria-hidden="true"
+                    className="text-foreground/35 -mt-1"
+                  >
+                    {/* Sweeping hand-drawn curve from upper-right → lower-left */}
+                    <path
+                      d="M 96 6 C 108 38, 36 46, 10 66"
+                      stroke="currentColor" strokeWidth="3"
+                      strokeLinecap="round" fill="none"
+                    />
+                    {/* Arrowhead */}
+                    <path
+                      d="M 4 59 L 10 66 L 19 61"
+                      stroke="currentColor" strokeWidth="3"
+                      strokeLinecap="round" strokeLinejoin="round" fill="none"
+                    />
+                  </svg>
+                </div>
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
                   <iframe
                     src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
@@ -612,10 +636,6 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   {/* Blocks iframe hover until the wrapper is hovered — hides Vimeo controls at rest */}
                   <div className="absolute inset-0 group-hover:pointer-events-none" />
                 </div>
-                <p className="mt-3 flex items-center gap-1.5 text-sm text-foreground/50 font-medium">
-                  <ArrowUp className="w-4 h-4 shrink-0" />
-                  About the Home Prep Program
-                </p>
               </div>
 
               <div>
@@ -644,6 +664,27 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </ul>
                 {/* Mobile Vimeo embed — above the CTA buttons */}
                 <div className="lg:hidden w-full mb-10 group">
+                  <div className="flex flex-col items-end mb-1 pr-1">
+                    <span className="text-sm italic text-foreground/50 font-medium leading-none">
+                      About the Home Prep Program
+                    </span>
+                    <svg
+                      width="110" height="72" viewBox="0 0 110 72"
+                      fill="none" aria-hidden="true"
+                      className="text-foreground/35 -mt-1"
+                    >
+                      <path
+                        d="M 96 6 C 108 38, 36 46, 10 66"
+                        stroke="currentColor" strokeWidth="3"
+                        strokeLinecap="round" fill="none"
+                      />
+                      <path
+                        d="M 4 59 L 10 66 L 19 61"
+                        stroke="currentColor" strokeWidth="3"
+                        strokeLinecap="round" strokeLinejoin="round" fill="none"
+                      />
+                    </svg>
+                  </div>
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
                     <iframe
                       src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
@@ -655,10 +696,6 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     />
                     <div className="absolute inset-0 group-hover:pointer-events-none" />
                   </div>
-                  <p className="mt-3 flex items-center gap-1.5 text-sm text-foreground/50 font-medium">
-                    <ArrowUp className="w-4 h-4 shrink-0" />
-                    About the Home Prep Program
-                  </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
