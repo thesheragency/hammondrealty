@@ -709,14 +709,6 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                     <Link href={acf?.zillowCtaLink || "/connect"}>{acf?.zillowCtaText || "Contact Blake"}</Link>
                   </Button>
-                  <a
-                    href={acf?.zillowSecondaryLink || "https://www.zillow.com/profile/blakehammondre"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center border border-foreground text-foreground bg-transparent hover:bg-accent/50 hover:text-accent-foreground rounded-none font-medium text-sm w-full sm:w-auto px-6 h-[45px] transition-colors"
-                  >
-                    {acf?.zillowSecondaryText || "View on Zillow"}
-                  </a>
                 </div>
               </div>
 
