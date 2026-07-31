@@ -5,6 +5,7 @@ import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
+import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
@@ -505,7 +506,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
                 {tc(acf?.heroHeading) || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">{acf?.heroBody || "We manage and front the money for all repairs, updates, and staging to get your house market-ready with no out-of-pocket costs or hidden fees, so you can sell your home quickly for more money and with less stress."}</p>
+              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing.</p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href="/book-consultation"
@@ -597,18 +598,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted group cursor-pointer hidden lg:block">
-                <img
-                  src={whyImageUrl}
-                  alt="Aerial view of a prepped Sacramento home — Home Prep Program"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              {/* Desktop Vimeo embed */}
+              <div className="hidden lg:block w-full" style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                <iframe
+                  src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                  title="Home Prep Program WEB"
                 />
-                <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                    <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-                  </div>
-                </div>
               </div>
 
               <div>
@@ -635,19 +634,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     </li>
                   ))}
                 </ul>
-                {/* Mobile image — above the CTA buttons */}
-                <div className="lg:hidden relative aspect-[4/3] overflow-hidden bg-muted mb-10">
-                  <img
-                    src={whyImageUrl}
-                    alt="Aerial view of a prepped Sacramento home — Home Prep Program"
-                    className="w-full h-full object-cover"
+                {/* Mobile Vimeo embed — above the CTA buttons */}
+                <div className="lg:hidden w-full mb-10" style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                  <iframe
+                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                    title="Home Prep Program WEB"
                   />
-                  <div className="absolute inset-0 bg-foreground/20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                      <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-                    </div>
-                  </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
@@ -914,6 +910,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         />
       </main>
       <SiteFooter />
+      <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
     </div>
   );
 }
