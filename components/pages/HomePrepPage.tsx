@@ -866,9 +866,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   {acf?.caseHeading ? tc(acf.caseHeading) : (<>Our Home Prep Program Put an Extra<br />$50,000 in Our Client's Pocket</>)}
                 </h3>
                 <p className="text-foreground/70 leading-relaxed mb-6 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
-                <div className="border-l-4 border-primary pl-5 mb-8">
-                  <p className="text-foreground font-semibold text-lg leading-snug">Putting <span className="text-primary">$50,000</span> in our client's pocket — after repair costs considered.</p>
-                </div>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">Putting $50,000 in our client's pocket after repair costs considered.</p>
                 <ul className="space-y-4 mb-4 lg:mb-10">
                   {caseBullets.map((b: string) => (
                     <li key={b} className="flex items-start gap-3">
