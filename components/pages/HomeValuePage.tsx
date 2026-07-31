@@ -109,7 +109,7 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
             className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
           />
           <div className="absolute inset-0 bg-foreground/60" aria-hidden="true" />
-          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-12 md:pt-16 pb-0">
+          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-12 md:pt-16 pb-16 md:pb-24">
             <motion.div
               className="max-w-3xl mx-auto text-left sm:text-center"
               initial={{ opacity: 0 }}
