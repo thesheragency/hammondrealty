@@ -634,7 +634,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 <h2 className="text-h2 font-bold leading-tight mb-6">
                   {tc(acf?.prepHeading) || "Make Your Home as Valuable as Possible"}
                 </h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar."}</p>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{acf?.prepBody || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}</p>
 
                 <ul className="space-y-4 mb-4 lg:mb-10">
                   {prep.map((b: any) => (
