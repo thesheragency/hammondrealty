@@ -133,29 +133,12 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
               </div>
             </motion.div>
 
-            <motion.div
-              className="relative aspect-video max-w-4xl min-[1600px]:max-w-5xl mx-auto -mt-14 md:-mt-48 translate-y-1/2 overflow-hidden bg-muted/10 border border-white/10 group cursor-pointer shadow-2xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
-              <img
-                src={imgUrl(acf?.heroImage, heroBedroomUrl)}
-                alt=""
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                  <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-                </div>
-              </div>
-            </motion.div>
           </div>
         </section>
 
         {/* What You Get */}
         <motion.section
-          className="relative z-10 bg-background pt-[200px] md:pt-[360px] pb-24 md:pb-32"
+          className="relative z-10 bg-background pt-16 md:pt-24 pb-24 md:pb-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
