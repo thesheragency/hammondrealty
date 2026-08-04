@@ -464,7 +464,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
     ? acf.caseBullets.map((b: any) => b.text)
     : [
         "Multiple cash offers received and closed during the first weekend on the market.",
-        "Sold for $75,000 over the as-is property valuation before renovations — netting the seller $50,000 more after repair costs.",
+        "Sold for $75,000 more than the as-is value, netting the seller $50,000 more after repair costs.",
         "All without the owner having to lift a finger or spend a dime up front.",
       ];
 
