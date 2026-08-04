@@ -25,7 +25,7 @@ const defaultExpectations = [
   },
   {
     title: "Get a Clear Game Plan",
-    desc: "Whether you're ready to sell soon or just exploring your options, you'll leave knowing what I'd recommend and what your next steps could look like.",
+    desc: "Whether you're planning to move soon or sometime down the road, you'll leave knowing what I'd recommend and what your next steps could look like.",
   },
 ];
 
