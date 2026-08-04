@@ -37,12 +37,11 @@ export default async function RootLayout({
   const menus = await fetchSiteMenus();
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <head />
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}>
         <Suspense fallback={null}>
           <GlobalHeadScripts />
         </Suspense>
-      </head>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}>
         <SiteMenusProvider menus={menus}>{children}</SiteMenusProvider>
         <Suspense fallback={null}>
           <GlobalBodyScripts />
