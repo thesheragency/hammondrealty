@@ -173,7 +173,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-phone" className="text-sm font-medium">
-                            Phone <span className="text-foreground/40 font-normal">(optional)</span>
+                            Phone
                           </Label>
                           <Input
                             id="bc-phone"
@@ -188,7 +188,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-address" className="text-sm font-medium">
-                            Property Address <span className="text-foreground/40 font-normal">(optional)</span>
+                            Property Address
                           </Label>
                           <Input
                             id="bc-address"
