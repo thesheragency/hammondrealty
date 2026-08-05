@@ -551,7 +551,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-left md:text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-8 md:gap-12 text-left md:text-center">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
