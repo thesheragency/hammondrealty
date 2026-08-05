@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
@@ -7,11 +6,17 @@ import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { PostContent } from '@/components/posts/PostContent';
 import { YoastSchema } from '@/components/seo/YoastSchema';
-import { fetchPostBySlug, fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById } from '@/lib/wordpress';
+import { fetchPostBySlug, fetchPostPreviewBySlug, fetchPostPreview, fetchPostPreviewById, fetchPosts } from '@/lib/wordpress';
 import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
 export const revalidate = 1800;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const posts = await fetchPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;

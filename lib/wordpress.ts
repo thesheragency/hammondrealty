@@ -162,7 +162,10 @@ export const getWpClient = (authToken?: string) => {
     Object.assign(headers, getWpAuthHeaders());
   }
 
-  return new GraphQLClient(wpApiUrl, { headers });
+  return new GraphQLClient(wpApiUrl, {
+    headers,
+    fetchOptions: { next: { revalidate: 1800, tags: ['wp-content'] } },
+  });
 };
 
 // WordPress GraphQL client for preview/draft requests

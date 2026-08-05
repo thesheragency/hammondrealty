@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
@@ -6,7 +5,7 @@ import { after } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { Layout } from '@/components/layout/Layout';
 import { YoastSchema } from '@/components/seo/YoastSchema';
-import { fetchPageBySlug, fetchPagePreviewById } from '@/lib/wordpress';
+import { fetchPageBySlug, fetchPagePreviewById, fetchPages } from '@/lib/wordpress';
 import { buildMetadata } from '@/lib/seo-helpers';
 import type { Metadata } from 'next';
 
@@ -18,6 +17,12 @@ import {
 } from '@/modules/landing-builder';
 
 export const revalidate = 1800;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const pages = await fetchPages();
+  return pages.map((page) => ({ slug: page.slug }));
+}
 
 type TemplateRenderFn = (props: {
   templateInfo: PageTemplateInfo;

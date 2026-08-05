@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
 import { fetchFaqsAcf, fetchFaqs } from '@/lib/wp-acf';
