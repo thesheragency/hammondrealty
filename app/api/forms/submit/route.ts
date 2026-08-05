@@ -3,6 +3,7 @@ import { GraphQLClient, gql } from 'graphql-request';
 import { GET_GF_FORM_QUERY, type GetGfFormResponse } from '@/lib/gf/queries';
 import { SUBMIT_GF_FORM_MUTATION, type SubmitGfFormResponse, type FieldValueInput } from '@/lib/gf/mutations';
 import { getWpAuthHeaders } from '@/lib/wp-auth';
+import { sendFormNotification } from '@/lib/email';
 
 const CHECK_GF_SCHEMA_QUERY = gql`
   query CheckGfSchema {
@@ -144,6 +145,19 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Fire-and-forget email notification — never blocks or breaks the submission response
+    const submittedValues: Record<string, string> = {};
+    for (const fv of fieldValues) {
+      const id = String(fv.id);
+      if (fv.value) submittedValues[id] = fv.value;
+      else if (fv.emailValues?.value) submittedValues[id] = fv.emailValues.value;
+      else if (fv.nameValues) {
+        const parts = [fv.nameValues.first, fv.nameValues.last].filter(Boolean);
+        if (parts.length) submittedValues[id] = parts.join(' ');
+      } else if (fv.values?.length) submittedValues[id] = fv.values.join(', ');
+    }
+    sendFormNotification(String(formId), submittedValues).catch(() => {});
 
     return NextResponse.json({
       confirmation: submitGfForm.confirmation,

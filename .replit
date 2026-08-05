@@ -53,3 +53,4 @@ timeoutMs = 180000
 
 [userenv.shared]
 FRONTEND_URL = "https://hammondrealty.net"
+RESEND_FROM_EMAIL = "notifications@hammondrealty.net"

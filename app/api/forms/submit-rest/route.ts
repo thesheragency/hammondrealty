@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getWpAuthHeaders } from '@/lib/wp-auth';
+import { sendFormNotification } from '@/lib/email';
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000;
@@ -119,6 +120,17 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Fire-and-forget email notification — never blocks or breaks the submission response
+    const submittedValues: Record<string, string> = {};
+    for (const [key, value] of formData.entries()) {
+      // Extract base field ID from input_1, input_1.2, input_1_2 style keys
+      const match = key.match(/^input_(\d+)/);
+      if (match && typeof value === 'string' && value.trim()) {
+        submittedValues[match[1]] = value;
+      }
+    }
+    sendFormNotification(String(formId), submittedValues).catch(() => {});
 
     return NextResponse.json({
       is_valid: true,
