@@ -1,18 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 
 interface YoutubeVideoFacadeProps {
   videoId: string;
   title?: string;
-  /** Kept for API compatibility — not used since we embed directly. */
+  /** Kept for API compatibility. */
   thumbSrc?: string;
   thumbAlt?: string;
   aspectRatio?: string;
 }
 
-// Extend Window to hold the YouTube IFrame API globals
 declare global {
   interface Window {
     YT: typeof YT & { Player: typeof YT.Player };
@@ -44,9 +43,10 @@ function loadYouTubeAPI(cb: () => void) {
 }
 
 /**
- * Muted-autoplay YouTube embed using the IFrame Player API.
- * The play button overlay stays permanently visible.
- * Clicking it opens the video on YouTube so the viewer can watch with sound.
+ * Two-phase YouTube embed:
+ * 1. Autoplays muted on load — play button overlay always visible.
+ * 2. User clicks play → unmutes, enables controls, hides overlay so they
+ *    can interact with the video inside the container.
  */
 export default function YoutubeVideoFacade({
   videoId,
@@ -56,7 +56,7 @@ export default function YoutubeVideoFacade({
   const containerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
-  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const [engaged, setEngaged] = useState(false);
 
   useEffect(() => {
     let destroyed = false;
@@ -64,7 +64,6 @@ export default function YoutubeVideoFacade({
     loadYouTubeAPI(() => {
       if (destroyed || !containerRef.current) return;
 
-      // Create a div for the player inside the container
       const div = document.createElement("div");
       containerRef.current.appendChild(div);
 
@@ -100,29 +99,68 @@ export default function YoutubeVideoFacade({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoId]);
 
+  function handlePlay() {
+    if (!playerRef.current) return;
+    // Unmute and hand control to the viewer
+    playerRef.current.unMute();
+    playerRef.current.setVolume(100);
+    // Rebuild with controls visible so the user can pause/seek
+    const currentTime = playerRef.current.getCurrentTime?.() ?? 0;
+    try { playerRef.current.destroy(); } catch {}
+    playerRef.current = null;
+
+    if (!containerRef.current) { setEngaged(true); return; }
+    const div = document.createElement("div");
+    containerRef.current.innerHTML = "";
+    containerRef.current.appendChild(div);
+
+    playerRef.current = new window.YT.Player(div, {
+      videoId,
+      playerVars: {
+        autoplay: 1,
+        mute: 0,
+        controls: 1,
+        rel: 0,
+        playsinline: 1,
+        modestbranding: 1,
+        start: Math.floor(currentTime),
+        enablejsapi: 1,
+      },
+      events: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onReady(event: any) {
+          event.target.playVideo();
+        },
+      },
+    });
+
+    setEngaged(true);
+  }
+
   return (
     <div className={`relative ${aspectRatio} overflow-hidden bg-black`}>
       {/* YouTube player mounts here */}
       <div
         ref={containerRef}
-        className="absolute inset-0 w-full h-full [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0 [&_iframe]:pointer-events-none"
+        className={`absolute inset-0 w-full h-full [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0 ${engaged ? "" : "[&_iframe]:pointer-events-none"}`}
       />
 
-      {/* Scrim for play button legibility */}
-      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-
-      {/* Play button — always visible, opens YouTube with sound */}
-      <a
-        href={watchUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Watch ${title} on YouTube`}
-        className="absolute inset-0 flex items-center justify-center group"
-      >
-        <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-          <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-        </div>
-      </a>
+      {/* Scrim + play button — hidden once user engages */}
+      {!engaged && (
+        <>
+          <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+          <button
+            type="button"
+            onClick={handlePlay}
+            aria-label={`Play ${title}`}
+            className="absolute inset-0 flex items-center justify-center group cursor-pointer"
+          >
+            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
+            </div>
+          </button>
+        </>
+      )}
     </div>
   );
 }
