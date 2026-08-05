@@ -1,4 +1,4 @@
-const SITE_URL = process.env.FRONTEND_URL?.replace(/\/$/, '') ?? 'https://blakehammondrealestate.com';
+const SITE_URL = (process.env.FRONTEND_URL?.replace(/\/$/, '') ?? 'https://blakehammondrealty.com').replace(/^(https?:\/\/)www\./, '$1');
 
 export function localBusinessJsonLd() {
   return {

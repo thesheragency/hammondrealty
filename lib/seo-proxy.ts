@@ -74,11 +74,14 @@ ${STATIC_PATHS.map((path) => `### ${path === '/' ? 'Home' : path.replace(/^\//, 
 
 export async function getFrontendUrl(): Promise<string> {
   if (process.env.FRONTEND_URL) {
-    return process.env.FRONTEND_URL.replace(/\/$/, '');
+    // Strip trailing slash and www. so sitemaps always use the non-www domain
+    return process.env.FRONTEND_URL.replace(/\/$/, '').replace(/^(https?:\/\/)www\./, '$1');
   }
   
   const headersList = await headers();
-  const host = headersList.get('x-forwarded-host') || headersList.get('host') || '';
+  const rawHost = headersList.get('x-forwarded-host') || headersList.get('host') || '';
+  // Strip www. from the fallback host as well
+  const host = rawHost.replace(/^www\./, '');
   const protocol = headersList.get('x-forwarded-proto') || 'https';
   return `${protocol}://${host}`;
 }

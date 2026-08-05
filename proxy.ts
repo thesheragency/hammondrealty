@@ -104,8 +104,29 @@ async function getRedirects(): Promise<Redirect[]> {
   return redirectsCache;
 }
 
-export async function middleware(request: NextRequest) {
+// Derive the canonical non-www origin from FRONTEND_URL at module load time.
+// Using the env var (rather than reflecting the incoming Host header) prevents
+// host-header-injection open-redirect attacks.
+const NON_WWW_ORIGIN = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.replace(/^(https?:\/\/)www\./, '$1').replace(/\/$/, '')
+  : null;
+
+export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+
+  // www → non-www: 301 redirect ANY www request (including /robots.txt, sitemaps, etc.)
+  // to the canonical non-www origin. Must run before all other logic.
+  const host =
+    request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
+  if (host.startsWith('www.')) {
+    // Prefer FRONTEND_URL-derived origin; fall back to stripping www. from the host
+    const origin = NON_WWW_ORIGIN ?? (() => {
+      const proto = request.headers.get('x-forwarded-proto') || 'https';
+      return `${proto}://${host.replace(/^www\./, '')}`;
+    })();
+    const destination = `${origin}${request.nextUrl.pathname}${request.nextUrl.search}`;
+    return NextResponse.redirect(destination, 301);
+  }
 
   // Never apply WordPress redirects to routes the frontend owns
   if (PROTECTED_PATHS.has(path.replace(/\/$/, '') || '/')) {
@@ -135,7 +156,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except static files and API routes
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+    // Match all requests except Next.js internal asset paths.
+    // Deliberately includes dotted paths (/robots.txt, /sitemap.xml, etc.)
+    // so the www→non-www redirect fires for SEO-critical resources too.
+    '/((?!_next/static|_next/image).*)',
   ],
 };

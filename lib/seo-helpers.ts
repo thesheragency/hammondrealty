@@ -42,8 +42,9 @@ export async function buildMetadata({
     title: resolvedTitle,
     description: resolvedDescription,
     ...(robots !== undefined ? { robots } : {}),
+    // Strip www. from any Yoast-provided canonical to enforce non-www as primary
     ...(seo?.canonical
-      ? { alternates: { canonical: seo.canonical } }
+      ? { alternates: { canonical: seo.canonical.replace(/^(https?:\/\/)www\./, '$1') } }
       : canonicalPath
         ? { alternates: { canonical: canonicalPath } }
         : {}),

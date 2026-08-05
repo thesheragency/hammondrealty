@@ -48,3 +48,8 @@ integrations = ["javascript_database:1.0.0"]
 [postMerge]
 path = "script/post-merge.sh"
 timeoutMs = 180000
+
+[userenv]
+
+[userenv.shared]
+FRONTEND_URL = "https://blakehammondrealty.com"

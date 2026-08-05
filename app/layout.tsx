@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   ...(process.env.FRONTEND_URL
-    ? { metadataBase: new URL(process.env.FRONTEND_URL) }
+    ? { metadataBase: new URL(process.env.FRONTEND_URL.replace(/^(https?:\/\/)www\./, '$1').replace(/\/$/, '')) }
     : {}),
   icons: { icon: "/favicon.png" },
   title: "Blake Hammond Real Estate",
