@@ -52,4 +52,4 @@ timeoutMs = 180000
 [userenv]
 
 [userenv.shared]
-FRONTEND_URL = "https://blakehammondrealty.com"
+FRONTEND_URL = "https://hammondrealty.net"
