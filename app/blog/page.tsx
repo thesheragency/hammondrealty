@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { Suspense } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { PostListServer } from '@/components/posts/PostListServer';

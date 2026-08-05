@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
 import HomeValuePage from '@/components/pages/HomeValuePage';
