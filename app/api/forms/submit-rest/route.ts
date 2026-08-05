@@ -121,16 +121,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fire-and-forget email notification — never blocks or breaks the submission response
-    const submittedValues: Record<string, string> = {};
+    // Collect all sub-values per base field ID (compound fields like Name/Address
+    // produce input_1.3, input_1.6 etc. — gather all parts then join them).
+    const fieldParts: Record<string, string[]> = {};
     for (const [key, value] of formData.entries()) {
-      // Extract base field ID from input_1, input_1.2, input_1_2 style keys
       const match = key.match(/^input_(\d+)/);
-      if (match && typeof value === 'string' && value.trim()) {
-        submittedValues[match[1]] = value;
+      if (match && typeof value === 'string') {
+        const clean = value.replace('\u200b', '').trim();
+        if (clean) {
+          if (!fieldParts[match[1]]) fieldParts[match[1]] = [];
+          fieldParts[match[1]].push(clean);
+        }
       }
     }
-    sendFormNotification(String(formId), submittedValues).catch(() => {});
+    const submittedValues: Record<string, string> = Object.fromEntries(
+      Object.entries(fieldParts).map(([id, parts]) => [id, parts.join(' ')])
+    );
+    // Await so the notification completes before the response is finalised.
+    // sendFormNotification catches all errors internally and never throws.
+    await sendFormNotification(String(formId), submittedValues);
 
     return NextResponse.json({
       is_valid: true,

@@ -146,18 +146,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fire-and-forget email notification — never blocks or breaks the submission response
+    // Build a flat label→value map from the structured fieldValues payload.
     const submittedValues: Record<string, string> = {};
     for (const fv of fieldValues) {
       const id = String(fv.id);
-      if (fv.value) submittedValues[id] = fv.value;
-      else if (fv.emailValues?.value) submittedValues[id] = fv.emailValues.value;
-      else if (fv.nameValues) {
-        const parts = [fv.nameValues.first, fv.nameValues.last].filter(Boolean);
+      if (fv.value) {
+        submittedValues[id] = fv.value;
+      } else if (fv.emailValues?.value) {
+        submittedValues[id] = fv.emailValues.value;
+      } else if (fv.nameValues) {
+        const parts = [
+          fv.nameValues.prefix,
+          fv.nameValues.first,
+          fv.nameValues.middle,
+          fv.nameValues.last,
+          fv.nameValues.suffix,
+        ].filter(Boolean);
         if (parts.length) submittedValues[id] = parts.join(' ');
-      } else if (fv.values?.length) submittedValues[id] = fv.values.join(', ');
+      } else if (fv.addressValues) {
+        const parts = [
+          fv.addressValues.street,
+          fv.addressValues.lineTwo,
+          fv.addressValues.city,
+          fv.addressValues.state,
+          fv.addressValues.zip,
+          fv.addressValues.country,
+        ].filter(Boolean);
+        if (parts.length) submittedValues[id] = parts.join(', ');
+      } else if (fv.values?.length) {
+        submittedValues[id] = fv.values.join(', ');
+      }
     }
-    sendFormNotification(String(formId), submittedValues).catch(() => {});
+    // Await so the notification completes before the response is finalised.
+    // sendFormNotification catches all errors internally and never throws.
+    await sendFormNotification(String(formId), submittedValues);
 
     return NextResponse.json({
       confirmation: submitGfForm.confirmation,
