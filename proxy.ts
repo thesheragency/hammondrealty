@@ -143,9 +143,17 @@ export async function proxy(request: NextRequest) {
   );
 
   if (match) {
-    const destination = match.target.startsWith('http')
+    let destination = match.target.startsWith('http')
       ? match.target
       : new URL(match.target, request.url).toString();
+
+    // Sanitize redirect targets that reference localhost — these are set in WordPress
+    // when the plugin was configured against the local dev server. Replace them with
+    // the configured FRONTEND_URL so external visitors get a valid destination.
+    if (NON_WWW_ORIGIN && /https?:\/\/localhost(:\d+)?/.test(destination)) {
+      destination = destination.replace(/https?:\/\/localhost(:\d+)?/, NON_WWW_ORIGIN);
+      console.log(`[Redirects] Sanitized localhost target → ${destination}`);
+    }
     
     console.log(`[Redirects] ${path} -> ${destination} (${match.type})`);
     return NextResponse.redirect(destination, match.type);
