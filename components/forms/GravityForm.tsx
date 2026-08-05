@@ -103,7 +103,8 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
 
   const initializeFormValues = (formData: GfForm) => {
     const values: Record<string, FieldValue> = {};
-    formData.formFields.nodes.forEach((field) => {
+    const formNodes = (formData.formFields && formData.formFields.nodes) ? formData.formFields.nodes : [];
+    formNodes.forEach((field) => {
       const id = field.databaseId.toString();
       if (field.type === 'CHECKBOX' || field.type === 'MULTISELECT' || field.type === 'MULTI_CHOICE') {
         // Pre-check hidden consent fields so WordPress validation still passes
@@ -154,7 +155,7 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
   }, [formValues, files]);
 
   const getTotalPages = useCallback(() => {
-    if (!form) return 1;
+    if (!form || !form.formFields || !form.formFields.nodes) return 1;
     const pageNumbers = form.formFields.nodes
       .map((f) => f.pageNumber || 1)
       .filter((n) => n > 0);
@@ -163,7 +164,7 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
 
   const getFieldsForPage = useCallback(
     (page: number) => {
-      if (!form) return [];
+      if (!form || !form.formFields || !form.formFields.nodes) return [];
       return form.formFields.nodes.filter((f) => (f.pageNumber || 1) === page);
     },
     [form]
@@ -223,7 +224,9 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
 
       // Process all form values into input_{id} format for REST API
       Object.entries(formValues).forEach(([id, value]) => {
-        const field = form?.formFields.nodes.find((f) => f.databaseId.toString() === id);
+        const field = (form && form.formFields && form.formFields.nodes)
+          ? form.formFields.nodes.find((f) => f.databaseId.toString() === id)
+          : undefined;
         
         // Skip file upload fields - they're handled separately
         if (field?.type === 'FILEUPLOAD') return;
@@ -308,7 +311,8 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
       if (fubSource && form) {
         try {
           let name = '', email = '', phone = '', notes = '', address = '';
-          for (const field of form.formFields.nodes) {
+          const fubNodes = (form.formFields && form.formFields.nodes) ? form.formFields.nodes : [];
+          for (const field of fubNodes) {
             const val = formValues[field.databaseId.toString()];
             if (!val) continue;
             const type = field.type;

@@ -83,7 +83,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Form not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ form: response.gfForm });
+    // Normalise: WPGraphQL returns formFields: null when the plugin is
+    // disabled or the form has no fields.  Callers always expect an array.
+    const form = {
+      ...response.gfForm,
+      formFields: response.gfForm.formFields ?? { nodes: [] },
+    };
+
+    return NextResponse.json({ form });
   } catch (error) {
     console.error('Error fetching Gravity Form:', error);
     return NextResponse.json(

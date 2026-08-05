@@ -251,7 +251,7 @@ export interface GfForm {
   pagination?: GfPagination;
   formFields: {
     nodes: GfFormField[];
-  };
+  } | null;
 }
 
 export interface GetGfFormResponse {
