@@ -5,7 +5,7 @@ import { tc } from "@/lib/title-case";
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
+import { Play, Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -143,6 +143,7 @@ function ContactForm() {
 }
 
 function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; thumbSrc: string; thumbAlt: string }) {
+  const [unmuted, setUnmuted] = useState(false);
   if (!videoId) {
     return (
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -153,12 +154,27 @@ function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; th
   return (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
       <iframe
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1&modestbranding=1`}
+        key={unmuted ? "unmuted" : "muted"}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${unmuted ? 0 : 1}&rel=0&playsinline=1&modestbranding=1`}
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         className="absolute inset-0 w-full h-full border-0"
         title="Why Buy With Blake"
       />
+      {!unmuted && (
+        <button
+          type="button"
+          onClick={() => setUnmuted(true)}
+          aria-label="Play video with sound"
+          className="absolute inset-0 w-full h-full group cursor-pointer"
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
+            </div>
+          </div>
+        </button>
+      )}
     </div>
   );
 }

@@ -45,15 +45,31 @@ const stagedLivingRoomUrl = "/images/staged_living_room_1782405230307.jpg";
 const whyVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
 
 function WhyVideo({ videoId = "lFMTIp7BqEg" }: { videoId?: string; thumbUrl?: string }) {
+  const [unmuted, setUnmuted] = useState(false);
   return (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
       <iframe
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1&modestbranding=1`}
+        key={unmuted ? "unmuted" : "muted"}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${unmuted ? 0 : 1}&rel=0&playsinline=1&modestbranding=1`}
         title="Why Choose Blake Hammond"
         className="absolute inset-0 w-full h-full border-0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
+      {!unmuted && (
+        <button
+          type="button"
+          onClick={() => setUnmuted(true)}
+          aria-label="Play video with sound"
+          className="absolute inset-0 w-full h-full group cursor-pointer"
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
+            </div>
+          </div>
+        </button>
+      )}
     </div>
   );
 }
