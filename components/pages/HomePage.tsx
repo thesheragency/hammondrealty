@@ -44,38 +44,16 @@ const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_17824049
 const stagedLivingRoomUrl = "/images/staged_living_room_1782405230307.jpg";
 const whyVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
 
-function WhyVideo({ videoId = "lFMTIp7BqEg", thumbUrl = whyVideoThumbUrl }: { videoId?: string; thumbUrl?: string }) {
-  const [playing, setPlaying] = useState(false);
+function WhyVideo({ videoId = "lFMTIp7BqEg" }: { videoId?: string; thumbUrl?: string }) {
   return (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-      {playing ? (
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-          title="Why Choose Blake Hammond"
-          className="absolute inset-0 w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      ) : (
-        <button
-          type="button"
-          onClick={() => setPlaying(true)}
-          aria-label="Play video: Why Choose Blake Hammond"
-          className="absolute inset-0 w-full h-full group cursor-pointer"
-        >
-          <img
-            src={thumbUrl}
-            alt="Why Choose Blake Hammond — video preview"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-            </div>
-          </div>
-        </button>
-      )}
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1&modestbranding=1`}
+        title="Why Choose Blake Hammond"
+        className="absolute inset-0 w-full h-full border-0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
     </div>
   );
 }

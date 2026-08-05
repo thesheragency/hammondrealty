@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { tc } from "@/lib/title-case";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
+import { Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -143,56 +143,22 @@ function ContactForm() {
 }
 
 function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; thumbSrc: string; thumbAlt: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.5 }
+  if (!videoId) {
+    return (
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+        <img src={thumbSrc} alt={thumbAlt} className="w-full h-full object-cover" />
+      </div>
     );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const showIframe = videoId && (inView || clicked);
-  const iframeSrc = videoId
-    ? `https://www.youtube.com/embed/${videoId}?autoplay=1${clicked ? "" : "&mute=1"}&rel=0&modestbranding=1&playsinline=1`
-    : null;
-
+  }
   return (
-    <div ref={containerRef} className="relative aspect-[4/3] overflow-hidden bg-muted">
-      {showIframe ? (
-        <iframe
-          key={clicked ? "clicked" : "auto"}
-          src={iframeSrc!}
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          className="absolute inset-0 w-full h-full border-0"
-          title="Why Buy With Blake"
-        />
-      ) : (
-        <>
-          <img
-            src={thumbSrc}
-            alt={thumbAlt}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-foreground/20" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <button
-              onClick={() => setClicked(true)}
-              aria-label="Play video"
-              className="w-20 h-20 rounded-full bg-white/90 hover:bg-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
-            >
-              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-            </button>
-          </div>
-        </>
-      )}
+    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1&modestbranding=1`}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+        className="absolute inset-0 w-full h-full border-0"
+        title="Why Buy With Blake"
+      />
     </div>
   );
 }

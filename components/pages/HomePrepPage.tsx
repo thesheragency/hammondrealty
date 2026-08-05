@@ -599,18 +599,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               {/* Desktop Vimeo embed */}
-              <div className="hidden lg:block w-full group">
+              <div className="hidden lg:block w-full">
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
                   <iframe
-                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&autoplay=1&muted=1&background=1&loop=1&player_id=0&app_id=58479"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                     title="Home Prep Program WEB"
                   />
-                  {/* Blocks iframe hover until the wrapper is hovered — hides Vimeo controls at rest */}
-                  <div className="absolute inset-0 group-hover:pointer-events-none" />
                 </div>
               </div>
 
@@ -642,14 +640,13 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 <div className="lg:hidden w-full mb-10 group">
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
                     <iframe
-                      src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&player_id=0&app_id=58479"
+                      src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&autoplay=1&muted=1&background=1&loop=1&player_id=0&app_id=58479"
                       frameBorder="0"
                       allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                       referrerPolicy="strict-origin-when-cross-origin"
                       style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                       title="Home Prep Program WEB"
                     />
-                    <div className="absolute inset-0 group-hover:pointer-events-none" />
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
