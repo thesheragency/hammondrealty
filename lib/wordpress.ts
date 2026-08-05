@@ -164,7 +164,11 @@ export const getWpClient = (authToken?: string) => {
 
   return new GraphQLClient(wpApiUrl, {
     headers,
-    fetchOptions: { next: { revalidate: 1800, tags: ['wp-content'] } },
+    fetch: (url: RequestInfo | URL, init?: RequestInit) =>
+      fetch(url, {
+        ...init,
+        next: { revalidate: 1800, tags: ['wp-content'] },
+      } as RequestInit),
   });
 };
 
