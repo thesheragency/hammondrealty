@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -7,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 const faqBackdropUrl = "/images/graphic-hero_section_1779382669585.png";
 
 export interface Faq {
@@ -54,11 +56,13 @@ export default function FaqsSection({
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.9, ease: "easeOut" }}
     >
-      <img
+      <Image
         src={faqBackdropUrl}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] opacity-[0.07] z-0"
+        width={980}
+        height={980}
+        className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] h-auto opacity-[0.07] z-0"
       />
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-20">

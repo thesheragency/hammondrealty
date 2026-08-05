@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -66,7 +67,7 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
       >
         <div className="container mx-auto px-4 md:px-8 grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center gap-4">
           <Link href="/" className="justify-self-start">
-            <img src={logoUrl} alt="Blake Hammond Real Estate" className="h-4 md:h-5 w-auto" />
+            <Image src={logoUrl} alt="Blake Hammond Real Estate" width={160} height={20} className="h-4 md:h-5 w-auto" priority />
           </Link>
 
           <nav className="hidden lg:flex items-center justify-center gap-8">

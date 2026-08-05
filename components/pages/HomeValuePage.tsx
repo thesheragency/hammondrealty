@@ -8,6 +8,7 @@ import { Play, BadgeCheck, Video, TrendingUp, Wallet, CalendarRange, LineChart, 
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
+import Image from "next/image";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -102,11 +103,14 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
       <main>
         {/* Hero */}
         <section className="relative z-20 bg-foreground text-white">
-          <img
+          <Image
             src={imgUrl(acf?.heroImage, heroBedroomUrl)}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-40 pointer-events-none select-none"
+            priority
           />
           <div className="absolute inset-0 bg-foreground/60" aria-hidden="true" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-12 md:pt-16 pb-16 md:pb-24">

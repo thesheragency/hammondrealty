@@ -5,13 +5,14 @@ import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
-import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import Image from "next/image";
+import VimeoBackgroundVideo from "@/components/ui/VimeoBackgroundVideo";
 import { imgUrl } from "@/lib/wp-acf";
 
 const prepHeroBgUrl = "/images/prep-hero-roseville.jpg";
@@ -222,6 +223,7 @@ function BeforeAfterSlider({
         src={afterSrc}
         alt={afterAlt}
         draggable={false}
+        loading="lazy"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <span className="absolute top-4 right-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
@@ -236,6 +238,7 @@ function BeforeAfterSlider({
           src={beforeSrc}
           alt={beforeAlt}
           draggable={false}
+          loading="lazy"
           className="absolute inset-0 h-full w-auto max-w-none object-cover pointer-events-none"
           style={{ width: containerRef.current?.offsetWidth ?? "100%" }}
         />
@@ -407,12 +410,12 @@ function IncludedCarousel({
                 width: tileW || undefined,
               }}
             >
-              <img
+              <Image
                 src={card.image}
                 alt={card.title}
-                loading={isVisible ? "eager" : "lazy"}
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                fill
+                sizes="(max-width: 768px) 85vw, 400px"
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
@@ -486,11 +489,14 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
       <main>
         {/* Hero */}
         <section className="relative bg-accent text-foreground overflow-hidden">
-          <img
+          <Image
             src={heroImageUrl}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+            fill
+            sizes="100vw"
+            className="object-cover pointer-events-none select-none"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40 pointer-events-none" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-20 md:pt-28 pb-20 md:pb-28">
@@ -529,10 +535,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         >
           {/* Image — full-bleed left half on desktop (flush top, bottom, left) */}
           <div className="hidden lg:block absolute top-0 left-0 bottom-0 w-1/2 z-0 overflow-hidden">
-            <img
+            <Image
               src={familiarImageUrl}
               alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              sizes="50vw"
+              className="object-cover"
             />
           </div>
 
@@ -560,10 +568,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
                 {/* Mobile image */}
                 <div className="lg:hidden relative aspect-[4/3] overflow-hidden mb-10">
-                  <img
+                  <Image
                     src={familiarImageUrl}
                     alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
                   />
                 </div>
 
@@ -601,14 +611,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               {/* Desktop Vimeo embed */}
               <div className="hidden lg:block w-full">
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                  <iframe
-                    src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&autoplay=1&muted=1&background=1&loop=1&player_id=0&app_id=58479"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                    title="Home Prep Program WEB"
-                  />
+                  <VimeoBackgroundVideo videoId="1213983330" />
                 </div>
               </div>
 
@@ -639,14 +642,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 {/* Mobile Vimeo embed — above the CTA buttons */}
                 <div className="lg:hidden w-full mb-10 group">
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                    <iframe
-                      src="https://player.vimeo.com/video/1213983330?badge=0&autopause=0&autoplay=1&muted=1&background=1&loop=1&player_id=0&app_id=58479"
-                      frameBorder="0"
-                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                      title="Home Prep Program WEB"
-                    />
+                    <VimeoBackgroundVideo videoId="1213983330" />
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -671,16 +667,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           {/* Image — right half on desktop */}
           <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={activeStep}
-                src={steps[activeStep].image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0"
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-              />
+              >
+                <Image src={steps[activeStep].image} alt="" fill sizes="50vw" className="object-cover" />
+              </motion.div>
             </AnimatePresence>
           </div>
 
@@ -740,16 +736,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   {/* Mobile image */}
                   <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
-                      <motion.img
+                      <motion.div
                         key={`m-${activeStep}`}
-                        src={steps[activeStep].image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                      />
+                      >
+                        <Image src={steps[activeStep].image} alt="" fill sizes="100vw" className="object-cover" />
+                      </motion.div>
                     </AnimatePresence>
                   </div>
 
@@ -899,7 +895,6 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         />
       </main>
       <SiteFooter />
-      <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
     </div>
   );
 }

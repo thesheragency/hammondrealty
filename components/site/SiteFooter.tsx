@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { Phone, MapPin, Mail } from "lucide-react";
 import Link from "next/link";
 import { useSiteMenus } from "@/components/site/SiteMenusProvider";
+
 const logoUrl = "/images/logo_1779376344245.png";
 const mastersClubUrl = "/images/Mask_group_1780678370076.png";
 const buyingHouseUrl = "/images/765ef0b1-a99d-4496-b398-582c961f2f01_1782404925125.jpg";
@@ -32,10 +34,12 @@ export default function SiteFooter() {
       <div className="grid grid-cols-3 h-32 md:h-40">
         {[buyingHouseUrl, sellingHouseUrl, prepLivingroomUrl].map((src, i) => (
           <div key={i} className="relative overflow-hidden">
-            <img
+            <Image
               src={src}
               alt=""
-              className="w-full h-full object-cover"
+              fill
+              sizes="33vw"
+              className="object-cover"
             />
           </div>
         ))}
@@ -44,7 +48,15 @@ export default function SiteFooter() {
       <div className="relative container mx-auto px-4 md:px-8 pt-20 pb-24 lg:pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
           <div className="lg:col-span-3 flex flex-col items-center md:items-start">
-            <Link href="/"><img src={logoUrl} alt="Blake Hammond Real Estate" className="h-8 md:h-6 w-auto mb-6" /></Link>
+            <Link href="/" className="mb-6">
+              <Image
+                src={logoUrl}
+                alt="Blake Hammond Real Estate"
+                width={160}
+                height={24}
+                className="h-8 md:h-6 w-auto"
+              />
+            </Link>
             <p className="text-foreground/60 text-sm leading-relaxed max-w-sm text-center md:text-left">
               A trusted real estate partner delivering modern, high-touch service for
               buyers, sellers, and homeowners preparing for their next move.
@@ -113,9 +125,11 @@ export default function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2 flex lg:justify-end">
-            <img
+            <Image
               src={mastersClubUrl}
               alt="Masters Club — Placer County Association of Realtors"
+              width={96}
+              height={96}
               className="h-24 w-24"
             />
           </div>

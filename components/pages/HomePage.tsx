@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { tc } from "@/lib/title-case";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, ArrowRight, Phone, MapPin, Hammer, Trophy, ShieldCheck, Mail, Play } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowRight, Phone, MapPin, Hammer, Trophy, ShieldCheck, Mail } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import { Stars } from "@/components/site/GoogleBadges";
@@ -15,6 +15,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import YoutubeVideoFacade from "@/components/ui/YoutubeVideoFacade";
 import { imgUrl, imgAlt } from "@/lib/wp-acf";
 
 // Assets
@@ -43,36 +45,6 @@ const sellingHouseUrl = "/images/fancy_home_1782404943463.jpg";
 const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg";
 const stagedLivingRoomUrl = "/images/staged_living_room_1782405230307.jpg";
 const whyVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
-
-function WhyVideo({ videoId = "lFMTIp7BqEg" }: { videoId?: string; thumbUrl?: string }) {
-  const [unmuted, setUnmuted] = useState(false);
-  return (
-    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-      <iframe
-        key={unmuted ? "unmuted" : "muted"}
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${unmuted ? 0 : 1}&rel=0&playsinline=1&modestbranding=1`}
-        title="Why Choose Blake Hammond"
-        className="absolute inset-0 w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-      {!unmuted && (
-        <button
-          type="button"
-          onClick={() => setUnmuted(true)}
-          aria-label="Play video with sound"
-          className="absolute inset-0 w-full h-full group cursor-pointer"
-        >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-            </div>
-          </div>
-        </button>
-      )}
-    </div>
-  );
-}
 
 type ProcessTrack = "buying" | "selling" | "preparing";
 
@@ -262,10 +234,12 @@ function ServiceCards({ cards }: { cards: ServiceCard[] }) {
         >
           {/* Image */}
           <Link href={card.href} className="relative h-[320px] lg:h-auto lg:flex-1 min-w-0 overflow-hidden block">
-            <img
+            <Image
               src={card.image}
               alt={card.title}
-              className="w-full h-full object-cover transition-transform duration-1000"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover transition-transform duration-1000"
               style={{ transform: hovered === i ? "scale(1.05)" : "scale(1)" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
@@ -447,11 +421,14 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         {/* Hero Section */}
         <section className="relative bg-muted overflow-hidden">
           {/* Decorative B graphic — aligned to top-left, cut off at the edge */}
-          <img
+          <Image
             src={heroGraphic}
             alt=""
             aria-hidden="true"
+            width={640}
+            height={640}
             className="block absolute top-0 left-0 -translate-x-1/4 w-[420px] md:w-[520px] lg:w-[640px] h-auto pointer-events-none select-none z-0 opacity-90"
+            style={{ height: "auto" }}
           />
 
           {/* Hero Image - sticks to right edge, full section height */}
@@ -461,19 +438,22 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <img
+            <Image
               src={heroBedroom}
               alt={heroBedroomAltText}
-              className="object-cover w-full h-full"
+              fill
+              sizes="50vw"
+              className="object-cover"
+              priority
             />
-            <motion.img
-              src={mastersClub}
-              alt={mastersClubAltText}
+            <motion.div
               className="absolute bottom-6 left-6 h-24 w-24 drop-shadow-lg z-10"
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-            />
+            >
+              <Image src={mastersClub} alt={mastersClubAltText} width={96} height={96} />
+            </motion.div>
           </motion.div>
 
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24">
@@ -517,19 +497,22 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <div className="relative aspect-[16/10] overflow-hidden shadow-2xl">
-                  <img
+                  <Image
                     src={heroBedroom}
                     alt={heroBedroomAltText}
-                    className="object-cover w-full h-full"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                    priority
                   />
-                  <motion.img
-                    src={mastersClub}
-                    alt={mastersClubAltText}
+                  <motion.div
                     className="absolute bottom-4 right-4 h-20 w-20 drop-shadow-lg"
                     initial={{ opacity: 0, scale: 0.85 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                  />
+                  >
+                    <Image src={mastersClub} alt={mastersClubAltText} width={80} height={80} />
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -575,7 +558,7 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-0">
-              <img src={quoteMarkUrl} alt="" className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" />
+              <Image src={quoteMarkUrl} alt="" width={64} height={64} className="h-12 md:h-16 w-auto mb-8 brightness-50 opacity-50" style={{ width: "auto" }} />
               <Stars className="w-6 h-6 mb-6" label="Rated 5 out of 5 stars" />
               <p className="font-sans text-2xl md:text-4xl leading-relaxed font-bold mb-12">
                 "Blake did an amazing job helping me find the right home that was the perfect fit for me! He made the whole process very smooth. I would highly recommend using him!"
@@ -626,16 +609,16 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
           {/* Image - sticks to left edge, full section height */}
           <div className="hidden lg:block absolute top-0 left-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={`${processTrack}-${activeStep}`}
-                src={homeProcessData[processTrack].steps[activeStep].image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0"
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-              />
+              >
+                <Image src={homeProcessData[processTrack].steps[activeStep].image} alt="" fill sizes="50vw" className="object-cover" />
+              </motion.div>
             </AnimatePresence>
           </div>
 
@@ -715,16 +698,16 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                   {/* Mobile image */}
                   <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
-                      <motion.img
+                      <motion.div
                         key={`m-${processTrack}-${activeStep}`}
-                        src={homeProcessData[processTrack].steps[activeStep].image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                      />
+                      >
+                        <Image src={homeProcessData[processTrack].steps[activeStep].image} alt="" fill sizes="100vw" className="object-cover" />
+                      </motion.div>
                     </AnimatePresence>
                   </div>
 
@@ -754,9 +737,10 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
 
               {/* Video — desktop left column */}
               <div className="hidden lg:block">
-                <WhyVideo
+                <YoutubeVideoFacade
                   videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
-                  thumbUrl={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                  thumbSrc={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                  title="Why Work With Blake"
                 />
               </div>
 
@@ -787,9 +771,10 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
 
                 {/* Mobile video — between bullets and CTAs */}
                 <div className="lg:hidden my-8">
-                  <WhyVideo
+                  <YoutubeVideoFacade
                     videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
-                    thumbUrl={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                    thumbSrc={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
+                    title="Why Work With Blake"
                   />
                 </div>
 
@@ -819,11 +804,13 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <img
+          <Image
             src={faqBackdropUrl}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] opacity-[0.07] z-0"
+            width={980}
+            height={980}
+            className="pointer-events-none select-none absolute -left-40 top-1/2 -translate-y-1/2 w-[640px] md:w-[820px] lg:w-[980px] h-auto opacity-[0.07] z-0"
           />
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-20">
@@ -889,20 +876,25 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         >
           {/* Background image */}
           <div className="absolute inset-0">
-            <img
+            <Image
               src={heroBedroomUrl}
               alt=""
-              className="w-full h-full object-cover"
+              fill
+              sizes="100vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-foreground/70" />
             <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 via-foreground/40 to-foreground/60" />
           </div>
 
           {/* B graphic watermark */}
-          <img
+          <Image
             src={heroGraphicUrl}
             alt=""
-            className="pointer-events-none absolute -right-32 -bottom-24 w-[520px] opacity-[0.07] select-none"
+            aria-hidden="true"
+            width={520}
+            height={520}
+            className="pointer-events-none absolute -right-32 -bottom-24 w-[520px] h-auto opacity-[0.07] select-none"
           />
 
           <div className="relative container mx-auto px-4 md:px-8 py-12 md:py-32 text-left sm:text-center">
@@ -937,10 +929,12 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         <div className="grid grid-cols-3 h-32 md:h-40">
           {[buyingHouseUrl, sellingHouseUrl, prepLivingroomUrl].map((src, i) => (
             <div key={i} className="relative overflow-hidden">
-              <img
+              <Image
                 src={src}
                 alt=""
-                className="w-full h-full object-cover"
+                fill
+                sizes="33vw"
+                className="object-cover"
               />
             </div>
           ))}
@@ -949,11 +943,16 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
         <div className="relative container mx-auto px-4 md:px-8 pt-20 pb-24 lg:pb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
             <div className="lg:col-span-3 flex flex-col items-center md:items-start">
-              <Link href="/"><img
-                src={logoUrl}
-                alt="Blake Hammond Real Estate"
-                className="h-8 md:h-6 w-auto mb-6"
-              /></Link>
+              <Link href="/" className="mb-6">
+                <Image
+                  src={logoUrl}
+                  alt="Blake Hammond Real Estate"
+                  width={160}
+                  height={24}
+                  className="h-8 md:h-6 w-auto"
+                  style={{ width: "auto" }}
+                />
+              </Link>
               <p className="text-foreground/60 text-sm leading-relaxed max-w-sm text-center md:text-left">
                 A trusted real estate partner delivering modern, high-touch service for buyers, sellers, and homeowners preparing for their next move.
               </p>
@@ -1027,9 +1026,11 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
             </div>
 
             <div className="lg:col-span-2 flex lg:justify-end">
-              <img
+              <Image
                 src={mastersClubUrl}
                 alt="Masters Club — Placer County Association of Realtors"
+                width={96}
+                height={96}
                 className="h-24 w-24"
               />
             </div>

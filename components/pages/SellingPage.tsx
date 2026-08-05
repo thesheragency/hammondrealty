@@ -13,6 +13,8 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import Image from "next/image";
+import YoutubeVideoFacade from "@/components/ui/YoutubeVideoFacade";
 import { imgUrl } from "@/lib/wp-acf";
 
 const sellIconMap: Record<string, typeof TrendingUp> = {
@@ -218,6 +220,7 @@ function BeforeAfterSlider({
         src={afterSrc}
         alt={afterAlt}
         draggable={false}
+        loading="lazy"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <span className="absolute top-4 right-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
@@ -233,6 +236,7 @@ function BeforeAfterSlider({
           src={beforeSrc}
           alt={beforeAlt}
           draggable={false}
+          loading="lazy"
           className="absolute inset-0 h-full w-auto max-w-none object-cover pointer-events-none"
           style={{ width: containerRef.current?.offsetWidth ?? "100%" }}
         />
@@ -267,41 +271,6 @@ function ContactForm() {
         className="space-y-4"
         onSuccess={(c) => { router.push(c.url || '/thank-you/selling'); }}
       />
-    </div>
-  );
-}
-
-function WhySellVideo({
-  videoId = "lFMTIp7BqEg",
-}: {
-  videoId?: string;
-  thumbUrl?: string;
-}) {
-  const [unmuted, setUnmuted] = useState(false);
-  return (
-    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-      <iframe
-        key={unmuted ? "unmuted" : "muted"}
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${unmuted ? 0 : 1}&rel=0&playsinline=1&modestbranding=1`}
-        title="Why Sell With Blake"
-        className="absolute inset-0 w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-      {!unmuted && (
-        <button
-          type="button"
-          onClick={() => setUnmuted(true)}
-          aria-label="Play video with sound"
-          className="absolute inset-0 w-full h-full group cursor-pointer"
-        >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-            </div>
-          </div>
-        </button>
-      )}
     </div>
   );
 }
@@ -355,10 +324,12 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
       <main>
         {/* Hero */}
         <section className="relative bg-accent overflow-hidden">
-          <img
+          <Image
             src={heroGraphicUrl}
             alt=""
             aria-hidden="true"
+            width={1280}
+            height={1280}
             className="absolute top-0 right-0 translate-x-1/4 w-full lg:w-[1280px] h-auto pointer-events-none select-none z-0 opacity-10 lg:opacity-20"
           />
 
@@ -434,6 +405,14 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
               })}
             </ul>
 
+            <div className="max-w-2xl mx-auto mb-12">
+              <YoutubeVideoFacade
+                videoId={whyVideoIdVal}
+                thumbSrc={whyVideoImageUrl}
+                title="Why Sell With Blake Hammond"
+              />
+            </div>
+
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                 <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
@@ -505,17 +484,16 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
         >
           <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={activeStep}
-                src={steps[activeStep].image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "50% 10%" }}
+                className="absolute inset-0"
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-              />
+              >
+                <Image src={steps[activeStep].image} alt="" fill sizes="50vw" className="object-cover" style={{ objectPosition: "50% 10%" }} />
+              </motion.div>
             </AnimatePresence>
           </div>
 
@@ -575,17 +553,16 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                   {/* Mobile image */}
                   <div className="lg:hidden relative aspect-[4/5] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
-                      <motion.img
+                      <motion.div
                         key={`m-${activeStep}`}
-                        src={steps[activeStep].image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{ objectPosition: "50% 10%" }}
+                        className="absolute inset-0"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                      />
+                      >
+                        <Image src={steps[activeStep].image} alt="" fill sizes="100vw" className="object-cover" style={{ objectPosition: "50% 10%" }} />
+                      </motion.div>
                     </AnimatePresence>
                   </div>
 
@@ -674,9 +651,11 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
               <div className="lg:max-w-xl">
-                <img
+                <Image
                   src={zillowLogoUrl}
                   alt="Zillow"
+                  width={120}
+                  height={32}
                   className="h-6 md:h-8 w-auto mb-8"
                 />
                 <h2 className="text-h2 font-bold leading-tight mb-6">
@@ -686,11 +665,13 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                   {acf?.zillowBody || "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing."}
                 </p>
                 {/* Mobile image — above the CTA buttons */}
-                <div className="lg:hidden mb-10">
-                  <img
+                <div className="lg:hidden mb-10 relative aspect-[4/5]">
+                  <Image
                     src={zillowImageUrl}
                     alt="Blake Hammond, Sacramento-area real estate agent"
-                    className="w-full object-cover aspect-[4/5]"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
                     style={{ objectPosition: "50% 15%" }}
                   />
                 </div>
@@ -701,11 +682,13 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 </div>
               </div>
 
-              <div className="relative hidden lg:block">
-                <img
+              <div className="relative hidden lg:block aspect-[4/3]">
+                <Image
                   src={zillowImageUrl}
                   alt="Blake Hammond, Sacramento-area real estate agent"
-                  className="w-full h-full object-cover aspect-[4/3]"
+                  fill
+                  sizes="50vw"
+                  className="object-cover"
                   style={{ objectPosition: "50% 15%" }}
                 />
               </div>

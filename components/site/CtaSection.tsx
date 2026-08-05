@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
 const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg";
 const heroGraphicUrl = "/images/graphic-hero_section_1779377398567.png";
 
@@ -34,15 +36,18 @@ export default function CtaSection({
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="absolute inset-0">
-        <img src={heroBedroomUrl} alt="" className="w-full h-full object-cover" />
+        <Image src={heroBedroomUrl} alt="" fill sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-foreground/70" />
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 via-foreground/40 to-foreground/60" />
       </div>
 
-      <img
+      <Image
         src={heroGraphicUrl}
         alt=""
-        className="pointer-events-none absolute -right-32 -bottom-24 w-[520px] opacity-[0.07] select-none"
+        aria-hidden="true"
+        width={520}
+        height={520}
+        className="pointer-events-none absolute -right-32 -bottom-24 opacity-[0.07] select-none"
       />
 
       <div className="relative container mx-auto px-4 md:px-8 py-12 md:py-32 text-left sm:text-center">

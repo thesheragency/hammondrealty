@@ -13,6 +13,7 @@ import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
+import Image from "next/image";
 import { imgUrl } from "@/lib/wp-acf";
 
 const buyIconMap: Record<string, typeof Eye> = {
@@ -142,43 +143,6 @@ function ContactForm() {
   );
 }
 
-function WhyVideo({ videoId, thumbSrc, thumbAlt }: { videoId?: string | null; thumbSrc: string; thumbAlt: string }) {
-  const [unmuted, setUnmuted] = useState(false);
-  if (!videoId) {
-    return (
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        <img src={thumbSrc} alt={thumbAlt} className="w-full h-full object-cover" />
-      </div>
-    );
-  }
-  return (
-    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-      <iframe
-        key={unmuted ? "unmuted" : "muted"}
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${unmuted ? 0 : 1}&rel=0&playsinline=1&modestbranding=1`}
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-        className="absolute inset-0 w-full h-full border-0"
-        title="Why Buy With Blake"
-      />
-      {!unmuted && (
-        <button
-          type="button"
-          onClick={() => setUnmuted(true)}
-          aria-label="Play video with sound"
-          className="absolute inset-0 w-full h-full group cursor-pointer"
-        >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-              <Play className="w-7 h-7 text-foreground fill-foreground translate-x-0.5" />
-            </div>
-          </div>
-        </button>
-      )}
-    </div>
-  );
-}
-
 export default function Buying({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepImages = [stepBuying1Url, stepBuying2Url, stepBuying3Url];
@@ -217,10 +181,12 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
         {/* Hero */}
         <section className="relative bg-accent overflow-hidden">
           {/* Decorative B graphic — aligned to top-left, cut off at the edge */}
-          <img
+          <Image
             src={heroGraphicUrl}
             alt=""
             aria-hidden="true"
+            width={1280}
+            height={1280}
             className="absolute top-0 right-0 translate-x-1/4 w-full lg:w-[1280px] h-auto pointer-events-none select-none z-0 opacity-10 lg:opacity-20"
           />
 
@@ -348,10 +314,12 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
                 >
-                  <img
+                  <Image
                     src={tip.image}
                     alt=""
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 transition-colors duration-500 bg-foreground/55 group-hover:bg-primary/90" />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -379,16 +347,16 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
           {/* Image — sticks to left edge, full section height */}
           <div className="hidden lg:block absolute top-0 left-0 bottom-0 w-1/2 z-0 overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={activeStep}
-                src={steps[activeStep].image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0"
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-              />
+              >
+                <Image src={steps[activeStep].image} alt="" fill sizes="50vw" className="object-cover" />
+              </motion.div>
             </AnimatePresence>
           </div>
 
@@ -447,16 +415,16 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                   {/* Mobile image */}
                   <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <AnimatePresence mode="wait">
-                      <motion.img
+                      <motion.div
                         key={`m-${activeStep}`}
-                        src={steps[activeStep].image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                      />
+                      >
+                        <Image src={steps[activeStep].image} alt="" fill sizes="100vw" className="object-cover" />
+                      </motion.div>
                     </AnimatePresence>
                   </div>
 

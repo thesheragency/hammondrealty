@@ -11,6 +11,7 @@ import SiteFooter from "@/components/site/SiteFooter";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
+import Image from "next/image";
 import { imgUrl, imgAlt } from "@/lib/wp-acf";
 
 const blakePortraitUrl = "/images/B1B889F6-9C80-4F33-A424-863BFD5EBF72_1779913575853.png";
@@ -162,21 +163,29 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
       <main>
         {/* Hero */}
         <section className="relative bg-accent text-white overflow-hidden">
-          <img
+          <Image
             src={heroGraphicUrl}
             alt=""
             aria-hidden="true"
-            className="absolute top-0 right-0 w-[1280px] translate-x-1/4 opacity-10 pointer-events-none select-none"
+            width={1280}
+            height={1280}
+            className="absolute top-0 right-0 w-[1280px] translate-x-1/4 h-auto opacity-10 pointer-events-none select-none"
           />
           {/* Blake portrait — right side */}
-          <motion.img
-            src={heroImg}
-            alt={heroImgAlt}
-            className="hidden lg:block absolute bottom-0 right-0 lg:right-32 xl:right-48 2xl:right-64 h-[500px] xl:h-[560px] 2xl:h-[600px] w-auto object-contain object-bottom pointer-events-none select-none z-10"
+          <motion.div
+            className="hidden lg:block absolute bottom-0 right-0 lg:right-32 xl:right-48 2xl:right-64 h-[500px] xl:h-[560px] 2xl:h-[600px] pointer-events-none select-none z-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-          />
+          >
+            <Image
+              src={heroImg}
+              alt={heroImgAlt}
+              width={400}
+              height={600}
+              className="h-full w-auto object-contain object-bottom"
+            />
+          </motion.div>
           <div className="container mx-auto px-4 md:px-8 relative z-20 pt-20 md:pt-28 pb-10 md:pb-28">
             <motion.div
               className="max-w-3xl"
@@ -217,10 +226,13 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center max-w-6xl min-[1600px]:max-w-[1400px] mx-auto">
               <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-                <img
+                <Image
                   src={portraitImg}
                   alt={portraitImgAlt}
-                  className="w-full h-full object-cover object-[center_25%]"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-[center_25%]"
+                  priority
                 />
               </div>
 
@@ -374,10 +386,12 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
                 >
                   {/* Image */}
                   <div className="relative h-[320px] lg:h-auto lg:flex-1 min-w-0 overflow-hidden">
-                    <img
+                    <Image
                       src={card.image}
                       alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
                     {/* Gradient overlay for text legibility */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />

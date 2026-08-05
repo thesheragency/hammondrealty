@@ -8,6 +8,7 @@ import { Mail, Phone } from "lucide-react";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import Image from "next/image";
 import { imgUrl } from "@/lib/wp-acf";
 
 const heroBedroomUrl = "/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg";
@@ -22,11 +23,14 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
       <main className="flex-1">
         {/* Hero with embedded form */}
         <section className="relative bg-foreground text-white overflow-hidden">
-          <img
+          <Image
             src={imgUrl(acf?.heroImage, heroBedroomUrl)}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 select-none"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-40 pointer-events-none select-none"
+            priority
           />
           <div className="absolute inset-0 bg-foreground/60" aria-hidden="true" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-16 md:pt-24 pb-16 md:pb-24">
