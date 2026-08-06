@@ -224,7 +224,6 @@ function BeforeAfterSlider({
         src={afterSrc}
         alt={afterAlt}
         draggable={false}
-        loading="lazy"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <span className="absolute top-4 right-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
@@ -239,7 +238,6 @@ function BeforeAfterSlider({
           src={beforeSrc}
           alt={beforeAlt}
           draggable={false}
-          loading="lazy"
           className="absolute inset-0 h-full w-auto max-w-none object-cover pointer-events-none"
           style={{ width: containerRef.current?.offsetWidth ?? "100%" }}
         />
@@ -267,27 +265,21 @@ function BeforeAfterCarousel({
   slides: { beforeSrc: string; afterSrc: string; beforeAlt?: string; afterAlt?: string }[];
 }) {
   const [index, setIndex] = useState(0);
-
-  // Preload all slide images at mount so navigation is instant
-  useEffect(() => {
-    slides.forEach(({ beforeSrc, afterSrc }) => {
-      [beforeSrc, afterSrc].forEach((src) => {
-        const img = new window.Image();
-        img.src = src;
-      });
-    });
-  }, [slides]);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
   const next = () => setIndex((i) => (i + 1) % slides.length);
-  const slide = slides[index];
   return (
     <div className="relative">
-      <BeforeAfterSlider
-        beforeSrc={slide.beforeSrc}
-        afterSrc={slide.afterSrc}
-        beforeAlt={slide.beforeAlt}
-        afterAlt={slide.afterAlt}
-      />
+      {/* All slides are always mounted so images are decoded and ready — only active slide is visible */}
+      {slides.map((slide, i) => (
+        <div key={i} style={{ display: i === index ? "block" : "none" }}>
+          <BeforeAfterSlider
+            beforeSrc={slide.beforeSrc}
+            afterSrc={slide.afterSrc}
+            beforeAlt={slide.beforeAlt}
+            afterAlt={slide.afterAlt}
+          />
+        </div>
+      ))}
       {/* Nav controls */}
       <div className="flex items-center justify-between mt-4">
         <button
