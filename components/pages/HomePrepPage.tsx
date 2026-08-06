@@ -267,6 +267,16 @@ function BeforeAfterCarousel({
   slides: { beforeSrc: string; afterSrc: string; beforeAlt?: string; afterAlt?: string }[];
 }) {
   const [index, setIndex] = useState(0);
+
+  // Preload all slide images at mount so navigation is instant
+  useEffect(() => {
+    slides.forEach(({ beforeSrc, afterSrc }) => {
+      [beforeSrc, afterSrc].forEach((src) => {
+        const img = new window.Image();
+        img.src = src;
+      });
+    });
+  }, [slides]);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
   const next = () => setIndex((i) => (i + 1) % slides.length);
   const slide = slides[index];
