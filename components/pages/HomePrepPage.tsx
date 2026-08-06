@@ -13,6 +13,7 @@ import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
 import Image from "next/image";
 import VimeoBackgroundVideo from "@/components/ui/VimeoBackgroundVideo";
+import VimeoFacade from "@/components/ui/VimeoFacade";
 import { imgUrl } from "@/lib/wp-acf";
 
 const prepHeroBgUrl = "/images/prep-hero-roseville.jpg";
@@ -611,7 +612,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               {/* Desktop Vimeo embed */}
               <div className="hidden lg:block w-full">
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                  <VimeoBackgroundVideo videoId="1213983330" />
+                  <VimeoFacade videoId="1213983330" />
                 </div>
               </div>
 
@@ -640,9 +641,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   ))}
                 </ul>
                 {/* Mobile Vimeo embed — above the CTA buttons */}
-                <div className="lg:hidden w-full mb-10 group">
+                <div className="lg:hidden w-full mb-10">
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                    <VimeoBackgroundVideo videoId="1213983330" />
+                    <VimeoFacade videoId="1213983330" />
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
