@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { tc } from "@/lib/title-case";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, Eye, Puzzle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -156,6 +156,8 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
         desc: c.desc || defaultHelpCards[i]?.desc || "",
       }))
     : defaultHelpCards;
+
+  const [helpHovered, setHelpHovered] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip">
@@ -378,20 +380,24 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
               {helpCards.map((card: { title: string; image: string; href: string; desc: string }, i: number) => (
                 <motion.div
                   key={card.title}
-                  className="group relative flex flex-col lg:flex-row overflow-hidden bg-background shadow-lg flex-1 lg:hover:flex-[2.2] transition-all duration-700 ease-out h-auto lg:h-full"
+                  className="relative flex flex-col lg:flex-row overflow-hidden bg-background shadow-lg flex-1 h-auto lg:h-full"
+                  style={{ flex: helpHovered === i ? "2.2 1 0%" : "1 1 0%", transition: "flex 0.7s cubic-bezier(0.4,0,0.2,1)" }}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.2 }}
+                  onMouseEnter={() => setHelpHovered(i)}
+                  onMouseLeave={() => setHelpHovered(null)}
                 >
-                  {/* Image */}
-                  <div className="relative h-[320px] lg:h-auto lg:flex-1 min-w-0 overflow-hidden">
+                  {/* Image — also a link, same as homepage */}
+                  <Link href={card.href} className="relative h-[320px] lg:h-auto lg:flex-1 min-w-0 overflow-hidden block">
                     <Image
                       src={card.image}
                       alt={card.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="object-cover transition-transform duration-1000"
+                      style={{ transform: helpHovered === i ? "scale(1.05)" : "scale(1)" }}
                     />
                     {/* Gradient overlay for text legibility */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
@@ -399,25 +405,36 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                       <h3 className="font-sans text-4xl font-bold drop-shadow-md">{card.title}</h3>
                     </div>
+                  </Link>
+
+                  {/* Desktop description panel — JS-driven, same as homepage */}
+                  <div
+                    className="hidden lg:block bg-primary text-primary-foreground overflow-hidden"
+                    style={{ width: helpHovered === i ? "360px" : "0px", transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)", flexShrink: 0 }}
+                  >
+                    <AnimatePresence>
+                      {helpHovered === i && (
+                        <motion.div
+                          className="w-[360px] p-10 h-full flex flex-col justify-between"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.35, ease: "easeInOut" }}
+                        >
+                          <p className="text-base leading-relaxed">{card.desc}</p>
+                          <Link
+                            href={card.href}
+                            className="self-start mt-8 inline-flex items-center text-sm font-semibold tracking-wide transition-all hover:gap-1"
+                          >
+                            Learn more
+                            <ArrowRight className="ml-3 w-4 h-4" />
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  {/* Hover description panel */}
-                  <div className="hidden lg:flex bg-primary text-primary-foreground overflow-hidden w-0 group-hover:w-[360px] transition-[width] duration-700 ease-out">
-                    <div className="w-[360px] p-10 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                      <p className="text-base leading-relaxed">
-                        {card.desc}
-                      </p>
-                      <Link
-                        href={card.href}
-                        className="self-start mt-8 inline-flex items-center text-sm font-semibold tracking-wide"
-                      >
-                        Learn more
-                        <ArrowRight className="ml-3 w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Mobile description (in flow below the image on mobile) */}
+                  {/* Mobile description (always visible, no hover logic) */}
                   <div className="lg:hidden bg-primary text-primary-foreground p-6">
                     <p className="text-sm leading-relaxed">{card.desc}</p>
                     <Link
