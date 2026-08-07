@@ -49,9 +49,6 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                 <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
                   {acf?.body || "Whether you are buying, selling, or just exploring the market, every message receives a personal reply. No call centers, no scripts, and no generic answers."}
                 </p>
-                <p className="text-sm md:text-base text-white/60 leading-relaxed max-w-xl mt-5 italic">
-                  {acf?.ps || `P.S. In case you are wondering, yes, the hat says "Make Realtors Great Again." And no, it is not political. It is a mindset. This industry is full of mediocrity, and Blake is here to raise the bar.`}
-                </p>
               </motion.div>
 
               <motion.div

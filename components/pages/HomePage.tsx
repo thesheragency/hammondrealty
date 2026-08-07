@@ -733,60 +733,39 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
+            <div className="max-w-3xl mx-auto">
 
-              {/* Video — desktop left column */}
-              <div className="hidden lg:block">
-                <YoutubeVideoFacade
-                  videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
-                  thumbSrc={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
-                  title="Why Work With Blake"
-                />
+              <h2 className="text-h2 font-bold leading-[1.1] mb-10 text-balance">
+                {tc(acf?.whyHeading) || "Why Homeowners Choose Blake Over The Competition"}
+              </h2>
+
+              <div className="space-y-6 mb-10">
+                {whyBullets.map((b: { icon: typeof Hammer; title: string; desc: string }) => {
+                  const Icon = b.icon;
+                  return (
+                    <div key={b.title} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-11 h-11 flex items-center justify-center bg-primary/20 text-primary">
+                        <Icon className="w-5 h-5" strokeWidth={1.75} />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-sans text-xl md:text-2xl font-bold mb-1">
+                          {b.title}
+                        </h3>
+                        <p className="text-foreground/70 leading-relaxed text-pretty">{b.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Text content */}
-              <div>
-                <h2 className="text-h2 font-bold leading-[1.1] mb-10 text-balance">
-                  {tc(acf?.whyHeading) || "Why Homeowners Choose Blake Over The Competition"}
-                </h2>
-
-                <div className="space-y-6 mb-0 lg:mb-10">
-                  {whyBullets.map((b: { icon: typeof Hammer; title: string; desc: string }) => {
-                    const Icon = b.icon;
-                    return (
-                      <div key={b.title} className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-11 h-11 flex items-center justify-center bg-primary/20 text-primary">
-                          <Icon className="w-5 h-5" strokeWidth={1.75} />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-sans text-xl md:text-2xl font-bold mb-1">
-                            {b.title}
-                          </h3>
-                          <p className="text-foreground/70 leading-relaxed text-pretty">{b.desc}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Mobile video — between bullets and CTAs */}
-                <div className="lg:hidden my-8">
-                  <YoutubeVideoFacade
-                    videoId={acf?.whyVideoId || "lFMTIp7BqEg"}
-                    thumbSrc={imgUrl(acf?.whyVideoImage, whyVideoThumbUrl)}
-                    title="Why Work With Blake"
-                  />
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
-                    <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
-                  </Button>
-                  <a href={acf?.whySecondaryLink || "/about"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
-                    {acf?.whySecondaryText || "More About Blake"}
-                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </a>
-                </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
+                  <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
+                </Button>
+                <a href={acf?.whySecondaryLink || "/about"} className="group flex items-center justify-center sm:justify-start w-full sm:w-auto h-[45px] sm:h-auto border border-primary sm:border-0 rounded-none text-primary font-medium sm:font-semibold text-sm sm:text-base hover:bg-primary hover:text-primary-foreground sm:hover:bg-transparent sm:hover:text-primary sm:hover:opacity-80 transition-all">
+                  {acf?.whySecondaryText || "More About Blake"}
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </a>
               </div>
 
             </div>
