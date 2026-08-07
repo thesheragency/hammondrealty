@@ -405,14 +405,6 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
               })}
             </ul>
 
-            <div className="max-w-2xl mx-auto mb-12">
-              <YoutubeVideoFacade
-                videoId={whyVideoIdVal}
-                thumbSrc={whyVideoImageUrl}
-                title="Why Sell With Blake Hammond"
-              />
-            </div>
-
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-[129px] h-[45px] p-0">
                 <Link href={acf?.whyCtaLink || "/connect"}>{acf?.whyCtaText || "Contact Blake"}</Link>
