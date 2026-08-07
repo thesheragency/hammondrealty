@@ -34,14 +34,27 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
   const [step, setStep] = useState<"form" | "success" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", notes: "" });
+  const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const newErrors: { name?: string; email?: string; phone?: string } = {};
+    if (!form.name.trim()) newErrors.name = "Name is required.";
+    if (!form.email.trim()) newErrors.email = "Email is required.";
+    else if (!EMAIL_RE.test(form.email.trim())) newErrors.email = "Please enter a valid email address.";
+    if (!form.phone.trim()) newErrors.phone = "Phone number is required.";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
     if (!privacyAccepted) {
       setPrivacyError(true);
       return;
@@ -143,47 +156,55 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         Fill this out and we will open the calendar so you can pick a time.
                       </p>
 
-                      <form onSubmit={handleSubmit} className="space-y-5">
+                      <form onSubmit={handleSubmit} noValidate className="space-y-5">
                         <div className="space-y-1.5">
-                          <Label htmlFor="bc-name" className="text-sm font-medium">Name</Label>
+                          <Label htmlFor="bc-name" className="text-sm font-medium">
+                            Name<span className="text-destructive ml-0.5">*</span>
+                          </Label>
                           <Input
                             id="bc-name"
                             required
                             placeholder="Your full name"
                             value={form.name}
-                            onChange={(e) => setForm({ ...form, name: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors((prev) => ({ ...prev, name: undefined })); }}
+                            className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.name ? "border-destructive" : ""}`}
                             data-testid="input-bc-name"
                           />
+                          {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                         </div>
 
                         <div className="space-y-1.5">
-                          <Label htmlFor="bc-email" className="text-sm font-medium">Email</Label>
+                          <Label htmlFor="bc-email" className="text-sm font-medium">
+                            Email<span className="text-destructive ml-0.5">*</span>
+                          </Label>
                           <Input
                             id="bc-email"
                             type="email"
                             required
                             placeholder="you@example.com"
                             value={form.email}
-                            onChange={(e) => setForm({ ...form, email: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors((prev) => ({ ...prev, email: undefined })); }}
+                            className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.email ? "border-destructive" : ""}`}
                             data-testid="input-bc-email"
                           />
+                          {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
                         </div>
 
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-phone" className="text-sm font-medium">
-                            Phone
+                            Phone<span className="text-destructive ml-0.5">*</span>
                           </Label>
                           <Input
                             id="bc-phone"
                             type="tel"
+                            required
                             placeholder="(916) 555-0100"
                             value={form.phone}
-                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
+                            onChange={(e) => { const digits = e.target.value.replace(/\D/g, ""); setForm({ ...form, phone: digits }); setErrors((prev) => ({ ...prev, phone: undefined })); }}
+                            className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.phone ? "border-destructive" : ""}`}
                             data-testid="input-bc-phone"
                           />
+                          {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
                         </div>
 
                         <div className="space-y-1.5">
