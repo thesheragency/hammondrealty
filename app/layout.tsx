@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ClientToaster } from "@/components/ui/client-toaster";
 import { GlobalHeadScripts, GlobalBodyScripts } from "@/components/scripts/GlobalScripts";
@@ -48,6 +49,19 @@ export default async function RootLayout({
           <GlobalBodyScripts />
         </Suspense>
         <ClientToaster />
+        {/* Equally AI accessibility widget */}
+        <Script
+          id="equally-widget"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `!window.EQUALLY_AI_API_KEY&&(window.EQUALLY_AI_API_KEY="slGVp8SplRks0wxkiCSnZpByGx1qLXiM",intervalId=setInterval(function(){window.EquallyAi&&(clearInterval(intervalId),window.EquallyAi=new EquallyAi)},500));`,
+          }}
+        />
+        <Script
+          id="equally-widget-src"
+          src="https://widget.prod.equally.ai/equally-widget.min.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
