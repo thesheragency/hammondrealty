@@ -518,10 +518,10 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing.</p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
-                  href="/book-consultation"
+                  href={acf?.heroCtaLink || "/book-consultation"}
                   className="inline-flex items-center justify-center bg-white text-foreground hover:bg-white/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
                 >
-                  {"Schedule a Home Prep Consultation"}
+                  {acf?.heroCtaText || "Schedule a Home Prep Consultation"}
                 </Link>
               </div>
             </motion.div>
@@ -582,10 +582,10 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
                   <Link
-                    href="/book-consultation"
+                    href={acf?.familiarCtaLink || "/book-consultation"}
                     className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-[13px] sm:text-sm whitespace-nowrap transition-all hover:-translate-y-0.5 w-full sm:w-auto px-4 sm:px-7 h-[45px]"
                   >
-                    {"Schedule a Home Prep Consultation"}
+                    {acf?.familiarCtaText || "Schedule a Home Prep Consultation"}
                   </Link>
                   {acf?.familiarPhoneText && (
                     <div className="hidden sm:contents">
@@ -650,7 +650,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href="/book-consultation">{"Schedule a Home Prep Consultation"}</Link>
+                    <Link href={acf?.whyCtaLink || "/book-consultation"}>{acf?.whyCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
                 </div>
               </div>
@@ -754,7 +754,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
                   <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-5 h-[45px] whitespace-nowrap">
-                      <Link href="/book-consultation">{"Schedule a Home Prep Consultation"}</Link>
+                      <Link href={acf?.processCtaLink || "/book-consultation"}>{acf?.processCtaText || "Schedule a Home Prep Consultation"}</Link>
                     </Button>
                   </div>
                 </div>
@@ -863,7 +863,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </div>
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href="/book-consultation">{"Schedule a Home Prep Consultation"}</Link>
+                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
                   </Button>
                   {acf?.casePhoneText && (
                     <div className="hidden sm:contents">
