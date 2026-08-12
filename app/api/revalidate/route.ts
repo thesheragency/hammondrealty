@@ -79,9 +79,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (type === 'pages' && !slug) {
-      revalidatePath('/[slug]', 'page');
-      revalidatePath('/');
-      revalidatedPaths.push('/[slug]', '/');
+      // WordPress often sends a generic "pages" purge without a slug.
+      // Static routes (e.g. /home-prep-program, /buyer, /seller) are not
+      // covered by the dynamic /[slug] route, so purge the whole layout
+      // and the shared WP data cache to make edits visible immediately.
+      revalidatePath('/', 'layout');
+      revalidateTag('wp-content', 'max');
+      revalidatedPaths.push('/ (all pages)', 'wp-content tag');
     }
 
     if (type === 'all') {
