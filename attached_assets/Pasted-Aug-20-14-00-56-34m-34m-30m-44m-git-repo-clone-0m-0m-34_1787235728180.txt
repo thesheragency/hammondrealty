@@ -1,0 +1,74 @@
+Aug 20 14:00:56  [34m╭────────────[34m[30m[44m git repo clone [0m[0m[34m───────────╼[0m
+Aug 20 14:00:56  [34m│[0m [34m › fetching app source code[0m
+Aug 20 14:00:56  [34m│[0m => Selecting branch "main"
+Aug 20 14:01:11  [34m│[0m => Checking out commit "82f935aee6ee44a47c98a03c80577bd170da0cf6"
+Aug 20 14:01:12  [34m│[0m 
+Aug 20 14:01:12  [34m│[0m [32m ✔ cloned repo to [35m/workspace[0m[0m
+Aug 20 14:01:12  [34m╰────────────────────────────────────────╼[0m
+Aug 20 14:01:12  
+Aug 20 14:01:12  [34m › configuring build-time app environment variables:[0m
+Aug 20 14:01:12       SESSION_SECRET WP_API_URL FUB_API_KEY WP_APPLIC_PASS WP_AUTH_PASSWORD WP_PREVIEW_SECRET WP_USER WP_AUTH_USER RESEND_FROM_EMAIL FRONTEND_URL
+Aug 20 14:01:12  
+Aug 20 14:01:12  [34m › configuring custom build command to be run at the end of the build:[0m
+Aug 20 14:01:12     [34m│[0m npx next build
+Aug 20 14:01:12  
+Aug 20 14:01:12  [34m╭────────────[34m[30m[44m buildpack detection [0m[0m[34m───────────╼[0m
+Aug 20 14:01:12  [34m│[0m [34m › using Ubuntu 22.04 stack[0m
+Aug 20 14:01:14  [34m│[0m Detected the following buildpacks suitable to build your app:
+Aug 20 14:01:14  [34m│[0m 
+Aug 20 14:01:14  [34m│[0m    digitalocean/nodejs-appdetect  v0.1.2    
+Aug 20 14:01:14  [34m│[0m    heroku/nodejs                  v0.342.5  (Node.js)
+Aug 20 14:01:14  [34m│[0m    digitalocean/procfile          v0.1.0    (Procfile)
+Aug 20 14:01:14  [34m│[0m    digitalocean/custom            v0.2.0    (Custom Build Command)
+Aug 20 14:01:14  [34m╰─────────────────────────────────────────────╼[0m
+Aug 20 14:01:14  
+Aug 20 14:01:14  [34m╭────────────[34m[30m[44m app build [0m[0m[34m───────────╼[0m
+Aug 20 14:01:14  [34m│[0m [33;1mWarning: [0mno analyzed metadata found at path '/layers/analyzed.toml'
+Aug 20 14:01:14  [34m│[0m Timer: Builder started at 2026-08-20T14:01:14Z
+Aug 20 14:01:15  [34m│[0m        
+Aug 20 14:01:15  [34m│[0m -----> Creating runtime environment
+Aug 20 14:01:15  [34m│[0m        
+Aug 20 14:01:15  [34m│[0m        NPM_CONFIG_LOGLEVEL=error
+Aug 20 14:01:15  [34m│[0m        NODE_VERBOSE=false
+Aug 20 14:01:15  [34m│[0m        NODE_ENV=
+Aug 20 14:01:15  [34m│[0m        NODE_MODULES_CACHE=true
+Aug 20 14:01:15  [34m│[0m        
+Aug 20 14:01:15  [34m│[0m -----> Installing binaries
+Aug 20 14:01:15  [34m│[0m        engines.node (package.json):   20.x
+Aug 20 14:01:15  [34m│[0m        engines.npm (package.json):    unspecified (use default)
+Aug 20 14:01:15  [34m│[0m        
+Aug 20 14:01:15  [34m│[0m        Resolving node version 20.x...
+Aug 20 14:01:15  [34m│[0m        Downloading and installing node 20.20.2...
+Aug 20 14:01:16  [34m│[0m        Validating checksum
+Aug 20 14:01:18  [34m│[0m        Using default npm version: 10.8.2
+Aug 20 14:01:19  [34m│[0m        
+Aug 20 14:01:19  [34m│[0m -----> Installing dependencies
+Aug 20 14:01:19  [34m│[0m        Installing node modules
+Aug 20 14:02:33  [34m│[0m        npm error code ENOTFOUND
+Aug 20 14:02:33  [34m│[0m        npm error syscall getaddrinfo
+Aug 20 14:02:33  [34m│[0m        npm error errno ENOTFOUND
+Aug 20 14:02:33  [34m│[0m        npm error network request to http://package-firewall.replit.local/npm/standardwebhooks/-/standardwebhooks-1.0.0.tgz failed, reason: getaddrinfo ENOTFOUND package-firewall.replit.local
+Aug 20 14:02:33  [34m│[0m        npm error network This is a problem related to network connectivity.
+Aug 20 14:02:33  [34m│[0m        npm error network In most cases you are behind a proxy or have bad network settings.
+Aug 20 14:02:33  [34m│[0m        npm error network
+Aug 20 14:02:33  [34m│[0m        npm error network If you are behind a proxy, please make sure that the
+Aug 20 14:02:33  [34m│[0m        npm error network 'proxy' config is set properly.  See: 'npm help config'
+Aug 20 14:02:33  [34m│[0m        npm notice
+Aug 20 14:02:33  [34m│[0m        npm notice New major version of npm available! 10.8.2 -> 12.0.2
+Aug 20 14:02:33  [34m│[0m        npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+Aug 20 14:02:33  [34m│[0m        npm notice To update run: npm install -g npm@12.0.2
+Aug 20 14:02:33  [34m│[0m        npm notice
+Aug 20 14:02:33  [34m│[0m        npm error A complete log of this run can be found in: /tmp/npmcache.cdHFn/_logs/2026-08-20T14_01_19_617Z-debug-0.log
+Aug 20 14:02:33  [34m│[0m 
+Aug 20 14:02:33  [34m│[0m -----> Build failed
+Aug 20 14:02:33  [34m│[0m        
+Aug 20 14:02:33  [34m│[0m        We're sorry this build is failing! You can troubleshoot common issues here:
+Aug 20 14:02:33  [34m│[0m        https://devcenter.heroku.com/articles/troubleshooting-node-deploys
+Aug 20 14:02:33  [34m│[0m        
+Aug 20 14:02:33  [34m│[0m        If you're stuck, please submit a ticket so we can help:
+Aug 20 14:02:33  [34m│[0m        https://help.heroku.com/
+Aug 20 14:02:33  [34m│[0m        
+Aug 20 14:02:33  [34m│[0m        Love,
+Aug 20 14:02:33  [34m│[0m        Heroku
+Aug 20 14:02:33  [34m│[0m        
+Aug 20 14:02:33  [34m│[0m Timer: Builder ran for 1m18.995833734s and ended at 2026-08-20T14:02:33Z
