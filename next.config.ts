@@ -82,6 +82,27 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // RSC flight payloads must never be cached by the CDN. Cloudflare ignores
+      // `Vary: RSC`, so a cached text/x-component response would otherwise be
+      // served to real page loads (raw ":HL[...]" text on screen).
+      {
+        source: "/:path*",
+        has: [{ type: "header", key: "RSC", value: "1" }],
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "CDN-Cache-Control", value: "no-store" },
+          { key: "Cloudflare-CDN-Cache-Control", value: "no-store" },
+        ],
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "query", key: "_rsc" }],
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "CDN-Cache-Control", value: "no-store" },
+          { key: "Cloudflare-CDN-Cache-Control", value: "no-store" },
+        ],
+      },
       // Security headers on all routes
       {
         source: "/:path*",
