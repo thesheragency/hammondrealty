@@ -37,6 +37,18 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
 
   const isActive = (href: string) => location === href;
 
+  // On /book-consultation the header shows a single CTA: the phone number.
+  const phoneOnly = location === "/book-consultation";
+  const primaryCta = phoneOnly ? phoneCta : contactCta;
+  const primaryLabel = phoneOnly ? (
+    <>
+      <Phone className="w-4 h-4" strokeWidth={2} />
+      {phoneCta.label}
+    </>
+  ) : (
+    contactCta.label
+  );
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -88,27 +100,29 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
           </nav>
 
           <div className="hidden lg:flex items-center gap-5 justify-self-end">
+            {!phoneOnly && (
+              <a
+                href={phoneCta.href}
+                className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              >
+                <Phone className="w-4 h-4" strokeWidth={2} />
+                {phoneCta.label}
+              </a>
+            )}
             <a
-              href={phoneCta.href}
-              className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              href={primaryCta.href}
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 min-w-[129px] px-4 h-[45px]"
             >
-              <Phone className="w-4 h-4" strokeWidth={2} />
-              {phoneCta.label}
-            </a>
-            <a
-              href={contactCta.href}
-              className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 min-w-[129px] px-4 h-[45px]"
-            >
-              {contactCta.label}
+              {primaryLabel}
             </a>
           </div>
 
           <div className="lg:hidden flex items-center gap-2 justify-self-end">
             <a
-              href={contactCta.href}
-              className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all px-4 h-[38px]"
+              href={primaryCta.href}
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all px-4 h-[38px]"
             >
-              {contactCta.label}
+              {primaryLabel}
             </a>
             <button
               className="p-2"
@@ -137,10 +151,10 @@ export default function SiteHeader({ variant = "transparent" }: SiteHeaderProps)
               </a>
             ))}
             <a
-              href={contactCta.href}
-              className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 mt-4 w-full h-[45px] rounded-none font-medium text-sm"
+              href={primaryCta.href}
+              className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 mt-4 w-full h-[45px] rounded-none font-medium text-sm"
             >
-              {contactCta.label}
+              {primaryLabel}
             </a>
           </div>
         )}
