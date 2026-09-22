@@ -2,3 +2,4 @@
 - [React 19 peer-dep installs](react19-peer-deps.md) — npm installs fail on ERESOLVE (react-day-picker pins React 18); project .npmrc legacy-peer-deps=true is required, and framer-motion must be v12+ for React 19.
 - [WordPress ACF wiring pattern](wp-acf-wiring.md) — designed pages pull ACF via lib/wp-acf.ts with fallbacks; Next data-cache gotcha, \r\n headings need whitespace-pre-line, final slugs are /buyer /seller /connect.
 - [Design parity checks](design-parity.md) — how to diff against the original design site; gf form styles need `!important` over shadcn utility classes; WP staging outage mimics app bugs.
+- [ACF REST repeater images](acf-rest-repeater-images.md) — full repeater writes reject blank image strings; send null for intentionally empty image cells.

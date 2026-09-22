@@ -7,6 +7,16 @@ Source of truth: frontend fallback/hardcoded/local values documented in `/tmp/ac
 | route/object ID | full ACF field path | inferred field type | current WP value (concise but exact) | intended frontend value (concise but exact) | source | status |
 |---|---|---|---|---|---|---|
 | `/` (94) | `heroCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/` (94) | `processCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/` (94) | `whyCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/buyer` (86) | `heroCtaLink` | URL | `/get-in-touch` | `/connect` | fallback (selected but ignored) | MISMATCH |
+| `/seller` (88) | `heroCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/seller` (88) | `whyCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/seller` (88) | `prepCtaLink` | URL | `/get-in-touch` | `/connect` | fallback (selected but ignored) | MISMATCH |
+| `/seller` (88) | `zillowCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/about` (84) | `heroCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/about` (84) | `bioCtaLink` | URL | `/get-in-touch` | `/connect` | fallback | MISMATCH |
+| `/booked` (76) | `buttonLink` | URL | `/thank-you` | `/` | fallback | MISMATCH |
 | `/` (94) | `heroGraphicImage` | image | empty | `/images/graphic-hero_section_1779377398567.png` | local | ACF EMPTY |
 | `/` (94) | `heroBedroomImage` | image | empty | `/images/4090_Sylvan_Gen_ln._Roseville_CA_95747-42_1779384768951.jpg` | local | ACF EMPTY |
 | `/` (94) | `mastersClubImage` | image | empty | `/images/Mask_group_1780678314549.png` | local | ACF EMPTY |
@@ -67,6 +77,40 @@ Source of truth: frontend fallback/hardcoded/local values documented in `/tmp/ac
 | `/booked` (76) | `buttonText` | text | `Get In Touch` | `Back To Home` | fallback | MISMATCH |
 
 `/home-value-analysis` `formHeading` is intentionally not included above: although its WP value differs from the hardcoded frontend heading, the selected ACF field is ignored; it is reported below with ignored selections.
+
+## Additional mismatches found during completion review
+
+These rendered ACF paths were found by a second systematic component-to-REST comparison and were included in the approved update scope.
+
+| route/object ID | full ACF field path | field type | previous WP value | frontend source-of-truth value | source | status |
+|---|---|---|---|---|---|---|
+| `/` (94) | `helpCards[0].image` | image | `empty` | `/images/765ef0b1-a99d-4496-b398-582c961f2f01_1782404925125.jpg` | fallback/local | ACF EMPTY |
+| `/` (94) | `helpCards[1].image` | image | `empty` | `/images/fancy_home_1782404943463.jpg` | fallback/local | ACF EMPTY |
+| `/` (94) | `helpCards[2].image` | image | `empty` | `/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg` | fallback/local | ACF EMPTY |
+| `/` (94) | `helpCards[0].href` | URL | `/buying` | `/buyer` | fallback/local | MISMATCH |
+| `/` (94) | `helpCards[1].href` | URL | `/selling` | `/seller` | fallback/local | MISMATCH |
+| `/seller` (88) | `steps[0].image` | image | `empty` | `/images/step-consultation-audit.png` | fallback/local | ACF EMPTY |
+| `/seller` (88) | `steps[1].image` | image | `empty` | `/images/step-prepare-home-for-sale.png` | fallback/local | ACF EMPTY |
+| `/seller` (88) | `steps[2].image` | image | `empty` | `/images/step-selling-4-market.png` | fallback/local | ACF EMPTY |
+| `/seller` (88) | `steps[3].image` | image | `empty` | `/images/selling-house.png` | fallback/local | ACF EMPTY |
+| `/about` (84) | `helpCards[0].image` | image | `empty` | `/images/765ef0b1-a99d-4496-b398-582c961f2f01_1782404925125.jpg` | fallback/local | ACF EMPTY |
+| `/about` (84) | `helpCards[1].image` | image | `empty` | `/images/fancy_home_1782404943463.jpg` | fallback/local | ACF EMPTY |
+| `/about` (84) | `helpCards[2].image` | image | `empty` | `/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg` | fallback/local | ACF EMPTY |
+| `/about` (84) | `helpCards[0].href` | URL | `/buying` | `/buyer` | fallback/local | MISMATCH |
+| `/about` (84) | `helpCards[1].href` | URL | `/selling` | `/seller` | fallback/local | MISMATCH |
+| `/home-prep-program` (90) | `steps[0].image` | image | `empty` | `/images/step-consultation-audit.png` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `steps[1].image` | image | `empty` | `/images/step-upfront-renovation-funding.jpg` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `steps[2].image` | image | `empty` | `/images/step-project-management.png` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `steps[3].image` | image | `empty` | `/images/staging-living-room.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `steps[4].image` | image | `empty` | `/images/step-preparing-3-launch.png` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[0].image` | image | `empty` | `/images/included-painting.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[1].image` | image | `empty` | `/images/included-landscaping.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[2].image` | image | `empty` | `/images/included-repairs.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[3].image` | image | `empty` | `/images/staging-living-room.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[4].image` | image | `empty` | `/images/included-deep-cleaning.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[5].image` | image | `empty` | `/images/step-preparing-3-launch.png` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[6].image` | image | `empty` | `/images/included-junk-hauling.webp` | fallback/local | ACF EMPTY |
+| `/home-prep-program` (90) | `includedCards[7].image` | image | `empty` | `/images/included-estate-sales.webp` | fallback/local | ACF EMPTY |
 
 ## NO ACF FIELD EXISTS (grouped by route)
 

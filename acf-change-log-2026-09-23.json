@@ -1,0 +1,960 @@
+{
+  "date": "2026-09-23",
+  "changes": [
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "hero_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "hero_graphic_image",
+      "old": "",
+      "new": 177
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "hero_bedroom_image",
+      "old": "",
+      "new": 146
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "masters_club_image",
+      "old": "",
+      "new": 153
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "why_image",
+      "old": "",
+      "new": 149
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "process_selling_steps",
+      "old": [
+        {
+          "num": "01",
+          "title": "Free Consultation",
+          "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+          "image": ""
+        },
+        {
+          "num": "02",
+          "title": "Prepare Your Home for Sale",
+          "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+          "image": ""
+        },
+        {
+          "num": "03",
+          "title": "Place Your Home on the Market",
+          "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+          "image": ""
+        },
+        {
+          "num": "04",
+          "title": "Accept Offer & Close",
+          "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "num": "01",
+          "title": "Free Consultation",
+          "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+          "image": 200
+        },
+        {
+          "num": "02",
+          "title": "Prepare Your Home for Sale",
+          "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+          "image": 231
+        },
+        {
+          "num": "03",
+          "title": "Place Your Home on the Market",
+          "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+          "image": 232
+        },
+        {
+          "num": "04",
+          "title": "Accept Offer & Close",
+          "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+          "image": 145
+        }
+      ]
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "process_preparing_steps",
+      "old": [
+        {
+          "num": "01",
+          "title": "Consultation & Audit",
+          "desc": "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
+          "image": ""
+        },
+        {
+          "num": "02",
+          "title": "Upfront Renovation Funding",
+          "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+          "image": ""
+        },
+        {
+          "num": "03",
+          "title": "Project Management",
+          "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+          "image": ""
+        },
+        {
+          "num": "04",
+          "title": "Staging & Media",
+          "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+          "image": ""
+        },
+        {
+          "num": "05",
+          "title": "High-Profit Close",
+          "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "num": "01",
+          "title": "Consultation & Audit",
+          "desc": "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
+          "image": 216
+        },
+        {
+          "num": "02",
+          "title": "Upfront Renovation Funding",
+          "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+          "image": 221
+        },
+        {
+          "num": "03",
+          "title": "Project Management",
+          "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+          "image": 201
+        },
+        {
+          "num": "04",
+          "title": "Staging & Media",
+          "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+          "image": 225
+        },
+        {
+          "num": "05",
+          "title": "High-Profit Close",
+          "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+          "image": 223
+        }
+      ]
+    },
+    {
+      "page_id": 86,
+      "slug": "buyer",
+      "field": "why_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 86,
+      "slug": "buyer",
+      "field": "process_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 86,
+      "slug": "buyer",
+      "field": "tips",
+      "old": [
+        {
+          "title": "Start with a Strategy Call",
+          "desc": "We map out a game plan tailored to your specific goals before you start tracking public sites.",
+          "image": "",
+          "highlighted": false
+        },
+        {
+          "title": "The 5-Year Reality Check",
+          "desc": "Buy for your current lifestyle, but ensure the property can adapt so you aren't forced to move again too soon.",
+          "image": "",
+          "highlighted": false
+        },
+        {
+          "title": "Ignore the Ugly Wallpaper",
+          "desc": "Separate major structural issues from minor surface updates. Outdated kitchens are easy to fix but a flawed layout is permanent.",
+          "image": "",
+          "highlighted": true
+        },
+        {
+          "title": "Lock In Your Pre-Approval",
+          "desc": "Sellers will not take you seriously without a verified commitment showing you are qualified to close from day one.",
+          "image": "",
+          "highlighted": false
+        },
+        {
+          "title": "Write a Tight, Clean Offer",
+          "desc": "Price matters, but fast timelines and protective, zero-fluff contract conditions are what actually win bidding wars.",
+          "image": "",
+          "highlighted": false
+        },
+        {
+          "title": "Budget 3% for Closing Costs",
+          "desc": "Expect an extra 2% to 3% beyond your down payment to safely cover your title, escrow, and lender fees.",
+          "image": "",
+          "highlighted": false
+        }
+      ],
+      "new": [
+        {
+          "title": "Start with a Strategy Call",
+          "desc": "We map out a game plan tailored to your specific goals before you start tracking public sites.",
+          "image": 174,
+          "highlighted": false
+        },
+        {
+          "title": "The 5-Year Reality Check",
+          "desc": "Buy for your current lifestyle, but ensure the property can adapt so you aren't forced to move again too soon.",
+          "image": 199,
+          "highlighted": false
+        },
+        {
+          "title": "Ignore the Ugly Wallpaper",
+          "desc": "Separate major structural issues from minor surface updates. Outdated kitchens are easy to fix but a flawed layout is permanent.",
+          "image": 191,
+          "highlighted": true
+        },
+        {
+          "title": "Lock In Your Pre-Approval",
+          "desc": "Sellers will not take you seriously without a verified commitment showing you are qualified to close from day one.",
+          "image": 225,
+          "highlighted": false
+        },
+        {
+          "title": "Write a Tight, Clean Offer",
+          "desc": "Price matters, but fast timelines and protective, zero-fluff contract conditions are what actually win bidding wars.",
+          "image": 232,
+          "highlighted": false
+        },
+        {
+          "title": "Budget 3% for Closing Costs",
+          "desc": "Expect an extra 2% to 3% beyond your down payment to safely cover your title, escrow, and lender fees.",
+          "image": 234,
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "page_id": 86,
+      "slug": "buyer",
+      "field": "steps",
+      "old": [
+        {
+          "num": "01",
+          "title": "Book A Free Strategy Call",
+          "desc": "Skip the sales pitch. We jump on a quick call to map your budget, target neighborhoods, and secure a hassle-free pre-approval.",
+          "image": ""
+        },
+        {
+          "num": "02",
+          "title": "Finding the Right House",
+          "desc": "We look past the polished photos on the apps, narrow down the neighborhoods that actually make sense for you, and track down the best properties on the market.",
+          "image": ""
+        },
+        {
+          "num": "03",
+          "title": "Safe Offer & Smooth Close",
+          "desc": "We use raw sales data to build a competitive offer with ironclad safeguards, vet structural inspections, and close with confidence.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "num": "01",
+          "title": "Book A Free Strategy Call",
+          "desc": "Skip the sales pitch. We jump on a quick call to map your budget, target neighborhoods, and secure a hassle-free pre-approval.",
+          "image": 210
+        },
+        {
+          "num": "02",
+          "title": "Finding the Right House",
+          "desc": "We look past the polished photos on the apps, narrow down the neighborhoods that actually make sense for you, and track down the best properties on the market.",
+          "image": 214
+        },
+        {
+          "num": "03",
+          "title": "Safe Offer & Smooth Close",
+          "desc": "We use raw sales data to build a competitive offer with ironclad safeguards, vet structural inspections, and close with confidence.",
+          "image": 215
+        }
+      ]
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "process_heading",
+      "old": "Minimize Days on Market",
+      "new": "Sell Your Home as Quickly as Possible"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "prep_heading",
+      "old": "Home Prep Program",
+      "new": "Make Your Home as Valuable as Possible"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "prep_body",
+      "old": "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar.",
+      "new": "We prepare your home for sale. You pay nothing until it's sold."
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "process_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "prep_before_image",
+      "old": "",
+      "new": 191
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "prep_after_image",
+      "old": "",
+      "new": 187
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "zillow_image",
+      "old": "",
+      "new": 150
+    },
+    {
+      "page_id": 84,
+      "slug": "about",
+      "field": "hero_image",
+      "old": "",
+      "new": 152
+    },
+    {
+      "page_id": 84,
+      "slug": "about",
+      "field": "portrait_image",
+      "old": "",
+      "new": 151
+    },
+    {
+      "page_id": 82,
+      "slug": "home-value-analysis",
+      "field": "hero_image",
+      "old": "",
+      "new": 146
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "hero_eyebrow",
+      "old": "WE PREPARE YOUR HOME FOR SALE YOU PAY NOTHING UNTIL ITS SOLD",
+      "new": "Home Prep Selling Program"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "hero_heading",
+      "old": "Sell Your Home For Top Dollar Without The Hassle",
+      "new": "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "hero_body",
+      "old": "We handle everything needed to get your home ready to sell — repairs, updates, cleaning, and staging. We even cover the costs upfront, so you don't have to manage the work or pay anything until your home sells.",
+      "new": "I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing."
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "hero_cta_text",
+      "old": "Schedule A Free Call",
+      "new": "Schedule a Home Prep Consultation"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "familiar_image",
+      "old": "",
+      "new": 204
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "familiar_worries",
+      "old": [
+        {
+          "text": "\"Which repairs are actually worth doing?\""
+        },
+        {
+          "text": "\"How much will this cost?\""
+        },
+        {
+          "text": "\"How do I pay for improvements?\""
+        },
+        {
+          "text": "\"Who should I hire to do it?\""
+        }
+      ],
+      "new": [
+        {
+          "text": "\"Which repairs are actually worth doing?\""
+        },
+        {
+          "text": "\"How much will this cost?\""
+        },
+        {
+          "text": "\"How do I pay for improvements?\""
+        },
+        {
+          "text": "\"What should I leave?\""
+        },
+        {
+          "text": "\"What should I repair?\""
+        },
+        {
+          "text": "\"Who should I hire to do it?\""
+        }
+      ]
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "why_image",
+      "old": "",
+      "new": 193
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "why_body",
+      "old": "On average, clients who use our Home Prep Program sell for 10–15% more than their home’s estimated as-is value.\r\n\r\nWe handle everything needed to get your home ready to sell, so you can get top dollar without the hassle.",
+      "new": "Buyers reward homes that show better than the competition. This turnkey renovation program quietly removes every friction point without you writing a check before closing."
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "familiar_cta_text",
+      "old": "Schedule A Free Call",
+      "new": "Schedule a Home Prep Consultation"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "why_cta_text",
+      "old": "Schedule A Free Call",
+      "new": "Schedule a Home Prep Consultation"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "process_heading",
+      "old": "100% Funded\r\nRenovations",
+      "new": "How the Home Prep Program Works"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "process_subtitle",
+      "old": "",
+      "new": "5 steps to a stress-free, high-profit sale."
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "process_cta_text",
+      "old": "Schedule A Free Call",
+      "new": "Schedule a Home Prep Consultation"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "case_bullets",
+      "old": [
+        {
+          "text": "Multiple cash offers received and closed during the first weekend on the market."
+        },
+        {
+          "text": "Sold for $75,000 over the as-is property valuation before renovations."
+        },
+        {
+          "text": "All without the owner having to lift a finger or spend a dime up front."
+        }
+      ],
+      "new": [
+        {
+          "text": "Multiple cash offers received and closed during the first weekend on the market."
+        },
+        {
+          "text": "Sold for $75,000 more than the as-is value, netting the seller $50,000 more after repair costs."
+        },
+        {
+          "text": "All without the owner having to lift a finger or spend a dime up front."
+        }
+      ]
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "case_cta_text",
+      "old": "Schedule A Free Call",
+      "new": "Schedule a Home Prep Consultation"
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "case_before_image",
+      "old": "",
+      "new": 197
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "case_after_image",
+      "old": "",
+      "new": 196
+    },
+    {
+      "page_id": 80,
+      "slug": "connect",
+      "field": "phone",
+      "old": "916-625-6118",
+      "new": "(916) 625-6118"
+    },
+    {
+      "page_id": 76,
+      "slug": "booked",
+      "field": "button_text",
+      "old": "Get In Touch",
+      "new": "Back To Home"
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "process_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "why_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 86,
+      "slug": "buyer",
+      "field": "hero_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "hero_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "why_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "prep_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "zillow_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 84,
+      "slug": "about",
+      "field": "hero_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 84,
+      "slug": "about",
+      "field": "bio_cta_link",
+      "old": "/get-in-touch",
+      "new": "/connect"
+    },
+    {
+      "page_id": 76,
+      "slug": "booked",
+      "field": "button_link",
+      "old": "/thank-you",
+      "new": "/"
+    },
+    {
+      "page_id": 94,
+      "slug": "home",
+      "field": "help_cards",
+      "old": [
+        {
+          "title": "Buying",
+          "desc": "We skip the sales pitches to focus entirely on protecting your contract and getting your offer accepted.",
+          "href": "/buying",
+          "image": ""
+        },
+        {
+          "title": "Selling",
+          "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program.",
+          "href": "/selling",
+          "image": ""
+        },
+        {
+          "title": "Home Prep Program",
+          "desc": "We fund and manage 100% of your home preparation and repairs to drive up your sale price, paying nothing until it's sold.",
+          "href": "/home-prep-program",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "title": "Buying",
+          "desc": "We skip the sales pitches to focus entirely on protecting your contract and getting your offer accepted.",
+          "href": "/buyer",
+          "image": 148
+        },
+        {
+          "title": "Selling",
+          "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program.",
+          "href": "/seller",
+          "image": 176
+        },
+        {
+          "title": "Home Prep Program",
+          "desc": "We fund and manage 100% of your home preparation and repairs to drive up your sale price, paying nothing until it's sold.",
+          "href": "/home-prep-program",
+          "image": 147
+        }
+      ]
+    },
+    {
+      "page_id": 84,
+      "slug": "about",
+      "field": "help_cards",
+      "old": [
+        {
+          "title": "Buying",
+          "image": "",
+          "href": "/buying",
+          "desc": "Find properties through unlisted home tracking, contract safeguards, and an intentional search."
+        },
+        {
+          "title": "Selling",
+          "image": "",
+          "href": "/selling",
+          "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program."
+        },
+        {
+          "title": "Home Prep Selling",
+          "image": "",
+          "href": "/home-prep-program",
+          "desc": "We fund and handle 100% of the cosmetic updates and staging to drive up your sale price. You pay nothing until it is sold."
+        }
+      ],
+      "new": [
+        {
+          "title": "Buying",
+          "image": 148,
+          "href": "/buyer",
+          "desc": "Find properties through unlisted home tracking, contract safeguards, and an intentional search."
+        },
+        {
+          "title": "Selling",
+          "image": 176,
+          "href": "/seller",
+          "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program."
+        },
+        {
+          "title": "Home Prep Selling",
+          "image": 147,
+          "href": "/home-prep-program",
+          "desc": "We fund and handle 100% of the cosmetic updates and staging to drive up your sale price. You pay nothing until it is sold."
+        }
+      ]
+    },
+    {
+      "page_id": 88,
+      "slug": "seller",
+      "field": "steps",
+      "old": [
+        {
+          "num": "01",
+          "title": "Free Consultation",
+          "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+          "image": ""
+        },
+        {
+          "num": "02",
+          "title": "Prepare Your Home for Sale",
+          "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+          "image": ""
+        },
+        {
+          "num": "03",
+          "title": "Place Your Home on the Market",
+          "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+          "image": ""
+        },
+        {
+          "num": "04",
+          "title": "Accept Offer & Close",
+          "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "num": "01",
+          "title": "Free Consultation",
+          "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+          "image": 236
+        },
+        {
+          "num": "02",
+          "title": "Prepare Your Home for Sale",
+          "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+          "image": 237
+        },
+        {
+          "num": "03",
+          "title": "Place Your Home on the Market",
+          "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+          "image": 233
+        },
+        {
+          "num": "04",
+          "title": "Accept Offer & Close",
+          "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+          "image": 203
+        }
+      ]
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "steps",
+      "old": [
+        {
+          "num": "01",
+          "title": "Fix It Or Skip It Consultation",
+          "desc": "Walk through your property together to pinpoint what's worth fixing/renovations and what we should leave alone to maximize your home's value. ",
+          "image": ""
+        },
+        {
+          "num": "02",
+          "title": "Upfront Renovation Funding",
+          "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+          "image": ""
+        },
+        {
+          "num": "03",
+          "title": "Project Management",
+          "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+          "image": ""
+        },
+        {
+          "num": "04",
+          "title": "Staging & Media",
+          "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+          "image": ""
+        },
+        {
+          "num": "05",
+          "title": "High-Profit Close",
+          "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "num": "01",
+          "title": "Fix It Or Skip It Consultation",
+          "desc": "Walk through your property together to pinpoint what's worth fixing/renovations and what we should leave alone to maximize your home's value. ",
+          "image": 236
+        },
+        {
+          "num": "02",
+          "title": "Upfront Renovation Funding",
+          "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+          "image": 240
+        },
+        {
+          "num": "03",
+          "title": "Project Management",
+          "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+          "image": null
+        },
+        {
+          "num": "04",
+          "title": "Staging & Media",
+          "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+          "image": 208
+        },
+        {
+          "num": "05",
+          "title": "High-Profit Close",
+          "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+          "image": 223
+        }
+      ]
+    },
+    {
+      "page_id": 90,
+      "slug": "home-prep-program",
+      "field": "included_cards",
+      "old": [
+        {
+          "title": "Painting",
+          "desc": "Interior updates and exterior refreshes that instantly elevate first impressions in every online photo.",
+          "image": ""
+        },
+        {
+          "title": "Landscaping",
+          "desc": "Curb-appeal cleanups including trimming, fresh mulch, and pressure-washing so the property looks inviting from the street.",
+          "image": ""
+        },
+        {
+          "title": "Repairs & Upgrades",
+          "desc": "Fixing minor issues that stall negotiations, such as drywall patches, modern light fixtures, and hardware updates.",
+          "image": ""
+        },
+        {
+          "title": "Staging",
+          "desc": "Professional space styling that helps prospective buyers easily see themselves living in the home.",
+          "image": ""
+        },
+        {
+          "title": "Deep Cleaning",
+          "desc": "A meticulous, top-to-bottom clean of windows, floors, kitchens, and baths so the entire home feels completely move-in ready.",
+          "image": ""
+        },
+        {
+          "title": "Photography & Media",
+          "desc": "Vibrant imagery, drone views, and cinematic video walkthroughs to capture buyers browsing online.",
+          "image": ""
+        },
+        {
+          "title": "Junk Hauling",
+          "desc": "Clearing out clutter and unwanted items so your home feels spacious and ready for buyers.",
+          "image": ""
+        },
+        {
+          "title": "Estate Sales",
+          "desc": "Organizing and managing the liquidation of household items to clean out the property before listing.",
+          "image": ""
+        }
+      ],
+      "new": [
+        {
+          "title": "Painting",
+          "desc": "Interior updates and exterior refreshes that instantly elevate first impressions in every online photo.",
+          "image": null
+        },
+        {
+          "title": "Landscaping",
+          "desc": "Curb-appeal cleanups including trimming, fresh mulch, and pressure-washing so the property looks inviting from the street.",
+          "image": null
+        },
+        {
+          "title": "Repairs & Upgrades",
+          "desc": "Fixing minor issues that stall negotiations, such as drywall patches, modern light fixtures, and hardware updates.",
+          "image": null
+        },
+        {
+          "title": "Staging",
+          "desc": "Professional space styling that helps prospective buyers easily see themselves living in the home.",
+          "image": 208
+        },
+        {
+          "title": "Deep Cleaning",
+          "desc": "A meticulous, top-to-bottom clean of windows, floors, kitchens, and baths so the entire home feels completely move-in ready.",
+          "image": null
+        },
+        {
+          "title": "Photography & Media",
+          "desc": "Vibrant imagery, drone views, and cinematic video walkthroughs to capture buyers browsing online.",
+          "image": 223
+        },
+        {
+          "title": "Junk Hauling",
+          "desc": "Clearing out clutter and unwanted items so your home feels spacious and ready for buyers.",
+          "image": null
+        },
+        {
+          "title": "Estate Sales",
+          "desc": "Organizing and managing the liquidation of household items to clean out the property before listing.",
+          "image": null
+        }
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "page_id": 94,
+      "fields": [
+        "process_buying_steps[0].image",
+        "process_buying_steps[1].image",
+        "process_buying_steps[2].image"
+      ],
+      "reason": "Exact frontend assets are not in WordPress Media Library; no uploads permitted."
+    },
+    {
+      "page_id": 90,
+      "fields": [
+        "steps[2].image: /images/step-project-management.png",
+        "included_cards[0].image: /images/included-painting.webp",
+        "included_cards[1].image: /images/included-landscaping.webp",
+        "included_cards[2].image: /images/included-repairs.webp",
+        "included_cards[4].image: /images/included-deep-cleaning.webp",
+        "included_cards[6].image: /images/included-junk-hauling.webp",
+        "included_cards[7].image: /images/included-estate-sales.webp"
+      ],
+      "reason": "Exact frontend assets are not in WordPress Media Library; retained as null so existing local fallbacks remain unchanged."
+    }
+  ]
+}

@@ -28,3 +28,17 @@ mtime_ms = 1790104769250
 storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/396546c7-7da8-4d8c-963d-cb8a2e533bff/0adfb52f-de4b-44aa-9853-246cf5b3c78b"
 storage_version_token = "1790104980593218"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "ilo0g5C9wHB209ph0jimD"
+uri = "file://acf-change-log-2026-09-23.json"
+type = "unspecified"
+title = "WordPress ACF Change Log — 2026-09-23"
+description = "Verified old-to-new log for all applied WordPress ACF updates, including the three image fields skipped because their files are absent from the Media Library."
+logical_id = "ea73ac8d-aeb3-416d-9a96-23d1a8630615"
+content_hash = "sha256:23e5e2dfc5642cddb4da47f26eef10bd79314ad86372ce5ad4ae25bbb3625868"
+size = 18250
+mtime_ms = 1790107578293
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/ea73ac8d-aeb3-416d-9a96-23d1a8630615/778663b2-1753-4678-bb2a-10a6dd6e5705"
+storage_version_token = "1790107720074212"
+content_type = "application/octet-stream"
