@@ -1,0 +1,1434 @@
+{
+  "backup_date": "2026-09-23",
+  "wordpress_base": "https://cms.hammondrealty.net",
+  "authenticated_user": "headless_sync",
+  "scope": "Published frontend-rendered pages, FAQs, and testimonials",
+  "items": [
+    {
+      "id": 94,
+      "post_type": "page",
+      "slug": "home",
+      "status": "publish",
+      "title": "Home",
+      "acf": {
+        "hero_graphic_image": "",
+        "hero_bedroom_image": "",
+        "masters_club_image": "",
+        "masters_club_alt": "Masters Club — Placer County Association of Realtors",
+        "hero_heading": "Buy With Confidence.\r\nSell For Top Dollar.",
+        "hero_body": "Full-service listings, expert negotiation for buyers, and fully funded pre-market home preparation with no upfront costs.",
+        "hero_cta_text": "Contact Blake",
+        "hero_cta_link": "/get-in-touch",
+        "hero_secondary_text": "Home Prep Program",
+        "hero_secondary_link": "/home-prep-program",
+        "stats": [
+          {
+            "value": 5,
+            "prefix": "",
+            "suffix": "+",
+            "label": "Local Expert"
+          },
+          {
+            "value": 40,
+            "prefix": "$",
+            "suffix": "M+",
+            "label": "In Real Estate Sold"
+          },
+          {
+            "value": 11,
+            "prefix": "",
+            "suffix": "",
+            "label": "Average Days on Market"
+          },
+          {
+            "value": 102,
+            "prefix": "",
+            "suffix": "%",
+            "label": "Average List-to-Sale Ratio"
+          }
+        ],
+        "featured_testimonials": [
+          {
+            "quote": "Blake did a wonderful job for us and got our house sold on the very first day it was listed. We could not be any happier with his help. We highly recommend him because we know he will take really good care of you.",
+            "name": "Tim Tingey"
+          },
+          {
+            "quote": "Excellent experience. Blake was supportive, provided clear recommendations, and worked around our schedules as busy professionals. The house sold extremely quickly and the staging was wonderfully done.",
+            "name": "Christine Smith"
+          },
+          {
+            "quote": "An outstanding job. Blake went above and beyond for those unfamiliar with the real estate world. He brought together all the services needed for the sale and made this transaction possible in a short time.",
+            "name": "Larry Ciche"
+          }
+        ],
+        "help_eyebrow": "How I Help",
+        "help_heading": "Real estate shouldn't feel overwhelming.",
+        "help_body": "Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money.",
+        "help_cards": [
+          {
+            "title": "Buying",
+            "desc": "We skip the sales pitches to focus entirely on protecting your contract and getting your offer accepted.",
+            "href": "/buying",
+            "image": ""
+          },
+          {
+            "title": "Selling",
+            "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program.",
+            "href": "/selling",
+            "image": ""
+          },
+          {
+            "title": "Home Prep Program",
+            "desc": "We fund and manage 100% of your home preparation and repairs to drive up your sale price, paying nothing until it's sold.",
+            "href": "/home-prep-program",
+            "image": ""
+          }
+        ],
+        "process_heading": "My Process",
+        "process_subtitle": "A practical roadmap to outpace local market averages.",
+        "process_cta_text": "Learn More",
+        "process_cta_link": "/get-in-touch",
+        "process_buying_label": "I'm Buying",
+        "process_buying_steps": [
+          {
+            "num": "01",
+            "title": "Book A Free Strategy Call",
+            "desc": "Skip the sales pitch. We jump on a quick call to map your budget, target neighborhoods, and secure a hassle-free pre-approval.",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Finding the Right House",
+            "desc": "We look past the polished photos on the apps, narrow down the neighborhoods that actually make sense for you, and track down the best properties on the market.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Safe Offer & Smooth Close",
+            "desc": "We use raw sales data to build a competitive offer with ironclad safeguards, vet structural inspections, and close with confidence.",
+            "image": ""
+          }
+        ],
+        "process_selling_label": "I'm Selling",
+        "process_selling_steps": [
+          {
+            "num": "01",
+            "title": "Free Consultation",
+            "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Prepare Your Home for Sale",
+            "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Place Your Home on the Market",
+            "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+            "image": ""
+          },
+          {
+            "num": "04",
+            "title": "Accept Offer & Close",
+            "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+            "image": ""
+          }
+        ],
+        "process_preparing_label": "Home Prep Program",
+        "process_preparing_steps": [
+          {
+            "num": "01",
+            "title": "Consultation & Audit",
+            "desc": "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Upfront Renovation Funding",
+            "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Project Management",
+            "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+            "image": ""
+          },
+          {
+            "num": "04",
+            "title": "Staging & Media",
+            "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+            "image": ""
+          },
+          {
+            "num": "05",
+            "title": "High-Profit Close",
+            "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+            "image": ""
+          }
+        ],
+        "why_image": "",
+        "why_image_alt": "Blake Hammond",
+        "why_heading": "Why Homeowners Choose Blake Over the Competition",
+        "why_bullets": [
+          {
+            "icon": "MapPin",
+            "title": "Home Prep Program",
+            "desc": "We handle and fund 100% of your home preparation, repairs, and improvements so you sell for more and pay nothing until closing."
+          },
+          {
+            "icon": "Phone",
+            "title": "Record of Success",
+            "desc": "Sold 18 homes that were previously listed by other agents and failed to sell."
+          },
+          {
+            "icon": "ShieldCheck",
+            "title": "No Comforting Lies",
+            "desc": "You get the unfiltered truth and raw market data. I'd rather protect your equity with hard facts than comfort you with a lie."
+          }
+        ],
+        "why_cta_text": "Contact Blake",
+        "why_cta_link": "/get-in-touch",
+        "why_secondary_text": "More About Blake",
+        "why_secondary_link": "/about"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 86,
+      "post_type": "page",
+      "slug": "buyer",
+      "status": "publish",
+      "title": "Buying",
+      "acf": {
+        "hero_eyebrow": "Buying with Blake",
+        "hero_heading": "Beat the Competition\r\nto the Property",
+        "hero_body": "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying.",
+        "hero_cta_text": "Contact Blake",
+        "hero_cta_link": "/get-in-touch",
+        "why_video_image": "",
+        "why_eyebrow": "Why Blake",
+        "why_heading": "Buying with Total Certainty",
+        "why_body": "Skip the average door-opener. You get an honest advisor who handles everything from the initial search to the final contract, ensuring you never make a blind investment.",
+        "why_bullets": [
+          {
+            "icon": "Lock",
+            "title": "No Property Fluff",
+            "desc": "I point out hidden red flags, bad layouts, and neighborhood downsides so you know exactly what you're walking into."
+          },
+          {
+            "icon": "Lock",
+            "title": "Unfiltered Market Data",
+            "desc": "I show you the actual sales numbers instead of just the list price so you always know the true value before you make an offer."
+          },
+          {
+            "icon": "Handshake",
+            "title": "Strategic Negotiation",
+            "desc": "I craft sharp, competitive bids designed to get your offer accepted on your terms while keeping your money protected."
+          }
+        ],
+        "why_cta_text": "Contact Blake",
+        "why_cta_link": "/get-in-touch",
+        "why_secondary_text": "Free Home Value Analysis",
+        "why_secondary_link": "/home-value-analysis",
+        "tips_eyebrow": "Buyer Tips",
+        "tips_heading": "Taking the Stress\r\nOut of Buying",
+        "tips_subtitle": "Setting a few clear ground rules early protects your cash and saves you months of wasted weekend tours.",
+        "tips": [
+          {
+            "title": "Start with a Strategy Call",
+            "desc": "We map out a game plan tailored to your specific goals before you start tracking public sites.",
+            "image": "",
+            "highlighted": false
+          },
+          {
+            "title": "The 5-Year Reality Check",
+            "desc": "Buy for your current lifestyle, but ensure the property can adapt so you aren't forced to move again too soon.",
+            "image": "",
+            "highlighted": false
+          },
+          {
+            "title": "Ignore the Ugly Wallpaper",
+            "desc": "Separate major structural issues from minor surface updates. Outdated kitchens are easy to fix but a flawed layout is permanent.",
+            "image": "",
+            "highlighted": true
+          },
+          {
+            "title": "Lock In Your Pre-Approval",
+            "desc": "Sellers will not take you seriously without a verified commitment showing you are qualified to close from day one.",
+            "image": "",
+            "highlighted": false
+          },
+          {
+            "title": "Write a Tight, Clean Offer",
+            "desc": "Price matters, but fast timelines and protective, zero-fluff contract conditions are what actually win bidding wars.",
+            "image": "",
+            "highlighted": false
+          },
+          {
+            "title": "Budget 3% for Closing Costs",
+            "desc": "Expect an extra 2% to 3% beyond your down payment to safely cover your title, escrow, and lender fees.",
+            "image": "",
+            "highlighted": false
+          }
+        ],
+        "process_eyebrow": "Home Buying Process",
+        "process_heading": "A Clear Path to Closing",
+        "process_subtitle": "Three distinct steps designed to protect your money and eliminate the guesswork.",
+        "steps": [
+          {
+            "num": "01",
+            "title": "Book A Free Strategy Call",
+            "desc": "Skip the sales pitch. We jump on a quick call to map your budget, target neighborhoods, and secure a hassle-free pre-approval.",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Finding the Right House",
+            "desc": "We look past the polished photos on the apps, narrow down the neighborhoods that actually make sense for you, and track down the best properties on the market.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Safe Offer & Smooth Close",
+            "desc": "We use raw sales data to build a competitive offer with ironclad safeguards, vet structural inspections, and close with confidence.",
+            "image": ""
+          }
+        ],
+        "process_cta_text": "Contact Blake",
+        "process_cta_link": "/get-in-touch",
+        "faqs_intro": "Common questions from buyers. Don't see yours? Get in touch, I am happy to walk you through it."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 88,
+      "post_type": "page",
+      "slug": "seller",
+      "status": "publish",
+      "title": "Selling",
+      "acf": {
+        "hero_eyebrow": "Selling with Blake",
+        "hero_heading": "Sell Quickly.\r\nMake More Money.",
+        "hero_body": "Get the raw market data, full-service home preparation, and strategic contract negotiation you need to walk away with the most money possible.",
+        "hero_cta_text": "Contact Blake",
+        "hero_cta_link": "/get-in-touch",
+        "why_video_image": "",
+        "why_video_id": "lFMTIp7BqEg",
+        "why_eyebrow": "Why Sell With Blake",
+        "why_heading": "Maximize Your Equity",
+        "why_body": "Secure the highest return with a partner who prices with precision, transforms your property, and protects your profit.",
+        "why_bullets": [
+          {
+            "icon": "TrendingUp",
+            "title": "Data-Driven Pricing",
+            "desc": "Real-time property data and buyer patterns capture peak market momentum."
+          },
+          {
+            "icon": "Hammer",
+            "title": "Home Prep Program",
+            "desc": "We handle everything from fresh paint and flooring to junk hauling and new countertops with no upfront costs. You pay nothing until the home is sold."
+          },
+          {
+            "icon": "Shield",
+            "title": "Protective Negotiation",
+            "desc": "Aggressive contract terms defend your hard-earned equity at every turn."
+          },
+          {
+            "icon": "Handshake",
+            "title": "Direct Advocacy",
+            "desc": "Work one-on-one with a sharp, experienced professional from strategy to close."
+          }
+        ],
+        "why_cta_text": "Contact Blake",
+        "why_cta_link": "/get-in-touch",
+        "why_secondary_text": "Find Your Home Value",
+        "why_secondary_link": "/home-value-analysis",
+        "guarantee_eyebrow": "My Promise",
+        "guarantee_heading": "The Hammond Real Estate Guarantee",
+        "guarantee_body": "Four direct standards held on every single property partnership, in writing, from day one.",
+        "guarantee_items": [
+          {
+            "icon": "MessageSquare",
+            "title": "Proactive Communication",
+            "desc": "Enjoy structured weekly updates and rapid same-day responses so you always know exactly where your transaction stands."
+          },
+          {
+            "icon": "Shield",
+            "title": "Straightforward Advice",
+            "desc": "Expect transparent insight regarding property updates, market valuations, and timing choices to maximize final proceeds."
+          },
+          {
+            "icon": "TrendingUp",
+            "title": "Plain English Service",
+            "desc": "Complex paperwork and transaction logistics are translated into everyday language, keeping your path clear and stress-free."
+          },
+          {
+            "icon": "FileCheck",
+            "title": "Easy-Exit Listing Agreement",
+            "desc": "Professional service is earned every single week. If commitments are not met, you can cancel the agreement at any time."
+          }
+        ],
+        "process_eyebrow": "Home Selling Process",
+        "process_heading": "Minimize Days on Market",
+        "process_subtitle": "Four precise phases built to capture immediate buyer demand and protect your listing from becoming stagnant.",
+        "steps": [
+          {
+            "num": "01",
+            "title": "Free Consultation",
+            "desc": "Map your goals, timeline, and neighborhood pricing strategy based on local market trends.",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Prepare Your Home for Sale",
+            "desc": "We handle staging and premium video marketing. You can also take advantage of our Home Prep Program for home improvements and repairs we manage with no out-of-pocket costs or hidden fees.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Place Your Home on the Market",
+            "desc": "Attract serious buyers fast with high-impact online listings, coordinated showings, and proactive marketing.",
+            "image": ""
+          },
+          {
+            "num": "04",
+            "title": "Accept Offer & Close",
+            "desc": "Navigate offers on your home with expert negotiation, manage complex escrow paperwork, and experience a stress-free closing.",
+            "image": ""
+          }
+        ],
+        "process_cta_text": "Contact Blake",
+        "process_cta_link": "/get-in-touch",
+        "prep_before_image": "",
+        "prep_after_image": "",
+        "prep_eyebrow": "Elevate Your Market Value & Sell With Less Stress",
+        "prep_heading": "Home Prep Program",
+        "prep_body": "We handle the entire preparation process from start to finish with zero out-of-pocket costs, ensuring your house is ready to hit the market for top dollar.",
+        "prep_bullets": [
+          {
+            "num": "01",
+            "title": "Strategic Walkthrough",
+            "desc": "An in-person walkthrough identifies the exact updates, like fresh paint or new countertops, that will actually put more money in your pocket."
+          },
+          {
+            "num": "02",
+            "title": "Complete Project Management",
+            "desc": "We hire and coordinate with the contractors to handle all the labor, flooring, landscaping, and junk removal so you don't lift a finger."
+          },
+          {
+            "num": "03",
+            "title": "No Upfront Fees",
+            "desc": "We fund all of the work upfront. There are no hidden monthly fees or interest charges, and you pay absolutely nothing until the home is sold."
+          }
+        ],
+        "prep_cta_text": "Contact Blake",
+        "prep_cta_link": "/get-in-touch",
+        "prep_phone_text": "(916) 625-6118",
+        "prep_phone_link": "tel:9166256118",
+        "zillow_image": "",
+        "zillow_heading": "Zillow Showcase Drives 75% More Views",
+        "zillow_body": "As a Zillow Showcase partner, we give your home a premium listing advantage offered on less than 1% of all properties. This exclusive placement pairs high-end photography with priority positioning to drive maximum traffic and saves for your listing.",
+        "zillow_cta_text": "Contact Blake",
+        "zillow_cta_link": "/get-in-touch",
+        "zillow_secondary_text": "View on Zillow",
+        "zillow_secondary_link": "https://www.zillow.com/profile/blakehammondre",
+        "faqs_intro": "Common questions from home sellers. Don't see yours? Get in touch, I am happy to walk you through it."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 84,
+      "post_type": "page",
+      "slug": "about",
+      "status": "publish",
+      "title": "About",
+      "acf": {
+        "hero_image": "",
+        "hero_eyebrow": "About Blake",
+        "hero_heading": "I Tell You The Truth, Especially When It’s Hard.",
+        "hero_body": "A calm, protective partner who handles the contractors, guides you through complex moves, and uses a 100% funded Home Prep Program to get you the most money for your home.",
+        "hero_cta_text": "Contact Blake",
+        "hero_cta_link": "/get-in-touch",
+        "portrait_image": "",
+        "bio_eyebrow": "Meet Blake",
+        "bio_heading": "Built to Guide Families Through Complex Moves",
+        "bio_paragraphs": [
+          {
+            "text": "Real estate is about more than property, it is about guiding families safely through major life changes. Growing up with two brothers on the autism spectrum instilled an early understanding of patience, deep empathy, and how to steady families through difficult transitions."
+          },
+          {
+            "text": "Since 2020, this background has fueled a specialization in helping homeowners win in complex situations. Whether managing estate sales, divorce, job relocations, or taking over listings that failed to sell with previous agents, the focus remains on resolving challenges where traditional approaches get stuck. Advanced training under top national sales coaches translates this proven strategy into top-dollar results."
+          },
+          {
+            "text": "Outside of defending client equity, life centers around family in a local home shared with a high school sweetheart and wife, son Daniel, and a cat, Jingles."
+          }
+        ],
+        "bio_cta_text": "Contact Blake",
+        "bio_cta_link": "/get-in-touch",
+        "stats": [
+          {
+            "value": 5,
+            "prefix": "",
+            "suffix": "+",
+            "label": "Local Expert"
+          },
+          {
+            "value": 40,
+            "prefix": "$",
+            "suffix": "M+",
+            "label": "In Real Estate Sold"
+          },
+          {
+            "value": 11,
+            "prefix": "",
+            "suffix": "",
+            "label": "Average Days on Market"
+          },
+          {
+            "value": 102,
+            "prefix": "",
+            "suffix": "%",
+            "label": "Average List-to-Sale Ratio"
+          }
+        ],
+        "values_eyebrow": "What Blake stands for",
+        "values_heading": "Integrity-Driven Service\r\nfrom Start to Finish",
+        "values": [
+          {
+            "icon": "ShieldCheck",
+            "title": "Honesty Over Comfort",
+            "desc": "Expect unfiltered facts on pricing and market timing, never false promises, ensuring smart, profitable decisions."
+          },
+          {
+            "icon": "Eye",
+            "title": "Total Transparency",
+            "desc": "No being kept in the dark. Clients are fully looped in at every single stage of the transaction to always know what comes next."
+          },
+          {
+            "icon": "Puzzle",
+            "title": "Complex Problem Solving",
+            "desc": "Specializing in properties that should have sold but did not, using refined marketing systems to secure top dollar with less stress."
+          }
+        ],
+        "help_eyebrow": "How I Help",
+        "help_heading": "Real estate shouldn’t feel overwhelming.",
+        "help_body": "Skip high-pressure pitches. Expect honest advice, active market tracking, and answers that protect your money.",
+        "help_cards": [
+          {
+            "title": "Buying",
+            "image": "",
+            "href": "/buying",
+            "desc": "Find properties through unlisted home tracking, contract safeguards, and an intentional search."
+          },
+          {
+            "title": "Selling",
+            "image": "",
+            "href": "/selling",
+            "desc": "Maximize profit with accurate pricing and high-impact marketing, with the option to leverage our Home Prep Selling Program."
+          },
+          {
+            "title": "Home Prep Selling",
+            "image": "",
+            "href": "/home-prep-program",
+            "desc": "We fund and handle 100% of the cosmetic updates and staging to drive up your sale price. You pay nothing until it is sold."
+          }
+        ],
+        "faqs_intro": "Common questions about working with Blake. Don't see yours? Get in touch, I'm happy to walk you through it."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 82,
+      "post_type": "page",
+      "slug": "home-value-analysis",
+      "status": "publish",
+      "title": "Home Value Analysis",
+      "acf": {
+        "hero_image": "",
+        "hero_eyebrow": "Free Home Value Analysis",
+        "hero_heading": "What Is Your Home Worth?",
+        "hero_body": "Get a personalized, data-driven property valuation backed by real local statistics, not automated online estimates. Free. No obligation.",
+        "hero_cta_text": "Get Your Home Value",
+        "hero_cta_link": "#value-form",
+        "what_you_get_heading": "What You Get",
+        "what_you_get_subtitle": "A clear read on property value, built by hand, not by an algorithm.",
+        "what_you_get": [
+          {
+            "icon": "BadgeCheck",
+            "title": "Expert Analysis",
+            "desc": "A professional evaluation of condition, location, and neighborhood competition instead of a generic online guess."
+          },
+          {
+            "icon": "Video",
+            "title": "Custom Video Explanation",
+            "desc": "A clear video detailing the exact math behind the property numbers in plain English."
+          },
+          {
+            "icon": "TrendingUp",
+            "title": "Market-Driven Valuation",
+            "desc": "A realistic written breakdown of comparable sales, pricing strategy, and current buyer demand."
+          }
+        ],
+        "how_it_works_heading": "Here Is How It Works",
+        "how_it_works_subtitle": "Accurate analysis delivered straight to your inbox within 24 hours.",
+        "how_it_works": [
+          {
+            "num": "01",
+            "title": "Complete the Form",
+            "desc": "Share a few basic property details on this page to initiate the research."
+          },
+          {
+            "num": "02",
+            "title": "Local Data Research",
+            "desc": "Neighborhood market trends, active listings, and recent sales are personally reviewed to build a precise valuation report."
+          },
+          {
+            "num": "03",
+            "title": "Receive Your Breakdown",
+            "desc": "A comprehensive report along with a custom video explanation is delivered within one business day."
+          }
+        ],
+        "form_eyebrow": "Get Started",
+        "form_heading": "Request Your\r\nCustom Valuation",
+        "form_body": "Share a few details to receive a personalized written property report with zero algorithms or guesswork.",
+        "form_success_heading": "Thanks, the details have been received.",
+        "form_success_body": "Your personalized home value report and custom video breakdown will be delivered within one business day.",
+        "not_selling_heading": "Not Selling Yet? That's Okay.",
+        "not_selling_subtitle": "Tracking property equity is a smart way to plan ahead. Knowing true property value helps build long-term plans with confidence. The smartest homeowners always start tracking market details early.",
+        "not_selling": [
+          {
+            "icon": "Wallet",
+            "title": "Know Your Equity",
+            "desc": "Understand exactly what the property is worth and see the total equity built over time."
+          },
+          {
+            "icon": "CalendarRange",
+            "title": "Plan Smarter",
+            "desc": "Use accurate sales metrics to plan future renovations, refinancing, or an eventual move on your terms."
+          },
+          {
+            "icon": "LineChart",
+            "title": "Stay Ahead Of The Market",
+            "desc": "Track real-time shifts before changing neighborhood conditions affect your primary asset."
+          },
+          {
+            "icon": "Compass",
+            "title": "Ditch The Guesswork",
+            "desc": "Replace automated online estimates and neighborhood rumors with a real human-vetted number."
+          }
+        ],
+        "cta_eyebrow": "Free Home Value Analysis",
+        "cta_heading": "Get A Custom Home Value Report Today",
+        "cta_body": "A free, private property valuation built straight from local market data and delivered directly to your inbox.",
+        "cta_primary_label": "Contact Blake",
+        "cta_secondary_label": "See What Your Home Is Worth"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 90,
+      "post_type": "page",
+      "slug": "home-prep-program",
+      "status": "publish",
+      "title": "Home Prep Program",
+      "acf": {
+        "hero_image": "",
+        "hero_eyebrow": "WE PREPARE YOUR HOME FOR SALE YOU PAY NOTHING UNTIL ITS SOLD",
+        "hero_heading": "Sell Your Home For Top Dollar Without The Hassle",
+        "hero_body": "We handle everything needed to get your home ready to sell — repairs, updates, cleaning, and staging. We even cover the costs upfront, so you don't have to manage the work or pay anything until your home sells.",
+        "hero_cta_text": "Schedule A Free Call",
+        "hero_cta_link": "/book-consultation",
+        "familiar_image": "",
+        "familiar_heading": "Sound Familiar?",
+        "familiar_body": "Getting a home market-ready can easily feel expensive and overwhelming.",
+        "familiar_subheading": "",
+        "familiar_worries": [
+          {
+            "text": "\"Which repairs are actually worth doing?\""
+          },
+          {
+            "text": "\"How much will this cost?\""
+          },
+          {
+            "text": "\"How do I pay for improvements?\""
+          },
+          {
+            "text": "\"Who should I hire to do it?\""
+          }
+        ],
+        "familiar_cta_text": "Schedule A Free Call",
+        "familiar_cta_link": "/book-consultation",
+        "familiar_phone_text": "916-625-6118",
+        "familiar_phone_link": "tel:9166256118",
+        "why_image": "",
+        "why_eyebrow": "Our Difference",
+        "why_heading": "Home Prep Program",
+        "why_body": "On average, clients who use our Home Prep Program sell for 10–15% more than their home’s estimated as-is value.\r\n\r\nWe handle everything needed to get your home ready to sell, so you can get top dollar without the hassle.",
+        "why_bullets": [
+          {
+            "title": "No Out-of-Pocket Costs",
+            "desc": "We can cover the cost of repairs, updates, cleaning, and staging. You pay us back when your home sells."
+          },
+          {
+            "title": "No Contractor Headache",
+            "desc": "No finding contractors or managing the work yourself. We coordinate everything from repairs and painting to cleaning and staging."
+          },
+          {
+            "title": "Net More Money",
+            "desc": "The right improvements can make a big difference. We focus on the work that will help your home show its best — and skip what isn't worth doing."
+          },
+          {
+            "title": "Premium Marketing Launch",
+            "desc": "Once your home is ready, we launch it with professional staging, photography, and marketing designed to make it stand out."
+          }
+        ],
+        "why_cta_text": "Schedule A Free Call",
+        "why_cta_link": "/book-consultation",
+        "why_secondary_text": "Free Home Value Analysis",
+        "why_secondary_link": "/home-value-analysis",
+        "process_eyebrow": "Home Prep Program Process",
+        "process_heading": "100% Funded\r\nRenovations",
+        "process_subtitle": "",
+        "steps": [
+          {
+            "num": "01",
+            "title": "Fix It Or Skip It Consultation",
+            "desc": "Walk through your property together to pinpoint what's worth fixing/renovations and what we should leave alone to maximize your home's value. ",
+            "image": ""
+          },
+          {
+            "num": "02",
+            "title": "Upfront Renovation Funding",
+            "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+            "image": ""
+          },
+          {
+            "num": "03",
+            "title": "Project Management",
+            "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+            "image": ""
+          },
+          {
+            "num": "04",
+            "title": "Staging & Media",
+            "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+            "image": ""
+          },
+          {
+            "num": "05",
+            "title": "High-Profit Close",
+            "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+            "image": ""
+          }
+        ],
+        "process_cta_text": "Schedule A Free Call",
+        "process_cta_link": "/book-consultation",
+        "process_secondary_text": "Free Home Value Analysis",
+        "process_secondary_link": "/home-value-analysis",
+        "included_eyebrow": "What's Included",
+        "included_heading": "We Manage the Contractors\r\n& Cover the Costs",
+        "included_cards": [
+          {
+            "title": "Painting",
+            "desc": "Interior updates and exterior refreshes that instantly elevate first impressions in every online photo.",
+            "image": ""
+          },
+          {
+            "title": "Landscaping",
+            "desc": "Curb-appeal cleanups including trimming, fresh mulch, and pressure-washing so the property looks inviting from the street.",
+            "image": ""
+          },
+          {
+            "title": "Repairs & Upgrades",
+            "desc": "Fixing minor issues that stall negotiations, such as drywall patches, modern light fixtures, and hardware updates.",
+            "image": ""
+          },
+          {
+            "title": "Staging",
+            "desc": "Professional space styling that helps prospective buyers easily see themselves living in the home.",
+            "image": ""
+          },
+          {
+            "title": "Deep Cleaning",
+            "desc": "A meticulous, top-to-bottom clean of windows, floors, kitchens, and baths so the entire home feels completely move-in ready.",
+            "image": ""
+          },
+          {
+            "title": "Photography & Media",
+            "desc": "Vibrant imagery, drone views, and cinematic video walkthroughs to capture buyers browsing online.",
+            "image": ""
+          },
+          {
+            "title": "Junk Hauling",
+            "desc": "Clearing out clutter and unwanted items so your home feels spacious and ready for buyers.",
+            "image": ""
+          },
+          {
+            "title": "Estate Sales",
+            "desc": "Organizing and managing the liquidation of household items to clean out the property before listing.",
+            "image": ""
+          }
+        ],
+        "case_section_heading": "Before & After Case Study",
+        "case_before_image": "",
+        "case_after_image": "",
+        "case_eyebrow": "Roseville, CA",
+        "case_heading": "Our Home Prep Program Put an Extra\r\n$50,000 in Our Client's Pocket",
+        "case_body": "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation. Netting our client 50k more after costs considered. ",
+        "case_bullets": [
+          {
+            "text": "Multiple cash offers received and closed during the first weekend on the market."
+          },
+          {
+            "text": "Sold for $75,000 over the as-is property valuation before renovations."
+          },
+          {
+            "text": "All without the owner having to lift a finger or spend a dime up front."
+          }
+        ],
+        "case_cta_text": "Schedule A Free Call",
+        "case_cta_link": "/book-consultation",
+        "case_phone_text": "(916) 625-6118",
+        "case_phone_link": "tel:9166256118",
+        "faqs_intro": "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 80,
+      "post_type": "page",
+      "slug": "connect",
+      "status": "publish",
+      "title": "Get In Touch",
+      "acf": {
+        "hero_image": "",
+        "eyebrow": "Get in Touch",
+        "heading": "Let's talk about\r\nyour next move.",
+        "body": "Whether you are buying, selling, or just exploring the market, every message receives a personal reply. No call centers, no scripts, and no generic answers.",
+        "ps": "P.S. In case you are wondering, yes, the hat says “Make Realtors Great Again.” And no, it is not political. It is a mindset. This industry is full of mediocrity, and Blake is here to raise the bar.",
+        "form_eyebrow": "Send a Message",
+        "form_heading": "Tell us about your move.",
+        "success_heading": "Message received.",
+        "success_body": "Thanks for reaching out. A personal response will be sent to your inbox within one business day.",
+        "email_card_title": "Email Anytime",
+        "email_card_desc": "A direct response will be sent as soon as possible, usually the same day.",
+        "email": "blakehammondre@gmail.com",
+        "phone_card_title": "Call or Text",
+        "phone_card_desc": "If the line is busy, leave a voicemail or shoot over a text message for a reply within 24 hours.",
+        "phone": "916-625-6118"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 77,
+      "post_type": "page",
+      "slug": "book-consultation",
+      "status": "publish",
+      "title": "Book A Consultation",
+      "acf": {
+        "eyebrow": "Thanks for reaching out",
+        "heading": "Book A 15 Minute\r\nCall With Blake",
+        "body": "Make your move simple and stress-free. Whether you are buying or selling, this conversation is designed to help you feel confident every step of the way with straightforward, honest communication.",
+        "expectations": [
+          {
+            "title": "A Real Conversation",
+            "desc": "A quick chat to understand specific family goals and timelines with no pressure and no script."
+          },
+          {
+            "title": "Honest Market Context",
+            "desc": "Clear property data on where active market buyers are right now and what that means for your equity."
+          },
+          {
+            "title": "A Clear Next Step",
+            "desc": "Walk away from the conversation with a simple roadmap, whether a move is planned in 30 days or 12 months."
+          }
+        ],
+        "body2": "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time.",
+        "schedule_text": "Schedule Your Call",
+        "schedule_link": "#calendar",
+        "calendar_heading": "Calendar Embed",
+        "calendar_text": "Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here.",
+        "calendar_embed": "",
+        "confirm_text": "Confirm Booking",
+        "confirm_link": "/booked"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 76,
+      "post_type": "page",
+      "slug": "booked",
+      "status": "publish",
+      "title": "Booked",
+      "acf": {
+        "badge": "Call Booked",
+        "heading": "Watch This Video\r\nBefore Our Call",
+        "body": "You are all set. Take 4 minutes to watch this short walkthrough video. It will help make our upcoming conversation faster, smoother, and much more useful for your planning.",
+        "video_embed": "",
+        "button_text": "Get In Touch",
+        "button_link": "/thank-you"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 75,
+      "post_type": "page",
+      "slug": "thank-you",
+      "status": "publish",
+      "title": "Thank You",
+      "acf": {
+        "heading": "Thank You.",
+        "body": "Your submission has been received. A personal response will be sent to your inbox shortly to discuss your property goals.",
+        "button_text": "Back To Home",
+        "button_link": "/"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 92,
+      "post_type": "page",
+      "slug": "faqs",
+      "status": "publish",
+      "title": "FAQs",
+      "acf": {
+        "heading": "Frequently Asked Questions",
+        "intro": "Clear answers to the questions homeowners, buyers, and sellers ask most when preparing for their next move."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 130,
+      "post_type": "page",
+      "slug": "privacy-policy",
+      "status": "publish",
+      "title": "Privacy Policy",
+      "acf": [],
+      "native": {
+        "content": "<p>Hammond Realty values your privacy. This Privacy Policy explains how we collect, use, and protect your information.</p>\n<h2>Information We Collect</h2>\n<p>We may collect personal information such as your name, phone number, email address, and property preferences when you:</p>\n<ul>\n<li>Fill out a contact form on our website</li>\n<li>Request a home valuation</li>\n<li>Subscribe to receive updates or messages from us</li>\n</ul>\n<h2>How We Use Your Information</h2>\n<p>We use the information you provide to:</p>\n<ul>\n<li>Communicate with you about real estate services</li>\n<li>Send you updates, follow-ups, and other relevant messages</li>\n<li>Improve our services and personalize your experience</li>\n</ul>\n<h2>SMS Consent</h2>\n<p>By submitting your phone number, you consent to receive SMS messages from Hammond Realty. Message and data rates may apply. Message frequency may vary. You can reply STOP at any time to opt out, or HELP for more information.</p>\n<p>No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>\n<h2>Data Protection</h2>\n<p>Your data is securely stored and only accessed by authorized personnel. We will never sell, rent, or share your information with outside parties.</p>\n<h2>Contact Us</h2>\n<p>If you have questions about this Privacy Policy, contact us at:</p>\n<p><strong>Hammond Realty</strong><br /><a href=\"tel:9166256118\">(916) 625-6118</a><br /><a href=\"mailto:blakehammondre@gmail.com\">blakehammondre@gmail.com</a></p>\n",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 46,
+      "post_type": "faq",
+      "slug": "how-does-the-home-prep-selling-program-work",
+      "status": "publish",
+      "title": "How does the Home Prep Selling Program work?",
+      "acf": {
+        "question": "How does the Home Prep Selling Program work?",
+        "answer": "The program fronts the entire cost of updates, staging, and cosmetic repairs that drive a premium sale price. Homeowners pay nothing upfront, and the renovation investment is settled comfortably at closing out of your sale proceeds."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 47,
+      "post_type": "faq",
+      "slug": "what-geographic-areas-are-covered",
+      "status": "publish",
+      "title": "What geographic areas are covered?",
+      "acf": {
+        "question": "What geographic areas are covered?",
+        "answer": "We serve the greater Sacramento region, including Sacramento, Placer, Yuba, Sutter, Nevada, and El Dorado counties."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 1
+      }
+    },
+    {
+      "id": 48,
+      "post_type": "faq",
+      "slug": "how-long-does-it-take-to-sell-a-home",
+      "status": "publish",
+      "title": "How long does it take to sell a home?",
+      "acf": {
+        "question": "How long does it take to sell a home?",
+        "answer": "The baseline average is 11 days on market with a 102% list-to-sale ratio, running well ahead of standard regional benchmarks. Timelines vary based on price point, condition, and current market conditions."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 2
+      }
+    },
+    {
+      "id": 49,
+      "post_type": "faq",
+      "slug": "do-you-work-with-first-time-buyers",
+      "status": "publish",
+      "title": "Do you work with first-time buyers?",
+      "acf": {
+        "question": "Do you work with first-time buyers?",
+        "answer": "Yes, absolutely. First-time buyers receive complete guidance from pre-approval to closing day, including lender introductions, neighborhood market data, and competitive offer strategy."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 3
+      }
+    },
+    {
+      "id": 50,
+      "post_type": "faq",
+      "slug": "what-does-the-commission-structure-look-like",
+      "status": "publish",
+      "title": "What does the commission structure look like?",
+      "acf": {
+        "question": "What does the commission structure look like?",
+        "answer": "Commission is completely transparent and tailored directly to the specific scope of service. The numbers are reviewed in detail during the initial consultation with zero hidden fees."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 4
+      }
+    },
+    {
+      "id": 51,
+      "post_type": "faq",
+      "slug": "how-much-do-i-need-saved-to-buy-a-home",
+      "status": "publish",
+      "title": "How much do I need saved to buy a home?",
+      "acf": {
+        "question": "How much do I need saved to buy a home?",
+        "answer": "Plan for a 3% to 10% down payment, plus 2% to 3% for closing costs. A trusted lender will map out your exact numbers."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 5
+      }
+    },
+    {
+      "id": 52,
+      "post_type": "faq",
+      "slug": "should-i-get-pre-approved-before-we-start-touring",
+      "status": "publish",
+      "title": "Should I get pre-approved before we start touring?",
+      "acf": {
+        "question": "Should I get pre-approved before we start touring?",
+        "answer": "Yes. It locks in your actual budget and proves to sellers that you are a serious, qualified buyer the moment you submit an offer."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 6
+      }
+    },
+    {
+      "id": 53,
+      "post_type": "faq",
+      "slug": "how-long-does-it-take-to-find-and-close-on-a-home",
+      "status": "publish",
+      "title": "How long does it take to find and close on a home?",
+      "acf": {
+        "question": "How long does it take to find and close on a home?",
+        "answer": "Once an offer is accepted, closing typically takes 30 to 60 days. The upfront search timeline depends entirely on your criteria and inventory."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 7
+      }
+    },
+    {
+      "id": 54,
+      "post_type": "faq",
+      "slug": "do-you-help-with-off-market-or-coming-soon-listings",
+      "status": "publish",
+      "title": "Do you help with off-market or coming-soon listings?",
+      "acf": {
+        "question": "Do you help with off-market or coming-soon listings?",
+        "answer": "Yes. An active professional network uncovers properties before they hit public search apps, giving you an early advantage."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 8
+      }
+    },
+    {
+      "id": 55,
+      "post_type": "faq",
+      "slug": "what-does-it-cost-to-work-with-you-as-a-buyer",
+      "status": "publish",
+      "title": "What does it cost to work with you as a buyer?",
+      "acf": {
+        "question": "What does it cost to work with you as a buyer?",
+        "answer": "All representation and industry commission structures are explained transparently during our very first conversation with zero surprises."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 9
+      }
+    },
+    {
+      "id": 56,
+      "post_type": "faq",
+      "slug": "how-do-you-decide-on-a-list-price",
+      "status": "publish",
+      "title": "How do you decide on a list price?",
+      "acf": {
+        "question": "How do you decide on a list price?",
+        "answer": "Recent neighborhood sales are analyzed, your home's unique features are evaluated, and current buyer demand is measured to set a strategic asking price."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 10
+      }
+    },
+    {
+      "id": 57,
+      "post_type": "faq",
+      "slug": "what-does-your-prep-program-include",
+      "status": "publish",
+      "title": "What does your prep program include?",
+      "acf": {
+        "question": "What does your prep program include?",
+        "answer": "It covers the initial property consultation, direct contractor coordination, professional staging, and high-end photography and video production."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 11
+      }
+    },
+    {
+      "id": 58,
+      "post_type": "faq",
+      "slug": "how-long-does-it-take-to-sell",
+      "status": "publish",
+      "title": "How long does it take to sell?",
+      "acf": {
+        "question": "How long does it take to sell?",
+        "answer": "Accurately priced, well-prepared homes typically secure competitive interest within the first few weeks. Timelines are intentionally aligned around your moving goals."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 12
+      }
+    },
+    {
+      "id": 59,
+      "post_type": "faq",
+      "slug": "what-does-it-cost-to-list-with-you",
+      "status": "publish",
+      "title": "What does it cost to list with you?",
+      "acf": {
+        "question": "What does it cost to list with you?",
+        "answer": "All marketing, representation, and commission structures are reviewed transparently during our first call with zero surprises or restrictive terms."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 13
+      }
+    },
+    {
+      "id": 60,
+      "post_type": "faq",
+      "slug": "will-you-handle-showings-and-feedback",
+      "status": "publish",
+      "title": "Will you handle showings and feedback?",
+      "acf": {
+        "question": "Will you handle showings and feedback?",
+        "answer": "Yes. Every showing is fully coordinated, hosted, and tracked, with direct buyer feedback shared during your regular weekly update."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 14
+      }
+    },
+    {
+      "id": 61,
+      "post_type": "faq",
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront",
+      "status": "publish",
+      "title": "How much does the Home Prep Selling Program cost upfront?",
+      "acf": {
+        "question": "How much does the Home Prep Selling Program cost upfront?",
+        "answer": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 15
+      }
+    },
+    {
+      "id": 62,
+      "post_type": "faq",
+      "slug": "what-if-my-home-doesnt-end-up-selling",
+      "status": "publish",
+      "title": "What if my home doesn't end up selling?",
+      "acf": {
+        "question": "What if my home doesn't end up selling?",
+        "answer": "Complete transparency is maintained regarding the rare scenarios where costs would be owed, and the straightforward agreement is reviewed together before any work begins."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 16
+      }
+    },
+    {
+      "id": 63,
+      "post_type": "faq",
+      "slug": "how-long-does-the-renovation-process-usually-take",
+      "status": "publish",
+      "title": "How long does the renovation process usually take?",
+      "acf": {
+        "question": "How long does the renovation process usually take?",
+        "answer": "Most homes are market-ready within 2 to 4 weeks depending on the scope of the updates. A clear timeline is provided during the initial walkthrough."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 17
+      }
+    },
+    {
+      "id": 64,
+      "post_type": "faq",
+      "slug": "do-i-have-to-use-your-renovation-contractors",
+      "status": "publish",
+      "title": "Do I have to use your renovation contractors?",
+      "acf": {
+        "question": "Do I have to use your renovation contractors?",
+        "answer": "A vetted network is what keeps the program running quickly and smoothly, but any specific parts you prefer to handle yourself can easily be accommodated."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 18
+      }
+    },
+    {
+      "id": 65,
+      "post_type": "faq",
+      "slug": "will-i-be-involved-in-design-and-approval-decisions",
+      "status": "publish",
+      "title": "Will I be involved in design and approval decisions?",
+      "acf": {
+        "question": "Will I be involved in design and approval decisions?",
+        "answer": "Always. You maintain final approval over the project scope, finishes, and budget before work starts, backed by clear weekly progress updates."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 19
+      }
+    },
+    {
+      "id": 66,
+      "post_type": "faq",
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront-2",
+      "status": "publish",
+      "title": "How much does the Home Prep Selling Program cost upfront?",
+      "acf": {
+        "question": "How much does the Home Prep Selling Program cost upfront?",
+        "answer": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 20
+      }
+    },
+    {
+      "id": 67,
+      "post_type": "faq",
+      "slug": "what-if-my-home-doesnt-sell",
+      "status": "publish",
+      "title": "What if my home doesn't sell?",
+      "acf": {
+        "question": "What if my home doesn't sell?",
+        "answer": "If you take your home off the market before it sells, you simply pay back the actual renovation costs spent. We review everything together upfront so there are zero surprises."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 21
+      }
+    },
+    {
+      "id": 68,
+      "post_type": "faq",
+      "slug": "how-long-does-the-renovation-take",
+      "status": "publish",
+      "title": "How long does the renovation take?",
+      "acf": {
+        "question": "How long does the renovation take?",
+        "answer": "Typically 1 to 2 weeks, depending on the scope. We will provide an exact, clear timeline during our initial walkthrough."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 22
+      }
+    },
+    {
+      "id": 69,
+      "post_type": "faq",
+      "slug": "do-i-have-to-use-your-contractors",
+      "status": "publish",
+      "title": "Do I have to use your contractors?",
+      "acf": {
+        "question": "Do I have to use your contractors?",
+        "answer": "Yes. To guarantee quality and stay on schedule, we use our own vetted network of local tradespeople and cannot bring in outside vendors."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 23
+      }
+    },
+    {
+      "id": 70,
+      "post_type": "faq",
+      "slug": "will-i-be-involved-in-budget-decisions",
+      "status": "publish",
+      "title": "Will I be involved in budget decisions?",
+      "acf": {
+        "question": "Will I be involved in budget decisions?",
+        "answer": "Absolutely. Before any work begins, you will sign off on the exact project bid, scope of work, and clear budget."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 24
+      }
+    },
+    {
+      "id": 71,
+      "post_type": "faq",
+      "slug": "what-situations-do-you-specialize-in",
+      "status": "publish",
+      "title": "What situations do you specialize in?",
+      "acf": {
+        "question": "What situations do you specialize in?",
+        "answer": "Traditional moves are fully supported, but expertise excels in complex sales, including estates, divorce, relocations, and listings that failed to sell previously."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 25
+      }
+    },
+    {
+      "id": 72,
+      "post_type": "faq",
+      "slug": "why-emphasize-direct-honesty",
+      "status": "publish",
+      "title": "Why emphasize direct honesty?",
+      "acf": {
+        "question": "Why emphasize direct honesty?",
+        "answer": "Real numbers are essential for smart financial decisions. Equity is protected with facts rather than temporary comfort or market lies."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 26
+      }
+    },
+    {
+      "id": 73,
+      "post_type": "faq",
+      "slug": "will-i-work-directly-with-blake",
+      "status": "publish",
+      "title": "Will I work directly with Blake?",
+      "acf": {
+        "question": "Will I work directly with Blake?",
+        "answer": "Yes. Direct access to Blake is standard from start to finish with no call centers, hand-offs, or junior representatives."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 27
+      }
+    },
+    {
+      "id": 74,
+      "post_type": "faq",
+      "slug": "how-does-your-advanced-training-help-me",
+      "status": "publish",
+      "title": "How does your advanced training help me?",
+      "acf": {
+        "question": "How does your advanced training help me?",
+        "answer": "Coached by top real estate consultants, field-tested negotiation and pricing techniques are deployed to consistently beat average neighborhood days on market."
+      },
+      "native": {
+        "content": "",
+        "menu_order": 28
+      }
+    },
+    {
+      "id": 43,
+      "post_type": "testimonial",
+      "slug": "thomas-thornton",
+      "status": "publish",
+      "title": "Thomas Thornton",
+      "acf": {
+        "quote": "Thoughtful, patient, understanding, and trustworthy. Blake was our 3rd realtor for our recent home sale. He delivered on his expectations for the home and had great communication throughout the whole process. Listened to his expertise, home listed at the right price point, and sold for over asking price, 36 hours after being listed. In Blake we trust! Couldn’t have asked for a better person.",
+        "reviewer_name": "Thomas Thornton",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 0
+      }
+    },
+    {
+      "id": 44,
+      "post_type": "testimonial",
+      "slug": "christine-smith",
+      "status": "publish",
+      "title": "Christine Smith",
+      "acf": {
+        "quote": "Excellent experience with Blake. He was friendly, supportive throughout the process, provided clear recommendations, and worked with us to accommodate two busy professionals! The house sold extremely quickly and his marketing and staging were wonderfully done. So appreciate him and would recommend him.",
+        "reviewer_name": "Christine Smith",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 1
+      }
+    },
+    {
+      "id": 45,
+      "post_type": "testimonial",
+      "slug": "larry-ciche",
+      "status": "publish",
+      "title": "Larry Ciche",
+      "acf": {
+        "quote": "I selected Blake Hammond who did an outstanding job. I feel he went above and beyond what was required for the sale. His selection was very much based on the information that I provided, and I feel that Blake provides a very good service to those who are unfamiliar with the real estate world. I believe that he deserves ten stars for making this transaction possible in a short time, gathering all other services related to the sale, and communicating effectively to finish with grace.",
+        "reviewer_name": "Larry Ciche",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "native": {
+        "content": "",
+        "menu_order": 2
+      }
+    }
+  ]
+}

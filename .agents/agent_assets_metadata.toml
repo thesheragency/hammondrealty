@@ -1,0 +1,30 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "sM634-mo5gsm05IAlZP7P"
+uri = "file://acf-audit-report-2026-09-23.md"
+type = "text"
+title = "ACF Content Parity Audit"
+description = "Full MISMATCH and ACF EMPTY table, content without ACF fields, ignored ACF fields, root causes, and existing WordPress media matches."
+logical_id = "dd29ac65-68c0-4cdb-9e13-e6f6c00e237c"
+content_hash = "sha256:822b55b754c2fe90070fd01a0aad9e87570ed0be83bbcd6572509ff32218be11"
+size = 14228
+mtime_ms = 1790104956491
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/dd29ac65-68c0-4cdb-9e13-e6f6c00e237c/652f3985-4049-448c-b9c4-a51a9bbcafdf"
+storage_version_token = "1790104979134221"
+content_type = "text/markdown"
+
+[[outputs]]
+id = "HjGGCBbBrrgTmqeuDvWXE"
+uri = "file://acf-backup-2026-09-23.json"
+type = "unspecified"
+title = "WordPress ACF Backup — 2026-09-23"
+description = "Read-only backup of current ACF and rendered native content for 44 in-scope published WordPress objects, captured before any updates."
+logical_id = "396546c7-7da8-4d8c-963d-cb8a2e533bff"
+content_hash = "sha256:a91fcab3cbd699c93f27349d15aad729e3b16cd0760b47490827a19f3691ff78"
+size = 61430
+mtime_ms = 1790104769250
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/396546c7-7da8-4d8c-963d-cb8a2e533bff/0adfb52f-de4b-44aa-9853-246cf5b3c78b"
+storage_version_token = "1790104980593218"
+content_type = "application/octet-stream"
