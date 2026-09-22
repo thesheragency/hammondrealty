@@ -1,0 +1,63 @@
+I need you to fix a content mismatch between this headless frontend and the WordPress backend.
+
+## The problem
+The content in the WordPress ACF fields doesn't match what's showing on the live frontend. The FRONTEND IS THE SOURCE OF TRUTH. Your job is to update the ACF field values in WordPress so they match the frontend exactly.
+
+## Hard rules
+- DO NOT change any frontend code, components, styles, routes, or copy in this Repl.
+- DO NOT change the ACF field group structure (no adding, removing, renaming, or retyping fields).
+- DO NOT delete any WordPress content, posts, pages, or media.
+- ONLY update the values stored in existing ACF fields.
+- Do not write anything to WordPress until I approve the audit report (Step 3).
+
+## WordPress access
+- WordPress site: [WP ADMIN URL]
+- Use the WP REST API with an Application Password.
+- Credentials are in Replit Secrets as WP_USER and WP_APP_PASSWORD. Never print them, log them, or hardcode them.
+- If ACF fields aren't exposed in the REST API ("Show in REST API" is off for a field group), stop and tell me which field groups need it turned on. Don't try to work around it.
+
+## Scope
+[ALL PAGES / or list: Home, About, Services, Contact, etc.]
+
+## Step 1: Figure out why they're out of sync
+Before changing anything, look at how the frontend gets its content and tell me what's actually happening. Check for:
+- Hardcoded text in components that was never connected to ACF
+- Fallback/default values (e.g. `field ?? "Default text"`) that show when an ACF field is empty
+- Local JSON, mock data, or cached/static content files being used instead of the live API
+- Content being fetched from the wrong post ID, page, or environment (staging vs production)
+- Build-time caching (SSG/ISR) serving old content
+
+## Step 2: Build a mapping
+For each page in scope, map every piece of rendered content to its ACF field:
+- Page / post ID
+- ACF field name (and full path for repeaters, groups, and flexible content, e.g. `hero.buttons[0].label`)
+- Field type
+- Current value in WordPress
+- Value rendered on the frontend
+- Where the frontend value comes from (ACF, hardcoded, fallback, local file)
+- Status: MATCH / MISMATCH / ACF EMPTY / NO ACF FIELD EXISTS
+
+## Step 3: Audit report (stop here and wait for my approval)
+Show me the report as a table with only the MISMATCH and ACF EMPTY rows, plus a separate list of any frontend content that has NO matching ACF field (I'll decide what to do with those; don't create fields).
+Also save a full backup of the current ACF values for every page in scope to `acf-backup-[date].json` before any writes.
+
+## Step 4: Apply updates (only after I approve)
+- Update the ACF values to match the frontend exactly: same wording, punctuation, capitalization, line breaks, and links.
+- Handle field types correctly:
+  - WYSIWYG: keep the same HTML formatting the frontend renders (paragraphs, bold, lists, links)
+  - Link fields: set url, title, and target
+  - Image fields: use the existing WordPress media ID that matches the frontend image. If the image isn't in the Media Library, list it for me instead of uploading.
+  - Repeaters / flexible content: keep row order and row count matching the frontend. Write the full array, not partial rows, so existing rows don't get wiped.
+  - True/false, select, and number fields: match the type WordPress expects
+- Update one page at a time and log each change (page, field, old value, new value).
+
+## Step 5: Verify
+- Re-fetch every updated field from the REST API and confirm it matches the frontend.
+- Report anything that failed or couldn't be updated.
+- Give me a list of places where the frontend is still using hardcoded or fallback content instead of ACF, so we know which spots the client won't be able to edit from WordPress. Don't fix those, just list them.
+
+## Output I want at the end
+1. Root cause summary (2-3 sentences)
+2. Change log (page, field, old → new)
+3. Anything skipped and why
+4. Location of the backup file
