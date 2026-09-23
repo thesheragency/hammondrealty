@@ -4,3 +4,4 @@
 - [Design parity checks](design-parity.md) — how to diff against the original design site; gf form styles need `!important` over shadcn utility classes; WP staging outage mimics app bugs.
 - [ACF REST repeater images](acf-rest-repeater-images.md) — full repeater writes reject blank image strings; send null for intentionally empty image cells.
 - [ACF live source of truth](acf-live-source.md) — parity preserves published visible content, not workspace defaults; deployed output can differ from current REST values.
+- [Live release boundaries](live-release-boundaries.md) — GitHub commits, Replit publishing, DigitalOcean origin deployment, and Cloudflare cache are separate; verify ownership and each layer.
