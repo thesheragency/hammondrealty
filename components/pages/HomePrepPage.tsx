@@ -515,7 +515,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
                 {tc(acf?.heroHeading) || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing.</p>
+              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">
+                {acf?.heroBody || "I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing."}
+              </p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href={acf?.heroCtaLink || "/book-consultation"}
@@ -690,8 +692,8 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                     {acf?.processEyebrow || "Home Prep Program Process"}
                   </p>
-                  <h2 className="text-h2 font-bold leading-tight mb-3">
-                    {"How the Home Prep Program Works"}
+                  <h2 className="text-h2 font-bold leading-tight mb-3 whitespace-pre-line">
+                    {tc(acf?.processHeading) || "How the Home Prep Program Works"}
                   </h2>
                   <p className="text-foreground/70">
                     {acf?.processSubtitle || "5 steps to a stress-free, high-profit sale."}

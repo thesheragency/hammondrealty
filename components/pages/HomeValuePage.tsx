@@ -248,7 +248,7 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
                   {acf?.formEyebrow || "Get Started"}
                 </p>
                 <h2 className="text-h2 font-bold leading-tight mb-6">
-                  Find Out What Your Home Is Worth
+                  {tc(acf?.formHeading) || "Find Out What Your Home Is Worth"}
                 </h2>
                 <p className="text-foreground/70 leading-relaxed text-lg max-w-md">
                   {acf?.formBody || "Share a few details to receive a personalized written property report with zero algorithms or guesswork."}
@@ -313,7 +313,7 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
 
         <CtaSection
           eyebrow={acf?.ctaEyebrow || "Free Home Value Analysis"}
-          heading="What Is Your Home Worth in 2026?"
+          heading={tc(acf?.ctaHeading) || "What Is Your Home Worth in 2026?"}
           body={acf?.ctaBody || "A free, private property valuation built straight from local market data and delivered directly to your inbox."}
           primaryLabel={acf?.ctaPrimaryLabel || "Contact Blake"}
           secondaryLabel={acf?.ctaSecondaryLabel || "See What Your Home Is Worth"}

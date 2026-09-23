@@ -30,7 +30,8 @@ const defaultExpectations = [
 ];
 
 export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
-  const expectations = defaultExpectations;
+  const expectations: { title: string; desc: string }[] =
+    acf?.expectations?.length ? acf.expectations : defaultExpectations;
 
   const [step, setStep] = useState<"form" | "success" | "calendar">("form");
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", notes: "" });
@@ -113,11 +114,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                   {acf?.eyebrow || "Thanks for reaching out"}
                 </p>
                 <h1 className="text-h1 font-bold leading-[1.05] tracking-tight mb-6">
-                  Book a 15-Minute Call With Blake
+                  {tc(acf?.heading) || "Book a 15-Minute Call With Blake"}
                 </h1>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md mb-8">
-                  Thinking about selling, but not sure what your home needs before it hits the market? We'll talk through your property, your goals, and what—if anything—would be worth doing before you sell.
+                  {acf?.body || "Thinking about selling, but not sure what your home needs before it hits the market? We'll talk through your property, your goals, and what—if anything—would be worth doing before you sell."}
                 </p>
 
                 <ul className="space-y-4 mb-8">
@@ -135,7 +136,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                 </ul>
 
                 <p className="text-foreground/70 leading-relaxed text-base max-w-md">
-                  No pressure and no obligation. Pick a time that works for you and we'll spend about 15 minutes talking through your home and what you're trying to accomplish.
+                  {acf?.body2 || "No pressure and no obligation. Pick a time that works for you and we'll spend about 15 minutes talking through your home and what you're trying to accomplish."}
                 </p>
               </div>
 
@@ -272,7 +273,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
                           data-testid="button-bc-submit"
                         >
-                          {submitting ? "Sending…" : "Continue to Booking"}
+                          {submitting ? "Sending…" : (acf?.scheduleText || "Continue to Booking")}
                         </Button>
                       </form>
                     </motion.div>

@@ -116,6 +116,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: "/get-in-touch",
+        destination: "/connect",
+        permanent: true,
+      },
       // www → non-www: permanent redirect covering all paths (including robots.txt, sitemaps, etc.)
       // Using next.config redirects rather than proxy.ts so it applies reliably with Turbopack builds.
       // Hardcoding the destination origin prevents open-redirect attacks.

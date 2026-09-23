@@ -595,7 +595,9 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 <h2 className="text-h2 font-bold leading-tight mb-6">
                   {tc(acf?.prepHeading) || "Make Your Home as Valuable as Possible"}
                 </h2>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">{"We prepare your home for sale. You pay nothing until it's sold."}</p>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">
+                  {acf?.prepBody || "We prepare your home for sale. You pay nothing until it's sold."}
+                </p>
 
                 <ul className="space-y-4 mb-4 lg:mb-10">
                   {prep.map((b: any) => (
@@ -624,7 +626,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
 
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild variant="outline" className="rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href="/home-prep-program">Learn More</Link>
+                    <Link href={acf?.prepCtaLink || "/home-prep-program"}>{acf?.prepCtaText || "Learn More"}</Link>
                   </Button>
                 </div>
               </div>

@@ -209,13 +209,13 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                   </h1>
                   <p className="text-lg md:text-xl text-foreground/70 mb-10 leading-relaxed max-w-xl">{acf?.heroBody || "Write sharp offers and out-negotiate the competition so you get the house you want without overpaying."}</p>
                   <a
-                    href="tel:9166256118"
+                    href={acf?.heroCtaLink || "tel:9166256118"}
                     className="inline-flex items-center gap-3 text-foreground font-semibold text-lg hover:text-foreground/70 transition-colors"
                   >
                     <span className="inline-flex items-center justify-center w-10 h-10 bg-foreground/10 rounded-full">
                       <Phone className="w-4 h-4" />
                     </span>
-                    916-625-6118
+                    {acf?.heroCtaText || "916-625-6118"}
                   </a>
                 </div>
               </motion.div>
