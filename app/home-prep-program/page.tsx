@@ -3,7 +3,9 @@ import { buildMetadata } from '@/lib/seo-helpers';
 import { fetchHomePrepAcf, fetchTestimonials } from '@/lib/wp-acf';
 import HomePrepPage from '@/components/pages/HomePrepPage';
 
-export const revalidate = 1800;
+// This landing page must reflect ACF edits on the next request, even if a
+// WordPress webhook is delayed or an editor views it before ISR revalidation.
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({

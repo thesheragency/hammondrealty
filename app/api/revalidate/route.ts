@@ -84,13 +84,13 @@ export async function POST(request: NextRequest) {
       // covered by the dynamic /[slug] route, so purge the whole layout
       // and the shared WP data cache to make edits visible immediately.
       revalidatePath('/', 'layout');
-      revalidateTag('wp-content', 'max');
+      revalidateTag('wp-content', { expire: 0 });
       revalidatedPaths.push('/ (all pages)', 'wp-content tag');
     }
 
     if (type === 'all') {
       revalidatePath('/', 'layout');
-      revalidateTag('wp-content', 'max');
+      revalidateTag('wp-content', { expire: 0 });
       revalidatedPaths.push('/ (entire site)');
     }
 
@@ -99,6 +99,14 @@ export async function POST(request: NextRequest) {
         { error: 'No path, type, or slug provided' },
         { status: 400 }
       );
+    }
+
+    // WordPress sends both a path and a slug on individual saves. Purging only
+    // the route leaves the tagged GraphQL fetch cached for up to 30 minutes.
+    // Expire it immediately rather than serving a stale-while-revalidate result.
+    if (type !== 'all' && !(type === 'pages' && !slug)) {
+      revalidateTag('wp-content', { expire: 0 });
+      revalidatedPaths.push('wp-content tag');
     }
 
     console.log(`[Revalidate] Purged cache for: ${revalidatedPaths.join(', ')}`);
@@ -140,12 +148,13 @@ export async function GET(request: NextRequest) {
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   revalidatePath(normalizedPath);
+  revalidateTag('wp-content', { expire: 0 });
 
   console.log(`[Revalidate] Purged cache for: ${normalizedPath}`);
 
   return NextResponse.json({
     success: true,
-    revalidated: [normalizedPath],
+    revalidated: [normalizedPath, 'wp-content tag'],
     timestamp: new Date().toISOString(),
   });
 }
