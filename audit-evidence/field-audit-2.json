@@ -1,0 +1,806 @@
+{
+  "scope": [
+    "components/pages/BookConsultationPage.tsx",
+    "components/pages/BookedPage.tsx",
+    "components/pages/ThankYouPage.tsx",
+    "components/pages/FaqsPage.tsx"
+  ],
+  "sourceOfTruth": "Captured production visible copy in audit-evidence/live-*.html; scripts excluded from visible evidence.",
+  "entries": [
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "eyebrow",
+      "current": "Thanks for reaching out",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.eyebrow; confirmed visible as “Thanks for reaching out” in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "heading",
+      "current": "Book A 15 Minute\r\nCall With Blake",
+      "classification": "ignored-with-counterpart",
+      "desired": "Book a 15-Minute Call With Blake",
+      "evidence": "ACF is not read; hardcoded H1 is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "body",
+      "current": "Make your move simple and stress-free. Whether you are buying or selling, this conversation is designed to help you feel confident every step of the way with straightforward, honest communication.",
+      "classification": "ignored-with-counterpart",
+      "desired": "Thinking about selling, but not sure what your home needs before it hits the market? We'll talk through your property, your goals, and what—if anything—would be worth doing before you sell.",
+      "evidence": "ACF is not read; hardcoded lead paragraph is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.0.title",
+      "current": "A Real Conversation",
+      "classification": "ignored-with-counterpart",
+      "desired": "See What's Worth Doing",
+      "evidence": "ACF repeater is ignored; hardcoded item 1 title is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.0.desc",
+      "current": "A quick chat to understand specific family goals and timelines with no pressure and no script.",
+      "classification": "ignored-with-counterpart",
+      "desired": "We'll identify the repairs, updates, cleaning, landscaping, or staging that could make the biggest difference—and what you can skip.",
+      "evidence": "ACF repeater is ignored; hardcoded item 1 description is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.1.title",
+      "current": "Honest Market Context",
+      "classification": "ignored-with-counterpart",
+      "desired": "Learn How the Home Prep Program Works",
+      "evidence": "ACF repeater is ignored; hardcoded item 2 title is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.1.desc",
+      "current": "Clear property data on where active market buyers are right now and what that means for your equity.",
+      "classification": "ignored-with-counterpart",
+      "desired": "See how we can coordinate and front the cost of preparing your home for sale, with nothing due until closing.",
+      "evidence": "ACF repeater is ignored; hardcoded item 2 description is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.2.title",
+      "current": "A Clear Next Step",
+      "classification": "ignored-with-counterpart",
+      "desired": "Get a Clear Game Plan",
+      "evidence": "ACF repeater is ignored; hardcoded item 3 title is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "expectations.2.desc",
+      "current": "Walk away from the conversation with a simple roadmap, whether a move is planned in 30 days or 12 months.",
+      "classification": "ignored-with-counterpart",
+      "desired": "Whether you're planning to move soon or sometime down the road, you'll leave knowing what I'd recommend and what your next steps could look like.",
+      "evidence": "ACF repeater is ignored; hardcoded item 3 description is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "body2",
+      "current": "Pick a time that works for you. Consultations happen by phone or Zoom, depending completely on your preference, and they always start right on time.",
+      "classification": "ignored-with-counterpart",
+      "desired": "No pressure and no obligation. Pick a time that works for you and we'll spend about 15 minutes talking through your home and what you're trying to accomplish.",
+      "evidence": "ACF is not read; hardcoded closing paragraph is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "schedule_text",
+      "current": "Schedule Your Call",
+      "classification": "ignored-with-counterpart",
+      "desired": "Continue to Booking",
+      "evidence": "ACF is not read; the corresponding initial booking CTA is visibly “Continue to Booking” in script-excluded HTML.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "schedule_link",
+      "current": "#calendar",
+      "classification": "ignored-no-counterpart",
+      "evidence": "ACF is not read; the visible initial CTA submits a form and has no href counterpart.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "calendar_heading",
+      "current": "Calendar Embed",
+      "classification": "ignored-no-counterpart",
+      "evidence": "ACF is not read; no calendar heading is visible in the captured initial state.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "calendar_text",
+      "current": "Connect your scheduling tool (Calendly, SavvyCal, Google Calendar) here.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "ACF is not read; no calendar helper text is visible in the captured initial state.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "calendar_embed",
+      "current": "",
+      "classification": "ignored-with-counterpart",
+      "evidence": "Empty ACF is not read. Component source dynamically renders a hardcoded Calendly iframe only after the client-state transition; it is absent from initial visible HTML, so no exact desired value is asserted.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "confirm_text",
+      "current": "Confirm Booking",
+      "classification": "ignored-with-counterpart",
+      "evidence": "ACF is not read. Component source has a dynamic post-submit booking CTA, but that client state is absent from initial visible HTML; no desired value is asserted.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 77,
+      "slug": "book-consultation",
+      "field": "confirm_link",
+      "current": "/booked",
+      "classification": "ignored-no-counterpart",
+      "evidence": "ACF is not read; dynamic flow changes local state rather than linking to /booked.",
+      "source": "components/pages/BookConsultationPage.tsx; audit-evidence/live-book-consultation.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "badge",
+      "current": "Call Booked",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.badge; current value is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "heading",
+      "current": "Watch This Video\r\nBefore Our Call",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.heading; current value is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "body",
+      "current": "You are all set. Take 4 minutes to watch this short walkthrough video. It will help make our upcoming conversation faster, smoother, and much more useful for your planning.",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.body; current value is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "video_embed",
+      "current": "",
+      "classification": "rendered-fallback-empty",
+      "evidence": "Empty ACF triggers the source-defined video placeholder; captured HTML contains the placeholder container and no video/iframe.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "button_text",
+      "current": "Back To Home",
+      "classification": "uncertain",
+      "desired": "Get In Touch",
+      "evidence": "Component reads this field, but backup says “Back To Home” while confirmed visible HTML says “Get In Touch”; capture/cache timing cannot be resolved from local evidence.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 76,
+      "slug": "booked",
+      "field": "button_link",
+      "current": "/",
+      "classification": "uncertain",
+      "desired": "/thank-you",
+      "evidence": "Component reads this field, but backup says “/” while the confirmed visible “Get In Touch” anchor has href /thank-you; capture/cache timing cannot be resolved locally.",
+      "source": "components/pages/BookedPage.tsx; audit-evidence/live-booked.html"
+    },
+    {
+      "id": 75,
+      "slug": "thank-you",
+      "field": "heading",
+      "current": "Thank You.",
+      "classification": "rendered-match",
+      "evidence": "Component reads heading; current value is confirmed by script-excluded visible text.",
+      "source": "components/pages/ThankYouPage.tsx; audit-evidence/live-thank-you.html"
+    },
+    {
+      "id": 75,
+      "slug": "thank-you",
+      "field": "body",
+      "current": "Your submission has been received. A personal response will be sent to your inbox shortly to discuss your property goals.",
+      "classification": "rendered-match",
+      "evidence": "Component reads body; current value is confirmed by script-excluded visible text.",
+      "source": "components/pages/ThankYouPage.tsx; audit-evidence/live-thank-you.html"
+    },
+    {
+      "id": 75,
+      "slug": "thank-you",
+      "field": "button_text",
+      "current": "Back To Home",
+      "classification": "rendered-match",
+      "evidence": "Component reads button_text; current value is confirmed by script-excluded visible text.",
+      "source": "components/pages/ThankYouPage.tsx; audit-evidence/live-thank-you.html"
+    },
+    {
+      "id": 75,
+      "slug": "thank-you",
+      "field": "button_link",
+      "current": "/",
+      "classification": "rendered-match",
+      "evidence": "Component reads button_link; current value is confirmed by script-excluded visible text and anchor href.",
+      "source": "components/pages/ThankYouPage.tsx; audit-evidence/live-thank-you.html"
+    },
+    {
+      "id": 92,
+      "slug": "faqs",
+      "field": "heading",
+      "current": "Frequently Asked Questions",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.heading; current value is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 92,
+      "slug": "faqs",
+      "field": "intro",
+      "current": "Clear answers to the questions homeowners, buyers, and sellers ask most when preparing for their next move.",
+      "classification": "rendered-match",
+      "evidence": "Component reads acf.intro; current value is confirmed visible in script-excluded HTML.",
+      "source": "components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 46,
+      "slug": "how-does-the-home-prep-selling-program-work",
+      "field": "question",
+      "current": "How does the Home Prep Selling Program work?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 46,
+      "slug": "how-does-the-home-prep-selling-program-work",
+      "field": "answer",
+      "current": "The program fronts the entire cost of updates, staging, and cosmetic repairs that drive a premium sale price. Homeowners pay nothing upfront, and the renovation investment is settled comfortably at closing out of your sale proceeds.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 47,
+      "slug": "what-geographic-areas-are-covered",
+      "field": "question",
+      "current": "What geographic areas are covered?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 47,
+      "slug": "what-geographic-areas-are-covered",
+      "field": "answer",
+      "current": "We serve the greater Sacramento region, including Sacramento, Placer, Yuba, Sutter, Nevada, and El Dorado counties.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 48,
+      "slug": "how-long-does-it-take-to-sell-a-home",
+      "field": "question",
+      "current": "How long does it take to sell a home?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 48,
+      "slug": "how-long-does-it-take-to-sell-a-home",
+      "field": "answer",
+      "current": "The baseline average is 11 days on market with a 102% list-to-sale ratio, running well ahead of standard regional benchmarks. Timelines vary based on price point, condition, and current market conditions.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 49,
+      "slug": "do-you-work-with-first-time-buyers",
+      "field": "question",
+      "current": "Do you work with first-time buyers?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 49,
+      "slug": "do-you-work-with-first-time-buyers",
+      "field": "answer",
+      "current": "Yes, absolutely. First-time buyers receive complete guidance from pre-approval to closing day, including lender introductions, neighborhood market data, and competitive offer strategy.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 50,
+      "slug": "what-does-the-commission-structure-look-like",
+      "field": "question",
+      "current": "What does the commission structure look like?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 50,
+      "slug": "what-does-the-commission-structure-look-like",
+      "field": "answer",
+      "current": "Commission is completely transparent and tailored directly to the specific scope of service. The numbers are reviewed in detail during the initial consultation with zero hidden fees.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 51,
+      "slug": "how-much-do-i-need-saved-to-buy-a-home",
+      "field": "question",
+      "current": "How much do I need saved to buy a home?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 51,
+      "slug": "how-much-do-i-need-saved-to-buy-a-home",
+      "field": "answer",
+      "current": "Plan for a 3% to 10% down payment, plus 2% to 3% for closing costs. A trusted lender will map out your exact numbers.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 52,
+      "slug": "should-i-get-pre-approved-before-we-start-touring",
+      "field": "question",
+      "current": "Should I get pre-approved before we start touring?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 52,
+      "slug": "should-i-get-pre-approved-before-we-start-touring",
+      "field": "answer",
+      "current": "Yes. It locks in your actual budget and proves to sellers that you are a serious, qualified buyer the moment you submit an offer.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 53,
+      "slug": "how-long-does-it-take-to-find-and-close-on-a-home",
+      "field": "question",
+      "current": "How long does it take to find and close on a home?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 53,
+      "slug": "how-long-does-it-take-to-find-and-close-on-a-home",
+      "field": "answer",
+      "current": "Once an offer is accepted, closing typically takes 30 to 60 days. The upfront search timeline depends entirely on your criteria and inventory.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 54,
+      "slug": "do-you-help-with-off-market-or-coming-soon-listings",
+      "field": "question",
+      "current": "Do you help with off-market or coming-soon listings?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 54,
+      "slug": "do-you-help-with-off-market-or-coming-soon-listings",
+      "field": "answer",
+      "current": "Yes. An active professional network uncovers properties before they hit public search apps, giving you an early advantage.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 55,
+      "slug": "what-does-it-cost-to-work-with-you-as-a-buyer",
+      "field": "question",
+      "current": "What does it cost to work with you as a buyer?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 55,
+      "slug": "what-does-it-cost-to-work-with-you-as-a-buyer",
+      "field": "answer",
+      "current": "All representation and industry commission structures are explained transparently during our very first conversation with zero surprises.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 56,
+      "slug": "how-do-you-decide-on-a-list-price",
+      "field": "question",
+      "current": "How do you decide on a list price?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 56,
+      "slug": "how-do-you-decide-on-a-list-price",
+      "field": "answer",
+      "current": "Recent neighborhood sales are analyzed, your home's unique features are evaluated, and current buyer demand is measured to set a strategic asking price.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 57,
+      "slug": "what-does-your-prep-program-include",
+      "field": "question",
+      "current": "What does your prep program include?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 57,
+      "slug": "what-does-your-prep-program-include",
+      "field": "answer",
+      "current": "It covers the initial property consultation, direct contractor coordination, professional staging, and high-end photography and video production.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 58,
+      "slug": "how-long-does-it-take-to-sell",
+      "field": "question",
+      "current": "How long does it take to sell?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 58,
+      "slug": "how-long-does-it-take-to-sell",
+      "field": "answer",
+      "current": "Accurately priced, well-prepared homes typically secure competitive interest within the first few weeks. Timelines are intentionally aligned around your moving goals.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 59,
+      "slug": "what-does-it-cost-to-list-with-you",
+      "field": "question",
+      "current": "What does it cost to list with you?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 59,
+      "slug": "what-does-it-cost-to-list-with-you",
+      "field": "answer",
+      "current": "All marketing, representation, and commission structures are reviewed transparently during our first call with zero surprises or restrictive terms.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 60,
+      "slug": "will-you-handle-showings-and-feedback",
+      "field": "question",
+      "current": "Will you handle showings and feedback?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 60,
+      "slug": "will-you-handle-showings-and-feedback",
+      "field": "answer",
+      "current": "Yes. Every showing is fully coordinated, hosted, and tracked, with direct buyer feedback shared during your regular weekly update.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 61,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront",
+      "field": "question",
+      "current": "How much does the Home Prep Selling Program cost upfront?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 61,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront",
+      "field": "answer",
+      "current": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 62,
+      "slug": "what-if-my-home-doesnt-end-up-selling",
+      "field": "question",
+      "current": "What if my home doesn't end up selling?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 62,
+      "slug": "what-if-my-home-doesnt-end-up-selling",
+      "field": "answer",
+      "current": "Complete transparency is maintained regarding the rare scenarios where costs would be owed, and the straightforward agreement is reviewed together before any work begins.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 63,
+      "slug": "how-long-does-the-renovation-process-usually-take",
+      "field": "question",
+      "current": "How long does the renovation process usually take?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 63,
+      "slug": "how-long-does-the-renovation-process-usually-take",
+      "field": "answer",
+      "current": "Most homes are market-ready within 2 to 4 weeks depending on the scope of the updates. A clear timeline is provided during the initial walkthrough.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 64,
+      "slug": "do-i-have-to-use-your-renovation-contractors",
+      "field": "question",
+      "current": "Do I have to use your renovation contractors?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 64,
+      "slug": "do-i-have-to-use-your-renovation-contractors",
+      "field": "answer",
+      "current": "A vetted network is what keeps the program running quickly and smoothly, but any specific parts you prefer to handle yourself can easily be accommodated.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 65,
+      "slug": "will-i-be-involved-in-design-and-approval-decisions",
+      "field": "question",
+      "current": "Will I be involved in design and approval decisions?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 65,
+      "slug": "will-i-be-involved-in-design-and-approval-decisions",
+      "field": "answer",
+      "current": "Always. You maintain final approval over the project scope, finishes, and budget before work starts, backed by clear weekly progress updates.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 66,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront-2",
+      "field": "question",
+      "current": "How much does the Home Prep Selling Program cost upfront?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 66,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront-2",
+      "field": "answer",
+      "current": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 67,
+      "slug": "what-if-my-home-doesnt-sell",
+      "field": "question",
+      "current": "What if my home doesn't sell?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 67,
+      "slug": "what-if-my-home-doesnt-sell",
+      "field": "answer",
+      "current": "If you take your home off the market before it sells, you simply pay back the actual renovation costs spent. We review everything together upfront so there are zero surprises.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 68,
+      "slug": "how-long-does-the-renovation-take",
+      "field": "question",
+      "current": "How long does the renovation take?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 68,
+      "slug": "how-long-does-the-renovation-take",
+      "field": "answer",
+      "current": "Typically 1 to 2 weeks, depending on the scope. We will provide an exact, clear timeline during our initial walkthrough.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 69,
+      "slug": "do-i-have-to-use-your-contractors",
+      "field": "question",
+      "current": "Do I have to use your contractors?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 69,
+      "slug": "do-i-have-to-use-your-contractors",
+      "field": "answer",
+      "current": "Yes. To guarantee quality and stay on schedule, we use our own vetted network of local tradespeople and cannot bring in outside vendors.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 70,
+      "slug": "will-i-be-involved-in-budget-decisions",
+      "field": "question",
+      "current": "Will I be involved in budget decisions?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 70,
+      "slug": "will-i-be-involved-in-budget-decisions",
+      "field": "answer",
+      "current": "Absolutely. Before any work begins, you will sign off on the exact project bid, scope of work, and clear budget.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 71,
+      "slug": "what-situations-do-you-specialize-in",
+      "field": "question",
+      "current": "What situations do you specialize in?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 71,
+      "slug": "what-situations-do-you-specialize-in",
+      "field": "answer",
+      "current": "Traditional moves are fully supported, but expertise excels in complex sales, including estates, divorce, relocations, and listings that failed to sell previously.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 72,
+      "slug": "why-emphasize-direct-honesty",
+      "field": "question",
+      "current": "Why emphasize direct honesty?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 72,
+      "slug": "why-emphasize-direct-honesty",
+      "field": "answer",
+      "current": "Real numbers are essential for smart financial decisions. Equity is protected with facts rather than temporary comfort or market lies.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 73,
+      "slug": "will-i-work-directly-with-blake",
+      "field": "question",
+      "current": "Will I work directly with Blake?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 73,
+      "slug": "will-i-work-directly-with-blake",
+      "field": "answer",
+      "current": "Yes. Direct access to Blake is standard from start to finish with no call centers, hand-offs, or junior representatives.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    },
+    {
+      "id": 74,
+      "slug": "how-does-your-advanced-training-help-me",
+      "field": "question",
+      "current": "How does your advanced training help me?",
+      "classification": "ignored-with-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs; component receives native title/content. Native title counterpart is confirmed as a visible accordion trigger in script-excluded HTML.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html"
+    },
+    {
+      "id": 74,
+      "slug": "how-does-your-advanced-training-help-me",
+      "field": "answer",
+      "current": "Coached by top real estate consultants, field-tested negotiation and pricing techniques are deployed to consistently beat average neighborhood days on market.",
+      "classification": "ignored-no-counterpart",
+      "evidence": "FAQ ACF is not selected by fetchFaqs. Backup native content is empty; no answer copy appears in script-excluded HTML or captured RSC payload. Accordion content is dynamic, but component-plus-payload evidence shows an empty native answer.",
+      "source": "lib/wp-acf.ts fetchFaqs; components/pages/FaqsPage.tsx; audit-evidence/live-faqs.html; audit-evidence/acf-prewrite-live-backup.json"
+    }
+  ]
+}

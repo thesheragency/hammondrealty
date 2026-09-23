@@ -1,0 +1,74 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/buyer",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/seller",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/about",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/home-prep-program",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/home-value-analysis",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/connect",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/book-consultation",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/booked",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/thank-you",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/faqs",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  },
+  {
+    "route": "/privacy-policy",
+    "status": 200,
+    "visibleTextUnchanged": true,
+    "linksUnchanged": true
+  }
+]

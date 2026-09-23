@@ -42,3 +42,17 @@ mtime_ms = 1790108077881
 storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/ea73ac8d-aeb3-416d-9a96-23d1a8630615/f1630e24-7305-436c-a4c2-cf083c9bbeba"
 storage_version_token = "1790108208020507"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "7ESd-5j4q15nZWp9GAnzu"
+uri = "file://audit-evidence/acf-parity-report.html"
+type = "html"
+title = "WordPress ACF parity report and backup"
+description = "599 fields audited; includes downloadable pre-write backup, verified changes, complete evidence, and image limitations."
+logical_id = "cd8d6d67-7169-4267-8f91-655347cb39e4"
+content_hash = "sha256:ace023cf106c97d77abe3dd65e3a521e1e035ac68718c3c918ff8a89250e198f"
+size = 1018816
+mtime_ms = 1790172907606
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:2eac4b12-8911-4e24-bb9f-9c64d7021657/cd8d6d67-7169-4267-8f91-655347cb39e4/4fbd949d-9a20-4457-8cce-9e137b451fbd"
+storage_version_token = "1790172940866906"
+content_type = "text/html"

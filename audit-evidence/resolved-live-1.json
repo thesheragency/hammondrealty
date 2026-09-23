@@ -1,0 +1,251 @@
+{
+  "audit": "resolved-live-1",
+  "authority": "Confirmed production HTML visible copy. Embedded RSC ACF payload is corroboration only; scripts are not treated as visible evidence.",
+  "writePerformed": false,
+  "patches": [
+    {
+      "id": 90,
+      "slug": "home-prep-program",
+      "method": "POST /wp-json/wp/v2/pages/90",
+      "body": {
+        "acf": {
+          "hero_eyebrow": "SELL FOR MORE MONEY WITH LESS STRESS",
+          "hero_cta_text": "Schedule A Home Prep Consultation",
+          "familiar_subheading": "If you are preparing to sell, you might be asking yourself the same questions we hear every day:",
+          "familiar_worries": [
+            {
+              "text": "\"Which repairs are actually worth doing?\""
+            },
+            {
+              "text": "\"How much will this cost?\""
+            },
+            {
+              "text": "\"How do I pay for improvements?\""
+            },
+            {
+              "text": "\"Who should I hire to do it?\""
+            }
+          ],
+          "familiar_cta_text": "Schedule A Home Prep Consultation",
+          "why_bullets": [
+            {
+              "title": "No Out-of-Pocket Costs",
+              "desc": "We front the money for all cosmetic updates. Every dollar is settled comfortably out of your sale proceeds at closing."
+            },
+            {
+              "title": "No Contractor Headache",
+              "desc": "Don't worry about finding or managing trades. We handle everything your home needs from painting and flooring to countertops and junk removal."
+            },
+            {
+              "title": "Net More Money",
+              "desc": "Buyers pay a premium for a finished, move-in-ready home. We handle the stress, and you walk away with a bigger check."
+            },
+            {
+              "title": "Premium Marketing Launch",
+              "desc": "Once the renovations look perfect, we bring in high-end staging and professional media to make the listing stand out online."
+            }
+          ],
+          "why_cta_text": "Schedule A Home Prep Consultation",
+          "steps": [
+            {
+              "num": "01",
+              "title": "Consultation & Audit",
+              "desc": "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
+              "image": 236
+            },
+            {
+              "num": "02",
+              "title": "Upfront Renovation Funding",
+              "desc": "The Home Prep Program funds 100% of the upfront costs for home improvements and repairs, so you pay nothing out of pocket.",
+              "image": 240
+            },
+            {
+              "num": "03",
+              "title": "Project Management",
+              "desc": "Trusted local tradespeople are hired and managed to handle absolutely anything your home needs, from paint and flooring to kitchen updates, landscaping, and junk removal.",
+              "image": null
+            },
+            {
+              "num": "04",
+              "title": "Staging & Media",
+              "desc": "Transform the refreshed space with premium design styling and high-production photography to drive immediate buyer urgency.",
+              "image": 208
+            },
+            {
+              "num": "05",
+              "title": "High-Profit Close",
+              "desc": "Secure top-dollar offers, manage final transaction details, and settle the update costs out of proceeds only when escrow closes.",
+              "image": 223
+            }
+          ],
+          "process_cta_text": "Schedule A Home Prep Consultation",
+          "case_body": "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation.",
+          "case_bullets": [
+            {
+              "text": "Multiple cash offers received and closed during the first weekend on the market."
+            },
+            {
+              "text": "Sold for $75,000 over the as-is property valuation before renovations."
+            },
+            {
+              "text": "All without the owner having to lift a finger or spend a dime up front."
+            }
+          ],
+          "case_cta_text": "Schedule A Home Prep Consultation"
+        }
+      },
+      "evidence": {
+        "html": "audit-evidence/live-home-prep-program.html",
+        "component": "components/pages/HomePrepPage.tsx",
+        "backup": "audit-evidence/acf-prewrite-live-backup.json",
+        "rsc": "The captured RSC payload contains the exact four-row familiarWorries array, four whyBullets rows, five steps, three caseBullets, and scalar values above.",
+        "visible": "The same copy is present in production HTML. Inactive process descriptions are corroborated by the payload because the component conditionally hides them."
+      },
+      "safety": [
+        "Repeater patches are complete arrays, not partial row updates.",
+        "The four-row familiar_worries replacement is intentional: both visible HTML and the production RSC payload prove the exact four-row live array.",
+        "The steps text is restored from live, while populated media IDs from the backup are retained to avoid erasing media during a whole-repeater REST update.",
+        "steps.2.image remains null because no verified exact WordPress media ID exists."
+      ]
+    },
+    {
+      "id": 82,
+      "slug": "home-value-analysis",
+      "method": "POST /wp-json/wp/v2/pages/82",
+      "body": {
+        "acf": {
+          "form_heading": "Find Out What Your Home Is Worth",
+          "cta_heading": "What Is Your Home Worth in 2026?"
+        }
+      },
+      "evidence": {
+        "html": "audit-evidence/live-home-value-analysis.html",
+        "component": "components/pages/HomeValuePage.tsx",
+        "backup": "audit-evidence/acf-prewrite-live-backup.json",
+        "visible": "Both exact values are hardcoded visible counterparts. The selected ACF fields are currently ignored by the component."
+      },
+      "safety": [
+        "These updates align dormant ACF content with confirmed visible production copy; they do not imply the current component renders these fields."
+      ]
+    },
+    {
+      "id": 80,
+      "slug": "connect",
+      "method": "POST /wp-json/wp/v2/pages/80",
+      "body": {
+        "acf": {
+          "phone": "916-625-6118"
+        }
+      },
+      "evidence": {
+        "html": "audit-evidence/live-connect.html",
+        "component": "components/pages/GetInTouchPage.tsx",
+        "backup": "audit-evidence/acf-prewrite-live-backup.json",
+        "rsc": "The production payload contains phone = 916-625-6118.",
+        "visible": "The contact card visibly renders 916-625-6118; the tel href is normalized separately by the component."
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "id": 90,
+      "slug": "home-prep-program",
+      "fields": [
+        "hero_heading"
+      ],
+      "reason": "Backup capitalization differs from the payload, but tc() produces the confirmed visible heading. No copy change is needed."
+    },
+    {
+      "id": 90,
+      "slug": "home-prep-program",
+      "fields": [
+        "hero_body",
+        "process_heading"
+      ],
+      "reason": "The component hardcodes the confirmed visible values and the backup already contains those same counterpart values."
+    },
+    {
+      "id": 90,
+      "slug": "home-prep-program",
+      "fields": [
+        "why_secondary_text",
+        "why_secondary_link",
+        "process_secondary_text",
+        "process_secondary_link",
+        "why_image"
+      ],
+      "reason": "Selected ACF fields are ignored and have no corresponding visible production element; no safe live-copy proposal exists."
+    },
+    {
+      "id": 90,
+      "slug": "home-prep-program",
+      "fields": [
+        "hero_image",
+        "familiar_image",
+        "steps.0.image",
+        "steps.1.image",
+        "steps.2.image",
+        "steps.3.image",
+        "steps.4.image",
+        "included_cards.0.image",
+        "included_cards.1.image",
+        "included_cards.2.image",
+        "included_cards.3.image",
+        "included_cards.4.image",
+        "included_cards.5.image",
+        "included_cards.6.image",
+        "included_cards.7.image",
+        "case_before_image",
+        "case_after_image"
+      ],
+      "reason": "Production HTML proves local assets, but the supplied evidence does not safely map every local asset to an exact WordPress media ID. Existing populated IDs are preserved; empty fields are not writable without exact media matches."
+    },
+    {
+      "id": 82,
+      "slug": "home-value-analysis",
+      "fields": [
+        "hero_image"
+      ],
+      "reason": "The deployed page used the local fallback while the backup contains media ID 146. Exact ID-to-visible-asset equivalence is not proven by the scoped evidence, so preserve it."
+    },
+    {
+      "id": 82,
+      "slug": "home-value-analysis",
+      "fields": [
+        "form_success_heading",
+        "form_success_body"
+      ],
+      "reason": "Ignored by the page component and no submitted-success DOM was captured; there is no authoritative visible counterpart."
+    },
+    {
+      "id": 80,
+      "slug": "connect",
+      "fields": [
+        "hero_image"
+      ],
+      "reason": "The empty field invokes a confirmed local fallback, but no exact WordPress media ID is proven by the scoped evidence."
+    },
+    {
+      "id": 80,
+      "slug": "connect",
+      "fields": [
+        "ps",
+        "success_heading",
+        "success_body"
+      ],
+      "reason": "Ignored by the page component and absent from captured visible production DOM; no visible-copy replacement is justified."
+    }
+  ],
+  "relationshipChecks": [
+    {
+      "field": "home-prep-program.familiar_subheading",
+      "result": "safe",
+      "detail": "The component renders familiar_subheading in the first paragraph and familiar_body in the following bold paragraph. Production HTML and payload show subheading = the seller-question introduction and body = the market-ready sentence. The proposed value does not duplicate familiar_body."
+    },
+    {
+      "field": "home-prep-program.familiar_worries",
+      "result": "safe-full-array",
+      "detail": "Production visible HTML and RSC payload independently confirm exactly four rows in the same order. The two additional backup rows are current-workspace/post-capture state, not deployed live behavior."
+    }
+  ]
+}

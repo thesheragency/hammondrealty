@@ -1,0 +1,372 @@
+{
+  "auditScope": "testimonial and faq CPT ACF fields",
+  "capturedAt": "2026-09-23T13:53:13.715Z",
+  "sourceBackup": "audit-evidence/acf-prewrite-live-backup.json",
+  "productionHtml": [
+    "audit-evidence/live-home.html",
+    "audit-evidence/live-about.html",
+    "audit-evidence/live-buyer.html",
+    "audit-evidence/live-seller.html",
+    "audit-evidence/live-home-prep-program.html",
+    "audit-evidence/live-home-value-analysis.html",
+    "audit-evidence/live-faqs.html"
+  ],
+  "classificationDefinitions": {
+    "preserve_exact_live": "The current ACF value corresponds to rendered production copy or behavior. Do not change it.",
+    "preserve_exact_live_but_frontend_uses_native_title": "The ACF question equals the visible production question, but the FAQ query renders native title rather than this ACF field.",
+    "preserve_exact_shared_copy_but_frontend_uses_native_content": "The ACF answer exactly corresponds to current shared-page frontend copy, but the /faqs query renders native content rather than this ACF field.",
+    "preserve_unbound": "The current value is not consumed by the relevant renderer. Keep it; production does not justify a replacement.",
+    "uncertain_inactive_fallback_only": "The value has exact correspondence only to an inactive hardcoded fallback. It is not established as visible production copy, so no native-content update is proposed."
+  },
+  "summary": {
+    "posts": 32,
+    "acfFields": 70,
+    "testimonialPosts": 3,
+    "testimonialFields": 12,
+    "faqPosts": 29,
+    "faqFields": 58,
+    "acfChangesProposed": 0,
+    "faqNativeContentProposals": 24,
+    "faqNativeContentWithheld": 5
+  },
+  "rendererFindings": {
+    "testimonials": {
+      "query": "lib/wp-acf.ts:103-123",
+      "behavior": "testimonialFields.reviewerName, quote, and platform are queried and rendered. rating is queried but discarded by the mapper; the shared section displays hardcoded five-star/5.0 UI.",
+      "sharedUnmodeledCopy": [
+        "Trusted By Homeowners",
+        "Rated 5 out of 5 stars based on verified client feedback.",
+        "5.0",
+        "Google reviews",
+        "Zillow reviews"
+      ]
+    },
+    "faqs": {
+      "query": "lib/wp-acf.ts:78-88",
+      "behavior": "The FAQ query requests native title and content only. It does not request faqFields.question or faqFields.answer. Every FAQ native content value is empty in the backup, so /faqs renders 29 questions with empty answers and emits empty acceptedAnswer text.",
+      "productionEvidence": "audit-evidence/live-faqs.html contains all 29 native titles and answer:\"\" in the page payload; its FAQPage JSON-LD also has text:\"\" for every accepted answer.",
+      "inactiveFallback": "components/pages/FaqsPage.tsx:18-85 contains 15 hardcoded category answers, but line 95 makes any nonempty WordPress FAQ list take precedence. Production supplies 29 FAQ records, so that fallback is inactive.",
+      "sharedUnmodeledCopy": "Shared FAQ questions/answers are hardcoded page-specific arrays; shared heading is hardcoded in components/site/FaqsSection.tsx:70 and shared intro comes from page-level ACF or a component default, not FAQ CPT ACF."
+    },
+    "scriptPayloadCaution": "Next.js script payloads are transport data, not independently visible content. They are used only to corroborate component inputs and are not labeled as visible evidence."
+  },
+  "testimonials": [
+    {
+      "id": 43,
+      "slug": "thomas-thornton",
+      "currentAcf": {
+        "quote": "Thoughtful, patient, understanding, and trustworthy. Blake was our 3rd realtor for our recent home sale. He delivered on his expectations for the home and had great communication throughout the whole process. Listened to his expertise, home listed at the right price point, and sold for over asking price, 36 hours after being listed. In Blake we trust! Couldn’t have asked for a better person.",
+        "reviewer_name": "Thomas Thornton",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "fieldAudit": {
+        "quote": "preserve_exact_live",
+        "reviewer_name": "preserve_exact_live",
+        "rating": "preserve_unbound",
+        "platform": "preserve_exact_live"
+      },
+      "desiredAcfRestFields": {},
+      "evidence": "Quote and reviewer are visible in live-home, live-about, live-buyer, live-seller, live-home-prep-program, and live-home-value-analysis. The Google logo behavior is driven by platform through normalizeSource. rating is not mapped into WpTestimonial."
+    },
+    {
+      "id": 44,
+      "slug": "christine-smith",
+      "currentAcf": {
+        "quote": "Excellent experience with Blake. He was friendly, supportive throughout the process, provided clear recommendations, and worked with us to accommodate two busy professionals! The house sold extremely quickly and his marketing and staging were wonderfully done. So appreciate him and would recommend him.",
+        "reviewer_name": "Christine Smith",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "fieldAudit": {
+        "quote": "preserve_exact_live",
+        "reviewer_name": "preserve_exact_live",
+        "rating": "preserve_unbound",
+        "platform": "preserve_exact_live"
+      },
+      "desiredAcfRestFields": {},
+      "evidence": "Quote and reviewer are visible in the six production pages listed for testimonial 43. Platform drives the Google logo. rating is not mapped into WpTestimonial."
+    },
+    {
+      "id": 45,
+      "slug": "larry-ciche",
+      "currentAcf": {
+        "quote": "I selected Blake Hammond who did an outstanding job. I feel he went above and beyond what was required for the sale. His selection was very much based on the information that I provided, and I feel that Blake provides a very good service to those who are unfamiliar with the real estate world. I believe that he deserves ten stars for making this transaction possible in a short time, gathering all other services related to the sale, and communicating effectively to finish with grace.",
+        "reviewer_name": "Larry Ciche",
+        "rating": 5,
+        "platform": "Google"
+      },
+      "fieldAudit": {
+        "quote": "preserve_exact_live",
+        "reviewer_name": "preserve_exact_live",
+        "rating": "preserve_unbound",
+        "platform": "preserve_exact_live"
+      },
+      "desiredAcfRestFields": {},
+      "evidence": "Quote and reviewer are visible in the six production pages listed for testimonial 43. Platform drives the Google logo. rating is not mapped into WpTestimonial."
+    }
+  ],
+  "faqs": [
+    {
+      "id": 46,
+      "slug": "how-does-the-home-prep-selling-program-work",
+      "currentAcf": {"question": "How does the Home Prep Selling Program work?", "answer": "The program fronts the entire cost of updates, staging, and cosmetic repairs that drive a premium sale price. Homeowners pay nothing upfront, and the renovation investment is settled comfortably at closing out of your sale proceeds."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "The program fronts the entire cost of updates, staging, and cosmetic repairs that drive a premium sale price. Homeowners pay nothing upfront, and the renovation investment is settled comfortably at closing out of your sale proceeds.",
+      "evidence": "Exact question/answer in components/pages/HomePage.tsx:144-148 and current live-home shared FAQ."
+    },
+    {
+      "id": 47,
+      "slug": "what-geographic-areas-are-covered",
+      "currentAcf": {"question": "What geographic areas are covered?", "answer": "We serve the greater Sacramento region, including Sacramento, Placer, Yuba, Sutter, Nevada, and El Dorado counties."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "We serve the greater Sacramento region, including Sacramento, Placer, Yuba, Sutter, Nevada, and El Dorado counties.",
+      "evidence": "Exact question/answer in components/pages/HomePage.tsx:149-152 and current live-home shared FAQ."
+    },
+    {
+      "id": 48,
+      "slug": "how-long-does-it-take-to-sell-a-home",
+      "currentAcf": {"question": "How long does it take to sell a home?", "answer": "The baseline average is 11 days on market with a 102% list-to-sale ratio, running well ahead of standard regional benchmarks. Timelines vary based on price point, condition, and current market conditions."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "The baseline average is 11 days on market with a 102% list-to-sale ratio, running well ahead of standard regional benchmarks. Timelines vary based on price point, condition, and current market conditions.",
+      "evidence": "Exact question/answer in components/pages/HomePage.tsx:153-156 and current live-home shared FAQ."
+    },
+    {
+      "id": 49,
+      "slug": "do-you-work-with-first-time-buyers",
+      "currentAcf": {"question": "Do you work with first-time buyers?", "answer": "Yes, absolutely. First-time buyers receive complete guidance from pre-approval to closing day, including lender introductions, neighborhood market data, and competitive offer strategy."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes, absolutely. First-time buyers receive complete guidance from pre-approval to closing day, including lender introductions, neighborhood market data, and competitive offer strategy.",
+      "evidence": "Exact question/answer in components/pages/HomePage.tsx:157-160 and current live-home shared FAQ."
+    },
+    {
+      "id": 50,
+      "slug": "what-does-the-commission-structure-look-like",
+      "currentAcf": {"question": "What does the commission structure look like?", "answer": "Commission is completely transparent and tailored directly to the specific scope of service. The numbers are reviewed in detail during the initial consultation with zero hidden fees."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Commission is completely transparent and tailored directly to the specific scope of service. The numbers are reviewed in detail during the initial consultation with zero hidden fees.",
+      "evidence": "Exact question/answer in components/pages/HomePage.tsx:161-164 and current live-home shared FAQ."
+    },
+    {
+      "id": 51,
+      "slug": "how-much-do-i-need-saved-to-buy-a-home",
+      "currentAcf": {"question": "How much do I need saved to buy a home?", "answer": "Plan for a 3% to 10% down payment, plus 2% to 3% for closing costs. A trusted lender will map out your exact numbers."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Plan for a 3% to 10% down payment, plus 2% to 3% for closing costs. A trusted lender will map out your exact numbers.",
+      "evidence": "Exact question/answer in components/pages/BuyingPage.tsx:109-113 and current live-buyer shared FAQ."
+    },
+    {
+      "id": 52,
+      "slug": "should-i-get-pre-approved-before-we-start-touring",
+      "currentAcf": {"question": "Should I get pre-approved before we start touring?", "answer": "Yes. It locks in your actual budget and proves to sellers that you are a serious, qualified buyer the moment you submit an offer."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes. It locks in your actual budget and proves to sellers that you are a serious, qualified buyer the moment you submit an offer.",
+      "evidence": "Exact question/answer in components/pages/BuyingPage.tsx:114-117 and current live-buyer shared FAQ."
+    },
+    {
+      "id": 53,
+      "slug": "how-long-does-it-take-to-find-and-close-on-a-home",
+      "currentAcf": {"question": "How long does it take to find and close on a home?", "answer": "Once an offer is accepted, closing typically takes 30 to 60 days. The upfront search timeline depends entirely on your criteria and inventory."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Once an offer is accepted, closing typically takes 30 to 60 days. The upfront search timeline depends entirely on your criteria and inventory.",
+      "evidence": "Exact question/answer in components/pages/BuyingPage.tsx:118-121 and current live-buyer shared FAQ."
+    },
+    {
+      "id": 54,
+      "slug": "do-you-help-with-off-market-or-coming-soon-listings",
+      "currentAcf": {"question": "Do you help with off-market or coming-soon listings?", "answer": "Yes. An active professional network uncovers properties before they hit public search apps, giving you an early advantage."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes. An active professional network uncovers properties before they hit public search apps, giving you an early advantage.",
+      "evidence": "Exact question/answer in components/pages/BuyingPage.tsx:122-125 and current live-buyer shared FAQ."
+    },
+    {
+      "id": 55,
+      "slug": "what-does-it-cost-to-work-with-you-as-a-buyer",
+      "currentAcf": {"question": "What does it cost to work with you as a buyer?", "answer": "All representation and industry commission structures are explained transparently during our very first conversation with zero surprises."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "All representation and industry commission structures are explained transparently during our very first conversation with zero surprises.",
+      "evidence": "Exact question/answer in components/pages/BuyingPage.tsx:126-129 and current live-buyer shared FAQ."
+    },
+    {
+      "id": 56,
+      "slug": "how-do-you-decide-on-a-list-price",
+      "currentAcf": {"question": "How do you decide on a list price?", "answer": "Recent neighborhood sales are analyzed, your home's unique features are evaluated, and current buyer demand is measured to set a strategic asking price."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Recent neighborhood sales are analyzed, your home's unique features are evaluated, and current buyer demand is measured to set a strategic asking price.",
+      "evidence": "Exact question/answer in components/pages/SellingPage.tsx:138-142 and current live-seller shared FAQ."
+    },
+    {
+      "id": 57,
+      "slug": "what-does-your-prep-program-include",
+      "currentAcf": {"question": "What does your prep program include?", "answer": "It covers the initial property consultation, direct contractor coordination, professional staging, and high-end photography and video production."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "It covers the initial property consultation, direct contractor coordination, professional staging, and high-end photography and video production.",
+      "evidence": "Exact question/answer in components/pages/SellingPage.tsx:143-146 and current live-seller shared FAQ."
+    },
+    {
+      "id": 58,
+      "slug": "how-long-does-it-take-to-sell",
+      "currentAcf": {"question": "How long does it take to sell?", "answer": "Accurately priced, well-prepared homes typically secure competitive interest within the first few weeks. Timelines are intentionally aligned around your moving goals."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Accurately priced, well-prepared homes typically secure competitive interest within the first few weeks. Timelines are intentionally aligned around your moving goals.",
+      "evidence": "Exact question/answer in components/pages/SellingPage.tsx:147-150 and current live-seller shared FAQ."
+    },
+    {
+      "id": 59,
+      "slug": "what-does-it-cost-to-list-with-you",
+      "currentAcf": {"question": "What does it cost to list with you?", "answer": "All marketing, representation, and commission structures are reviewed transparently during our first call with zero surprises or restrictive terms."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "All marketing, representation, and commission structures are reviewed transparently during our first call with zero surprises or restrictive terms.",
+      "evidence": "Exact question/answer in components/pages/SellingPage.tsx:151-154 and current live-seller shared FAQ."
+    },
+    {
+      "id": 60,
+      "slug": "will-you-handle-showings-and-feedback",
+      "currentAcf": {"question": "Will you handle showings and feedback?", "answer": "Yes. Every showing is fully coordinated, hosted, and tracked, with direct buyer feedback shared during your regular weekly update."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes. Every showing is fully coordinated, hosted, and tracked, with direct buyer feedback shared during your regular weekly update.",
+      "evidence": "Exact question/answer in components/pages/SellingPage.tsx:155-158 and current live-seller shared FAQ."
+    },
+    {
+      "id": 61,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront",
+      "currentAcf": {"question": "How much does the Home Prep Selling Program cost upfront?", "answer": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "uncertain_inactive_fallback_only"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": null,
+      "evidence": "Exact answer appears in components/pages/FaqsPage.tsx:63-67, but that fallback is inactive in production. A duplicate live shared question exists as FAQ 66, so assignment to this duplicate record is not unambiguous."
+    },
+    {
+      "id": 62,
+      "slug": "what-if-my-home-doesnt-end-up-selling",
+      "currentAcf": {"question": "What if my home doesn't end up selling?", "answer": "Complete transparency is maintained regarding the rare scenarios where costs would be owed, and the straightforward agreement is reviewed together before any work begins."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "uncertain_inactive_fallback_only"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": null,
+      "evidence": "Exact answer appears only in inactive components/pages/FaqsPage.tsx:68-71 fallback; production /faqs answer is empty."
+    },
+    {
+      "id": 63,
+      "slug": "how-long-does-the-renovation-process-usually-take",
+      "currentAcf": {"question": "How long does the renovation process usually take?", "answer": "Most homes are market-ready within 2 to 4 weeks depending on the scope of the updates. A clear timeline is provided during the initial walkthrough."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "uncertain_inactive_fallback_only"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": null,
+      "evidence": "Exact answer appears only in inactive components/pages/FaqsPage.tsx:72-75 fallback; production /faqs answer is empty."
+    },
+    {
+      "id": 64,
+      "slug": "do-i-have-to-use-your-renovation-contractors",
+      "currentAcf": {"question": "Do I have to use your renovation contractors?", "answer": "A vetted network is what keeps the program running quickly and smoothly, but any specific parts you prefer to handle yourself can easily be accommodated."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "uncertain_inactive_fallback_only"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": null,
+      "evidence": "Exact answer appears only in inactive components/pages/FaqsPage.tsx:76-79 fallback; production /faqs answer is empty."
+    },
+    {
+      "id": 65,
+      "slug": "will-i-be-involved-in-design-and-approval-decisions",
+      "currentAcf": {"question": "Will I be involved in design and approval decisions?", "answer": "Always. You maintain final approval over the project scope, finishes, and budget before work starts, backed by clear weekly progress updates."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "uncertain_inactive_fallback_only"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": null,
+      "evidence": "Exact answer appears only in inactive components/pages/FaqsPage.tsx:80-83 fallback; production /faqs answer is empty."
+    },
+    {
+      "id": 66,
+      "slug": "how-much-does-the-home-prep-selling-program-cost-upfront-2",
+      "currentAcf": {"question": "How much does the Home Prep Selling Program cost upfront?", "answer": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Absolutely nothing. All vendor and material costs are settled at closing out of your sale proceeds, so you never pay out of pocket.",
+      "evidence": "Exact question/answer in components/pages/HomePrepPage.tsx:142-146 and current live-home-prep-program shared FAQ."
+    },
+    {
+      "id": 67,
+      "slug": "what-if-my-home-doesnt-sell",
+      "currentAcf": {"question": "What if my home doesn't sell?", "answer": "If you take your home off the market before it sells, you simply pay back the actual renovation costs spent. We review everything together upfront so there are zero surprises."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "If you take your home off the market before it sells, you simply pay back the actual renovation costs spent. We review everything together upfront so there are zero surprises.",
+      "evidence": "Exact question/answer in components/pages/HomePrepPage.tsx:147-150 and current live-home-prep-program shared FAQ."
+    },
+    {
+      "id": 68,
+      "slug": "how-long-does-the-renovation-take",
+      "currentAcf": {"question": "How long does the renovation take?", "answer": "Typically 1 to 2 weeks, depending on the scope. We will provide an exact, clear timeline during our initial walkthrough."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Typically 1 to 2 weeks, depending on the scope. We will provide an exact, clear timeline during our initial walkthrough.",
+      "evidence": "Exact question/answer in components/pages/HomePrepPage.tsx:151-154 and current live-home-prep-program shared FAQ."
+    },
+    {
+      "id": 69,
+      "slug": "do-i-have-to-use-your-contractors",
+      "currentAcf": {"question": "Do I have to use your contractors?", "answer": "Yes. To guarantee quality and stay on schedule, we use our own vetted network of local tradespeople and cannot bring in outside vendors."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes. To guarantee quality and stay on schedule, we use our own vetted network of local tradespeople and cannot bring in outside vendors.",
+      "evidence": "Exact question/answer in components/pages/HomePrepPage.tsx:155-158 and current live-home-prep-program shared FAQ."
+    },
+    {
+      "id": 70,
+      "slug": "will-i-be-involved-in-budget-decisions",
+      "currentAcf": {"question": "Will I be involved in budget decisions?", "answer": "Absolutely. Before any work begins, you will sign off on the exact project bid, scope of work, and clear budget."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Absolutely. Before any work begins, you will sign off on the exact project bid, scope of work, and clear budget.",
+      "evidence": "Exact question/answer in components/pages/HomePrepPage.tsx:159-162 and current live-home-prep-program shared FAQ."
+    },
+    {
+      "id": 71,
+      "slug": "what-situations-do-you-specialize-in",
+      "currentAcf": {"question": "What situations do you specialize in?", "answer": "Traditional moves are fully supported, but expertise excels in complex sales, including estates, divorce, relocations, and listings that failed to sell previously."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Traditional moves are fully supported, but expertise excels in complex sales, including estates, divorce, relocations, and listings that failed to sell previously.",
+      "evidence": "Exact question/answer in components/pages/AboutPage.tsx:99-103 and current live-about shared FAQ."
+    },
+    {
+      "id": 72,
+      "slug": "why-emphasize-direct-honesty",
+      "currentAcf": {"question": "Why emphasize direct honesty?", "answer": "Real numbers are essential for smart financial decisions. Equity is protected with facts rather than temporary comfort or market lies."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Real numbers are essential for smart financial decisions. Equity is protected with facts rather than temporary comfort or market lies.",
+      "evidence": "Exact question/answer in components/pages/AboutPage.tsx:104-107 and current live-about shared FAQ."
+    },
+    {
+      "id": 73,
+      "slug": "will-i-work-directly-with-blake",
+      "currentAcf": {"question": "Will I work directly with Blake?", "answer": "Yes. Direct access to Blake is standard from start to finish with no call centers, hand-offs, or junior representatives."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Yes. Direct access to Blake is standard from start to finish with no call centers, hand-offs, or junior representatives.",
+      "evidence": "Exact question/answer in components/pages/AboutPage.tsx:108-111 and current live-about shared FAQ."
+    },
+    {
+      "id": 74,
+      "slug": "how-does-your-advanced-training-help-me",
+      "currentAcf": {"question": "How does your advanced training help me?", "answer": "Coached by top real estate consultants, field-tested negotiation and pricing techniques are deployed to consistently beat average neighborhood days on market."},
+      "fieldAudit": {"question": "preserve_exact_live_but_frontend_uses_native_title", "answer": "preserve_exact_shared_copy_but_frontend_uses_native_content"},
+      "desiredAcfRestFields": {},
+      "nativeContentProposal": "Coached by top real estate consultants, field-tested negotiation and pricing techniques are deployed to consistently beat average neighborhood days on market.",
+      "evidence": "Exact question/answer in components/pages/AboutPage.tsx:112-115 and current live-about shared FAQ."
+    }
+  ]
+}
