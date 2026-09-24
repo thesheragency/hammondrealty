@@ -325,11 +325,9 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
       ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
       : testimonials;
 
-  const sectionTestimonials = acf?.featuredTestimonials?.length
-    ? acf.featuredTestimonials.map((t: any) => ({ quote: t.quote, name: t.name }))
-    : wpTestimonials && wpTestimonials.length > 0
-      ? wpTestimonials
-      : undefined;
+  const sectionTestimonials = wpTestimonials && wpTestimonials.length > 0
+    ? wpTestimonials
+    : undefined;
 
   const stats: { value: number; prefix?: string; suffix?: string; label: string }[] =
     acf?.stats?.length
