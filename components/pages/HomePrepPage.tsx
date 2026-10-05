@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { Play, ArrowRight, ArrowLeft, Check, Phone } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -478,6 +478,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
   const heroImageUrl = imgUrl(acf?.heroImage, prepHeroBgUrl);
   const heroResultLine = typeof acf?.heroResultLine === "string" ? acf.heroResultLine.trim() : "";
+  const heroPhoneText = typeof acf?.heroPhoneText === "string" ? acf.heroPhoneText.trim() : "";
+  const heroPhoneLink = typeof acf?.heroPhoneLink === "string" ? acf.heroPhoneLink.trim() : "";
+  const heroPhoneOrLabel = typeof acf?.heroPhoneOrLabel === "string" ? acf.heroPhoneOrLabel.trim() : "";
   const heroGoogleRating = typeof acf?.heroGoogleRating === "string" ? acf.heroGoogleRating.trim() : "";
   const heroZillowRating = typeof acf?.heroZillowRating === "string" ? acf.heroZillowRating.trim() : "";
   const heroReviewsLink = typeof acf?.heroReviewsLink === "string" ? acf.heroReviewsLink.trim() : "";
@@ -532,13 +535,27 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   {heroResultLine}
                 </blockquote>
               )}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href={acf?.heroCtaLink || "/book-consultation"}
                   className="inline-flex items-center justify-center bg-white text-foreground hover:bg-white/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
                 >
                   {acf?.heroCtaText || "Schedule a Home Prep Consultation"}
                 </Link>
+                {heroPhoneText && heroPhoneLink && (
+                  <>
+                    {heroPhoneOrLabel && (
+                      <span className="text-sm text-white text-center">{heroPhoneOrLabel}</span>
+                    )}
+                    <a
+                      href={heroPhoneLink}
+                      className="inline-flex items-center justify-center gap-2 border border-white bg-transparent text-white rounded-none font-medium text-sm w-full sm:w-auto px-7 h-[45px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    >
+                      <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                      {heroPhoneText}
+                    </a>
+                  </>
+                )}
               </div>
               {heroReviewsLink && heroReviewsAriaLabel && (showGoogleRating || showZillowRating) && (
                 <a
