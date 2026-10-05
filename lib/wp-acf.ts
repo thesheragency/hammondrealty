@@ -64,7 +64,7 @@ const GETINTOUCH_SELECTION = `body email emailCardDesc emailCardTitle eyebrow fo
 export function fetchGetInTouchAcf() { return fetchGroup<Record<string, any>>('connect', 'getInTouchFields', GETINTOUCH_SELECTION); }
 
 const BOOKCONSULTATION_SELECTION = `body body2 calendarEmbed calendarHeading calendarText confirmLink confirmText expectations { desc title } eyebrow heading scheduleLink scheduleText`;
-export function fetchBookConsultationAcf() { return fetchGroup<Record<string, any>>('book-consultation', 'bookConsultationFields', BOOKCONSULTATION_SELECTION); }
+export function fetchBookConsultationAcf() { return fetchGroup<Record<string, any>>('book-consultation', 'bookConsultationFields', `${BOOKCONSULTATION_SELECTION} formHeading formIntro formNameLabel formNamePlaceholder formEmailLabel formEmailPlaceholder formPhoneLabel formPhonePlaceholder formPrivacyPrefix formPrivacyLinkLabel formPrivacyLink formNameRequiredError formEmailRequiredError formEmailInvalidError formPhoneRequiredError formPhoneInvalidError formPrivacyError formSubmitError formSubmittingLabel calendarUrl calendarIframeTitle`, true); }
 
 const BOOKED_SELECTION = `badge body buttonLink buttonText heading videoEmbed`;
 export function fetchBookedAcf() { return fetchGroup<Record<string, any>>('booked', 'bookedFields', BOOKED_SELECTION); }

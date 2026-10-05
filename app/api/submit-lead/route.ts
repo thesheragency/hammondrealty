@@ -1,9 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
+import { normalizeUsPhone } from "@/lib/us-phone";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name = "", email = "", phone = "", address = "", notes = "" } = body;
+    const isBooking = body.formId === "book-consultation";
+    const { name = "", email = "", address = "", notes = "" } = body;
+    let phone = body.phone ?? "";
+    if (isBooking) {
+      const normalizedPhone = normalizeUsPhone(phone);
+      if (
+        typeof name !== "string" || !name.trim() ||
+        typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
+        !normalizedPhone || body.privacyAccepted !== true
+      ) {
+        return NextResponse.json({ error: "Invalid booking form submission" }, { status: 400 });
+      }
+      phone = normalizedPhone;
+    }
 
     // Split full name into first / last
     const nameParts = name.trim().split(/\s+/);
@@ -12,8 +26,8 @@ export async function POST(req: NextRequest) {
 
     // Combine address + notes into one message field
     const messageParts: string[] = [];
-    if (address) messageParts.push(`Property Address: ${address}`);
-    if (notes) messageParts.push(notes);
+    if (!isBooking && address) messageParts.push(`Property Address: ${address}`);
+    if (!isBooking && notes) messageParts.push(notes);
     const message = messageParts.join("\n\n");
 
     const apiKey = process.env.FUB_API_KEY;

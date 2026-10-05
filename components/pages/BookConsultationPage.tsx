@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useRef, useEffect, type SyntheticEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import { tc } from "@/lib/title-case";
-
-const CALENDLY_URL =
-  "https://calendly.com/blakehammondre/real-estate-consult-with-blake";
+import { normalizeUsPhone } from "@/lib/us-phone";
 
 const defaultExpectations = [
   {
@@ -33,24 +31,35 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const expectations: { title: string; desc: string }[] =
     acf?.expectations?.length ? acf.expectations : defaultExpectations;
 
-  const [step, setStep] = useState<"form" | "success" | "calendar">("form");
-  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", notes: "" });
+  const [step, setStep] = useState<"form" | "calendar">("form");
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const conversionReplayRef = useRef(false);
+  const text = (key: string) => typeof acf?.[key] === "string" ? acf[key].trim() : "";
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    // Replay only a confirmed success to the existing GTM form-submit listener.
+    // Failed validation/network requests must not count as conversions.
+    if (conversionReplayRef.current) return;
+    e.stopPropagation();
+    const formElement = formRef.current;
+    if (submitting || !formElement) return;
     const newErrors: { name?: string; email?: string; phone?: string } = {};
-    if (!form.name.trim()) newErrors.name = "Name is required.";
-    if (!form.email.trim()) newErrors.email = "Email is required.";
-    else if (!EMAIL_RE.test(form.email.trim())) newErrors.email = "Please enter a valid email address.";
-    if (!form.phone.trim()) newErrors.phone = "Phone number is required.";
+    if (!form.name.trim()) newErrors.name = text("formNameRequiredError");
+    if (!form.email.trim()) newErrors.email = text("formEmailRequiredError");
+    else if (!EMAIL_RE.test(form.email.trim())) newErrors.email = text("formEmailInvalidError");
+    const normalizedPhone = normalizeUsPhone(form.phone);
+    if (!form.phone.trim()) newErrors.phone = text("formPhoneRequiredError");
+    else if (!normalizedPhone) newErrors.phone = text("formPhoneInvalidError");
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -66,12 +75,21 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
       const res = await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name.trim(), email: form.email.trim(), phone: normalizedPhone,
+          formId: "book-consultation", privacyAccepted,
+        }),
       });
       if (!res.ok) throw new Error("submission_failed");
-      setStep("success");
+      conversionReplayRef.current = true;
+      try {
+        formElement.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+      } finally {
+        conversionReplayRef.current = false;
+      }
+      setStep("calendar");
     } catch {
-      setSubmitError("Something went wrong. Please try again or call us directly.");
+      setSubmitError(text("formSubmitError"));
     } finally {
       setSubmitting(false);
     }
@@ -79,7 +97,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
   // Scroll the right panel into view after transitioning
   useEffect(() => {
-    if ((step === "calendar" || step === "success") && rightPanelRef.current) {
+    if (step === "calendar" && rightPanelRef.current) {
       setTimeout(() => {
         rightPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
@@ -92,7 +110,10 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     name: form.name,
     email: form.email,
   });
-  const calendlyIframeSrc = `${CALENDLY_URL}?${params.toString()}`;
+  const calendarUrl = text("calendarUrl");
+  const calendlyIframeSrc = calendarUrl
+    ? `${calendarUrl}${calendarUrl.includes("?") ? "&" : "?"}${params.toString()}`
+    : "";
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground overflow-x-clip flex flex-col">
@@ -152,20 +173,36 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="bg-muted p-8 md:p-10"
                     >
-                      <h3 className="font-sans text-xl font-bold mb-1">A Little About You</h3>
-                      <p className="text-sm text-foreground/60 mb-8">
-                        Fill this out and we will open the calendar so you can pick a time.
-                      </p>
+                      {text("formHeading") && (
+                        <h3 className="font-sans text-xl font-bold mb-1">{text("formHeading")}</h3>
+                      )}
+                      {text("formIntro") && (
+                        <p className="text-sm text-foreground/60 mb-8">{text("formIntro")}</p>
+                      )}
 
-                      <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                      <form
+                        ref={formRef}
+                        onSubmit={handleSubmit}
+                        onKeyDown={(event) => {
+                          // Avoid a premature native submit (and GTM conversion)
+                          // when Enter is pressed in an input. Keyboard activation
+                          // of the button still uses its normal click handler.
+                          if (event.key === "Enter" && event.target instanceof HTMLInputElement) {
+                            void handleSubmit(event);
+                          }
+                        }}
+                        noValidate
+                        className="space-y-5"
+                      >
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-name" className="text-sm font-medium">
-                            Name<span className="text-destructive ml-0.5">*</span>
+                            {text("formNameLabel")}<span className="text-destructive ml-0.5">*</span>
                           </Label>
                           <Input
                             id="bc-name"
                             required
-                            placeholder="Your full name"
+                            placeholder={text("formNamePlaceholder")}
+                            autoComplete="name"
                             value={form.name}
                             onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors((prev) => ({ ...prev, name: undefined })); }}
                             className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.name ? "border-destructive" : ""}`}
@@ -176,13 +213,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-email" className="text-sm font-medium">
-                            Email<span className="text-destructive ml-0.5">*</span>
+                            {text("formEmailLabel")}<span className="text-destructive ml-0.5">*</span>
                           </Label>
                           <Input
                             id="bc-email"
                             type="email"
                             required
-                            placeholder="you@example.com"
+                            placeholder={text("formEmailPlaceholder")}
+                            autoComplete="email"
                             value={form.email}
                             onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors((prev) => ({ ...prev, email: undefined })); }}
                             className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.email ? "border-destructive" : ""}`}
@@ -193,48 +231,20 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                         <div className="space-y-1.5">
                           <Label htmlFor="bc-phone" className="text-sm font-medium">
-                            Phone<span className="text-destructive ml-0.5">*</span>
+                            {text("formPhoneLabel")}<span className="text-destructive ml-0.5">*</span>
                           </Label>
                           <Input
                             id="bc-phone"
                             type="tel"
                             required
-                            placeholder="(916) 555-0100"
+                            placeholder={text("formPhonePlaceholder")}
+                            autoComplete="tel"
                             value={form.phone}
-                            onChange={(e) => { const digits = e.target.value.replace(/\D/g, ""); setForm({ ...form, phone: digits }); setErrors((prev) => ({ ...prev, phone: undefined })); }}
+                            onChange={(e) => { setForm({ ...form, phone: e.target.value }); setErrors((prev) => ({ ...prev, phone: undefined })); }}
                             className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.phone ? "border-destructive" : ""}`}
                             data-testid="input-bc-phone"
                           />
                           {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label htmlFor="bc-address" className="text-sm font-medium">
-                            Property Address
-                          </Label>
-                          <Input
-                            id="bc-address"
-                            placeholder="123 Main St, Sacramento, CA"
-                            value={form.address}
-                            onChange={(e) => setForm({ ...form, address: e.target.value })}
-                            className="rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11"
-                            data-testid="input-bc-address"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label htmlFor="bc-notes" className="text-sm font-medium">
-                            Anything you would like me to know
-                          </Label>
-                          <textarea
-                            id="bc-notes"
-                            rows={4}
-                            placeholder="Share any details about your situation, goals, or questions..."
-                            value={form.notes}
-                            onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                            className="w-full rounded-none bg-white border border-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary px-3 py-2.5 text-sm resize-none"
-                            data-testid="textarea-bc-notes"
-                          />
                         </div>
 
                         <div className="space-y-1">
@@ -250,14 +260,16 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                               data-testid="checkbox-bc-privacy"
                             />
                             <Label htmlFor="bc-privacy" className="text-xs text-muted-foreground leading-relaxed font-normal cursor-pointer">
-                              I accept the{' '}
-                              <a href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground transition-colors">
-                                Privacy Policy
-                              </a>.
+                              {text("formPrivacyPrefix")}{' '}
+                              {text("formPrivacyLink") && text("formPrivacyLinkLabel") && (
+                                <a href={text("formPrivacyLink")} className="underline underline-offset-2 hover:text-foreground transition-colors">
+                                  {text("formPrivacyLinkLabel")}
+                                </a>
+                              )}.
                             </Label>
                           </div>
                           {privacyError && (
-                            <p className="text-xs text-destructive pl-7">Please accept the Privacy Policy to continue.</p>
+                            <p className="text-xs text-destructive pl-7">{text("formPrivacyError")}</p>
                           )}
                         </div>
 
@@ -267,45 +279,16 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           </p>
                         )}
 
-                        <Button
-                          type="submit"
+                        {text("scheduleText") && <Button
+                          type="button"
+                          onClick={handleSubmit}
                           disabled={submitting}
                           className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
                           data-testid="button-bc-submit"
                         >
-                          {submitting ? "Sending…" : (acf?.scheduleText || "Continue to Booking")}
-                        </Button>
+                          {submitting ? text("formSubmittingLabel") : text("scheduleText")}
+                        </Button>}
                       </form>
-                    </motion.div>
-                  ) : step === "success" ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -16 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="bg-muted p-8 md:p-10"
-                    >
-                      <div className="flex items-center gap-3 mb-6">
-                        <span className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                          <Check className="w-5 h-5" strokeWidth={3} />
-                        </span>
-                        <h3 className="font-sans text-xl font-bold leading-snug">
-                          Message Sent!
-                        </h3>
-                      </div>
-                      <p className="text-foreground/70 leading-relaxed text-base mb-8">
-                        Thank you! Your message has been sent to Blake Hammond Real Estate. Blake will be in touch shortly.
-                      </p>
-                      <p className="text-foreground/70 leading-relaxed text-base mb-8">
-                        Ready to pick a time right now? You can book a 15-minute call below.
-                      </p>
-                      <Button
-                        onClick={() => setStep("calendar")}
-                        className="w-full bg-primary text-primary-foreground rounded-none h-[45px] font-medium text-sm transition-all hover:-translate-y-0.5"
-                      >
-                        Book a Time on the Calendar
-                      </Button>
                     </motion.div>
                   ) : (
                     <motion.div
@@ -315,15 +298,15 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="w-full"
                     >
-                      <iframe
+                      {calendlyIframeSrc && <iframe
                         src={calendlyIframeSrc}
                         width="100%"
                         height="700"
                         frameBorder="0"
-                        title="Schedule a consultation with Blake Hammond"
+                        title={text("calendarIframeTitle")}
                         data-testid="embed-calendly"
                         style={{ border: "none", minWidth: 320 }}
-                      />
+                      />}
                     </motion.div>
                   )}
                 </AnimatePresence>
