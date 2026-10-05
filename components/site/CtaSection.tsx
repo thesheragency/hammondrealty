@@ -51,9 +51,9 @@ export default function CtaSection({
       />
 
       <div className="relative container mx-auto px-4 md:px-8 py-12 md:py-32 text-left sm:text-center">
-        <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6">{eyebrow}</p>
-        <h2 className="text-h2 font-bold mb-6">{heading}</h2>
-        <p className="text-white/70 max-w-xl sm:mx-auto mb-10 leading-relaxed">{body}</p>
+        {eyebrow && <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6">{eyebrow}</p>}
+        {heading && <h2 className="text-h2 font-bold mb-6">{heading}</h2>}
+        {body && <p className="text-white/70 max-w-xl sm:mx-auto mb-10 leading-relaxed">{body}</p>}
         <div className="flex flex-wrap items-center justify-start sm:justify-center gap-4">
           <Button
             asChild

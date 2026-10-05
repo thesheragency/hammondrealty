@@ -1,0 +1,18 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case, e.g. hero_result_line), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+On /home-prep-program, update the last section before the footer (dark background, "LET'S TALK / Don't Miscalculate The Market"). This section is also on the homepage, so change it ONLY on /home-prep-program. If it's a shared component, add props or a variant and leave the homepage version unchanged. If the text comes from a shared/global ACF field (e.g. an options page) that the homepage also uses, don't edit that field. Create page-specific ACF fields for the /home-prep-program closing section instead and fill them in with the text below.
+
+New text for /home-prep-program:
+- Eyebrow: "READY TO GET STARTED"
+- Headline: "Your Home Could Be Worth More Than You Think."
+- Subtext: "A 15-minute call is all it takes. We will walk through your property, your goals, and what your home needs to sell for top dollar."
+
+Keep both buttons and their links as they are. Keep the existing styling.

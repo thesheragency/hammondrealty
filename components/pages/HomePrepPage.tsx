@@ -971,6 +971,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         />
 
         <CtaSection
+          eyebrow={acf?.closingEyebrow || ""}
+          heading={acf?.closingHeading || ""}
+          body={acf?.closingBody || ""}
           primaryLabel="Schedule a Home Prep Consultation"
           primaryHref="/book-consultation"
           secondaryLabel="Call Now"
