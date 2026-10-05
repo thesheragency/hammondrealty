@@ -1,0 +1,20 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case, e.g. hero_result_line), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+On /book-consultation, make the calendar the main next step after the form.
+
+Right now, after the form is submitted, the right column shows a "Message Sent!" box ("Thank you! Your message has been sent to Blake Hammond Real Estate. Blake will be in touch shortly. Ready to pick a time right now? You can book a 15-minute call below.") and then an optional "Book a Time on the Calendar" button. Change it to:
+
+1. User submits Name + Phone.
+2. On success, replace the form card in place (same right column, no page reload) with the booking calendar from the scheduling tool we already use. Remove the "Message Sent!" box and the "Book a Time on the Calendar" button step.
+3. Calendar card heading: "Pick a time that works for you." Subtext: "Choose a time below and we'll confirm your 15-minute call." Show the weekly view with available time slots and the note "All times are in Pacific Time (PT)." at the bottom. Pre-fill name/phone into the calendar if it supports that.
+4. Scroll the calendar into view on mobile.
+
+Don't change the left column. Use the existing calendar integration, don't add a new booking provider. Make sure the lead is saved/sent before the calendar shows.
