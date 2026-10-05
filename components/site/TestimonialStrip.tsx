@@ -25,7 +25,7 @@ export default function TestimonialStrip({
     ) : null;
 
   return (
-    <section className="m-0 w-full border-y border-accent/25 bg-accent/15 px-5 py-10 md:py-14">
+    <section className="m-0 w-full border-y border-accent/25 bg-accent/15 px-5 py-[50px]">
       <figure className="mx-auto my-0 flex max-w-[720px] flex-col items-center text-center">
         <blockquote className="m-0 text-[18px] italic leading-[1.4] text-foreground [text-wrap:balance] before:content-['“'] after:content-['”'] md:text-[22px] md:tracking-[-0.04em]">
           {trimmedQuote}

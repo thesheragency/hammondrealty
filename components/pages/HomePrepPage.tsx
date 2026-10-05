@@ -644,7 +644,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
         {/* Why the Home Prep Program */}
         <motion.section
-          className="bg-background py-12 md:py-32"
+          className="bg-background pt-12 pb-4 md:pt-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
