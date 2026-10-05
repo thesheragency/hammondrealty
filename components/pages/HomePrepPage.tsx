@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
+import TestimonialStrip from "@/components/site/TestimonialStrip";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
@@ -697,6 +698,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             </div>
           </div>
         </motion.section>
+
+        <TestimonialStrip
+          quote={acf?.whyTestimonialQuote}
+          name={acf?.whyTestimonialName}
+          source={acf?.whyTestimonialSource}
+        />
 
         {/* Home Prep Program Process */}
         <motion.section
