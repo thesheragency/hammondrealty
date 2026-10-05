@@ -16,3 +16,11 @@ Use a fresh Chromium profile with browser network caching disabled for visual ve
 **Why:** Repeated built-in captures omitted newly added CMS-backed content while a fresh profile rendered it correctly; that original cause was not established. Later, a fresh profile reused stale CSS across iterations and clean app restarts. Disabling network caching and clearing the browser cache made the current CSS take effect.
 
 **How to apply:** Keep checks bounded to the requested viewports, disable browser caching before loading, inspect the rendered element and its geometry, and use current screenshots as evidence. Do not treat stale captures as proof of a frontend defect.
+
+## Drag and touch verification
+
+Keep CDP mouse coordinates inside the browser viewport; test infinite wrapping with repeated in-bounds drags. Use native touch input for swipe and vertical-scroll acceptance, not synthetic pointer events alone.
+
+**Why:** Chromium discarded out-of-window mouse moves during a wraparound check. Native touch verification also exposed implicit pointer capture transferring from a card child to its row, a behavior mouse-only checks did not reveal.
+
+**How to apply:** Exercise both directions and loop boundaries with repeated real gestures, allow the intentional autoplay delay to expire before testing the other row's motion, and verify vertical touch scrolling directly.

@@ -327,7 +327,7 @@ export default function TestimonialsSection({
         )}
 
         {isMarquee ? (
-          <ReviewMarquee reviews={reviews} content={marqueeContent} />
+          <ReviewMarquee reviews={reviews} />
         ) : (
         <Carousel className="w-full" opts={{ align: "start", loop: true }} setApi={setApi}>
           <CarouselContent className="-ml-4">
