@@ -136,6 +136,7 @@ const defaultReviews: Testimonial[] = [
 
 interface TestimonialsSectionProps {
   testimonials?: Testimonial[];
+  id?: string;
 }
 
 function SourceLogo({ source }: { source?: "google" | "zillow" }) {
@@ -143,7 +144,7 @@ function SourceLogo({ source }: { source?: "google" | "zillow" }) {
   return <GoogleG className="w-6 h-6" />;
 }
 
-export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+export default function TestimonialsSection({ testimonials, id }: TestimonialsSectionProps) {
   const reviews = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
   const [api, setApi] = useState<CarouselApi | undefined>();
 
@@ -164,6 +165,8 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
 
   return (
     <motion.section
+      id={id}
+      style={id ? { scrollMarginTop: "6rem" } : undefined}
       className="bg-background py-12 md:py-32 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}

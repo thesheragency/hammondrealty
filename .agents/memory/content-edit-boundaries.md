@@ -3,7 +3,7 @@ name: Headless content edit boundaries
 description: User's rules for content changes and tightly scoped visual edits.
 ---
 
-All page content is managed in WordPress using ACF fields and pulled into the frontend through the WP API. New page copy must use a WordPress field rather than a frontend text literal.
+All page content is managed in WordPress using ACF fields and pulled into the frontend through the WP API. New text, quotes, ratings, button labels, and links must use ACF fields rather than frontend literals. Empty new fields hide their corresponding elements without hardcoded fallback content.
 
 Before changing text, check whether it is hardcoded in the component or fetched from WordPress. For WordPress-sourced text, do not hardcode over it: tell the user exactly which WordPress page and field to update.
 

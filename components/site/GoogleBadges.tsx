@@ -47,13 +47,15 @@ export function GoogleG({ className }: { className?: string }) {
 export function Stars({
   className = "w-4 h-4",
   label = "5 out of 5 stars based on Google reviews",
+  count = 5,
 }: {
   className?: string;
   label?: string;
+  count?: number;
 }) {
   return (
     <div className="flex items-center gap-0.5" role="img" aria-label={label}>
-      {Array.from({ length: 5 }).map((_, i) => (
+      {Array.from({ length: count }).map((_, i) => (
         <Star
           key={i}
           aria-hidden

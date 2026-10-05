@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
+import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -476,6 +477,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
 
   const heroImageUrl = imgUrl(acf?.heroImage, prepHeroBgUrl);
   const heroResultLine = typeof acf?.heroResultLine === "string" ? acf.heroResultLine.trim() : "";
+  const heroGoogleRating = typeof acf?.heroGoogleRating === "string" ? acf.heroGoogleRating.trim() : "";
+  const heroZillowRating = typeof acf?.heroZillowRating === "string" ? acf.heroZillowRating.trim() : "";
+  const heroReviewsLink = typeof acf?.heroReviewsLink === "string" ? acf.heroReviewsLink.trim() : "";
+  const heroReviewsAriaLabel = typeof acf?.heroReviewsAriaLabel === "string" ? acf.heroReviewsAriaLabel.trim() : "";
+  const showGoogleRating = !!heroGoogleRating && Number.isFinite(Number(heroGoogleRating)) && Number(heroGoogleRating) >= 0 && Number(heroGoogleRating) <= 5;
+  const showZillowRating = !!heroZillowRating && Number.isFinite(Number(heroZillowRating)) && Number(heroZillowRating) >= 0 && Number(heroZillowRating) <= 5;
   const familiarImageUrl = imgUrl(acf?.familiarImage, soundFamiliarUrl);
   const whyImageUrl = imgUrl(acf?.whyImage, prepHomeAerialUrl);
   const caseBeforeImageUrl = imgUrl(acf?.caseBeforeImage, prepRosevilleBeforeUrl);
@@ -532,6 +539,31 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   {acf?.heroCtaText || "Schedule a Home Prep Consultation"}
                 </Link>
               </div>
+              {heroReviewsLink && heroReviewsAriaLabel && (showGoogleRating || showZillowRating) && (
+                <a
+                  href={heroReviewsLink}
+                  aria-label={heroReviewsAriaLabel}
+                  className="mt-4 inline-flex flex-nowrap items-center gap-3 whitespace-nowrap text-sm leading-none text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                >
+                  {showGoogleRating && (
+                    <span className="inline-flex items-center gap-1.5" aria-hidden="true">
+                      <GoogleG className="h-4 w-4 shrink-0" />
+                      <span>{heroGoogleRating}</span>
+                      <Stars className="h-4 w-4" label="" count={Math.round(Number(heroGoogleRating))} />
+                    </span>
+                  )}
+                  {showGoogleRating && showZillowRating && (
+                    <span className="h-4 w-px bg-white/40" aria-hidden="true" />
+                  )}
+                  {showZillowRating && (
+                    <span className="inline-flex items-center gap-1.5" aria-hidden="true">
+                      <ZillowZ className="h-4 w-4 shrink-0" />
+                      <span>{heroZillowRating}</span>
+                      <Stars className="h-4 w-4" label="" count={Math.round(Number(heroZillowRating))} />
+                    </span>
+                  )}
+                </a>
+              )}
             </motion.div>
           </div>
         </section>
@@ -891,7 +923,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           </div>
         </motion.section>
 
-        <TestimonialsSection />
+        <TestimonialsSection id="reviews" />
 
         <FaqsSection
           faqs={faqsList}
