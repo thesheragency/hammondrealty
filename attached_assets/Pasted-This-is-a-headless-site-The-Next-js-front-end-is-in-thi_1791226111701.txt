@@ -1,0 +1,16 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case, e.g. hero_result_line), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+On /home-prep-program, in the process section, add a timeline line to step 03 "Project Management".
+
+After the existing description, add:
+[calendar icon] Typical timeline: 1-2 weeks
+
+Use a small calendar icon (lucide-react "CalendarDays" if installed, otherwise an inline SVG), same grey text, with "1-2 weeks" semi-bold. Store the timeline as ACF fields on the process step (e.g. "timeline_label" = "Typical timeline:" and "timeline_value" = "1-2 weeks") so other steps can use it later. Only show the line when the field has a value. Don't change any other step.

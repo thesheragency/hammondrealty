@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
 import { motion } from "framer-motion";
-import { Play, ArrowRight, ArrowLeft, Check, Phone } from "lucide-react";
+import { Play, ArrowRight, ArrowLeft, Check, Phone, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -455,6 +455,8 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         num: s.num || prepSteps[i]?.num || String(i + 1).padStart(2, "0"),
         title: s.title,
         desc: s.desc,
+        timelineLabel: typeof s.timelineLabel === "string" ? s.timelineLabel.trim() : "",
+        timelineValue: typeof s.timelineValue === "string" ? s.timelineValue.trim() : "",
         image: imgUrl(s.image, prepSteps[i]?.image || prepHomeAerialUrl),
       }))
     : prepSteps;
@@ -767,6 +769,15 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                           <p className="text-foreground/70 leading-relaxed">
                             {step.desc}
                           </p>
+                          {step.timelineValue && (
+                            <p className="mt-2 flex items-center gap-2 text-foreground/70 leading-relaxed">
+                              <CalendarDays className="h-4 w-4 shrink-0" aria-hidden="true" />
+                              <span>
+                                {step.timelineLabel && `${step.timelineLabel} `}
+                                <span className="font-semibold">{step.timelineValue}</span>
+                              </span>
+                            </p>
+                          )}
                         </div>
                       </li>
                     ))}
