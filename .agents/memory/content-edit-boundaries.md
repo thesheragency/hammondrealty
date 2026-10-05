@@ -5,7 +5,7 @@ description: User's rules for content changes and tightly scoped visual edits.
 
 All page content is managed in WordPress using ACF fields and pulled into the frontend through the WP API. New text, quotes, ratings, button labels, and links must use ACF fields rather than frontend literals. Empty new fields hide their corresponding elements without hardcoded fallback content.
 
-Before changing text, check whether it is hardcoded in the component or fetched from WordPress. For WordPress-sourced text, do not hardcode over it: tell the user exactly which WordPress page and field to update.
+Before changing text, check whether it is hardcoded in the component or fetched from WordPress. Update authorized WordPress-sourced changes in their existing ACF fields, never as overrides in code. If remote editing is unavailable, wire the frontend field and give the user its group, label, name, type, and exact value for WP admin.
 
 Only change what the prompt asks for. Do not touch other sections, pages, or existing copy, colors, fonts, and spacing unless told to.
 

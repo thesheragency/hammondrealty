@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
-import { fetchHomePrepAcf, fetchTestimonials } from '@/lib/wp-acf';
+import { fetchHomePrepAcf, fetchMarqueeTestimonials } from '@/lib/wp-acf';
 import HomePrepPage from '@/components/pages/HomePrepPage';
 
 // This landing page must reflect ACF edits on the next request, even if a
@@ -16,6 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [acf, wpTestimonials] = await Promise.all([fetchHomePrepAcf(), fetchTestimonials()]);
-  return <HomePrepPage acf={acf} testimonials={wpTestimonials.length > 0 ? wpTestimonials : undefined} />;
+  const [acf, wpTestimonials] = await Promise.all([fetchHomePrepAcf(), fetchMarqueeTestimonials()]);
+  return <HomePrepPage acf={acf} testimonials={wpTestimonials} />;
 }

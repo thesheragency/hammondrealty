@@ -10,11 +10,29 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
+import ReviewMarquee from "@/components/site/ReviewMarquee";
 
 export interface Testimonial {
   quote: string;
   name: string;
   source?: "google" | "zillow";
+  shortExcerpt?: string;
+  featured?: boolean;
+  marqueeRow?: 1 | 2;
+  order?: number;
+}
+
+export interface ReviewsContent {
+  heading?: string;
+  ratingSummary?: string;
+  googleRating?: string;
+  googleLabel?: string;
+  googleAriaLabel?: string;
+  zillowRating?: string;
+  zillowLabel?: string;
+  zillowAriaLabel?: string;
+  pauseLabel?: string;
+  playLabel?: string;
 }
 
 const defaultReviews: Testimonial[] = [
@@ -137,6 +155,8 @@ const defaultReviews: Testimonial[] = [
 interface TestimonialsSectionProps {
   testimonials?: Testimonial[];
   id?: string;
+  variant?: "carousel" | "marquee";
+  content?: ReviewsContent;
 }
 
 function SourceLogo({ source }: { source?: "google" | "zillow" }) {
@@ -144,14 +164,43 @@ function SourceLogo({ source }: { source?: "google" | "zillow" }) {
   return <GoogleG className="w-6 h-6" />;
 }
 
-export default function TestimonialsSection({ testimonials, id }: TestimonialsSectionProps) {
-  const reviews = testimonials && testimonials.length > 0 ? testimonials : defaultReviews;
+export default function TestimonialsSection({
+  testimonials,
+  id,
+  variant = "carousel",
+  content,
+}: TestimonialsSectionProps) {
+  const isMarquee = variant === "marquee";
+  const reviews = isMarquee
+    ? (testimonials ?? [])
+        .filter(
+          (review) =>
+            review.featured === true &&
+            typeof review.shortExcerpt === "string" &&
+            review.shortExcerpt.trim().length > 0 &&
+            typeof review.name === "string" &&
+            review.name.trim().length > 0 &&
+            (review.marqueeRow === 1 || review.marqueeRow === 2) &&
+            typeof review.order === "number" &&
+            Number.isFinite(review.order),
+        )
+        .sort((a, b) => (a.order as number) - (b.order as number))
+    : testimonials && testimonials.length > 0
+      ? testimonials
+      : defaultReviews;
   const [api, setApi] = useState<CarouselApi | undefined>();
 
   const [index, setIndex] = useState(0);
 
   const scrollPrev = useCallback(() => api?.scrollPrev(), [api]);
   const scrollNext = useCallback(() => api?.scrollNext(), [api]);
+  const marqueeContent = content ?? {};
+  const showGoogleBadge = Boolean(
+    marqueeContent.googleRating || marqueeContent.googleLabel || marqueeContent.googleAriaLabel,
+  );
+  const showZillowBadge = Boolean(
+    marqueeContent.zillowRating || marqueeContent.zillowLabel || marqueeContent.zillowAriaLabel,
+  );
 
   useEffect(() => {
     if (!api) return;
@@ -174,36 +223,112 @@ export default function TestimonialsSection({ testimonials, id }: TestimonialsSe
       transition={{ duration: 0.9, ease: "easeOut" }}
     >
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex flex-col items-start text-left sm:items-center sm:text-center mb-8 md:mb-16">
-          <h2 className="text-h2 font-bold mb-4">Trusted By Homeowners</h2>
-          <p className="text-foreground/70 leading-relaxed mb-8 max-w-xl">
-            Rated 5 out of 5 stars based on verified client feedback.
-          </p>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
-              <GoogleG className="w-9 h-9" />
-              <div className="flex flex-col items-start">
-                <div className="flex items-center gap-2">
-                  <span className="font-sans text-2xl font-bold leading-none">5.0</span>
-                  <Stars className="w-5 h-5" label="Rated 5.0 out of 5 stars" />
+        {isMarquee ? (
+          (marqueeContent.heading ||
+            marqueeContent.ratingSummary ||
+            showGoogleBadge ||
+            showZillowBadge) && (
+            <div className="flex flex-col items-start text-left sm:items-center sm:text-center mb-8 md:mb-16">
+              {marqueeContent.heading && (
+                <h2 className="text-h2 font-bold mb-4">{marqueeContent.heading}</h2>
+              )}
+              {marqueeContent.ratingSummary && (
+                <p className="text-foreground/70 leading-relaxed mb-8 max-w-xl">
+                  {marqueeContent.ratingSummary}
+                </p>
+              )}
+              {(showGoogleBadge || showZillowBadge) && (
+                <div className="flex flex-wrap items-center gap-6">
+                  {showGoogleBadge && (
+                    <div className="flex items-center gap-3">
+                      <GoogleG className="w-9 h-9" />
+                      <div className="flex flex-col items-start">
+                        {(marqueeContent.googleRating || marqueeContent.googleAriaLabel) && (
+                          <div className="flex items-center gap-2">
+                            {marqueeContent.googleRating && (
+                              <span className="font-sans text-2xl font-bold leading-none">
+                                {marqueeContent.googleRating}
+                              </span>
+                            )}
+                            {marqueeContent.googleAriaLabel && (
+                              <Stars className="w-5 h-5" label={marqueeContent.googleAriaLabel} />
+                            )}
+                          </div>
+                        )}
+                        {marqueeContent.googleLabel && (
+                          <span className="text-sm text-foreground/60 mt-1">
+                            {marqueeContent.googleLabel}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {showGoogleBadge && showZillowBadge && (
+                    <div className="hidden h-10 w-px bg-foreground/15 sm:block" />
+                  )}
+                  {showZillowBadge && (
+                    <div className="flex items-center gap-3">
+                      <ZillowZ className="w-9 h-9" />
+                      <div className="flex flex-col items-start">
+                        {(marqueeContent.zillowRating || marqueeContent.zillowAriaLabel) && (
+                          <div className="flex items-center gap-2">
+                            {marqueeContent.zillowRating && (
+                              <span className="font-sans text-2xl font-bold leading-none">
+                                {marqueeContent.zillowRating}
+                              </span>
+                            )}
+                            {marqueeContent.zillowAriaLabel && (
+                              <Stars className="w-5 h-5" label={marqueeContent.zillowAriaLabel} />
+                            )}
+                          </div>
+                        )}
+                        {marqueeContent.zillowLabel && (
+                          <span className="text-sm text-foreground/60 mt-1">
+                            {marqueeContent.zillowLabel}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <span className="text-sm text-foreground/60 mt-1">Google reviews</span>
-              </div>
+              )}
             </div>
-            <div className="w-px h-10 bg-foreground/15" />
-            <div className="flex items-center gap-3">
-              <ZillowZ className="w-9 h-9" />
-              <div className="flex flex-col items-start">
-                <div className="flex items-center gap-2">
-                  <span className="font-sans text-2xl font-bold leading-none">5.0</span>
-                  <Stars className="w-5 h-5" label="Rated 5.0 out of 5 stars on Zillow" />
+          )
+        ) : (
+          <div className="flex flex-col items-start text-left sm:items-center sm:text-center mb-8 md:mb-16">
+            <h2 className="text-h2 font-bold mb-4">Trusted By Homeowners</h2>
+            <p className="text-foreground/70 leading-relaxed mb-8 max-w-xl">
+              Rated 5 out of 5 stars based on verified client feedback.
+            </p>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3">
+                <GoogleG className="w-9 h-9" />
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans text-2xl font-bold leading-none">5.0</span>
+                    <Stars className="w-5 h-5" label="Rated 5.0 out of 5 stars" />
+                  </div>
+                  <span className="text-sm text-foreground/60 mt-1">Google reviews</span>
                 </div>
-                <span className="text-sm text-foreground/60 mt-1">Zillow reviews</span>
+              </div>
+              <div className="w-px h-10 bg-foreground/15" />
+              <div className="flex items-center gap-3">
+                <ZillowZ className="w-9 h-9" />
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans text-2xl font-bold leading-none">5.0</span>
+                    <Stars className="w-5 h-5" label="Rated 5.0 out of 5 stars on Zillow" />
+                  </div>
+                  <span className="text-sm text-foreground/60 mt-1">Zillow reviews</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
+        {isMarquee ? (
+          <ReviewMarquee reviews={reviews} content={marqueeContent} />
+        ) : (
         <Carousel className="w-full" opts={{ align: "start", loop: true }} setApi={setApi}>
           <CarouselContent className="-ml-4">
             {reviews.map((r, i) => (
@@ -243,6 +368,7 @@ export default function TestimonialsSection({ testimonials, id }: TestimonialsSe
             </button>
           </div>
         </Carousel>
+        )}
       </div>
     </motion.section>
   );

@@ -7,7 +7,7 @@ import { Play, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
-import TestimonialsSection from "@/components/site/TestimonialsSection";
+import TestimonialsSection, { type Testimonial } from "@/components/site/TestimonialsSection";
 import TestimonialStrip from "@/components/site/TestimonialStrip";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
@@ -439,7 +439,7 @@ function IncludedCarousel({
   );
 }
 
-export default function HomePrep({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
+export default function HomePrep({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: Testimonial[] }) {
   const [activeStep, setActiveStep] = useState(0);
   const includedControlsRef = useRef<{ prev: () => void; next: () => void } | null>(null);
 
@@ -930,7 +930,23 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           </div>
         </motion.section>
 
-        <TestimonialsSection id="reviews" />
+        <TestimonialsSection
+          id="reviews"
+          variant="marquee"
+          testimonials={testimonials}
+          content={{
+            heading: acf?.reviewsHeading,
+            ratingSummary: acf?.reviewsRatingSummary,
+            googleRating: acf?.reviewsGoogleRating,
+            googleLabel: acf?.reviewsGoogleLabel,
+            googleAriaLabel: acf?.reviewsGoogleAriaLabel,
+            zillowRating: acf?.reviewsZillowRating,
+            zillowLabel: acf?.reviewsZillowLabel,
+            zillowAriaLabel: acf?.reviewsZillowAriaLabel,
+            pauseLabel: acf?.reviewsPauseLabel,
+            playLabel: acf?.reviewsPlayLabel,
+          }}
+        />
 
         <FaqsSection
           faqs={faqsList}

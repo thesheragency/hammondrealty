@@ -73,7 +73,7 @@ const THANKYOU_SELECTION = `body buttonLink buttonText heading`;
 export function fetchThankYouAcf() { return fetchGroup<Record<string, any>>('thank-you', 'thankYouFields', THANKYOU_SELECTION); }
 
 const HOMEPREP_SELECTION = `caseAfterImage { node { sourceUrl altText } } caseBeforeImage { node { sourceUrl altText } } caseBody caseBullets { text } caseCtaLink caseCtaText caseEyebrow caseHeading casePhoneLink casePhoneText caseSectionHeading familiarBody familiarCtaLink familiarCtaText familiarHeading familiarImage { node { sourceUrl altText } } familiarPhoneLink familiarPhoneText familiarSubheading familiarWorries { text } faqsIntro heroBody heroCtaLink heroCtaText heroEyebrow heroHeading heroResultLine heroImage { node { sourceUrl altText } } includedCards { desc image { node { sourceUrl altText } } title } includedEyebrow includedHeading processCtaLink processCtaText processEyebrow processHeading processSecondaryLink processSecondaryText processSubtitle steps { desc image { node { sourceUrl altText } } num title } whyBody whyBullets { desc title } whyCtaLink whyCtaText whyEyebrow whyHeading whyImage { node { sourceUrl altText } } whySecondaryLink whySecondaryText`;
-export function fetchHomePrepAcf() { return fetchGroup<Record<string, any>>('home-prep-program', 'homePrepFields', `${HOMEPREP_SELECTION} heroGoogleRating heroZillowRating heroReviewsLink heroReviewsAriaLabel whyTestimonialQuote whyTestimonialName whyTestimonialSource`, true); }
+export function fetchHomePrepAcf() { return fetchGroup<Record<string, any>>('home-prep-program', 'homePrepFields', `${HOMEPREP_SELECTION} heroGoogleRating heroZillowRating heroReviewsLink heroReviewsAriaLabel whyTestimonialQuote whyTestimonialName whyTestimonialSource reviewsHeading reviewsRatingSummary reviewsGoogleRating reviewsGoogleLabel reviewsGoogleAriaLabel reviewsZillowRating reviewsZillowLabel reviewsZillowAriaLabel reviewsPauseLabel reviewsPlayLabel`, true); }
 
 export type WpFaq = { question: string; answer: string };
 export async function fetchFaqs(): Promise<WpFaq[]> {
@@ -90,6 +90,13 @@ export async function fetchFaqs(): Promise<WpFaq[]> {
 
 export type WpTestimonial = { name: string; quote: string; source?: 'google' | 'zillow' };
 
+export type WpMarqueeTestimonial = WpTestimonial & {
+  shortExcerpt: string;
+  featured: boolean;
+  marqueeRow: 1 | 2;
+  order: number;
+};
+
 function normalizeSource(val?: string | string[] | null): 'google' | 'zillow' | undefined {
   if (!val) return undefined;
   const str = Array.isArray(val) ? val[0] : val;
@@ -98,6 +105,46 @@ function normalizeSource(val?: string | string[] | null): 'google' | 'zillow' | 
   if (lower.includes('zillow')) return 'zillow';
   if (lower.includes('google')) return 'google';
   return undefined;
+}
+
+// The marquee is exclusive to Home Prep; other routes keep their current fetcher.
+export async function fetchMarqueeTestimonials(): Promise<WpMarqueeTestimonial[]> {
+  try {
+    const data = await gqlFetch(`{
+      testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+        nodes {
+          testimonialFields {
+            reviewerName quote platform shortExcerpt featured marqueeRow order
+          }
+        }
+      }
+    }`, undefined, true);
+    return (data?.testimonials?.nodes ?? []).flatMap((node: any) => {
+      const fields = node.testimonialFields;
+      const row = Number(Array.isArray(fields?.marqueeRow) ? fields.marqueeRow[0] : fields?.marqueeRow);
+      if (
+        fields?.featured !== true ||
+        !fields.reviewerName?.trim() ||
+        !fields.shortExcerpt?.trim() ||
+        (row !== 1 && row !== 2) ||
+        typeof fields.order !== 'number' ||
+        !Number.isFinite(fields.order) ||
+        fields.order < 1
+      ) return [];
+      return [{
+        name: fields.reviewerName,
+        quote: fields.quote ?? '',
+        source: normalizeSource(fields.platform),
+        shortExcerpt: fields.shortExcerpt,
+        featured: fields.featured,
+        marqueeRow: row,
+        order: fields.order,
+      }];
+    });
+  } catch (error) {
+    console.error('[wp-acf] fetchMarqueeTestimonials failed:', error);
+    return [];
+  }
 }
 
 export async function fetchTestimonials(): Promise<WpTestimonial[]> {

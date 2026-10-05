@@ -1,0 +1,42 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+On /home-prep-program, in the "Trusted By Homeowners" section, replace the current testimonial carousel (3 cards with arrows) with a two-row auto-scrolling review marquee. Keep the heading, the "Rated 5 out of 5 stars..." line and the Google/Zillow badges as they are.
+
+Layout:
+- Two rows of short review cards.
+- Row 1 scrolls continuously to the LEFT. Row 2 scrolls continuously to the RIGHT.
+- About 3 cards visible per row on desktop, 2 on tablet, about 1.2 on mobile (so the next card peeks in).
+- Smooth, slow, seamless infinite loop: duplicate each row's cards so there's no gap or jump when it loops. One full loop should take about 40-60 seconds, slow enough to read.
+- Soft fade on the left and right edges of each row (gradient mask to the section background).
+- Use CSS animations (transform: translateX), not a heavy carousel library.
+
+Cards: 5 gold stars at the top, the short quote, reviewer name bottom-left, source logo (Google or Zillow, same as in the current data) bottom-right. White cards, subtle border/shadow, all the same width and height.
+
+Accessibility (required):
+- Pause both rows while the mouse hovers over them, or while a card is touched/focused.
+- Add a small visible pause/play button below the rows (aria-label "Pause reviews" / "Play reviews").
+- If the visitor has prefers-reduced-motion turned on, don't animate. Show the rows as static, horizontally scrollable lists instead.
+
+Content (verbatim pieces of the real reviews):
+Row 1 (scrolls left):
+1. "Sold for over asking price, 36 hours after being listed. In Blake we trust!" (Thomas Thornton)
+2. "We tried to sell our house with another realtor... in three working days Blake had it sold at asking price, cash, 21 day escrow." (Bianca S)
+3. "Blake had my house sold in 7 days! He made the process so smooth for me!!" (Lorraine Stickel)
+4. "Got our house sold on the very first day it was listed." (Tim Tingey)
+Row 2 (scrolls right):
+5. "Results were great. House sold quickly and for over asking." (Ron Lindsey)
+6. "The house sold extremely quickly and his marketing and staging were wonderfully done." (Christine Smith)
+7. "He deserves ten stars for making this transaction possible in a short time." (Larry Ciche)
+8. "We always felt like he had our best interest in mind... He kept the process simple." (Kellie Antonicic)
+
+Store this in ACF: add a "short_excerpt" text field to the existing testimonials data (wherever each review is stored) and fill it in for these 8 reviews. Add a "featured" true/false field, a "marquee_row" select field (1 or 2) and an "order" number field so the rows and order can be managed in WordPress. Keep the full review text in its current field. Don't delete any reviews from the data.
+
+If this testimonials component is shared with other pages, only change it on /home-prep-program (add a "marquee" variant) and leave other pages unchanged.
