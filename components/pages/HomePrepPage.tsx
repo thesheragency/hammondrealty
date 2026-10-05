@@ -518,6 +518,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl">
                 {acf?.heroBody || "I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing."}
               </p>
+              <p className="border-l-[3px] border-accent pl-3 mb-6 text-sm md:text-base leading-snug text-white">
+                $50,000 more for our Roseville client after a two-week renovation.
+              </p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href={acf?.heroCtaLink || "/book-consultation"}
