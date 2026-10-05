@@ -520,9 +520,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 {acf?.heroBody || "I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing."}
               </p>
               {heroResultLine && (
-                <p className="border-l-[3px] border-accent pl-3 mb-6 text-sm md:text-base font-normal leading-snug text-white">
+                <blockquote className="mx-0 mt-0 mb-6 border-l-[3px] border-accent pl-3 text-sm md:text-base font-normal not-italic leading-snug text-white">
                   {heroResultLine}
-                </p>
+                </blockquote>
               )}
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link

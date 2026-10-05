@@ -1,0 +1,21 @@
+Redo the hero result line you just added on /home-prep-program. It's currently hardcoded in the component, and it needs to come from ACF instead.
+
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+1. Remove the hardcoded text "$50,000 more for our Roseville client after a two-week renovation." from the component. No hardcoded text or fallback text should remain in the code.
+2. Create a new ACF text field for this line in the same field group as the other hero fields on the Home Prep Program page (the eyebrow, headline, subtext and button). Field label: "Hero Result Line". Field name: hero_result_line. Field type: Text. Expose it in the API the same way the other hero fields are.
+3. Fill in the field value: $50,000 more for our Roseville client after a two-week renovation.
+4. Map the field in the hero component. If the field is empty, don't render the line at all.
+5. If you can't create the field or set the value in WordPress from here, don't hardcode as a workaround. Make the front-end change to read hero_result_line, then give me the field group name, field label, field name, field type and value so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the field there.
+
+Design (match the attached screenshot):
+- Render the line as a blockquote: a solid vertical bar on the left side of the text, like a classic blockquote left border.
+- The left bar color must use the site's existing accent color from the theme (the same green/sage used on the site's buttons and accents). Use the existing color token or CSS variable, not a new hex value.
+- Left bar about 3px wide, running the full height of the text.
+- About 12px padding between the bar and the text.
+- White text, regular weight, slightly smaller than the subtext (about 15-16px desktop, 14px mobile). No italics, no quote marks.
+- Remove any default browser blockquote margins so it lines up with the left edge of the subtext and the button.
+- Position: between the hero subtext paragraph and the "Schedule A Free Call" button, with about 20px above and 24px below.
+- On mobile the text can wrap to two lines. The left bar should stretch to the full height of the text.
+
+Don't change the eyebrow, headline, subtext or button. Only change what this prompt asks for. Check desktop and mobile (375px) before you finish, and tell me which ACF field you created and its value.
