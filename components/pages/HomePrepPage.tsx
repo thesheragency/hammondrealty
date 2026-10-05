@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Play, ArrowRight, ArrowLeft, Check, Phone } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -440,7 +440,6 @@ function IncludedCarousel({
 }
 
 export default function HomePrep({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: Testimonial[] }) {
-  const [activeStep, setActiveStep] = useState(0);
   const includedControlsRef = useRef<{ prev: () => void; next: () => void } | null>(null);
 
   const worries: string[] = acf?.familiarWorries?.length
@@ -733,23 +732,12 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         >
           {/* Image — right half on desktop */}
           <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image src={steps[activeStep].image} alt="" fill sizes="50vw" className="object-cover" />
-              </motion.div>
-            </AnimatePresence>
+            <Image src={steps[0].image} alt="" fill sizes="50vw" className="object-cover" />
           </div>
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="flex flex-col pt-6 pb-4 lg:py-20 gap-10 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
+              <div className="flex flex-col pt-6 pb-4 lg:py-12 gap-6 w-full lg:w-[85%] lg:max-w-[520px] mx-auto lg:mx-0">
                 <div>
                   <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
                     {acf?.processEyebrow || "Home Prep Program Process"}
@@ -763,60 +751,33 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </div>
 
                 <div className="flex flex-col items-stretch self-stretch">
-                  {steps.map((step: any, i: number) => {
-                    const isActive = activeStep === i;
-                    return (
-                      <button
+                  <ol className="divide-y divide-foreground/10">
+                    {steps.map((step: any) => (
+                      <li
                         key={step.title}
-                        onClick={() => setActiveStep(i)}
-                        className={`w-full text-left py-6 border-b border-foreground/10 transition-opacity ${
-                          isActive ? "opacity-100" : "opacity-50 hover:opacity-80"
-                        }`}
+                        className="flex items-start gap-4 py-4 text-left"
                       >
-                        <div className="flex items-start gap-6">
-                          <span className="font-sans text-base md:text-lg font-semibold text-foreground/30 leading-none shrink-0 pt-3">
-                            {step.num}
-                          </span>
-                          <div className="flex-1 pt-2">
-                            <h3 className="font-sans text-2xl md:text-3xl font-bold mb-2">
-                              {step.title}
-                            </h3>
-                            <AnimatePresence initial={false}>
-                              {isActive && (
-                                <motion.p
-                                  initial={{ opacity: 0, height: 0 }}
-                                  animate={{ opacity: 1, height: "auto" }}
-                                  exit={{ opacity: 0, height: 0 }}
-                                  transition={{ duration: 0.35 }}
-                                  className="text-foreground/70 leading-relaxed overflow-hidden"
-                                >
-                                  {step.desc}
-                                </motion.p>
-                              )}
-                            </AnimatePresence>
-                          </div>
+                        <span className="font-sans text-sm font-normal text-foreground/30 shrink-0 pt-2">
+                          {step.num}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-sans text-2xl md:text-3xl font-semibold text-foreground mb-2">
+                            {step.title}
+                          </h3>
+                          <p className="text-foreground/70 leading-relaxed">
+                            {step.desc}
+                          </p>
                         </div>
-                      </button>
-                    );
-                  })}
+                      </li>
+                    ))}
+                  </ol>
 
                   {/* Mobile image */}
                   <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={`m-${activeStep}`}
-                        className="absolute inset-0"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <Image src={steps[activeStep].image} alt="" fill sizes="100vw" className="object-cover" />
-                      </motion.div>
-                    </AnimatePresence>
+                    <Image src={steps[0].image} alt="" fill sizes="100vw" className="object-cover" />
                   </div>
 
-                  <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-5 h-[45px] whitespace-nowrap">
                       <Link href={acf?.processCtaLink || "/book-consultation"}>{acf?.processCtaText || "Schedule a Home Prep Consultation"}</Link>
                     </Button>
