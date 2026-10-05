@@ -7,3 +7,4 @@
 - [Live release boundaries](live-release-boundaries.md) — GitHub commits, Replit publishing, DigitalOcean origin deployment, and Cloudflare cache are separate; verify ownership and each layer.
 - [Git auth boundaries](git-auth-boundaries.md) — GitHub connector permission does not authenticate workspace Git; a valid API connection can coexist with broken Replit Git-provider credentials.
 - [Content edit boundaries](content-edit-boundaries.md) — check CMS ownership before text edits; keep changes strictly scoped and check desktop plus 375px mobile.
+- [ACF schema management](wp-acf-schema-management.md) — page field groups are registered remotely through Code Snippets; its API can narrowly extend the existing PHP schema.
