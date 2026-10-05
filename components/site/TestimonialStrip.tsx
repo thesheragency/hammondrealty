@@ -25,16 +25,16 @@ export default function TestimonialStrip({
     ) : null;
 
   return (
-    <section className="w-full bg-muted px-5 py-8 md:py-12">
-      <figure className="mx-auto flex max-w-[700px] flex-col items-center text-center">
-        <blockquote className="text-xl italic leading-relaxed text-foreground md:text-2xl">
+    <section className="m-0 w-full border-y border-accent/25 bg-accent/15 px-5 py-10 md:py-14">
+      <figure className="mx-auto my-0 flex max-w-[720px] flex-col items-center text-center">
+        <blockquote className="m-0 text-[18px] italic leading-[1.4] text-foreground [text-wrap:balance] before:content-['“'] after:content-['”'] md:text-[22px] md:tracking-[-0.04em]">
           {trimmedQuote}
         </blockquote>
         {(trimmedName || sourceLogo) && (
-          <figcaption className="mt-5 flex items-center justify-center gap-3 text-sm text-muted-foreground">
+          <figcaption className="mt-3 flex items-center justify-center gap-3 text-sm text-foreground/70">
             {trimmedName && <span>{trimmedName}</span>}
             {trimmedName && sourceLogo && (
-              <span aria-hidden="true" className="h-4 w-px bg-foreground/20" />
+              <span aria-hidden="true" className="h-3.5 w-px bg-foreground/20" />
             )}
             {sourceLogo}
           </figcaption>

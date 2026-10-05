@@ -1,0 +1,14 @@
+On /home-prep-program, the testimonial strip between the "Home Prep Program" benefits section and the process section ("Renee Meisenbach" quote) blends into the process section below because both use the same light grey background. Restyle the strip so it reads as its own separate block. Design only: don't change the quote, name or source icon content.
+
+Changes:
+1. Background: use a light tint of the site's green/sage accent color (the same accent used on the buttons, at about 10-15% opacity, or an existing light sage token in the theme) so it's clearly different from the grey process section below and the white section above. Use an existing color token or CSS variable, not a new random hex.
+2. Add a thin 1px top and bottom border in a slightly darker shade of the same sage, so the band has clear edges.
+3. Constrain the quote: centered, max-width about 720px, so it wraps to 2 lines on desktop instead of running edge to edge.
+4. Quote style: italic, about 22-24px desktop / 18px mobile, dark text, line-height about 1.4, with curly quote marks around it (“ ”).
+5. Below the quote, center a row: reviewer name (small, about 14px, dark grey), a thin vertical divider (1px, about 14px tall), then the Google icon. About 12px gap between the quote and this row.
+6. Padding: about 56px top and bottom on desktop, 40px on mobile.
+7. Add about 0 margin between the strip and the sections around it. The background change and borders should create the separation, not white space gaps.
+
+Also check: if the quote, name or source are hardcoded in the component, move them into ACF fields (in the same field group as this page's other sections, exposed in the API like the existing fields) and map them in. Don't leave hardcoded text or fallback text in the code. If you can't create the fields in WordPress from here, give me the field group, labels, names, types and values so I can add them in WP admin.
+
+Only change this strip. Don't touch the benefits section, the process section or any other section. Check desktop and mobile (375px) before you finish.

@@ -11,8 +11,8 @@ description: How to compare this site against the original design source site an
 
 ## Stale visual captures
 
-If the built-in app capture omits new content that is present in current server HTML, verify with a fresh Chromium profile before modifying working code.
+Use a fresh Chromium profile with browser network caching disabled for visual verification when captures disagree with current server HTML or generated CSS. Restarting the app or changing the page URL alone may not refresh cached assets.
 
-**Why:** Repeated built-in captures omitted newly added CMS-backed content even after a workflow restart and a changed URL, while a fresh Chromium profile rendered it correctly at the same route and port. The capture/cache cause was not established.
+**Why:** Repeated built-in captures omitted newly added CMS-backed content while a fresh profile rendered it correctly; that original cause was not established. Later, a fresh profile reused stale CSS across iterations and clean app restarts. Disabling network caching and clearing the browser cache made the current CSS take effect.
 
-**How to apply:** Keep checks bounded to the requested viewports, inspect the rendered element and its geometry in a fresh profile, and use the fresh screenshots as evidence. Do not treat stale captures as proof of a frontend defect.
+**How to apply:** Keep checks bounded to the requested viewports, disable browser caching before loading, inspect the rendered element and its geometry, and use current screenshots as evidence. Do not treat stale captures as proof of a frontend defect.
