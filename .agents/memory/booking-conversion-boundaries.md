@@ -9,6 +9,12 @@ The initial booking form keeps email because the user chose to collect it there 
 
 **How to apply:** Retain that choice for future booking-form changes unless the user explicitly changes it.
 
+The user approved the existing Calendly date picker instead of a custom weekly view.
+
+**Why:** Calendly's standard booking embed uses a month-based picker and does not expose a weekly-view setting; the user chose to keep the current integration rather than add API-based scheduling.
+
+**How to apply:** Preserve the native Calendly flow unless explicitly asked to revisit that decision. Do not fake weekly availability or silently replace the booking provider.
+
 Do not assume React submit validation or stopPropagation prevents GTM's automatic form listener from seeing a submission. The live container observed validation attempts and a success replay as separate native submit events.
 
 **Why:** Native tracking runs earlier than React's submit handler. A single GA request can also contain multiple events, so request count alone is not proof of one conversion.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type SyntheticEvent } from "react";
+import { useState, useRef, type SyntheticEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -95,21 +95,18 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     }
   };
 
-  // Scroll the right panel into view after transitioning
-  useEffect(() => {
-    if (step === "calendar" && rightPanelRef.current) {
-      setTimeout(() => {
-        rightPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
-  }, [step]);
-
   const params = new URLSearchParams({
     embed_type: "Inline",
     hide_gdpr_banner: "1",
+    hide_event_type_details: "1",
     name: form.name,
     email: form.email,
   });
+  const phonePrefill = normalizeUsPhone(form.phone);
+  // This Calendly event uses a phone-call location, so its supported phone
+  // prefill parameter is "location", not a custom-question answer.
+  if (phonePrefill) params.set("location", phonePrefill);
+  if (text("calendarTimezone")) params.set("timezone", text("calendarTimezone"));
   const calendarUrl = text("calendarUrl");
   const calendlyIframeSrc = calendarUrl
     ? `${calendarUrl}${calendarUrl.includes("?") ? "&" : "?"}${params.toString()}`
@@ -162,7 +159,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
               </div>
 
               {/* Right: form → calendar — order-1 on mobile so it appears first */}
-              <div ref={rightPanelRef} className="order-1 lg:order-2 w-full">
+              <div ref={rightPanelRef} className="order-1 lg:order-2 w-full scroll-mt-24">
                 <AnimatePresence mode="wait">
                   {step === "form" ? (
                     <motion.div
@@ -296,8 +293,24 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="w-full"
+                      onAnimationComplete={() => {
+                        if (window.matchMedia("(max-width: 1023px)").matches) {
+                          rightPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }}
+                      className="w-full bg-muted"
+                      data-testid="calendar-card"
                     >
+                      {(text("calendarHeading") || text("calendarText")) && (
+                        <div className="p-8 md:p-10">
+                          {text("calendarHeading") && (
+                            <h3 className="font-sans text-xl font-bold mb-1 text-balance">{text("calendarHeading")}</h3>
+                          )}
+                          {text("calendarText") && (
+                            <p className="text-sm text-foreground/60">{text("calendarText")}</p>
+                          )}
+                        </div>
+                      )}
                       {calendlyIframeSrc && <iframe
                         src={calendlyIframeSrc}
                         width="100%"
@@ -305,8 +318,14 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         frameBorder="0"
                         title={text("calendarIframeTitle")}
                         data-testid="embed-calendly"
+                        className="block w-full"
                         style={{ border: "none", minWidth: 320 }}
                       />}
+                      {text("calendarTimezoneNote") && (
+                        <p className="px-8 pb-8 pt-5 md:px-10 md:pb-10 text-sm text-foreground/60">
+                          {text("calendarTimezoneNote")}
+                        </p>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
