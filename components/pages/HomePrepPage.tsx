@@ -461,6 +461,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
       }))
     : prepSteps;
 
+  const processReassuranceTitle = typeof acf?.processReassuranceTitle === "string" ? acf.processReassuranceTitle.trim() : "";
+  const processReassuranceText = typeof acf?.processReassuranceText === "string" ? acf.processReassuranceText.trim() : "";
+
   const included = acf?.includedCards?.length
     ? acf.includedCards.map((c: any, i: number) => ({
         title: c.title,
@@ -787,6 +790,17 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   <div className="lg:hidden relative aspect-[4/3] overflow-hidden mt-4">
                     <Image src={steps[0].image} alt="" fill sizes="100vw" className="object-cover" />
                   </div>
+
+                  {(processReassuranceTitle || processReassuranceText) && (
+                    <div className="mt-4 w-full border border-primary/30 bg-primary/10 p-4 text-sm">
+                      {processReassuranceTitle && (
+                        <p className="font-bold text-foreground mb-1">{processReassuranceTitle}</p>
+                      )}
+                      {processReassuranceText && (
+                        <p className="text-foreground/70 leading-relaxed">{processReassuranceText}</p>
+                      )}
+                    </div>
+                  )}
 
                   <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-5 h-[45px] whitespace-nowrap">
