@@ -238,6 +238,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             aria-hidden="true"
             fill
             sizes="100vw"
+            quality={60}
             className="object-cover pointer-events-none select-none"
             priority
             fetchPriority="high"
@@ -321,6 +322,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
               fill
               sizes="50vw"
+              loading="lazy"
               className="object-cover"
             />
           </div>
@@ -353,7 +355,8 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                     src={familiarImageUrl}
                     alt="A homeowner feeling overwhelmed by paperwork and home repairs before selling"
                     fill
-                    sizes="100vw"
+                    sizes="(min-width: 1280px) 0px, (min-width: 1024px) 960px, (min-width: 768px) 704px, (min-width: 640px) 576px, calc(100vw - 32px)"
+                    loading="lazy"
                     className="object-cover"
                   />
                 </div>

@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [60, 75],
     remotePatterns: [
       // WordPress media — hostname(s) derived from WP_API_URL at build time
       ...wpMediaHostnames(),
@@ -56,6 +57,7 @@ const nextConfig: NextConfig = {
     "localhost",
   ],
   experimental: {
+    inlineCss: true,
     serverActions: {
       bodySizeLimit: "2mb",
     },

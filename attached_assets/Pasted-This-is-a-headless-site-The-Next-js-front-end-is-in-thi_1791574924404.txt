@@ -1,0 +1,19 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API. Don't hardcode any content, and don't change the ACF mapping. This is a performance-only change: the page must look and behave exactly the same.
+
+Don't publish anything to production (hammondrealty.net). Only update the Replit deployment (balke-hammond-realty.replit.app) so I can test it first.
+
+Last round of mobile speed fixes for /home-prep-program. The previous changes worked: on a real throttled phone test (slow 4G, empty cache) the hero now shows at about 2.7 s, down from 6.2 s. PageSpeed mobile is 67. What's left is the critical path:
+
+1. Render-blocking CSS (biggest remaining item). The main stylesheet /_next/static/chunks/e60d42d91f6c7587.css is about 124 KB uncompressed and blocks the first paint. On slow 4G it takes about 2.4 s to load, and the hero image downloads in parallel and competes with it.
+   - Remove unused CSS: check that Tailwind's content paths only cover files that are actually used, and that no full CSS bundles from libraries (carousel/slider/animation libraries, unused component styles) are imported globally. Import component CSS only where the component is used.
+   - Then enable CSS inlining for the first paint, so the page doesn't wait for a separate CSS request: use Next's experimental.inlineCss (Next 15+) or critical CSS inlining (experimental.optimizeCss), whichever this Next version supports. If it causes any visual difference or flash of unstyled content, revert it and tell me.
+
+2. Fonts: two web fonts (~38 KB and ~48 KB) are preloaded at the highest priority and compete with the hero image. Keep the font used by the hero headline preloaded, and set preload: false on the other one (next/font option). Keep font-display: swap. Only include the weights the site actually uses.
+
+3. Images:
+   - Hero image (prep-hero-roseville.jpg): keep it as the priority image, but lower its quality to about 60 (quality={60}) and make sure `sizes` matches how it's displayed, so phones download the smallest version that still looks sharp. Check it still looks good on desktop.
+   - "Sound Familiar?" image (sound-familiar-stressed-seller.png): it's downloaded at 699x525 but shown at about 407x285 on mobile. Fix its `sizes` value so the correct size is served, and make sure it's lazy-loaded.
+
+4. Keep everything working: hero, phone link, ratings link, before/after slider, draggable review marquee, FAQ accordion, videos, and the booking form tracking (generate_lead / booked_call).
+
+When you're done, redeploy to balke-hammond-realty.replit.app only. Run PageSpeed Insights (mobile) 3 times on https://balke-hammond-realty.replit.app/home-prep-program (the Home Prep page, not the homepage) and report the median Performance score and LCP, plus a short list of what you changed. If you can't run PageSpeed from here, tell me and I'll run it.

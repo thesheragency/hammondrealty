@@ -1,13 +1,9 @@
 import type { Config } from "tailwindcss";
+import { tailwindContentFiles } from "./script/tailwind-content";
 
 export default {
   darkMode: ["class"],
-  content: [
-    "./app/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}",
-    "./lib/**/*.{js,jsx,ts,tsx}",
-    "./modules/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: tailwindContentFiles(),
   theme: {
     extend: {
       /* Tablets up to 1279px share the stacked layout; desktop (`lg:`)
