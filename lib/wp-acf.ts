@@ -16,14 +16,14 @@ export function imgAlt(img: WpImage | undefined, fallback: string): string {
 // content changes in WordPress, so the TTL is only a safety net.
 const ACF_REVALIDATE_SECONDS = 1800;
 
-async function gqlFetch(query: string, variables?: Record<string, unknown>, fresh = false): Promise<any> {
+async function gqlFetch(query: string, variables?: Record<string, unknown>, fresh = false, cacheSeconds = ACF_REVALIDATE_SECONDS): Promise<any> {
   const wpApiUrl = process.env.WP_API_URL;
   if (!wpApiUrl) throw new Error('WP_API_URL environment variable is not set');
   const res = await fetch(wpApiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...getWpAuthHeaders() },
     body: JSON.stringify({ query, variables }),
-    ...(fresh ? { cache: 'no-store' as const } : { next: { revalidate: ACF_REVALIDATE_SECONDS, tags: ['wp-content'] } }),
+    ...(fresh ? { cache: 'no-store' as const } : { next: { revalidate: cacheSeconds, tags: ['wp-content'] } }),
   });
   if (!res.ok) throw new Error(`WPGraphQL request failed with status ${res.status}`);
   const json = await res.json();
@@ -31,10 +31,10 @@ async function gqlFetch(query: string, variables?: Record<string, unknown>, fres
   return json.data;
 }
 
-async function fetchGroup<T>(uri: string, groupField: string, selection: string, fresh = false): Promise<T | null> {
+async function fetchGroup<T>(uri: string, groupField: string, selection: string, fresh = false, cacheSeconds = ACF_REVALIDATE_SECONDS): Promise<T | null> {
   try {
     const query = `query GetAcf($uri: ID!) { page(id: $uri, idType: URI) { ${groupField} { ${selection} } } }`;
-    const data = await gqlFetch(query, { uri }, fresh);
+    const data = await gqlFetch(query, { uri }, fresh, cacheSeconds);
     return (data?.page?.[groupField] as T) ?? null;
   } catch (error) {
     console.error(`[wp-acf] Failed to fetch ${groupField} for /${uri}:`, error);
@@ -73,7 +73,7 @@ const THANKYOU_SELECTION = `body buttonLink buttonText heading`;
 export function fetchThankYouAcf() { return fetchGroup<Record<string, any>>('thank-you', 'thankYouFields', THANKYOU_SELECTION); }
 
 const HOMEPREP_SELECTION = `caseAfterImage { node { sourceUrl altText } } caseBeforeImage { node { sourceUrl altText } } caseBody caseBullets { text } caseCtaLink caseCtaText caseEyebrow caseHeading casePhoneLink casePhoneText caseSectionHeading familiarBody familiarCtaLink familiarCtaText familiarHeading familiarImage { node { sourceUrl altText } } familiarPhoneLink familiarPhoneText familiarSubheading familiarWorries { text } faqsIntro heroBody heroCtaLink heroCtaText heroEyebrow heroHeading heroResultLine heroImage { node { sourceUrl altText } } includedCards { desc image { node { sourceUrl altText } } title } includedEyebrow includedHeading processCtaLink processCtaText processEyebrow processHeading processSecondaryLink processSecondaryText processSubtitle steps { desc image { node { sourceUrl altText } } num title timelineLabel timelineValue } whyBody whyBullets { desc title } whyCtaLink whyCtaText whyEyebrow whyHeading whyImage { node { sourceUrl altText } } whySecondaryLink whySecondaryText`;
-export function fetchHomePrepAcf() { return fetchGroup<Record<string, any>>('home-prep-program', 'homePrepFields', `${HOMEPREP_SELECTION} heroPhoneText heroPhoneLink heroPhoneOrLabel heroGoogleRating heroZillowRating heroReviewsLink heroReviewsAriaLabel whyTestimonialQuote whyTestimonialName whyTestimonialSource reviewsHeading reviewsRatingSummary reviewsGoogleRating reviewsGoogleLabel reviewsGoogleAriaLabel reviewsZillowRating reviewsZillowLabel reviewsZillowAriaLabel reviewsPauseLabel reviewsPlayLabel closingEyebrow closingHeading closingBody processReassuranceTitle processReassuranceText`, true); }
+export function fetchHomePrepAcf(fresh = true) { return fetchGroup<Record<string, any>>('home-prep-program', 'homePrepFields', `${HOMEPREP_SELECTION} heroPhoneText heroPhoneLink heroPhoneOrLabel heroGoogleRating heroZillowRating heroReviewsLink heroReviewsAriaLabel whyTestimonialQuote whyTestimonialName whyTestimonialSource reviewsHeading reviewsRatingSummary reviewsGoogleRating reviewsGoogleLabel reviewsGoogleAriaLabel reviewsZillowRating reviewsZillowLabel reviewsZillowAriaLabel reviewsPauseLabel reviewsPlayLabel closingEyebrow closingHeading closingBody processReassuranceTitle processReassuranceText caseLivingroom2BeforeImage { node { sourceUrl altText } } caseLivingroom2AfterImage { node { sourceUrl altText } } caseDiningBeforeImage { node { sourceUrl altText } } caseDiningAfterImage { node { sourceUrl altText } } whyVideoId whyVideoPosterImage { node { sourceUrl altText } } whyVideoPlayLabel whyVideoIframeTitle`, fresh, 300); }
 
 export type WpFaq = { question: string; answer: string };
 export async function fetchFaqs(): Promise<WpFaq[]> {
@@ -108,7 +108,7 @@ function normalizeSource(val?: string | string[] | null): 'google' | 'zillow' | 
 }
 
 // The marquee is exclusive to Home Prep; other routes keep their current fetcher.
-export async function fetchMarqueeTestimonials(): Promise<WpMarqueeTestimonial[]> {
+export async function fetchMarqueeTestimonials(fresh = true): Promise<WpMarqueeTestimonial[]> {
   try {
     const data = await gqlFetch(`{
       testimonials(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
@@ -118,7 +118,7 @@ export async function fetchMarqueeTestimonials(): Promise<WpMarqueeTestimonial[]
           }
         }
       }
-    }`, undefined, true);
+    }`, undefined, fresh, 300);
     return (data?.testimonials?.nodes ?? []).flatMap((node: any) => {
       const fields = node.testimonialFields;
       const row = Number(Array.isArray(fields?.marqueeRow) ? fields.marqueeRow[0] : fields?.marqueeRow);

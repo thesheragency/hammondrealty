@@ -14,7 +14,6 @@ import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/site/CtaSection";
 import SiteFooter from "@/components/site/SiteFooter";
 import Image from "next/image";
-import VimeoBackgroundVideo from "@/components/ui/VimeoBackgroundVideo";
 import VimeoFacade from "@/components/ui/VimeoFacade";
 import { imgUrl } from "@/lib/wp-acf";
 
@@ -222,9 +221,12 @@ function BeforeAfterSlider({
       }}
     >
       {/* After image (base — right side) */}
-      <img
+      <Image
         src={afterSrc}
         alt={afterAlt}
+        fill
+        sizes="(min-width: 1536px) 696px, (min-width: 1280px) 568px, (min-width: 1024px) 440px, calc(100vw - 32px)"
+        loading="lazy"
         draggable={false}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
@@ -234,14 +236,16 @@ function BeforeAfterSlider({
       {/* Before image (clipped from left) */}
       <div
         className="absolute inset-0 overflow-hidden pointer-events-none"
-        style={{ width: `${position}%` }}
+        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
-        <img
+        <Image
           src={beforeSrc}
           alt={beforeAlt}
+          fill
+          sizes="(min-width: 1536px) 696px, (min-width: 1280px) 568px, (min-width: 1024px) 440px, calc(100vw - 32px)"
+          loading="lazy"
           draggable={false}
-          className="absolute inset-0 h-full w-auto max-w-none object-cover pointer-events-none"
-          style={{ width: containerRef.current?.offsetWidth ?? "100%" }}
+          className="object-cover pointer-events-none"
         />
         <span className="absolute top-4 left-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
           Before
@@ -497,8 +501,10 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
   const caseAfterImageUrl = imgUrl(acf?.caseAfterImage, prepRosevilleAfterUrl);
   const caseSlides = [
     { beforeSrc: caseBeforeImageUrl, afterSrc: caseAfterImageUrl, beforeAlt: "Roseville living room before prep", afterAlt: "Roseville living room after prep and staging" },
-    { beforeSrc: "/images/prep-livingroom2-before.png", afterSrc: "/images/prep-livingroom2-after.png", beforeAlt: "Living room before home prep", afterAlt: "Living room after home prep" },
-    { beforeSrc: "/images/prep-dining-before.png", afterSrc: "/images/prep-dining-after.png", beforeAlt: "Dining nook before home prep", afterAlt: "Dining nook after home prep" },
+    ...(acf?.caseLivingroom2BeforeImage?.node?.sourceUrl && acf?.caseLivingroom2AfterImage?.node?.sourceUrl
+      ? [{ beforeSrc: acf.caseLivingroom2BeforeImage.node.sourceUrl, afterSrc: acf.caseLivingroom2AfterImage.node.sourceUrl, beforeAlt: "Living room before home prep", afterAlt: "Living room after home prep" }] : []),
+    ...(acf?.caseDiningBeforeImage?.node?.sourceUrl && acf?.caseDiningAfterImage?.node?.sourceUrl
+      ? [{ beforeSrc: acf.caseDiningBeforeImage.node.sourceUrl, afterSrc: acf.caseDiningAfterImage.node.sourceUrl, beforeAlt: "Dining nook before home prep", afterAlt: "Dining nook after home prep" }] : []),
   ];
   const faqsList: Faq[] = prepFaqs;
 
@@ -516,6 +522,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             sizes="100vw"
             className="object-cover pointer-events-none select-none"
             priority
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40 pointer-events-none" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-20 md:pt-28 pb-20 md:pb-28">
@@ -676,7 +683,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               {/* Desktop Vimeo embed */}
               <div className="hidden lg:block w-full">
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                  <VimeoFacade videoId="1213983330" />
+                  <VimeoFacade videoId={acf?.whyVideoId} posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} iframeTitle={acf?.whyVideoIframeTitle} />
                 </div>
               </div>
 
@@ -707,7 +714,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 {/* Mobile Vimeo embed — above the CTA buttons */}
                 <div className="lg:hidden w-full mb-10">
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                    <VimeoFacade videoId="1213983330" />
+                    <VimeoFacade videoId={acf?.whyVideoId} posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} iframeTitle={acf?.whyVideoIframeTitle} />
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">

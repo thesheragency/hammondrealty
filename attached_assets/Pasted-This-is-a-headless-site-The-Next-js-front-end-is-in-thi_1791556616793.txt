@@ -1,0 +1,35 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+Improve mobile page speed on /home-prep-program. The page must look exactly the same (same design, content and layout) and tracking must keep working.
+
+What I measured on the live page (mobile, throttled 4G, empty cache): Largest Contentful Paint about 6.2 s, total page weight about 19 MB, server response (TTFB) about 2 s.
+
+Fix these, in this order:
+
+1. Case study before/after images (biggest issue). These four files are about 4-5 MB each (~18.7 MB total) and are preloaded in the <head>:
+   /images/prep-livingroom2-after.png
+   /images/prep-livingroom2-before.png
+   /images/prep-dining-after.png
+   /images/prep-dining-before.png
+   - Remove the <link rel="preload"> for these images.
+   - Serve them through next/image (AVIF/WebP) with a correct `sizes` value for the before/after slider (about 1200px wide max on desktop, 828px on mobile), lazy-loaded because they're below the fold. Target under 250 KB each.
+   - They are hardcoded files in /public. Upload optimized versions of the same images to the WordPress media library and map them through ACF image fields on the case study section (a before and an after field for each pair), like the rest of the page content.
+   - Make sure the before/after slider still works on desktop and mobile.
+
+2. Hero image (the Largest Contentful Paint element): mark it as the priority image (next/image `priority`, fetchPriority="high", not lazy) with a correct `sizes` value. It should be the only image preloaded on this page.
+
+3. Server response time: the page HTML is rendered fresh on every request (cache-control: no-store), which takes about 2 s. Switch this page to static generation with incremental revalidation (for example revalidate every 300 seconds), plus on-demand revalidation when the page is saved in WordPress (a WordPress webhook calling a secured revalidate API route with a secret), so ACF edits still show up right away. If this is risky for other pages or the WordPress connection, explain your plan and wait for my OK before doing it.
+
+4. Third-party scripts: keep Google Tag Manager as is. Load the Equally AI accessibility widget with next/script strategy="lazyOnload" so it doesn't compete with the first screen. Don't remove either one.
+
+5. Check every other image on this page. Any image over 200 KB should go through next/image with lazy loading (unless it's in the first screen). Make sure videos don't download until played (preload="none" with a poster image).
+
+After deploying, run PageSpeed Insights (mobile) on https://hammondrealty.net/home-prep-program and report the performance score, Largest Contentful Paint and total page weight, before and after. If you can't run PageSpeed from here, tell me and I'll run it.

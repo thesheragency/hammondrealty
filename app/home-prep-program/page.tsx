@@ -3,9 +3,9 @@ import { buildMetadata } from '@/lib/seo-helpers';
 import { fetchHomePrepAcf, fetchMarqueeTestimonials } from '@/lib/wp-acf';
 import HomePrepPage from '@/components/pages/HomePrepPage';
 
-// This landing page must reflect ACF edits on the next request, even if a
-// WordPress webhook is delayed or an editor views it before ISR revalidation.
-export const dynamic = 'force-dynamic';
+// Cache this page only; WordPress's secured save webhook expires wp-content
+// and this route immediately. Five minutes is the backup for a missed webhook.
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -16,6 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [acf, wpTestimonials] = await Promise.all([fetchHomePrepAcf(), fetchMarqueeTestimonials()]);
+  const [acf, wpTestimonials] = await Promise.all([fetchHomePrepAcf(false), fetchMarqueeTestimonials(false)]);
   return <HomePrepPage acf={acf} testimonials={wpTestimonials} />;
 }
