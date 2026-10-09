@@ -211,6 +211,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
   const heroZillowRating = typeof acf?.heroZillowRating === "string" ? acf.heroZillowRating.trim() : "";
   const heroReviewsLink = typeof acf?.heroReviewsLink === "string" ? acf.heroReviewsLink.trim() : "";
   const heroReviewsAriaLabel = typeof acf?.heroReviewsAriaLabel === "string" ? acf.heroReviewsAriaLabel.trim() : "";
+  const heroReviewsText = typeof acf?.heroReviewsText === "string" ? acf.heroReviewsText.trim() : "";
   const showGoogleRating = !!heroGoogleRating && Number.isFinite(Number(heroGoogleRating)) && Number(heroGoogleRating) >= 0 && Number(heroGoogleRating) <= 5;
   const showZillowRating = !!heroZillowRating && Number.isFinite(Number(heroZillowRating)) && Number(heroZillowRating) >= 0 && Number(heroZillowRating) <= 5;
   const familiarImageUrl = imgUrl(acf?.familiarImage, soundFamiliarUrl);
@@ -244,23 +245,23 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40 pointer-events-none" />
-          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-20 md:pt-28 pb-20 md:pb-28">
+          <div className="container mx-auto px-4 md:px-8 relative z-10 pt-12 md:pt-28 pb-12 md:pb-28">
             <div className="max-w-3xl">
-              <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
+              <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-4 md:mb-6">
                 {acf?.heroEyebrow || "Home Prep Selling Program"}
               </p>
-              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-6 text-white">
+              <h1 className="text-h1 font-bold leading-[1.1] tracking-tight mb-4 md:mb-6 text-white">
                 {tc(acf?.heroHeading) || "We Prepare Your Home For Sale. You Pay Nothing Until It's Sold."}
               </h1>
-              <p className={`text-lg md:text-xl text-white/90 ${heroResultLine ? "mb-5" : "mb-10"} leading-relaxed max-w-2xl`}>
+              <p className={`text-base md:text-xl text-white/90 ${heroResultLine ? "mb-4 md:mb-5" : "mb-6 md:mb-10"} leading-relaxed max-w-2xl`}>
                 {acf?.heroBody || "I front the cost of all repairs, updates, and staging to get your home market-ready. You pay nothing out of pocket—everything is settled from your sale proceeds at closing."}
               </p>
               {heroResultLine && (
-                <blockquote className="mx-0 mt-0 mb-6 border-l-[3px] border-accent pl-3 text-sm md:text-base font-normal not-italic leading-snug text-white">
+                <blockquote className="mx-0 mt-0 mb-4 md:mb-6 border-l-[3px] border-accent pl-3 text-sm md:text-base font-normal not-italic leading-snug text-white">
                   {heroResultLine}
                 </blockquote>
               )}
-              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 sm:gap-4">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-2 sm:gap-4">
                 <Link
                   href={acf?.heroCtaLink || "/book-consultation"}
                   className="inline-flex items-center justify-center bg-white text-foreground hover:bg-white/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]"
@@ -286,8 +287,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 <a
                   href={heroReviewsLink}
                   aria-label={heroReviewsAriaLabel}
-                  className="mt-4 inline-flex flex-nowrap items-center gap-3 whitespace-nowrap text-sm leading-none text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                  className="mt-3 md:mt-4 inline-flex max-w-full flex-col items-start gap-2 overflow-hidden text-sm leading-none text-white md:flex-row md:flex-wrap md:items-center md:gap-x-6 md:gap-y-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
+                  <span className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap">
                   {showGoogleRating && (
                     <span className="inline-flex items-center gap-1.5" aria-hidden="true">
                       <GoogleG className="h-4 w-4 shrink-0" />
@@ -303,6 +305,14 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                       <ZillowZ className="h-4 w-4 shrink-0" />
                       <span>{heroZillowRating}</span>
                       <Stars className="h-4 w-4" label="" count={Math.round(Number(heroZillowRating))} />
+                    </span>
+                  )}
+                  </span>
+                  {heroReviewsText && (
+                    // The divider sits outside this span: the link clips it
+                    // when the text wraps onto a new line, without JavaScript.
+                    <span className="relative max-w-full shrink-0 text-sm leading-snug text-white/90 md:leading-none md:before:absolute md:before:-left-3 md:before:top-1/2 md:before:h-4 md:before:w-px md:before:-translate-y-1/2 md:before:bg-white/40 md:before:content-['']">
+                      {heroReviewsText}
                     </span>
                   )}
                 </a>

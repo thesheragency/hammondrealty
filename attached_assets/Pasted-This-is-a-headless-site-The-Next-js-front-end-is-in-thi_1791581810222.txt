@@ -1,0 +1,26 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+Don't publish anything to production (hammondrealty.net). Only update the Replit deployment (balke-hammond-realty.replit.app) so I can test it first. Don't undo any of the recent speed optimizations: the hero must stay server-rendered and visible immediately (no fade-in or opacity:0), and don't add new client-side JavaScript or libraries to the hero.
+
+On /home-prep-program, update the Google/Zillow ratings row under the hero buttons so it also shows the review volume.
+
+Content: create a new ACF text field in the hero field group. Field label: "Hero Reviews Text". Field name: hero_reviews_text. Value: 50+ Five-Star Reviews Across Google & Zillow
+This is static text. Don't add a live Google or Zillow API integration.
+
+Layout:
+- Desktop: keep the row [G 5.0 ★★★★★ | Z 5.0 ★★★★★] and add the text at the end of the same row after another thin divider, in white at about 90% opacity, same size as the "5.0". If it doesn't fit on one line, put it directly under the stars row.
+- Mobile: the stars row, then the text on its own line under it.
+- The whole block stays one link that smooth-scrolls to the "Trusted By Homeowners" reviews section. Update its aria-label to "Rated 5.0 on Google and Zillow, 50+ five-star reviews".
+
+Mobile first screen fix:
+- On mobile (375 x 812), the ratings block currently sits below the first screen, behind the sticky "Call 916-625-6118" bar.
+- Tighten the hero's mobile spacing (top padding and the gaps between eyebrow, headline, subtext, result line and buttons) so the ratings block and review text are visible above the sticky bar without scrolling. You may reduce the subtext font size slightly on mobile only.
+- Don't change anything on desktop except adding the review text.
