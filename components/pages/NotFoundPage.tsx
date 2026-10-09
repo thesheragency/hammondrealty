@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -12,12 +9,11 @@ export default function NotFound() {
       <SiteHeader variant="solid" />
 
       <main className="flex-1 flex items-center justify-center">
-        <motion.section
+        <section
           className="w-full py-20 md:py-32"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          style={{ animation: "not-found-entrance .7s ease-out both" }}
         >
+          <style>{`@keyframes not-found-entrance { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }`}</style>
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-2xl mx-auto text-left sm:text-center">
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4">
@@ -50,7 +46,7 @@ export default function NotFound() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
       </main>
 
       <SiteFooter />

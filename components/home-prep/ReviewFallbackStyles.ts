@@ -1,0 +1,16 @@
+// Identical review styles, inlined for server fallback; the interactive CSS
+// module is fetched only with the near-viewport marquee chunk.
+export const styles = {
+  "marquee": "home-prep-review-marquee",
+  "rows": "home-prep-review-rows",
+  "rowViewport": "home-prep-review-rowViewport",
+  "track": "home-prep-review-track",
+  "group": "home-prep-review-group",
+  "card": "home-prep-review-card",
+  "stars": "home-prep-review-stars",
+  "quote": "home-prep-review-quote",
+  "cardFooter": "home-prep-review-cardFooter",
+  "name": "home-prep-review-name",
+  "sourceLogo": "home-prep-review-sourceLogo"
+};
+export const css = ".home-prep-review-marquee {\n  --card-gap: 1rem;\n  width: 100%;\n}\n\n.home-prep-review-rows {\n  display: grid;\n  gap: 1rem;\n}\n\n.home-prep-review-rowViewport {\n  position: relative;\n  overflow: hidden;\n  container-type: inline-size;\n  width: 100%;\n  touch-action: pan-y;\n  cursor: grab;\n  -webkit-mask-image: linear-gradient(\n    to right,\n    transparent 0,\n    #000 4%,\n    #000 96%,\n    transparent 100%\n  );\n  mask-image: linear-gradient(\n    to right,\n    transparent 0,\n    #000 4%,\n    #000 96%,\n    transparent 100%\n  );\n}\n\n.home-prep-review-track {\n  display: flex;\n  width: max-content;\n  will-change: transform;\n}\n\n.home-prep-review-rowViewport[data-dragging=\"true\"] {\n  cursor: grabbing;\n}\n\n.home-prep-review-rowViewport[data-dragging=\"true\"] * {\n  user-select: none;\n  -webkit-user-select: none;\n}\n\n.home-prep-review-rowViewport img {\n  -webkit-user-drag: none;\n}\n\n.home-prep-review-group {\n  display: flex;\n  flex: none;\n  gap: var(--card-gap);\n  padding-right: var(--card-gap);\n}\n\n.home-prep-review-card {\n  box-sizing: border-box;\n  display: flex;\n  flex: 0 0 auto;\n  width: calc((100cqi - 2rem) / 3);\n  flex-direction: column;\n  height: 250px;\n  padding: 1.5rem;\n  border: 1px solid hsl(var(--foreground) / 0.11);\n  background: hsl(var(--background));\n  box-shadow: 0 8px 24px hsl(var(--foreground) / 0.045);\n  color: hsl(var(--foreground));\n  outline-offset: 3px;\n}\n\n.home-prep-review-card:focus-visible {\n  outline: 2px solid hsl(var(--primary));\n}\n\n.home-prep-review-stars {\n  display: flex;\n  flex: none;\n  margin-bottom: 1rem;\n}\n\n.home-prep-review-quote {\n  flex: 1;\n  margin: 0 0 1rem;\n  color: hsl(var(--foreground) / 0.8);\n  font-size: 1rem;\n  line-height: 1.55;\n  text-wrap: balance;\n}\n\n.home-prep-review-cardFooter {\n  display: flex;\n  flex: none;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  min-height: 2rem;\n  margin-top: auto;\n}\n\n.home-prep-review-name {\n  overflow: hidden;\n  margin: 0;\n  font-family: var(--font-sans);\n  font-size: 0.875rem;\n  font-weight: 700;\n  line-height: 1.25;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.home-prep-review-sourceLogo {\n  display: block;\n  flex: none;\n  width: 1.5rem;\n  height: 1.5rem;\n}\n\n@media (max-width: 1023px) {\n  .home-prep-review-card {\n    width: calc((100cqi - 1rem) / 2);\n  }\n}\n\n@media (max-width: 600px) {\n  .home-prep-review-card {\n    width: calc((100cqi - 1rem) / 1.2);\n    height: 280px;\n    padding: 1.25rem;\n  }\n}\n";

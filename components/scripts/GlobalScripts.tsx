@@ -1,4 +1,5 @@
 import { fetchAcfGlobalScripts } from '@/lib/wordpress';
+import Script from 'next/script';
 
 export async function GlobalHeadScripts() {
   let headScripts: string | null = null;
@@ -12,12 +13,40 @@ export async function GlobalHeadScripts() {
 
   if (!headScripts) return null;
 
+  // Keep CMS ownership and all unrelated markup. Defer only the CMS-provided
+  // GTM bootstrap so the parser can paint the page before executing it.
+  const tagManagerScripts: { attributes: string; code: string }[] = [];
+  const remainingScripts = headScripts.replace(
+    /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi,
+    (tag, attributes: string, code: string) => {
+      if (!/googletagmanager\.com\/gtm\.js/i.test(attributes + code)) return tag;
+      tagManagerScripts.push({ attributes, code });
+      return '';
+    },
+  );
+
   return (
-    <div
+    <>
+      <div
       id="global-head-scripts"
       suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: headScripts }}
-    />
+      dangerouslySetInnerHTML={{ __html: remainingScripts }}
+      />
+      {tagManagerScripts.map(({ attributes, code }, index) => {
+        const attribute = (name: string) =>
+          attributes.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, 'i'))?.[1];
+        const src = attribute('src');
+        return (
+          <Script
+            key={index}
+            id={attribute('id') || `cms-tag-manager-${index}`}
+            nonce={attribute('nonce')}
+            strategy="afterInteractive"
+            {...(src ? { src } : { dangerouslySetInnerHTML: { __html: code } })}
+          />
+        );
+      })}
+    </>
   );
 }
 

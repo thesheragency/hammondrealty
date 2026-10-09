@@ -1,0 +1,25 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API. Don't hardcode any content, and don't change the ACF mapping. This is a performance-only change: the page must look and behave exactly the same.
+
+Don't publish anything to production (hammondrealty.net). Only update the Replit deployment (balke-hammond-realty.replit.app) so I can test it first.
+
+Mobile page speed follow-up for /home-prep-program. The image and caching fixes worked (page weight went from ~19 MB to ~560 KB, server response ~0.3 s), but PageSpeed mobile on https://balke-hammond-realty.replit.app/home-prep-program is still about 60 with LCP 6.8 s.
+
+PageSpeed's LCP breakdown: the hero image downloads quickly (load delay 350 ms, load duration 360 ms), but "Element render delay" is 1,790 ms. The page can't paint because the main thread is busy running JavaScript: "Minimize main-thread work" 2.2 s, "Reduce unused JavaScript" ~248 KB, 9 long tasks, Total Blocking Time 410 ms.
+
+Fix these without changing how the page looks:
+
+1. Hero entrance animation: the hero text wrapper (eyebrow, headline, subtext, result line, buttons, ratings) is server-rendered with style="opacity:0" and only fades in after JavaScript runs. Remove the entrance animation from the hero so it's visible immediately from the server HTML. Keep the hero a server component if possible. Below-the-fold sections can keep their scroll animations, but they must not delay the first screen.
+
+2. Reduce JavaScript on first load:
+   - Make sure the page isn't one big client component. Sections that don't need interactivity should be server components. Only the interactive parts ("use client") should hydrate.
+   - Load below-the-fold interactive components with next/dynamic so their code isn't in the first bundle: the review marquee, the before/after slider, the FAQ accordion and the video players.
+   - If an animation library (e.g. framer-motion) is only used for simple fade-ins, replace those with CSS transitions or load it lazily.
+   - Review marquee: only start its requestAnimationFrame loop when the section is near the viewport (IntersectionObserver), and don't read layout (offsetWidth / getBoundingClientRect) inside the animation loop. PageSpeed flags a forced reflow.
+
+3. Third-party scripts: load Google Tag Manager with next/script strategy="afterInteractive" (not blocking in the <head>), and the Equally AI accessibility widget with strategy="lazyOnload". Don't remove either.
+
+4. Make sure no non-critical CSS or JS is render-blocking (PageSpeed: render-blocking requests ~150 ms).
+
+5. Keep everything working: the before/after slider, the draggable review marquee, the FAQ accordion, videos, the hero phone link and ratings link, and the booking form tracking (generate_lead / booked_call).
+
+When you're done, redeploy to balke-hammond-realty.replit.app only. Run PageSpeed Insights (mobile) 3 times on https://balke-hammond-realty.replit.app/home-prep-program and report the median Performance score and LCP, plus a short list of what you changed. If you can't run PageSpeed from here, tell me and I'll run it.

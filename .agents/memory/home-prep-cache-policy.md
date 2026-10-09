@@ -5,7 +5,7 @@ description: Why Home Prep uses ISR rather than forcing fresh WordPress renderin
 
 Home Prep's earlier per-request freshness approach was deliberately replaced with ISR at the user's request. Preserve cached HTML with secured on-demand WordPress save invalidation and a short backup revalidation interval.
 
-**Why:** The user measured roughly two seconds of server response time and requested faster mobile loading without delaying CMS edits or changing other pages' caching behavior.
+**Why:** The user measured roughly two seconds of server response time and requested faster mobile loading without delaying CMS edits or changing other pages' caching behavior. They subsequently confirmed the image and caching fixes worked and requested further render/JavaScript improvements without changing that setup.
 
 **How to apply:** When a CMS edit appears stale, check the WordPress save webhook, both rendered-route and GraphQL data-cache invalidation, and the CDN. Do not automatically restore forced dynamic rendering to work around a broken invalidation layer.
 

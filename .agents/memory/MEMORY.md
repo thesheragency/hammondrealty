@@ -10,3 +10,4 @@
 - [ACF schema management](wp-acf-schema-management.md) — page field groups are registered remotely through Code Snippets; its API can narrowly extend the existing PHP schema.
 - [Booking conversion boundaries](booking-conversion-boundaries.md) — keep the chosen email collection; count successful GTM events, and distinguish CRM arrival from mailbox delivery.
 - [Home Prep cache policy](home-prep-cache-policy.md) — preserve ISR for page speed; investigate save-webhook/data-cache invalidation rather than reverting to per-request CMS rendering.
+- [App Router fallback bundles](app-router-fallback-bundles.md) — a shared error fallback can eagerly pull animation libraries into healthy pages despite route-level lazy loading.

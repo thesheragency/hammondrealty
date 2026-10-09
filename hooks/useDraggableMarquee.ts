@@ -38,13 +38,15 @@ export function useDraggableMarquee(direction: "left" | "right") {
     updateMotion();
     media.addEventListener("change", updateMotion);
 
-    const measure = () => {
-      const width = group.getBoundingClientRect().width;
+    const measure = (entries: ResizeObserverEntry[]) => {
+      const entry = entries[0];
+      // ResizeObserver supplies the border-box width (including the trailing
+      // gap), without a synchronous layout read on supported browsers.
+      const width = entry.borderBoxSize?.[0]?.inlineSize ?? group.getBoundingClientRect().width;
       if (s.width) s.offset *= width / s.width;
       s.width = width;
       paint();
     };
-    measure();
     const observer = new ResizeObserver(measure);
     observer.observe(group);
     let frame = 0;
@@ -69,10 +71,26 @@ export function useDraggableMarquee(direction: "left" | "right") {
       }
       frame = requestAnimationFrame(tick);
     }
-    frame = requestAnimationFrame(tick);
+    let near = false;
+    const start = () => {
+      if (!near || document.hidden || frame) return;
+      previous = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+    const stop = () => { cancelAnimationFrame(frame); frame = 0; };
+    const intersection = new IntersectionObserver(([entry]) => {
+      near = entry.isIntersecting;
+      if (near) start();
+      else stop();
+    }, { rootMargin: "200px 0px" });
+    intersection.observe(viewport);
+    const visibility = () => { if (document.hidden) stop(); else start(); };
+    document.addEventListener("visibilitychange", visibility);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      intersection.disconnect();
+      document.removeEventListener("visibilitychange", visibility);
       media.removeEventListener("change", updateMotion);
     };
   }, [direction]);

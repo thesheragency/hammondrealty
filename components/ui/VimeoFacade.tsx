@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
 
@@ -9,11 +9,13 @@ interface VimeoFacadeProps {
   posterUrl?: string;
   playLabel?: string;
   iframeTitle?: string;
+  onReady?: () => void;
 }
 
 /** Keep Vimeo scripts and video bytes off the network until the visitor plays. */
-export default function VimeoFacade({ videoId, posterUrl, playLabel, iframeTitle }: VimeoFacadeProps) {
+export default function VimeoFacade({ videoId, posterUrl, playLabel, iframeTitle, onReady }: VimeoFacadeProps) {
   const [playing, setPlaying] = useState(false);
+  useEffect(() => { onReady?.(); }, [onReady]);
   if (!videoId || !posterUrl) return null;
 
   return (

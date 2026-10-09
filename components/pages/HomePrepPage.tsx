@@ -1,20 +1,19 @@
-"use client";
-
-import { useState, useRef, useCallback, useEffect } from "react";
 import { tc } from "@/lib/title-case";
-import { motion } from "framer-motion";
-import { Play, ArrowRight, ArrowLeft, Check, Phone, CalendarDays } from "lucide-react";
+import { Check, Phone, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/site/SiteHeader";
-import TestimonialsSection, { type Testimonial } from "@/components/site/TestimonialsSection";
+import type { Testimonial } from "@/components/site/TestimonialsSection";
+import TestimonialsSection from "@/components/home-prep/ReviewsSection";
 import TestimonialStrip from "@/components/site/TestimonialStrip";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
-import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
-import CtaSection from "@/components/site/CtaSection";
+import type { Faq } from "@/components/site/FaqsSection";
+import CtaSection from "@/components/home-prep/ClosingSection";
 import SiteFooter from "@/components/site/SiteFooter";
 import Image from "next/image";
-import VimeoFacade from "@/components/ui/VimeoFacade";
+import ScrollReveal from "@/components/home-prep/ScrollReveal";
+import DeferredIsland from "@/components/home-prep/DeferredIsland";
+import { StaticCaseCarousel, StaticIncludedSection, StaticFaqSection, StaticVideo } from "@/components/home-prep/StaticFallbacks";
 import { imgUrl } from "@/lib/wp-acf";
 
 const prepHeroBgUrl = "/images/prep-hero-roseville.jpg";
@@ -163,288 +162,7 @@ const prepFaqs: Faq[] = [
   },
 ];
 
-function BeforeAfterSlider({
-  beforeSrc,
-  afterSrc,
-  beforeAlt = "Before",
-  afterAlt = "After",
-}: {
-  beforeSrc: string;
-  afterSrc: string;
-  beforeAlt?: string;
-  afterAlt?: string;
-}) {
-  const [position, setPosition] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const draggingRef = useRef(false);
-
-  const updateFromClientX = useCallback((clientX: number) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const pct = ((clientX - rect.left) / rect.width) * 100;
-    setPosition(Math.max(0, Math.min(100, pct)));
-  }, []);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent | TouchEvent) => {
-      if (!draggingRef.current) return;
-      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-      updateFromClientX(clientX);
-    };
-    const onUp = () => {
-      draggingRef.current = false;
-    };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
-    window.addEventListener("touchmove", onMove, { passive: true });
-    window.addEventListener("touchend", onUp);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
-      window.removeEventListener("touchmove", onMove);
-      window.removeEventListener("touchend", onUp);
-    };
-  }, [updateFromClientX]);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative aspect-[4/3] overflow-hidden bg-background select-none cursor-ew-resize"
-      onMouseDown={(e) => {
-        draggingRef.current = true;
-        updateFromClientX(e.clientX);
-      }}
-      onTouchStart={(e) => {
-        draggingRef.current = true;
-        updateFromClientX(e.touches[0].clientX);
-      }}
-    >
-      {/* After image (base — right side) */}
-      <Image
-        src={afterSrc}
-        alt={afterAlt}
-        fill
-        sizes="(min-width: 1536px) 696px, (min-width: 1280px) 568px, (min-width: 1024px) 440px, calc(100vw - 32px)"
-        loading="lazy"
-        draggable={false}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      />
-      <span className="absolute top-4 right-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
-        After
-      </span>
-      {/* Before image (clipped from left) */}
-      <div
-        className="absolute inset-0 overflow-hidden pointer-events-none"
-        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-      >
-        <Image
-          src={beforeSrc}
-          alt={beforeAlt}
-          fill
-          sizes="(min-width: 1536px) 696px, (min-width: 1280px) 568px, (min-width: 1024px) 440px, calc(100vw - 32px)"
-          loading="lazy"
-          draggable={false}
-          className="object-cover pointer-events-none"
-        />
-        <span className="absolute top-4 left-4 bg-foreground/80 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 pointer-events-none">
-          Before
-        </span>
-      </div>
-      <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.15)] pointer-events-none"
-        style={{ left: `${position}%`, transform: "translateX(-50%)" }}
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center">
-          <svg viewBox="0 0 24 24" className="w-5 h-5 text-foreground" fill="currentColor" aria-hidden="true">
-            <path d="M8 5l-6 7 6 7V5zm8 0v14l6-7-6-7z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BeforeAfterCarousel({
-  slides,
-}: {
-  slides: { beforeSrc: string; afterSrc: string; beforeAlt?: string; afterAlt?: string }[];
-}) {
-  const [index, setIndex] = useState(0);
-  const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
-  const next = () => setIndex((i) => (i + 1) % slides.length);
-  return (
-    <div className="relative">
-      {/* All slides are always mounted so images are decoded and ready — only active slide is visible */}
-      {slides.map((slide, i) => (
-        <div key={i} style={{ display: i === index ? "block" : "none" }}>
-          <BeforeAfterSlider
-            beforeSrc={slide.beforeSrc}
-            afterSrc={slide.afterSrc}
-            beforeAlt={slide.beforeAlt}
-            afterAlt={slide.afterAlt}
-          />
-        </div>
-      ))}
-      {/* Nav controls */}
-      <div className="flex items-center justify-between mt-4">
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous photo"
-          className="w-10 h-10 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-        >
-          <ArrowLeft className="w-6 h-6" />
-        </button>
-        <div className="flex items-center gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={`Photo ${i + 1}`}
-              className={`w-2 h-2 rounded-full transition-colors ${i === index ? "bg-primary" : "bg-foreground/25 hover:bg-foreground/50"}`}
-            />
-          ))}
-        </div>
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next photo"
-          className="w-10 h-10 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-        >
-          <ArrowRight className="w-6 h-6" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function IncludedCarousel({
-  controlsRef,
-  cards = includedCards,
-}: {
-  controlsRef: React.MutableRefObject<{ prev: () => void; next: () => void } | null>;
-  cards?: { title: string; desc: string; image: string }[];
-}) {
-  const count = cards.length;
-  const GAP = 16;
-  const SETTLE_MS = 700;
-  const BUFFER = 2;
-
-  const [visualIndex, setVisualIndex] = useState(0);
-  const [animate, setAnimate] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerW, setContainerW] = useState(0);
-  const [visibleTiles, setVisibleTiles] = useState(3);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const update = () => {
-      const w = el.offsetWidth;
-      setContainerW(w);
-      setVisibleTiles(w < 640 ? 1 : w < 1024 ? 2 : 3);
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (visualIndex === 0) return;
-    const normalized = ((visualIndex % count) + count) % count;
-    if (normalized === visualIndex) return;
-    const timer = setTimeout(() => {
-      setAnimate(false);
-      setVisualIndex(normalized);
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setAnimate(true)),
-      );
-    }, SETTLE_MS);
-    return () => clearTimeout(timer);
-  }, [visualIndex, count]);
-
-  const tileW =
-    containerW > 0
-      ? (containerW - GAP * (visibleTiles - 1)) / visibleTiles
-      : 0;
-  const trackX = containerW > 0 ? -visualIndex * (tileW + GAP) : 0;
-
-  const next = useCallback(() => setVisualIndex((v) => v + 1), []);
-  const prev = useCallback(() => setVisualIndex((v) => v - 1), []);
-
-  useEffect(() => {
-    controlsRef.current = { prev, next };
-    return () => {
-      controlsRef.current = null;
-    };
-  }, [controlsRef, prev, next]);
-
-  const renderStart = visualIndex - BUFFER;
-  const renderEnd = visualIndex + visibleTiles - 1 + BUFFER;
-
-  return (
-    <div ref={containerRef} className="relative overflow-x-clip">
-      {/* Invisible placeholder gives the container its natural height */}
-      <div
-        className="invisible"
-        aria-hidden
-        style={{ width: tileW || undefined }}
-      >
-        <div className="aspect-[4/5] bg-muted" />
-      </div>
-
-      <motion.div
-        className="absolute top-0 left-0"
-        animate={{ x: trackX }}
-        transition={
-          animate
-            ? { type: "spring", stiffness: 180, damping: 28, mass: 0.9 }
-            : { duration: 0 }
-        }
-      >
-        {Array.from({ length: renderEnd - renderStart + 1 }, (_, i) => {
-          const pos = renderStart + i;
-          const cardIndex = ((pos % count) + count) % count;
-          const card = cards[cardIndex];
-          const isVisible = pos >= visualIndex && pos < visualIndex + visibleTiles;
-          return (
-            <div
-              key={pos}
-              className="group absolute top-0 aspect-[4/5] overflow-hidden bg-muted shadow-lg"
-              style={{
-                left: pos * (tileW + GAP),
-                width: tileW || undefined,
-              }}
-            >
-              <Image
-                src={card.image}
-                alt={card.title}
-                fill
-                sizes="(max-width: 768px) 85vw, 400px"
-                className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none" />
-              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
-                <h3 className="font-sans text-2xl font-bold mb-2 drop-shadow-md">
-                  {card.title}
-                </h3>
-                <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-sm drop-shadow">
-                  {card.desc}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </motion.div>
-    </div>
-  );
-}
-
 export default function HomePrep({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: Testimonial[] }) {
-  const includedControlsRef = useRef<{ prev: () => void; next: () => void } | null>(null);
 
   const worries: string[] = acf?.familiarWorries?.length
     ? acf.familiarWorries.map((w: any) => w.text)
@@ -526,12 +244,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40 pointer-events-none" />
           <div className="container mx-auto px-4 md:px-8 relative z-10 pt-20 md:pt-28 pb-20 md:pb-28">
-            <motion.div
-              className="max-w-3xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="max-w-3xl">
               <p className="font-sans text-xs uppercase tracking-[0.3em] text-white/80 mb-6">
                 {acf?.heroEyebrow || "Home Prep Selling Program"}
               </p>
@@ -593,17 +306,13 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                   )}
                 </a>
               )}
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Sound Familiar? */}
-        <motion.section
+        <ScrollReveal
           className="relative bg-muted text-foreground overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
         >
           {/* Image — full-bleed left half on desktop (flush top, bottom, left) */}
           <div className="hidden lg:block absolute top-0 left-0 bottom-0 w-1/2 z-0 overflow-hidden">
@@ -668,22 +377,18 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               </div>
             </div>
           </div>
-        </motion.section>
+        </ScrollReveal>
 
         {/* Why the Home Prep Program */}
-        <motion.section
+        <ScrollReveal
           className="bg-background pt-12 pb-4 md:pt-32"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
               {/* Desktop Vimeo embed */}
               <div className="hidden lg:block w-full">
                 <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                  <VimeoFacade videoId={acf?.whyVideoId} posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} iframeTitle={acf?.whyVideoIframeTitle} />
+                  <DeferredIsland kind="video" fill props={{ videoId: acf?.whyVideoId, posterUrl: acf?.whyVideoPosterImage?.node?.sourceUrl, playLabel: acf?.whyVideoPlayLabel, iframeTitle: acf?.whyVideoIframeTitle }}><StaticVideo posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} /></DeferredIsland>
                 </div>
               </div>
 
@@ -714,7 +419,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 {/* Mobile Vimeo embed — above the CTA buttons */}
                 <div className="lg:hidden w-full mb-10">
                   <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-                    <VimeoFacade videoId={acf?.whyVideoId} posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} iframeTitle={acf?.whyVideoIframeTitle} />
+                    <DeferredIsland kind="video" fill props={{ videoId: acf?.whyVideoId, posterUrl: acf?.whyVideoPosterImage?.node?.sourceUrl, playLabel: acf?.whyVideoPlayLabel, iframeTitle: acf?.whyVideoIframeTitle }}><StaticVideo posterUrl={acf?.whyVideoPosterImage?.node?.sourceUrl} playLabel={acf?.whyVideoPlayLabel} /></DeferredIsland>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -725,7 +430,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               </div>
             </div>
           </div>
-        </motion.section>
+        </ScrollReveal>
 
         <TestimonialStrip
           quote={acf?.whyTestimonialQuote}
@@ -734,13 +439,9 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
         />
 
         {/* Home Prep Program Process */}
-        <motion.section
+        <ScrollReveal
           id="process"
           className="relative bg-muted overflow-hidden lg:min-h-[720px]"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
         >
           {/* Image — right half on desktop */}
           <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 z-0 overflow-hidden">
@@ -819,74 +520,20 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               <div className="hidden lg:block" />
             </div>
           </div>
-        </motion.section>
+        </ScrollReveal>
 
         {/* What's Included */}
-        <motion.section
+        <ScrollReveal
           className="bg-background py-12 md:py-32"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-              <div className="max-w-4xl">
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  {acf?.includedEyebrow || "What's Included"}
-                </p>
-                <h2 className="text-h2 font-bold leading-tight">
-                  {acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)}
-                </h2>
-              </div>
-              <div className="hidden md:flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => includedControlsRef.current?.prev()}
-                  aria-label="Previous"
-                  className="w-12 h-12 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-                >
-                  <ArrowLeft className="w-8 h-8" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => includedControlsRef.current?.next()}
-                  aria-label="Next"
-                  className="w-12 h-12 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-                >
-                  <ArrowRight className="w-8 h-8" />
-                </button>
-              </div>
-            </div>
-            <IncludedCarousel controlsRef={includedControlsRef} cards={included} />
-            <div className="flex md:hidden items-center justify-center gap-2 mt-8">
-              <button
-                type="button"
-                onClick={() => includedControlsRef.current?.prev()}
-                aria-label="Previous"
-                className="w-12 h-12 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-              >
-                <ArrowLeft className="w-8 h-8" />
-              </button>
-              <button
-                type="button"
-                onClick={() => includedControlsRef.current?.next()}
-                aria-label="Next"
-                className="w-12 h-12 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted transition-colors"
-              >
-                <ArrowRight className="w-8 h-8" />
-              </button>
-            </div>
-          </div>
-        </motion.section>
+          <DeferredIsland kind="included" props={{cards: included, eyebrow: acf?.includedEyebrow || "What's Included", heading: acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)}}>
+            <StaticIncludedSection cards={included} eyebrow={acf?.includedEyebrow || "What's Included"} heading={acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)} />
+          </DeferredIsland>
+        </ScrollReveal>
 
         {/* Before & After Case Study */}
-        <motion.section
+        <ScrollReveal
           className="bg-muted py-12 md:py-32"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
         >
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-left md:text-center mb-8 md:mb-14">
@@ -916,7 +563,7 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
                 </ul>
                 {/* Mobile carousel — above the CTA buttons */}
                 <div className="lg:hidden mb-10">
-                  <BeforeAfterCarousel slides={caseSlides} />
+                  <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
                   <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
@@ -934,11 +581,11 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
               </div>
 
               <div className="hidden lg:block">
-                <BeforeAfterCarousel slides={caseSlides} />
+                <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
               </div>
             </div>
           </div>
-        </motion.section>
+        </ScrollReveal>
 
         <TestimonialsSection
           id="reviews"
@@ -958,10 +605,11 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           }}
         />
 
-        <FaqsSection
-          faqs={faqsList}
-          intro={acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."}
-        />
+        <ScrollReveal>
+          <DeferredIsland kind="faq" props={{ faqs: faqsList, intro: acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it." }}>
+            <StaticFaqSection faqs={faqsList} intro={acf?.faqsIntro || "Common questions about the Home Prep Program. Don't see yours? Get in touch, I'm happy to walk you through it."} />
+          </DeferredIsland>
+        </ScrollReveal>
 
         <CtaSection
           eyebrow={acf?.closingEyebrow || ""}
