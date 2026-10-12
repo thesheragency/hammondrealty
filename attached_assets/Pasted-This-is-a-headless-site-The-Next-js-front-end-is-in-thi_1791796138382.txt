@@ -1,0 +1,58 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API.
+
+Rules for this change:
+1. Don't hardcode any content in the components. All text, quotes, numbers, button labels and links must come from ACF fields.
+2. If the change edits existing content, update the value in the ACF field that already holds it. Don't override it in code.
+3. If the change adds new content, create a new ACF field for it in the same field group as the section it belongs to. Use a clear field name (snake_case), expose it in the API the same way the existing fields are, fill it in with the text from this prompt, and map it in the front end. If the field is empty, hide that element. Don't add hardcoded fallback text.
+4. If you can't create fields or edit values in WordPress from here, don't hardcode as a workaround. Make the front-end changes to read the field, then give me the field group, field label, field name, field type and exact value to enter so I can add it in WP admin. If the field groups are registered in code (ACF JSON or PHP), add the new field there.
+5. Layout and styling changes go in the front-end code. Only change what this prompt asks for. Don't touch other sections, other pages, or the existing copy, colors, fonts and spacing unless told to.
+6. Check desktop and mobile (375px) before you finish, and list every ACF field you created or changed.
+
+Don't publish anything to production (hammondrealty.net). Only update the Replit deployment (balke-hammond-realty.replit.app) so I can test it first. Don't undo any of the recent speed optimizations: no new libraries, no fade-in/opacity:0 animations on this section, and keep the photo light.
+
+On /home-prep-program, add a small "Meet Blake" credibility section between the "Before & After Case Study" section and the "Trusted By Homeowners" reviews section. Keep it compact. It's a short credibility block, not a full biography.
+
+Create these ACF fields in a "Meet Blake" group within this page's field group, and fill them in as listed:
+
+1. Photo
+   - Field label: Meet Blake Photo | Field name: meet_blake_photo | Type: Image
+   - Value: reuse Blake's existing headshot from the WordPress media library (the "Blake Hammond" photo used on the /about page). Don't upload a new copy.
+
+2. Heading
+   - Field label: Meet Blake Heading | Field name: meet_blake_heading | Type: Text
+   - Value: Meet Blake Hammond
+
+3. License line (one single field for the whole line)
+   - Field label: Meet Blake License Line | Field name: meet_blake_license_line | Type: Text
+   - Value: leave it EMPTY for now. The client will add it later.
+   - ACF field instructions (shown to the editor in WP admin): "Enter the full line, e.g. REALTOR® | CA DRE #01234567"
+   - ACF placeholder: REALTOR® | CA DRE #
+   - When the field is empty, don't show this line at all (no empty row, no leftover icon or spacing).
+
+4. Credential line 2
+   - Field label: Meet Blake Credential 2 | Field name: meet_blake_credential_2 | Type: Text
+   - Value: Masters Club REALTOR® – Top 10% of Realtors Locally
+
+5. Credential line 3
+   - Field label: Meet Blake Credential 3 | Field name: meet_blake_credential_3 | Type: Text
+   - Value: 50+ Five-Star Reviews Across Google & Zillow
+
+6. Text
+   - Field label: Meet Blake Text | Field name: meet_blake_text | Type: Textarea
+   - Value: I help homeowners throughout the Sacramento and Placer County area prepare, position, and sell their homes. I created the Home Prep Program to remove the upfront cost and coordination headaches of getting a property market-ready.
+
+7. Link
+   - Field label: Meet Blake Link | Field name: meet_blake_link | Type: Link (label + URL)
+   - Value: label "More about Blake", URL /about
+
+Design:
+- Desktop: two columns, centered, max-width about 960px. Photo on the left (about 200px wide, slightly rounded corners, object-cover), text on the right, vertically centered.
+- Heading in the site's heading font, smaller than the main section headings. This is a supporting section.
+- Credentials as a compact list in this order: license line, credential 2, credential 3. About 15px text, each with a small check icon in the site's sage accent color. Any credential field that's empty is hidden.
+- Then the text paragraph, then the link as a text link with an arrow.
+- Background: it must not blend into its neighbors (the case study section above is light grey and the reviews section below is white). Use the same light sage tint as the testimonial strip, with a thin top and bottom border in a slightly darker sage.
+- Padding about 56px top and bottom on desktop, 40px on mobile.
+- Mobile: stack it. Photo centered at about 120px wide, then the heading, credentials, text and link, left-aligned.
+- Load the photo with next/image, lazy-loaded, with correct `sizes` (it's below the fold).
+
+When done, confirm the license line is hidden while its field is empty, and that it shows correctly when you temporarily enter a test value (then clear the test value again). List all ACF fields created.

@@ -6,6 +6,7 @@ import SiteHeader from "@/components/site/SiteHeader";
 import type { Testimonial } from "@/components/site/TestimonialsSection";
 import TestimonialsSection from "@/components/home-prep/ReviewsSection";
 import TestimonialStrip from "@/components/site/TestimonialStrip";
+import MeetBlakeSection from "@/components/MeetBlakeSection";
 import { GoogleG, ZillowZ, Stars } from "@/components/site/GoogleBadges";
 import type { Faq } from "@/components/site/FaqsSection";
 import CtaSection from "@/components/home-prep/ClosingSection";
@@ -599,6 +600,8 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
             </div>
           </div>
         </ScrollReveal>
+
+        <MeetBlakeSection {...acf?.meetBlake} />
 
         <TestimonialsSection
           id="reviews"
