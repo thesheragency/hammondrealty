@@ -16,3 +16,9 @@ Check desktop and mobile at 375px before finishing visual edits.
 **Why:** The user explicitly stated these constraints for this headless site and corrected a new hero line that had been hardcoded instead of managed through ACF.
 
 **How to apply:** Apply these boundaries to future text and visual changes in this project.
+
+For workspace-preview-only photo replacements, leave shared live ACF values unchanged and scope the replacement image to the requested frontend section.
+
+**Why:** Updating the shared CMS image can change production content independently of publishing the frontend. A local photo replacement must not silently alter the live site or another page using the same portrait.
+
+**How to apply:** Preserve CMS-provided text and descriptions, use an optimized frontend image for the preview, and defer live CMS changes until production content updates are authorized.

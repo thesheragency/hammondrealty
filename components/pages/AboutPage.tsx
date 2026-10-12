@@ -14,7 +14,6 @@ import CtaSection from "@/components/site/CtaSection";
 import Image from "next/image";
 import { imgUrl, imgAlt } from "@/lib/wp-acf";
 
-const blakePortraitUrl = "/images/B1B889F6-9C80-4F33-A424-863BFD5EBF72_1779913575853.png";
 const prepLivingroomUrl = "/images/6039388d-3f21-437f-a9ad-da1c64e71a57_1782404967023.jpg";
 const buyingHouseUrl = "/images/765ef0b1-a99d-4496-b398-582c961f2f01_1782404925125.jpg";
 const sellingHouseUrl = "/images/fancy_home_1782404943463.jpg";
@@ -118,7 +117,7 @@ const aboutFaqs: Faq[] = [
 export default function About({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const heroImg = imgUrl(acf?.heroImage, blakeHeroUrl);
   const heroImgAlt = imgAlt(acf?.heroImage, "Blake Hammond");
-  const portraitImg = imgUrl(acf?.portraitImage, blakePortraitUrl);
+  const portraitImg = "/images/blake-seated-about.webp";
   const portraitImgAlt = imgAlt(acf?.portraitImage, "Blake Hammond");
 
   const statsData: typeof stats = acf?.stats?.length
