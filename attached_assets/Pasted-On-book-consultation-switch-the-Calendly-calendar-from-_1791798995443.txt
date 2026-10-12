@@ -1,0 +1,17 @@
+On /book-consultation, switch the Calendly calendar from a plain <iframe> to Calendly's official embed. Calendly's docs say plain iframes don't support event tracking via postMessage, so our booking conversion (calendly.event_scheduled) doesn't reach the page. Reference: https://calendly.com/help/advanced-calendly-embed-for-developers
+
+Don't publish anything. I'll test in the workspace preview first. Don't add any tracking or dataLayer code: GTM already listens for the Calendly events.
+
+Changes:
+1. Replace the plain Calendly <iframe> with the official inline widget:
+   - Load https://assets.calendly.com/assets/external/widget.js with next/script, and only when the calendar step is shown (after a successful form submit). Don't load it on page load or on any other page, so page speed isn't affected.
+   - Create the calendar with Calendly.initInlineWidget({ url, parentElement, prefill, resize: true }) inside the same right-hand container where the iframe is now.
+2. Keep the same Calendly link (the current calendarUrl / ACF field) and the same options: hide_gdpr_banner=1, hide_event_type_details=1, the timezone value and the phone in the "location" parameter (these can stay as URL parameters on the url).
+3. Pre-fill using the widget's prefill option instead of URL params: prefill: { name, email } with the visitor's values from the form (skip email if the form doesn't collect it).
+4. Keep the current look: same container, same width, a min-height of about 700px, and resize: true so it grows to fit instead of scrolling inside.
+5. Make sure the widget is only initialized once (no duplicate calendars on re-render), and clean up if the component unmounts.
+6. Keep everything else unchanged: the form, the "Show Available Times" button, lead sending, the left column and the design.
+
+Test in the workspace preview: after a successful form submit, the calendar shows in the same place, name (and email/phone) are pre-filled, and in the browser console this listener logs Calendly events (calendly.event_type_viewed, and after picking a time, calendly.date_and_time_selected):
+window.addEventListener('message', e => { if (e.origin === 'https://calendly.com' && e.data.event?.startsWith('calendly.')) console.log('Calendly Event:', e.data.event); });
+Don't create a real booking. Tell me what you changed.

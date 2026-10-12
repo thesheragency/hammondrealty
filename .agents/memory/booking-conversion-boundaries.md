@@ -26,3 +26,9 @@ Booking lead notifications are owned by Follow Up Boss, not the WordPress form-m
 **Why:** CRM creation and assignment can be verified through the API, but that does not prove delivery to the recipient's mailbox or establish their personal notification preferences.
 
 **How to apply:** Preserve the CRM event/routing and distinguish verified lead arrival from unverified notification-email delivery in completion reports.
+
+Calendly's inline SDK has no inline-widget destroy API and registers an anonymous window resize listener. Removing the iframe alone leaves that callback active.
+
+**Why:** Client navigation must not leave widget callbacks reacting to later messages against detached containers. Cleanup must not remove GTM or other application listeners.
+
+**How to apply:** Keep SDK-owned listener registration scoped to the widget mount and remove it with the widget DOM on unmount. Initialize only after the document is ready so the SDK cannot defer registration outside that cleanup scope.

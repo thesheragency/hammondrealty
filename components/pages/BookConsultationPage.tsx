@@ -11,6 +11,7 @@ import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import { tc } from "@/lib/title-case";
 import { normalizeUsPhone } from "@/lib/us-phone";
+import CalendlyInlineWidget from "@/components/CalendlyInlineWidget";
 
 const defaultExpectations = [
   {
@@ -96,20 +97,16 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   };
 
   const params = new URLSearchParams({
-    embed_type: "Inline",
     hide_gdpr_banner: "1",
     hide_event_type_details: "1",
-    name: form.name,
-    email: form.email,
   });
-  if (typeof window !== "undefined") params.set("embed_domain", window.location.hostname);
   const phonePrefill = normalizeUsPhone(form.phone);
   // This Calendly event uses a phone-call location, so its supported phone
   // prefill parameter is "location", not a custom-question answer.
   if (phonePrefill) params.set("location", phonePrefill);
   if (text("calendarTimezone")) params.set("timezone", text("calendarTimezone"));
   const calendarUrl = text("calendarUrl");
-  const calendlyIframeSrc = calendarUrl
+  const calendlyWidgetUrl = calendarUrl
     ? `${calendarUrl}${calendarUrl.includes("?") ? "&" : "?"}${params.toString()}`
     : "";
 
@@ -312,15 +309,11 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                           )}
                         </div>
                       )}
-                      {calendlyIframeSrc && <iframe
-                        src={calendlyIframeSrc}
-                        width="100%"
-                        height="700"
-                        frameBorder="0"
+                      {calendlyWidgetUrl && <CalendlyInlineWidget
+                        url={calendlyWidgetUrl}
+                        name={form.name}
+                        email={form.email}
                         title={text("calendarIframeTitle")}
-                        data-testid="embed-calendly"
-                        className="block w-full"
-                        style={{ border: "none", minWidth: 320 }}
                       />}
                       {text("calendarTimezoneNote") && (
                         <p className="px-8 pb-8 pt-5 md:px-10 md:pb-10 text-sm text-foreground/60">
