@@ -102,6 +102,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     name: form.name,
     email: form.email,
   });
+  if (typeof window !== "undefined") params.set("embed_domain", window.location.hostname);
   const phonePrefill = normalizeUsPhone(form.phone);
   // This Calendly event uses a phone-call location, so its supported phone
   // prefill parameter is "location", not a custom-question answer.
