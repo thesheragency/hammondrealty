@@ -51,6 +51,21 @@ export default async function RootLayout({
         </Suspense>
         <ClientToaster />
         <EquallyWidget />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.event === "calendly.event_scheduled") {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "meeting_scheduled" });
+
+    // set a short-lived 1st-party cookie (30 minutes)
+    document.cookie = "calendly_booked=1; path=/; max-age=1800; SameSite=Lax";
+  }
+});
+`,
+          }}
+        />
       </body>
     </html>
   );
