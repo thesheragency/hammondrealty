@@ -117,7 +117,7 @@ const aboutFaqs: Faq[] = [
 export default function About({ acf, testimonials }: { acf?: Record<string, any> | null; testimonials?: { quote: string; name: string }[] }) {
   const heroImg = imgUrl(acf?.heroImage, blakeHeroUrl);
   const heroImgAlt = imgAlt(acf?.heroImage, "Blake Hammond");
-  const portraitImg = "/images/blake-seated-about.webp";
+  const portraitImg = "/images/blake-seated-about-portrait.webp";
   const portraitImgAlt = imgAlt(acf?.portraitImage, "Blake Hammond");
 
   const statsData: typeof stats = acf?.stats?.length
@@ -231,8 +231,9 @@ export default function About({ acf, testimonials }: { acf?: Record<string, any>
                   src={portraitImg}
                   alt={portraitImgAlt}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-[center_25%]"
+                  sizes="(min-width: 1600px) 660px, (min-width: 1280px) 536px, (min-width: 768px) 704px, (min-width: 640px) 608px, calc(100vw - 32px)"
+                  quality={90}
+                  className="object-cover object-center"
                   priority
                 />
               </div>

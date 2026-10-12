@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
   images: {
     minimumCacheTTL: 2592000,
     formats: ["image/avif", "image/webp"],
-    qualities: [60, 75],
+    qualities: [60, 75, 90],
     remotePatterns: [
       // WordPress media — hostname(s) derived from WP_API_URL at build time
       ...wpMediaHostnames(),
