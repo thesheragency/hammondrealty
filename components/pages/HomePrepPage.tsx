@@ -601,7 +601,16 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           </div>
         </ScrollReveal>
 
-        <MeetBlakeSection {...acf?.meetBlake} />
+        <MeetBlakeSection
+          {...acf?.meetBlake}
+          photo={acf?.meetBlake ? {
+            ...acf.meetBlake.photo,
+            node: {
+              ...acf.meetBlake.photo?.node,
+              sourceUrl: "/images/home-prep-blake-sofa.webp",
+            },
+          } : undefined}
+        />
 
         <TestimonialsSection
           id="reviews"
