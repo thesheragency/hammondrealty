@@ -52,19 +52,19 @@ export default function MeetBlakeSection({
   }
 
   return (
-    <section id="meet-blake" aria-labelledby={trimmedHeading ? "meet-blake-heading" : undefined} className="w-full scroll-mt-24 border-y border-accent/25 bg-accent/15 px-5 py-10 md:py-14">
+    <section id="meet-blake" aria-labelledby={trimmedHeading ? "meet-blake-heading" : undefined} className={`w-full scroll-mt-24 border-y border-accent/25 bg-accent/15 px-5 pb-10 ${imageUrl ? "pt-0" : "pt-10"} md:py-14`}>
       <div className="mx-auto flex max-w-[960px] flex-col items-stretch gap-6 md:flex-row md:items-center md:gap-10">
         {imageUrl && (
-          <div className="flex shrink-0 justify-center md:block">
+          <div className="relative -mx-5 aspect-[4/5] shrink-0 overflow-hidden md:mx-0 md:aspect-auto md:overflow-visible">
             <Image
               src={imageUrl}
               alt={imageAlt}
               width={1049}
               height={1499}
-              sizes="(min-width: 768px) 200px, 120px"
+              sizes="(min-width: 768px) 200px, 100vw"
               quality={60}
               loading="lazy"
-              className="h-auto w-[120px] rounded-[4px] object-cover md:w-[200px]"
+              className="absolute inset-0 h-full w-full rounded-none object-cover object-[center_20%] md:static md:h-auto md:w-[200px] md:rounded-[4px] md:object-center"
             />
           </div>
         )}
