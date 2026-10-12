@@ -425,6 +425,9 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
             aria-hidden="true"
             width={640}
             height={640}
+            sizes="(max-width: 767px) 420px, (max-width: 1279px) 520px, 640px"
+            priority
+            fetchPriority="high"
             className="block absolute top-0 left-0 -translate-x-1/4 w-[420px] md:w-[520px] lg:w-[640px] h-auto pointer-events-none select-none z-0 opacity-90"
             style={{ height: "auto" }}
           />
@@ -442,7 +445,6 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
               fill
               sizes="50vw"
               className="object-cover"
-              priority
             />
             <motion.div
               className="absolute bottom-6 left-6 h-24 w-24 drop-shadow-lg z-10"
@@ -501,7 +503,6 @@ export default function Home({ acf, wpTestimonials }: { acf?: Record<string, any
                     fill
                     sizes="100vw"
                     className="object-cover"
-                    priority
                   />
                   <motion.div
                     className="absolute bottom-4 right-4 h-20 w-20 drop-shadow-lg"

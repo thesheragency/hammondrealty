@@ -32,6 +32,7 @@ function wpMediaHostnames(): { protocol: "https"; hostname: string }[] {
 const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
+    minimumCacheTTL: 2592000,
     formats: ["image/avif", "image/webp"],
     qualities: [60, 75],
     remotePatterns: [
@@ -71,16 +72,6 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // Short-term cache for optimized images (Next.js already sets this, but be explicit)
-      {
-        source: "/_next/image",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=3600, stale-while-revalidate=86400",
           },
         ],
       },
