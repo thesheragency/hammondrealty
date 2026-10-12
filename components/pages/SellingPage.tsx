@@ -35,7 +35,6 @@ const stepSelling2Url = "/images/step-selling-2-stage.png";
 const stepSelling3Url = "/images/step-selling-3-offers.png";
 const stepSelling4Url = "/images/step-selling-4-market.png";
 const zillowLogoUrl = "/images/Zillow_Logo_Primary_RGB_1780067196756.png";
-const blakePresentingUrl = "/images/A7407000-2_1782405532776.jpg";
 const blakeForSaleUrl = "/images/blake-for-sale.jpg";
 const whySellVideoThumbUrl = "/images/why-sell-video-thumb.jpg";
 const sellingHouseUrl = "/images/selling-house.png";
@@ -315,7 +314,8 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
   const whyVideoIdVal = acf?.whyVideoId || "lFMTIp7BqEg";
   const prepBeforeImageUrl = imgUrl(acf?.prepBeforeImage, prepBedroomBeforeUrl);
   const prepAfterImageUrl = imgUrl(acf?.prepAfterImage, prepBedroomAfterUrl);
-  const zillowImageUrl = imgUrl(acf?.zillowImage, blakePresentingUrl);
+  const zillowImageUrl = "/images/blake-seated-seller-landscape.webp";
+  const zillowPortraitImageUrl = "/images/blake-seated-about-portrait.webp";
   const faqsList: Faq[] = sellingFaqs;
 
   return (
@@ -661,12 +661,12 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 {/* Mobile image — above the CTA buttons */}
                 <div className="lg:hidden mb-10 relative aspect-[4/5]">
                   <Image
-                    src={zillowImageUrl}
+                    src={zillowPortraitImageUrl}
                     alt="Blake Hammond, Sacramento-area real estate agent"
                     fill
                     sizes="100vw"
-                    className="object-cover"
-                    style={{ objectPosition: "50% 15%" }}
+                    quality={90}
+                    className="object-cover object-center"
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -682,8 +682,8 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                   alt="Blake Hammond, Sacramento-area real estate agent"
                   fill
                   sizes="50vw"
-                  className="object-cover"
-                  style={{ objectPosition: "50% 15%" }}
+                  quality={90}
+                  className="object-cover object-center"
                 />
               </div>
             </div>
