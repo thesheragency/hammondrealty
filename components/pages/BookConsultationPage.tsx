@@ -33,8 +33,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     acf?.expectations?.length ? acf.expectations : defaultExpectations;
 
   const [step, setStep] = useState<"form" | "calendar">("form");
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
-  const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
+  const [form, setForm] = useState({ name: "", phone: "" });
+  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -44,8 +44,6 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const conversionReplayRef = useRef(false);
   const text = (key: string) => typeof acf?.[key] === "string" ? acf[key].trim() : "";
 
-  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     // Replay only a confirmed success to the existing GTM form-submit listener.
@@ -54,10 +52,8 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     e.stopPropagation();
     const formElement = formRef.current;
     if (submitting || !formElement) return;
-    const newErrors: { name?: string; email?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string } = {};
     if (!form.name.trim()) newErrors.name = text("formNameRequiredError");
-    if (!form.email.trim()) newErrors.email = text("formEmailRequiredError");
-    else if (!EMAIL_RE.test(form.email.trim())) newErrors.email = text("formEmailInvalidError");
     const normalizedPhone = normalizeUsPhone(form.phone);
     if (!form.phone.trim()) newErrors.phone = text("formPhoneRequiredError");
     else if (!normalizedPhone) newErrors.phone = text("formPhoneInvalidError");
@@ -77,7 +73,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: form.name.trim(), email: form.email.trim(), phone: normalizedPhone,
+          name: form.name.trim(), phone: normalizedPhone,
           formId: "book-consultation", privacyAccepted,
         }),
       });
@@ -207,24 +203,6 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                         </div>
 
                         <div className="space-y-1.5">
-                          <Label htmlFor="bc-email" className="text-sm font-medium">
-                            {text("formEmailLabel")}<span className="text-destructive ml-0.5">*</span>
-                          </Label>
-                          <Input
-                            id="bc-email"
-                            type="email"
-                            required
-                            placeholder={text("formEmailPlaceholder")}
-                            autoComplete="email"
-                            value={form.email}
-                            onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors((prev) => ({ ...prev, email: undefined })); }}
-                            className={`rounded-none bg-white border-foreground/20 focus-visible:ring-primary h-11 ${errors.email ? "border-destructive" : ""}`}
-                            data-testid="input-bc-email"
-                          />
-                          {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
-                        </div>
-
-                        <div className="space-y-1.5">
                           <Label htmlFor="bc-phone" className="text-sm font-medium">
                             {text("formPhoneLabel")}<span className="text-destructive ml-0.5">*</span>
                           </Label>
@@ -312,7 +290,6 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                       {calendlyWidgetUrl && <CalendlyInlineWidget
                         url={calendlyWidgetUrl}
                         name={form.name}
-                        email={form.email}
                         title={text("calendarIframeTitle")}
                       />}
                       {text("calendarTimezoneNote") && (

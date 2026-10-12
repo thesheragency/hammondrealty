@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       const normalizedPhone = normalizeUsPhone(phone);
       if (
         typeof name !== "string" || !name.trim() ||
-        typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
+        typeof email !== "string" || (email.trim() !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) ||
         !normalizedPhone || body.privacyAccepted !== true
       ) {
         return NextResponse.json({ error: "Invalid booking form submission" }, { status: 400 });

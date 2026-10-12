@@ -1,13 +1,13 @@
 ---
 name: Booking conversion and notification boundaries
-description: Why booking retains email, and how to verify successful submissions without false conversion events.
+description: Where booking collects email, and how to preserve lead routing and verify successful submissions without false conversion events.
 ---
 
-The initial booking form keeps email because the user chose to collect it there after being told Calendly requires it for appointment confirmation.
+The initial booking form collects Name and Phone with Privacy Policy consent; Calendly collects email during booking.
 
-**Why:** This preserves email prefill when the visitor proceeds to Calendly rather than asking for email for the first time at confirmation.
+**Why:** The user explicitly chose to remove the initial Email field and email prefill while retaining the existing CRM destination, Blake's notification flow, and GTM form-submit tracking.
 
-**How to apply:** Retain that choice for future booking-form changes unless the user explicitly changes it.
+**How to apply:** Do not reintroduce initial email collection or email prefill unless asked. Preserve name prefill and the phone location parameter, and allow consented Name + Phone leads through the existing CRM event/routing.
 
 The user approved the existing Calendly date picker instead of a custom weekly view.
 
