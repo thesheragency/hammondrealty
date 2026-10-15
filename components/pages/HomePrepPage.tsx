@@ -446,6 +446,62 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           </div>
         </ScrollReveal>
 
+        {/* Before & After Case Study */}
+        <ScrollReveal
+          className="bg-muted py-12 md:py-32"
+        >
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="text-left md:text-center mb-8 md:mb-14">
+              <h2 className="text-h2 font-bold leading-tight">
+                {tc(acf?.caseSectionHeading) || "Before & After Case Study"}
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
+              <div>
+                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
+                  {acf?.caseEyebrow || "Roseville, CA"}
+                </p>
+                <h3 className="text-h3 font-bold leading-tight mb-6">
+                  {acf?.caseHeading ? tc(acf.caseHeading) : (<>Our Home Prep Program Put an Extra<br />$50,000 in Our Client's Pocket</>)}
+                </h3>
+                <p className="text-foreground/70 leading-relaxed mb-6 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
+                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">Putting $50,000 in our client's pocket after repair costs considered.</p>
+                <ul className="space-y-4 mb-4 lg:mb-10">
+                  {caseBullets.map((b: string) => (
+                    <li key={b} className="flex items-start gap-3">
+                      <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                        <Check className="w-3.5 h-3.5" strokeWidth={3} />
+                      </span>
+                      <span className="text-foreground/80">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                {/* Mobile carousel — above the CTA buttons */}
+                <div className="lg:hidden mb-10">
+                  <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
+                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
+                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
+                  </Button>
+                  {acf?.casePhoneText && (
+                    <div className="hidden sm:contents">
+                      <span className="text-sm text-foreground/50 text-center">or</span>
+                      <Button variant="outline" asChild className="rounded-none h-[45px] w-auto font-medium text-sm">
+                        <a href={acf?.casePhoneLink || "#"}>{acf.casePhoneText}</a>
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="hidden lg:block">
+                <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
         <TestimonialStrip
           quote={acf?.whyTestimonialQuote}
           name={acf?.whyTestimonialName}
@@ -543,62 +599,6 @@ export default function HomePrep({ acf, testimonials }: { acf?: Record<string, a
           <DeferredIsland kind="included" props={{cards: included, eyebrow: acf?.includedEyebrow || "What's Included", heading: acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)}}>
             <StaticIncludedSection cards={included} eyebrow={acf?.includedEyebrow || "What's Included"} heading={acf?.includedHeading ? tc(acf.includedHeading) : (<>We Manage the Contractors<br />& Cover the Costs</>)} />
           </DeferredIsland>
-        </ScrollReveal>
-
-        {/* Before & After Case Study */}
-        <ScrollReveal
-          className="bg-muted py-12 md:py-32"
-        >
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="text-left md:text-center mb-8 md:mb-14">
-              <h2 className="text-h2 font-bold leading-tight">
-                {tc(acf?.caseSectionHeading) || "Before & After Case Study"}
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-              <div>
-                <p className="text-primary font-semibold text-sm tracking-widest mb-4 uppercase">
-                  {acf?.caseEyebrow || "Roseville, CA"}
-                </p>
-                <h3 className="text-h3 font-bold leading-tight mb-6">
-                  {acf?.caseHeading ? tc(acf.caseHeading) : (<>Our Home Prep Program Put an Extra<br />$50,000 in Our Client's Pocket</>)}
-                </h3>
-                <p className="text-foreground/70 leading-relaxed mb-6 text-lg">{acf?.caseBody || "A smooth two-week renovation timeline featuring fresh paint, new flooring, countertops, cabinet updates, modern lighting, and professional staging pushed the initial list price up, brought multiple offers during the opening weekend, and closed $75,000 above the original valuation."}</p>
-                <p className="text-foreground/70 leading-relaxed mb-8 text-lg">Putting $50,000 in our client's pocket after repair costs considered.</p>
-                <ul className="space-y-4 mb-4 lg:mb-10">
-                  {caseBullets.map((b: string) => (
-                    <li key={b} className="flex items-start gap-3">
-                      <span className="mt-1 w-5 h-5 bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                        <Check className="w-3.5 h-3.5" strokeWidth={3} />
-                      </span>
-                      <span className="text-foreground/80">{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                {/* Mobile carousel — above the CTA buttons */}
-                <div className="lg:hidden mb-10">
-                  <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-medium text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto px-7 h-[45px]">
-                    <Link href={acf?.caseCtaLink || "/book-consultation"}>{acf?.caseCtaText || "Schedule a Home Prep Consultation"}</Link>
-                  </Button>
-                  {acf?.casePhoneText && (
-                    <div className="hidden sm:contents">
-                      <span className="text-sm text-foreground/50 text-center">or</span>
-                      <Button variant="outline" asChild className="rounded-none h-[45px] w-auto font-medium text-sm">
-                        <a href={acf?.casePhoneLink || "#"}>{acf.casePhoneText}</a>
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="hidden lg:block">
-                <DeferredIsland kind="case" props={{ slides: caseSlides }}><StaticCaseCarousel slides={caseSlides} /></DeferredIsland>
-              </div>
-            </div>
-          </div>
         </ScrollReveal>
 
         <MeetBlakeSection

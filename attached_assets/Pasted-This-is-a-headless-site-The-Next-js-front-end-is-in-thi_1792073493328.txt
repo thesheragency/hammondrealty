@@ -1,0 +1,26 @@
+This is a headless site. The Next.js front end is in this Replit project. All page content is managed in WordPress (cms.hammondrealty.net) using ACF fields and pulled into the front end through the WP API. Don't publish anything. I'll review it in the workspace preview first.
+
+Task: on /home-prep-program, move the "Before & After Case Study" section (Roseville, CA / "Our Home Prep Program Put An Extra $50,000 In Our Client's Pocket") so it sits directly below the "Our Difference – Home Prep Program" benefits section.
+
+New section order:
+1. Hero
+2. Sound Familiar?
+3. Our Difference – Home Prep Program (benefits)
+4. Before & After Case Study  <- moved here
+5. Testimonial strip (Renee Meisenbach quote)
+6. Home Prep Program Process (100% Funded Renovations, id="process")
+7. What's Included
+8. Meet Blake Hammond
+9. Trusted By Homeowners (id="reviews")
+10. FAQ
+11. Closing section (Ready To Get Started)
+
+Rules:
+- If the section order is controlled in WordPress (e.g. an ACF flexible content / repeater layout), change the order there instead of hardcoding it in the component, and tell me what you changed in WP. If the order is set in the page component, reorder it there.
+- Move the section as is: same content, same ACF fields, same before/after slider, same "Schedule A Free Call or (916) 625-6118" buttons, same design.
+- Don't change any other section's content or styling. Meet Blake stays directly above the reviews.
+- Keep all speed optimizations: the before/after images must stay lazy-loaded and the slider must still load with next/dynamic. The hero stays the only priority image.
+- Keep every anchor link working (#process, #reviews) and the hero ratings link still scrolling to the reviews.
+- Check the background colors after the move. No two neighboring sections should have the same background and blend together. If two do, tell me which ones before changing any colors.
+
+Done when: the case study renders directly below the benefits section on desktop (1440px) and mobile (375px), the before/after slider works on both, nothing overflows horizontally, and no other section changed. Reply with the final section order and a short list of what you changed.
