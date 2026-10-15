@@ -69,7 +69,7 @@ const prepSteps = [
     num: "01",
     title: "Consultation & Audit",
     desc: "Walk through your property together to pinpoint the specific upgrades and repairs that buyers pay a premium for.",
-    image: "/images/step-consultation-audit.png",
+    image: "/images/home-prep-consultation-audit.webp",
   },
   {
     num: "02",
