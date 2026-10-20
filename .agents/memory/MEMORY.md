@@ -8,6 +8,6 @@
 - [Git auth boundaries](git-auth-boundaries.md) — GitHub connector permission does not authenticate workspace Git; a valid API connection can coexist with broken Replit Git-provider credentials.
 - [Content edit boundaries](content-edit-boundaries.md) — check CMS ownership before text edits; keep changes strictly scoped and check desktop plus 375px mobile.
 - [ACF schema management](wp-acf-schema-management.md) — page field groups are registered remotely through Code Snippets; its API can narrowly extend the existing PHP schema.
-- [Booking conversion boundaries](booking-conversion-boundaries.md) — Calendly collects email; preserve Name + Phone lead routing and successful GTM events; distinguish CRM arrival from mailbox delivery.
+- [Form ownership and booking conversion](booking-conversion-boundaries.md) — Gravity Forms owns fields/email; ACF selects embeds; preserve Name + Phone, Calendly, and success-only GTM.
 - [Home Prep cache policy](home-prep-cache-policy.md) — preserve ISR for page speed; investigate save-webhook/data-cache invalidation rather than reverting to per-request CMS rendering.
 - [App Router fallback bundles](app-router-fallback-bundles.md) — a shared error fallback can eagerly pull animation libraries into healthy pages despite route-level lazy loading.

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
+import { gravityFormId } from "@/lib/gf/embed";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import Image from "next/image";
@@ -64,8 +65,7 @@ export default function GetInTouch({ acf }: { acf?: Record<string, any> | null }
                     {tc(acf?.formHeading) || "Tell Us About Your Move."}
                   </h3>
                   <GravityFormClient
-                    formId={1}
-                    fubSource="Blake Hammond Website - Connect Form"
+                    formId={gravityFormId(acf?.gformEmbed, 1)}
                     className="space-y-4"
                     onSuccess={(c) => { router.push(c.url || '/thank-you/contact'); }}
                   />

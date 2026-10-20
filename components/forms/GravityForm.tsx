@@ -41,14 +41,13 @@ function decodeHtmlEntities(text: string): string {
 interface GravityFormProps {
   formId: number;
   className?: string;
-  fubSource?: string;
   onSuccess?: (confirmation: { message?: string; url?: string }) => void;
   onError?: (errors: Array<{ id: string; message: string }>) => void;
 }
 
 type FieldValue = string | string[] | Record<string, string>;
 
-export function GravityForm({ formId, className, fubSource, onSuccess, onError }: GravityFormProps) {
+export function GravityForm({ formId, className, onSuccess, onError }: GravityFormProps) {
   const [form, setForm] = useState<GfForm | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -307,40 +306,6 @@ export function GravityForm({ formId, className, fubSource, onSuccess, onError }
       }
       onSuccess?.({ message: data.confirmation_message, url: redirectUrl });
 
-      // Fire-and-forget: send lead to Follow Up Boss if a source is provided
-      if (fubSource && form) {
-        try {
-          let name = '', email = '', phone = '', notes = '', address = '';
-          const fubNodes = (form.formFields && form.formFields.nodes) ? form.formFields.nodes : [];
-          for (const field of fubNodes) {
-            const val = formValues[field.databaseId.toString()];
-            if (!val) continue;
-            const type = field.type;
-            const label = (field.label || '').toLowerCase();
-            if (type === 'NAME') {
-              const nv = val as Record<string, string>;
-              name = [nv['3'], nv.first, nv['6'], nv.last].filter(Boolean).join(' ').trim();
-            } else if ((type === 'TEXT' || type === 'POST_TITLE') && label.includes('name')) {
-              name = String(val);
-            } else if (type === 'EMAIL') {
-              email = String(val);
-            } else if (type === 'PHONE') {
-              phone = String(val);
-            } else if (type === 'TEXTAREA') {
-              notes = String(val).replace('\u200b', '').trim();
-            } else if (type === 'TEXT' && label.includes('address')) {
-              address = String(val);
-            }
-          }
-          fetch('/api/submit-lead', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, phone, notes, address, source: fubSource }),
-          }).catch(() => {}); // non-blocking — never fail the user flow
-        } catch {
-          // silently ignore FUB errors
-        }
-      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Submission failed';
       setError(message);

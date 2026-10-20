@@ -9,7 +9,6 @@ const GravityFormLazy = lazy(
 interface GravityFormClientProps {
   formId: number;
   className?: string;
-  fubSource?: string;
   onSuccess?: (confirmation: { message?: string; url?: string }) => void;
   onError?: (errors: Array<{ id: string; message: string }>) => void;
 }

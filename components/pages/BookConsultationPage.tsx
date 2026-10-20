@@ -12,6 +12,7 @@ import SiteFooter from "@/components/site/SiteFooter";
 import { tc } from "@/lib/title-case";
 import { normalizeUsPhone } from "@/lib/us-phone";
 import CalendlyInlineWidget from "@/components/CalendlyInlineWidget";
+import { consentCopy, type BookingGravityForm } from "@/lib/gf/embed";
 
 const defaultExpectations = [
   {
@@ -28,7 +29,7 @@ const defaultExpectations = [
   },
 ];
 
-export default function BookConsultation({ acf }: { acf?: Record<string, any> | null }) {
+export default function BookConsultation({ acf, gravityForm }: { acf?: Record<string, any> | null; gravityForm: BookingGravityForm }) {
   const expectations: { title: string; desc: string }[] =
     acf?.expectations?.length ? acf.expectations : defaultExpectations;
 
@@ -42,7 +43,23 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const conversionReplayRef = useRef(false);
-  const text = (key: string) => typeof acf?.[key] === "string" ? acf[key].trim() : "";
+  const privacy = consentCopy(gravityForm.consent.choices[0]?.text || "");
+  const formCopy: Record<string, string> = {
+    formHeading: gravityForm.title, formIntro: gravityForm.description,
+    formNameLabel: gravityForm.name.label, formNamePlaceholder: gravityForm.name.placeholder,
+    formPhoneLabel: gravityForm.phone.label, formPhonePlaceholder: gravityForm.phone.placeholder,
+    formNameRequiredError: gravityForm.name.errorMessage,
+    formPhoneRequiredError: gravityForm.messages.phoneRequired,
+    formPhoneInvalidError: gravityForm.phone.errorMessage,
+    formPrivacyPrefix: privacy.prefix.trim(), formPrivacyLink: privacy.href,
+    formPrivacyLinkLabel: privacy.label, formPrivacyError: gravityForm.consent.errorMessage,
+    formSubmitError: gravityForm.messages.submitError,
+    formSubmittingLabel: gravityForm.messages.submitting,
+    scheduleText: gravityForm.buttonText,
+  };
+  const text = (key: string) => key in formCopy
+    ? formCopy[key]
+    : typeof acf?.[key] === "string" ? acf[key].trim() : "";
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -69,15 +86,17 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await fetch("/api/submit-lead", {
+      const submission = new FormData();
+      submission.set("formId", String(gravityForm.id));
+      submission.set(`input_${gravityForm.name.id}`, form.name.trim());
+      submission.set(`input_${gravityForm.phone.id}`, normalizedPhone!);
+      submission.set(`input_${gravityForm.consent.id}.1`, gravityForm.consent.choices[0]?.value || "");
+      const res = await fetch("/api/forms/submit-rest", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(), phone: normalizedPhone,
-          formId: "book-consultation", privacyAccepted,
-        }),
+        body: submission,
       });
-      if (!res.ok) throw new Error("submission_failed");
+      const result = await res.json();
+      if (!res.ok || !result.is_valid || !result.crm_synced) throw new Error("submission_failed");
       conversionReplayRef.current = true;
       try {
         formElement.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
@@ -173,6 +192,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
 
                       <form
                         ref={formRef}
+                        data-gravity-form-id={gravityForm.id}
                         onSubmit={handleSubmit}
                         onKeyDown={(event) => {
                           // Avoid a premature native submit (and GTM conversion)
@@ -238,7 +258,7 @@ export default function BookConsultation({ acf }: { acf?: Record<string, any> | 
                                 <a href={text("formPrivacyLink")} className="underline underline-offset-2 hover:text-foreground transition-colors">
                                   {text("formPrivacyLinkLabel")}
                                 </a>
-                              )}.
+                               )}{privacy.suffix}
                             </Label>
                           </div>
                           {privacyError && (

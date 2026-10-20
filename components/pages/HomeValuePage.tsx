@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Play, BadgeCheck, Video, TrendingUp, Wallet, CalendarRange, LineChart, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
+import { gravityFormId } from "@/lib/gf/embed";
 import SiteHeader from "@/components/site/SiteHeader";
 import Image from "next/image";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
@@ -257,8 +258,7 @@ export default function HomeValue({ acf, testimonials }: { acf?: Record<string, 
 
               <div className="bg-background p-8 md:p-10 shadow-2xl">
                 <GravityFormClient
-                  formId={2}
-                  fubSource="Blake Hammond Website - Home Value Analysis Form"
+                  formId={gravityFormId(acf?.gformEmbed, 2)}
                   className="space-y-5"
                   onSuccess={(c) => { router.push(c.url || '/thank-you/home-value'); }}
                 />

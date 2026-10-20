@@ -21,11 +21,17 @@ Do not assume React submit validation or stopPropagation prevents GTM's automati
 
 **How to apply:** Verify the actual GTM event count and GA conversion after confirmed server success; invalid input and failed submissions must produce no lead conversions. Preserve keyboard submission when preventing premature native submits.
 
-Booking lead notifications are owned by Follow Up Boss, not the WordPress form-mail path.
+Marketing form definitions and notification settings are owned by Gravity Forms. ACF selects each form through an embed shortcode; booking retains its existing headless presentation and Calendly flow. Keep legacy ACF form-copy fields until the migration is approved.
 
-**Why:** CRM creation and assignment can be verified through the API, but that does not prove delivery to the recipient's mailbox or establish their personal notification preferences.
+**Why:** The user requested Gravity Forms for all forms without visual or behavioral changes, and explicitly approved staged ACF removal to avoid breaking the still-live frontend.
 
-**How to apply:** Preserve the CRM event/routing and distinguish verified lead arrival from unverified notification-email delivery in completion reports.
+**How to apply:** Do not create duplicate ACF input-label/validation settings or replace the forms with independent custom lead handlers. Preserve the existing CRM sources/routing. Native Gravity Forms sends WordPress notifications; successful CRM creation does not establish mailbox delivery or personal CRM email preferences.
+
+Native Gravity Forms submission responses on this CMS do not guarantee an entry ID, even when the entry is saved and its notification sends.
+
+**Why:** An authorized integration test saved an entry and sent its native notification, but the REST response omitted the entry ID. Treating the missing ID as failure would block the calendar after a successful submission.
+
+**How to apply:** Use native validation success plus the required CRM acknowledgement to advance booking. For test evidence, locate the uniquely marked entry through the authenticated WordPress API. Distinguish mail-transport acceptance from confirmed receipt in an inbox.
 
 Calendly's inline SDK has no inline-widget destroy API and registers an anonymous window resize listener. Removing the iframe alone leaves that callback active.
 

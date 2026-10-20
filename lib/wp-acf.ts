@@ -46,10 +46,10 @@ const HOME_SELECTION = `featuredTestimonials { name quote } helpBody helpCards {
 export function fetchHomeAcf() { return fetchGroup<Record<string, any>>('home', 'homeFields', HOME_SELECTION); }
 
 const BUYING_SELECTION = `faqsIntro heroBody heroCtaLink heroCtaText heroEyebrow heroHeading processCtaLink processCtaText processEyebrow processHeading processSubtitle steps { desc image { node { sourceUrl altText } } num title } tips { desc highlighted image { node { sourceUrl altText } } title } tipsEyebrow tipsHeading tipsSubtitle whyBody whyBullets { desc icon title } whyCtaLink whyCtaText whyEyebrow whyHeading whySecondaryLink whySecondaryText whyVideoImage { node { sourceUrl altText } }`;
-export function fetchBuyingAcf() { return fetchGroup<Record<string, any>>('buyer', 'buyingFields', BUYING_SELECTION); }
+export function fetchBuyingAcf() { return fetchGroup<Record<string, any>>('buyer', 'buyingFields', `${BUYING_SELECTION} gformEmbed`); }
 
 const SELLING_SELECTION = `faqsIntro guaranteeBody guaranteeEyebrow guaranteeHeading guaranteeItems { desc icon title } heroBody heroCtaLink heroCtaText heroEyebrow heroHeading prepAfterImage { node { sourceUrl altText } } prepBeforeImage { node { sourceUrl altText } } prepBody prepBullets { desc num title } prepCtaLink prepCtaText prepEyebrow prepHeading prepPhoneLink prepPhoneText processCtaLink processCtaText processEyebrow processHeading processSubtitle steps { desc image { node { sourceUrl altText } } num title } whyBody whyBullets { desc icon title } whyCtaLink whyCtaText whyEyebrow whyHeading whySecondaryLink whySecondaryText whyVideoId whyVideoImage { node { sourceUrl altText } } zillowBody zillowCtaLink zillowCtaText zillowHeading zillowImage { node { sourceUrl altText } } zillowSecondaryLink zillowSecondaryText`;
-export function fetchSellingAcf() { return fetchGroup<Record<string, any>>('seller', 'sellingFields', SELLING_SELECTION); }
+export function fetchSellingAcf() { return fetchGroup<Record<string, any>>('seller', 'sellingFields', `${SELLING_SELECTION} gformEmbed`); }
 
 const FAQS_SELECTION = `heading intro`;
 export function fetchFaqsAcf() { return fetchGroup<Record<string, any>>('faqs', 'faqsFields', FAQS_SELECTION); }
@@ -58,13 +58,13 @@ const ABOUT_SELECTION = `bioCtaLink bioCtaText bioEyebrow bioHeading bioParagrap
 export function fetchAboutAcf() { return fetchGroup<Record<string, any>>('about', 'aboutFields', ABOUT_SELECTION); }
 
 const HOMEVALUE_SELECTION = `ctaBody ctaEyebrow ctaHeading ctaPrimaryLabel ctaSecondaryLabel formBody formEyebrow formHeading formSuccessBody formSuccessHeading heroBody heroCtaLink heroCtaText heroEyebrow heroHeading heroImage { node { sourceUrl altText } } howItWorks { desc num title } howItWorksHeading howItWorksSubtitle notSelling { desc icon title } notSellingHeading notSellingSubtitle whatYouGet { desc icon title } whatYouGetHeading whatYouGetSubtitle`;
-export function fetchHomeValueAcf() { return fetchGroup<Record<string, any>>('home-value-analysis', 'homeValueFields', HOMEVALUE_SELECTION); }
+export function fetchHomeValueAcf() { return fetchGroup<Record<string, any>>('home-value-analysis', 'homeValueFields', `${HOMEVALUE_SELECTION} gformEmbed`); }
 
 const GETINTOUCH_SELECTION = `body email emailCardDesc emailCardTitle eyebrow formEyebrow formHeading heading heroImage { node { sourceUrl altText } } phone phoneCardDesc phoneCardTitle ps successBody successHeading`;
-export function fetchGetInTouchAcf() { return fetchGroup<Record<string, any>>('connect', 'getInTouchFields', GETINTOUCH_SELECTION); }
+export function fetchGetInTouchAcf() { return fetchGroup<Record<string, any>>('connect', 'getInTouchFields', `${GETINTOUCH_SELECTION} gformEmbed`); }
 
 const BOOKCONSULTATION_SELECTION = `body body2 calendarEmbed calendarHeading calendarText calendarTimezone calendarTimezoneNote confirmLink confirmText expectations { desc title } eyebrow heading scheduleLink scheduleText`;
-export function fetchBookConsultationAcf() { return fetchGroup<Record<string, any>>('book-consultation', 'bookConsultationFields', `${BOOKCONSULTATION_SELECTION} formHeading formIntro formNameLabel formNamePlaceholder formEmailLabel formEmailPlaceholder formPhoneLabel formPhonePlaceholder formPrivacyPrefix formPrivacyLinkLabel formPrivacyLink formNameRequiredError formEmailRequiredError formEmailInvalidError formPhoneRequiredError formPhoneInvalidError formPrivacyError formSubmitError formSubmittingLabel calendarUrl calendarIframeTitle`, true); }
+export function fetchBookConsultationAcf() { return fetchGroup<Record<string, any>>('book-consultation', 'bookConsultationFields', `${BOOKCONSULTATION_SELECTION} gformEmbed calendarUrl calendarIframeTitle`, true); }
 
 const BOOKED_SELECTION = `badge body buttonLink buttonText heading videoEmbed`;
 export function fetchBookedAcf() { return fetchGroup<Record<string, any>>('booked', 'bookedFields', BOOKED_SELECTION); }

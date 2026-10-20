@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Eye, BarChart2, Handshake, Mail, Phone, SearchCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
+import { gravityFormId } from "@/lib/gf/embed";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
@@ -129,14 +130,13 @@ const buyingFaqs: Faq[] = [
   },
 ];
 
-function ContactForm() {
+function ContactForm({ embed }: { embed?: string }) {
   const router = useRouter();
 
   return (
     <div className="bg-white p-8 md:p-10 shadow-2xl w-full">
       <GravityFormClient
-        formId={3}
-        fubSource="Blake Hammond Website - Buyer Form"
+        formId={gravityFormId(embed, 3)}
         className="space-y-4"
         onSuccess={(c) => { router.push(c.url || '/thank-you/buying'); }}
       />
@@ -227,7 +227,7 @@ export default function Buying({ acf, testimonials }: { acf?: Record<string, any
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
               >
-                <ContactForm />
+                <ContactForm embed={acf?.gformEmbed} />
               </motion.div>
             </div>
           </div>

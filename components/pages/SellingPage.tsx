@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TrendingUp, Shield, MessageSquare, FileCheck, Hammer, Handshake, Play, Lightbulb, BookOpen, DoorOpen, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GravityFormClient } from "@/components/forms/GravityFormClient";
+import { gravityFormId } from "@/lib/gf/embed";
 import SiteHeader from "@/components/site/SiteHeader";
 import TestimonialsSection from "@/components/site/TestimonialsSection";
 import FaqsSection, { type Faq } from "@/components/site/FaqsSection";
@@ -259,14 +260,13 @@ function BeforeAfterSlider({
   );
 }
 
-function ContactForm() {
+function ContactForm({ embed }: { embed?: string }) {
   const router = useRouter();
 
   return (
     <div className="bg-white p-8 md:p-10 shadow-2xl w-full">
       <GravityFormClient
-        formId={4}
-        fubSource="Blake Hammond Website - Seller Form"
+        formId={gravityFormId(embed, 4)}
         className="space-y-4"
         onSuccess={(c) => { router.push(c.url || '/thank-you/selling'); }}
       />
@@ -363,7 +363,7 @@ export default function Selling({ acf, testimonials }: { acf?: Record<string, an
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
               >
-                <ContactForm />
+                <ContactForm embed={acf?.gformEmbed} />
               </motion.div>
             </div>
           </div>

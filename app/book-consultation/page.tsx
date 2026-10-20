@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo-helpers';
 import BookConsultationPage from '@/components/pages/BookConsultationPage';
 import { fetchBookConsultationAcf } from '@/lib/wp-acf';
+import { gravityFormId } from '@/lib/gf/embed';
+import { getNativeGravityForm, bookingFormDefinition } from '@/lib/gf/server-form';
 
 export const revalidate = 1800;
 
@@ -15,5 +17,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const acf = await fetchBookConsultationAcf();
-  return <BookConsultationPage acf={acf} />;
+  const gravityForm = bookingFormDefinition(await getNativeGravityForm(gravityFormId(acf?.gformEmbed, 9)));
+  return <BookConsultationPage acf={acf} gravityForm={gravityForm} />;
 }

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getWpAuthHeaders } from '@/lib/wp-auth';
-import { sendFormNotification } from '@/lib/email';
+import { getNativeGravityForm } from '@/lib/gf/server-form';
+import { gravityLead } from '@/lib/gf/lead';
+import { submitWebsiteLead } from '@/lib/fub';
+import { normalizeUsPhone } from '@/lib/us-phone';
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000;
@@ -65,11 +68,26 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    if (!formId) {
+    if (typeof formId !== 'string' || !/^[1-9]\d*$/.test(formId)) {
       return NextResponse.json(
-        { error: 'formId is required' },
+        { error: 'A valid formId is required' },
         { status: 400 }
       );
+    }
+
+    const form = await getNativeGravityForm(Number(formId));
+    if (form.bhBooking) {
+      const nameField = form.fields.find(f => f.type === 'text' && Number(f.id) === 1);
+      const phoneField = form.fields.find(f => f.type === 'phone');
+      const consentField = form.fields.find(f => f.type === 'checkbox');
+      const name = nameField && formData.get(`input_${nameField.id}`);
+      const phone = phoneField && normalizeUsPhone(String(formData.get(`input_${phoneField.id}`) || ''));
+      const consent = consentField && formData.get(`input_${consentField.id}.1`);
+      if (typeof name !== 'string' || !name.trim() || !phone || !consent ||
+          consent !== consentField?.choices?.[0]?.value) {
+        return NextResponse.json({ error: 'Invalid booking form submission' }, { status: 400 });
+      }
+      formData.set(`input_${phoneField!.id}`, phone);
     }
 
     // Build FormData for WordPress REST API
@@ -137,14 +155,18 @@ export async function POST(request: NextRequest) {
     const submittedValues: Record<string, string> = Object.fromEntries(
       Object.entries(fieldParts).map(([id, parts]) => [id, parts.join(' ')])
     );
-    // Await so the notification completes before the response is finalised.
-    // sendFormNotification catches all errors internally and never throws.
-    await sendFormNotification(String(formId), submittedValues);
+    // Gravity Forms runs its configured notifications through WordPress SMTP.
+    // Do not send a second, separately configured Resend notification.
+    // Finish CRM routing on the server, before the frontend redirects/opens Calendly.
+    if (form.bhFubSource) {
+      await submitWebsiteLead(gravityLead(form.fields, submittedValues, form.bhFubSource, form.bhBooking));
+    }
 
     return NextResponse.json({
       is_valid: true,
       confirmation_message: data.confirmation_message,
       entry_id: data.entry_id,
+      crm_synced: Boolean(form.bhFubSource),
     });
   } catch (error: unknown) {
     console.error('Error submitting to Gravity Forms REST API:', error);
